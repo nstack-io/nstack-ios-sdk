@@ -182,7 +182,7 @@ public struct NStack {
                 
             case let ApiResult.Error(_, error, rawResponse):
                 if NStack.sharedInstance.configuration.verboseMode {
-                    print("failure: \(rawResponse)")
+                    print("failure: \(rawResponse ?? "unknown error")")
                 }
                 completion?(error: error)
             }

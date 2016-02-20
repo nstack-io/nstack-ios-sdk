@@ -6,7 +6,7 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 internal struct NStackConstants {
     internal static let cacheID = "NStack"

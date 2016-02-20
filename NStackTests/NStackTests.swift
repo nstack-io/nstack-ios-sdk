@@ -19,6 +19,7 @@ class NStackTests: XCTestCase {
         super.setUp()
         var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
         conf.verboseMode = true
+        conf.updateAutomaticallyOnStart = false
         NStack.start(configuration: conf)
     }
     
@@ -26,23 +27,23 @@ class NStackTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testUpdate() {
         let expectation = expectationWithDescription("testOpen")
-        
-        NStack.update { (error) -> Void in
+
+        NStack.sharedInstance.update { (error) -> Void in
             XCTAssertNil(error, "Error: \(error)")
-//            XCTAssertNotNil(data, "Data is nil")
             expectation.fulfill()
         }
-        
+
         waitForExpectationsWithTimeout(10, handler: nil)
     }
     
     func testTranslations() {
-        
-        TranslationManager.sharedInstance.clearCachedTranslations()
-        
-        XCTAssert(tr.defaultSection.successKey == "Success", "defaultSection.successKey does not have expected content in fallback!")
+
+        TranslationManager.sharedInstance.languageOverride = Language(id: 11, name: "English (UK)", locale: "en-GB", direction: "LRM", data: NSDictionary())
+        TranslationManager.sharedInstance.cachedTranslationsObject = nil
+
+        XCTAssertEqual(tr.defaultSection.successKey, "Success", "defaultSection.successKey does not have expected content in fallback!")
 
         let expectation = expectationWithDescription("testFetchTranslations")
         
@@ -50,10 +51,12 @@ class NStackTests: XCTestCase {
             switch result {
             case let .Success(data: languages):
                 XCTAssert(languages.count > 0, "No languages available")
-                guard let firstLang = languages.first else { return }
-                TranslationManager.sharedInstance.languageOverride = firstLang
+                guard let secondLang = languages.last else { return }
+                TranslationManager.sharedInstance.languageOverride = secondLang
                 TranslationManager.sharedInstance.updateTranslations { (error) -> Void in
-                    XCTAssert(tr.defaultSection.successKey == "Success", "defaultSection.successKey does not have expected content in response from API!")
+                    XCTAssertEqual(tr.defaultSection.successKey,
+                        "DET VAR EN SUCCESS",
+                        "defaultSection.successKey does not have expected content in response from API!")
                     expectation.fulfill()
                 }
 
@@ -62,10 +65,6 @@ class NStackTests: XCTestCase {
             }
         }
         waitForExpectationsWithTimeout(15, handler: nil)
-    }
-    
-    func testUpdateManager() {
-        
     }
     
     func testVersionUtils() {

@@ -1,2 +1,4 @@
-github "Alamofire/Alamofire" "3.1.4"
-git "http://git.ournodes.com/ios/com-nodes-nocore.git" "7a81621a62f9c9db9214a97b0cc6883b1c1c3fd3"
+github "Alamofire/Alamofire" "3.2.0"
+github "nodes-ios/Cashier" "208fb0ad06d8294b94412766d2986097f00093a6"
+github "nodes-ios/Serializable" "194c00e17482b73cec2805eb2ef51a24e63311ef"
+github "nodes-ios/Harbor" "79fe3c86694833512bd8abcbb8101dc8b6584f21"

@@ -9,6 +9,7 @@
 import Foundation
 import Serializable
 import Harbor
+import Cashier
 
 /**
 
@@ -171,7 +172,7 @@ public struct TranslationManager {
     
     */
     
-    public func fetchAvailableLanguages(completion:(NOCoreAPIToolkit.ApiResult<[Language]>) -> Void) {
+    public func fetchAvailableLanguages(completion:(ApiResult<[Language]>) -> Void) {
         
         NStackConnectionManager.fetchAvailableLanguages(completion)
     }
@@ -216,7 +217,7 @@ public struct TranslationManager {
     
     private func loadTranslationFromLocalFile() -> [String : AnyObject] {
         for bundle in NSBundle.allBundles() {
-            if let filePath = bundle.pathForResource("language", ofType: "json"), data = NSData(contentsOfFile: filePath) {
+            if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = NSData(contentsOfFile: filePath) {
                 do {
                     if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as? [String : AnyObject] {
                         let parsedTranslations = parseTranslationsFromJSON(json)

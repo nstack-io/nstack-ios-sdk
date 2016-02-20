@@ -8,6 +8,7 @@
 
 import UIKit
 import Serializable
+import Cashier
 
 class ApplicationObserver {
     

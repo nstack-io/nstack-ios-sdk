@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import Serializable
 import Harbor
+import Cashier
 
 struct NStackConnectionManager {
     
