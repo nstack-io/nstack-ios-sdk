@@ -29,6 +29,8 @@ public struct TranslationManager {
     
     var cachedTranslationsObject:Translatable?
     
+    public var lastFetchedLanguage:Language?
+    
     init(type:Translatable.Type) {
         self.translationType = type
     }
@@ -65,8 +67,15 @@ public struct TranslationManager {
             case .Success(let JSONdata):
                 
                 if let JSONdata = JSONdata {
-                    let translations = self.translationType.init(dictionary: JSONdata)
+                    let unwrapped = JSONdata["data"] as? [String : AnyObject]
+                    let meta = JSONdata["meta"] as? [String : AnyObject]
+                    let language = meta?["language"] as? [String : AnyObject]
+                    
+                    let translations = self.translationType.init(dictionary: unwrapped)
                     self.setTranslations(translations)
+                    
+                    let lang = Language.init(dictionary: language)
+                    TranslationManager.sharedInstance.lastFetchedLanguage = lang
                     completion?(error: nil)
                 } else {
                     completion?(error: NSError(domain: "NStack", code: 100, userInfo: [ NSLocalizedDescriptionKey : "Translations response empty"]))
@@ -82,6 +91,27 @@ public struct TranslationManager {
                 return
             }
         }
+    }
+    
+    public mutating func fetchCurrentLanguage(completion:((error:NSError?) -> Void)? = nil) {
+        
+        NStackConnectionManager.fetchCurrentLanguage({ (result) -> Void in
+            switch result {
+            case .Success(let language):
+                
+                TranslationManager.sharedInstance.lastFetchedLanguage = language
+                completion?(error: nil)
+                
+            case .Error(let response, let error, let rawResponse):
+                print("Error downloading Language data")
+                print(response, rawResponse)
+                if let error = error {
+                    print(error)
+                }
+                completion?(error: error)
+                return
+            }
+        })
     }
     
     /**

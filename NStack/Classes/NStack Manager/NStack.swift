@@ -146,36 +146,48 @@ public struct NStack {
     public func update(completion: ((error:NSError?)->Void)? = nil ) {
         NStackConnectionManager.doAppOpenCall() { result in
             switch result {
-            case ApiResult.Success(let data):
+            case ApiResult.Success(let JSONdata):
+                
+                let wrapper = AppOpenResponseWrapper(dictionary: JSONdata)
                 
                 if NStack.sharedInstance.configuration.verboseMode {
-                    print(data)
+                    print(wrapper)
                 }
                 
-                NStackConnectionManager.setLastUpdatedToNow()
-                
-                if data.translate.count > 0 {
-                    if var manager = TranslationManager.sharedInstance {
-                        manager.setTranslationsSource(data.translate)
-                    }
-                }
-                
-                if !AlertManager.sharedInstance.alreadyShowingAlert {
+                if let appOpenResponseData = wrapper.data{
                     
-                    if let newVersion = data.update?.newerVersion {
-                        AlertManager.sharedInstance.showUpdateAlert(newVersion: newVersion)
-                        
-                    } else if let changelog = data.update?.newInThisVersion {
-                        AlertManager.sharedInstance.showWhatsNewAlert(changelog)
-                        
-                    } else if let message = data.message {
-                        AlertManager.sharedInstance.showMessage(message)
-                        
-                    } else if let rateReminder = data.rateReminder {
-                        AlertManager.sharedInstance.showRateReminder(rateReminder)
+                    if appOpenResponseData.translate.count > 0 {
+                        if var manager = TranslationManager.sharedInstance {
+                            manager.setTranslationsSource(appOpenResponseData.translate)
+                        }
                     }
                     
-                    NStackVersionUtils.setPreviousAppVersion(NStackVersionUtils.currentAppVersion())
+                    if !AlertManager.sharedInstance.alreadyShowingAlert {
+                        
+                        if let newVersion = appOpenResponseData.update?.newerVersion {
+                            AlertManager.sharedInstance.showUpdateAlert(newVersion: newVersion)
+                            
+                        } else if let changelog = appOpenResponseData.update?.newInThisVersion {
+                            AlertManager.sharedInstance.showWhatsNewAlert(changelog)
+                            
+                        } else if let message = appOpenResponseData.message {
+                            AlertManager.sharedInstance.showMessage(message)
+                            
+                        } else if let rateReminder = appOpenResponseData.rateReminder {
+                            AlertManager.sharedInstance.showRateReminder(rateReminder)
+                        }
+                        
+                        NStackVersionUtils.setPreviousAppVersion(NStackVersionUtils.currentAppVersion())
+                    }
+                    
+                    
+                    if let languageMetaData = wrapper.meta{
+                        
+                        let lang = languageMetaData.language
+                        TranslationManager.sharedInstance.lastFetchedLanguage = lang
+                    }
+                    
+                    NStackConnectionManager.setLastUpdatedToNow()
                 }
                 
                 completion?(error: nil)

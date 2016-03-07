@@ -38,7 +38,7 @@ struct NStackConnectionManager {
     
     //MARK: - API Calls
     
-    static func doAppOpenCall(completion: (ApiResult<AppOpenResponse>) -> Void) {
+    static func doAppOpenCall(completion: (ApiResult<[String : AnyObject]?>) -> Void) {
         let params:[String : AnyObject] = [
             "version"           : NStackVersionUtils.currentAppVersion(),
             "guid"              : Configuration.guid(),
@@ -52,7 +52,9 @@ struct NStackConnectionManager {
             slugs += "?flat=true"
         }
         
-        manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion)
+        manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
+            return data as? [String : AnyObject]
+        }
     }
     
     static func fetchTranslations(completion: (ApiResult<[String : AnyObject]?>) -> Void) {
@@ -66,9 +68,21 @@ struct NStackConnectionManager {
             slugs += "?flat=true"
         }
         manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
-            let unwrapped = data?["data"] as? [String : AnyObject]
-            return unwrapped
+            return data as? [String : AnyObject]
         }
+    }
+    
+    static func fetchCurrentLanguage(completion: (ApiResult<Language>) -> Void) {
+        let params:[String : AnyObject] = [
+            "version"           : 1.0,
+            "guid"              : Configuration.guid(),
+            "last_updated"      : lastUpdatedString(),
+        ]
+        var slugs = "translate/mobile/languages/best_fit?show_inactive_languages=true"
+        if NStack.sharedInstance.configuration.flat {
+            slugs += "?flat=true"
+        }
+        manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion)
     }
     
     static func fetchAvailableLanguages(completion: (ApiResult<[Language]>) -> Void) {
@@ -147,7 +161,7 @@ extension NStackConnectionManager {
         let date:NSDate? = NOPersistentStore(id: NStackConstants.persistentStoreID).objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate
         
         let dateObject = Date(date: date ?? NSDate.distantPast())
-
+        
         return dateObject?.stringRepresentation() ?? ""
     }
     

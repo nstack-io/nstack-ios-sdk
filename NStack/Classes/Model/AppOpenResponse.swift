@@ -9,7 +9,7 @@
 import Foundation
 import Serializable
 
-internal struct AppOpenResponse {
+struct AppOpenResponse {
     var count = 0
     var message:Message?
     var update:Update?
