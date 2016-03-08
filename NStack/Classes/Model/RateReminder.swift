@@ -19,26 +19,26 @@ struct RateReminder {
     var link:NSURL?
 }
 
-extension RateReminder:Serializable {
+extension RateReminder: Serializable {
     init(dictionary: NSDictionary?) {
-        id       = self.mapped(dictionary, key: "id") ?? id
-        title    = self.mapped(dictionary, key: "title") ?? title
-        body     = self.mapped(dictionary, key: "body") ?? body
-        rateBtn  = self.mapped(dictionary, key: "yesBtn") ?? rateBtn
-        laterBtn = self.mapped(dictionary, key: "later_btn") ?? laterBtn
-        neverBtn = self.mapped(dictionary, key: "noBtn") ?? neverBtn
-        link     = self.mapped(dictionary, key: "link")
+        id       <== (self, dictionary, "id")
+        title    <== (self, dictionary, "title")
+        body     <== (self, dictionary, "body")
+        rateBtn  <== (self, dictionary, "yesBtn")
+        laterBtn <== (self, dictionary, "later_btn")
+        neverBtn <== (self, dictionary, "noBtn")
+        link     <== (self, dictionary, "link")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        dict["id"]        = id
-        dict["title"]     = title
-        dict["body"]      = body
-        dict["yesBtn"]    = rateBtn
-        dict["later_btn"] = laterBtn
-        dict["noBtn"]     = neverBtn
-        dict["link"]      = link
+        (dict, "id")        <== id
+        (dict, "title")     <== title
+        (dict, "body")      <== body
+        (dict, "yesBtn")    <== rateBtn
+        (dict, "later_btn") <== laterBtn
+        (dict, "noBtn")     <== neverBtn
+        (dict, "link")      <== link
         return dict
     }
 }

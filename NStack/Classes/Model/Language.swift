@@ -17,22 +17,22 @@ public struct Language {
     public var data:NSDictionary = [:]
 }
 
-extension Language:Serializable {
+extension Language: Serializable {
     public init(dictionary: NSDictionary?) {
-        id        = self.mapped(dictionary, key: "id") ?? id
-        name      = self.mapped(dictionary, key: "name") ?? name
-        locale    = self.mapped(dictionary, key: "locale") ?? locale
-        direction = self.mapped(dictionary, key: "direction") ?? direction
-        data      = self.mapped(dictionary, key: "data") ?? data
+        id        <== (self, dictionary, "id")
+        name      <== (self, dictionary, "name")
+        locale    <== (self, dictionary, "locale")
+        direction <== (self, dictionary, "direction")
+        data      <== (self, dictionary, "data")
     }
-
+    
     public func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        dict["id"]        = id
-        dict["name"]      = name
-        dict["locale"]    = locale
-        dict["direction"] = direction
-        dict["data"]      = data
+        (dict, "id")        <== id
+        (dict, "name")      <== name
+        (dict, "locale")    <== locale
+        (dict, "direction") <== direction
+        (dict, "data")      <== data
         return dict
     }
 }

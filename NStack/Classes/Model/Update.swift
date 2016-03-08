@@ -39,7 +39,7 @@ struct Update
         var version = ""
         var translations = UpdateTranslations() //<-translate
         var link:NSURL?
-
+        
         enum State : String {
             case Disabled    = "no"
             case Remind      = "yes"
@@ -55,7 +55,7 @@ extension Update: Serializable {
         newInThisVersion <== (self, dictionary, "new_in_version")
         newerVersion     <== (self, dictionary, "newer_version")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
         (dict, "new_in_version") <== newInThisVersion
@@ -71,7 +71,7 @@ extension Update.UpdateTranslations: Serializable {
         positiveBtn <== (self, dictionary, "positive_btn")
         negativeBtn <== (self, dictionary, "negative_btn")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
         (dict, "title")        <== title
@@ -89,7 +89,7 @@ extension Update.Changelog: Serializable {
         version   <== (self, dictionary, "version")
         translate <== (self, dictionary, "translate")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
         (dict, "state")     <== state
@@ -108,7 +108,7 @@ extension Update.Version: Serializable {
         translations <== (self, dictionary, "translate")
         link         <== (self, dictionary, "link")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
         (dict, "state")     <== state

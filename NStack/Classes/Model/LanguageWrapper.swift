@@ -11,20 +11,17 @@ import Serializable
 
 struct LanguageWrapper {
     var language:Language?
-   // var isCached:Bool?
+    // var isCached:Bool?
 }
 
-extension LanguageWrapper:Serializable {
+extension LanguageWrapper: Serializable {
     init(dictionary: NSDictionary?) {
-        language = self.mapped(dictionary, key: "language")
-     //   isCached = self.mapped(dictionary, key: "is_cached")
+        language <== (self, dictionary, "language")
     }
     
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-  //      dict["is_cached"]       = isCached
-        dict["language"]        = language?.encodableRepresentation()
-
+        (dict, "language") <== language
         return dict
     }
 }

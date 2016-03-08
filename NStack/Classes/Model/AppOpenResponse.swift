@@ -19,26 +19,26 @@ struct AppOpenResponse {
     var translate:NSDictionary = [:]
 }
 
-extension AppOpenResponse:Serializable {
+extension AppOpenResponse: Serializable {
     init(dictionary: NSDictionary?) {
-        count        = self.mapped(dictionary, key: "count") ?? count
-        message      = self.mapped(dictionary, key: "message")
-        update       = self.mapped(dictionary, key: "update")
-        rateReminder = self.mapped(dictionary, key: "rate_reminder")
-        createdAt    = self.mapped(dictionary, key: "created_at") ?? createdAt
-        lastUpdated  = self.mapped(dictionary, key: "last_updated") ?? lastUpdated
-        translate    = self.mapped(dictionary, key: "translate") ?? translate
+        count        <== (self, dictionary, "count")
+        message      <== (self, dictionary, "message")
+        update       <== (self, dictionary, "update")
+        rateReminder <== (self, dictionary, "rate_reminder")
+        createdAt    <== (self, dictionary, "created_at")
+        lastUpdated  <== (self, dictionary, "last_updated")
+        translate    <== (self, dictionary, "translate")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        dict["count"]         = count
-        dict["message"]       = message?.encodableRepresentation()
-        dict["update"]        = update?.encodableRepresentation()
-        dict["rate_reminder"] = rateReminder?.encodableRepresentation()
-        dict["created_at"]    = createdAt.encodableRepresentation()
-        dict["last_updated"]  = lastUpdated.encodableRepresentation()
-        dict["translate"]     = translate
+        (dict, "count")         <== count
+        (dict, "message")       <== message
+        (dict, "update")        <== update
+        (dict, "rate_reminder") <== rateReminder
+        (dict, "created_at")    <== createdAt
+        (dict, "last_updated")  <== lastUpdated
+        (dict, "translate")     <== translate
         return dict
     }
 }

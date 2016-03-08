@@ -250,8 +250,13 @@ public struct TranslationManager {
             if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = NSData(contentsOfFile: filePath) {
                 do {
                     if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as? [String : AnyObject] {
-                        let parsedTranslations = parseTranslationsFromJSON(json)
-                        return parsedTranslations
+                        let unwrapped = json["data"] as? [String : AnyObject]
+                        
+                        if let data = unwrapped {
+                            return parseTranslationsFromJSON(data)
+                        } else {
+                            return [String: AnyObject]()
+                        }
                     }
                 }
                 catch {

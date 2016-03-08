@@ -15,18 +15,18 @@ internal struct Message {
     var showSetting = ""
 }
 
-extension Message:Serializable {
+extension Message: Serializable {
     init(dictionary: NSDictionary?) {
-        id          = self.mapped(dictionary, key: "id") ?? id
-        message     = self.mapped(dictionary, key: "message") ?? message
-        showSetting = self.mapped(dictionary, key: "show_setting") ?? showSetting
+        id          <== (self, dictionary, "id")
+        message     <== (self, dictionary, "message")
+        showSetting <== (self, dictionary, "show_setting")
     }
-
+    
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        dict["id"]           = id
-        dict["message"]      = message
-        dict["show_setting"] = showSetting
+        (dict, "id")           <== id
+        (dict, "message")      <== message
+        (dict, "show_setting") <== showSetting
         return dict
     }
 }

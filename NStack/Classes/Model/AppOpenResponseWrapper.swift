@@ -14,16 +14,16 @@ struct AppOpenResponseWrapper {
     var meta : LanguageWrapper?
 }
 
-extension AppOpenResponseWrapper:Serializable {
+extension AppOpenResponseWrapper: Serializable {
     init(dictionary: NSDictionary?) {
-        data = self.mapped(dictionary, key: "data")
-        meta = self.mapped(dictionary, key: "meta")
+        data <== (self, dictionary, "data")
+        meta <== (self, dictionary, "meta")
     }
     
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        dict["data"] = data?.encodableRepresentation()
-        dict["meta"] = meta?.encodableRepresentation()
+        (dict, "data") <== data
+        (dict, "meta") <== meta
         return dict
     }
 }
