@@ -1,4 +1,4 @@
-github "Alamofire/Alamofire" "3.2.0"
+github "Alamofire/Alamofire" "3.2.1"
 github "nodes-ios/Cashier" "208fb0ad06d8294b94412766d2986097f00093a6"
-github "nodes-ios/Serializable" "194c00e17482b73cec2805eb2ef51a24e63311ef"
+github "nodes-ios/Serializable" "da520d7757d21205aced7c64e8ba581c28b87f6f"
 github "nodes-ios/Harbor" "79fe3c86694833512bd8abcbb8101dc8b6584f21"
