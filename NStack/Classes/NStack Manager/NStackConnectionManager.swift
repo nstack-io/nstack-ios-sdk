@@ -52,7 +52,7 @@ struct NStackConnectionManager {
             slugs += "?flat=true"
         }
         
-        manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
+        NStackConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
             return data as? [String : AnyObject]
         }
     }
@@ -67,7 +67,7 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
+        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
             return data as? [String : AnyObject]
         }
     }
@@ -82,7 +82,7 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion)
     }
     
     static func fetchAvailableLanguages(completion: (ApiResult<[Language]>) -> Void) {
@@ -91,7 +91,7 @@ struct NStackConnectionManager {
             "guid"              : Configuration.guid(),
         ]
         
-        manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).JSONParse(completion)
     }
     
     static func fetchUpdates(completion: (ApiResult<Update>) -> Void) {
@@ -102,7 +102,7 @@ struct NStackConnectionManager {
             "old_version"      : NStackVersionUtils.previousAppVersion(),
         ]
         
-        manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: headers()).JSONParse(completion)
     }
     
     static func markNewerVersionAsSeen(id: Int, appStoreButtonPressed:Bool) {
@@ -113,7 +113,7 @@ struct NStackConnectionManager {
             "type"              : "newer_version"
         ]
         
-        manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
+        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
     }
     
     static func markWhatsNewAsSeen(id: Int) {
@@ -124,7 +124,7 @@ struct NStackConnectionManager {
             "answer"            : "no",
         ]
         
-        manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
+        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
     }
     
     static func markMessageAsRead(id: String) {
@@ -133,7 +133,7 @@ struct NStackConnectionManager {
             "message_id"        : id
         ]
         
-        manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: headers())
+        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: headers())
     }
     
     static func markRateReminderAsSeen(answer:AlertManager.RateReminderResult) {
@@ -143,7 +143,7 @@ struct NStackConnectionManager {
             "answer"            : answer.rawValue
         ]
         
-        manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: headers())
+        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: headers())
     }
 }
 
