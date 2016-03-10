@@ -21,19 +21,17 @@ struct NStackConnectionManager {
     static let manager:Manager = Manager(configuration: NStackConnectionManager.configuration())
     
     static func configuration() -> NSURLSessionConfiguration {
-        let staticHeaders = [
-            "X-Application-id"  : NStack.sharedInstance.configuration.appId,
-            "X-Rest-Api-Key"    : NStack.sharedInstance.configuration.restAPIKey
-        ]
-        
         let configuration = Manager.sharedInstance.session.configuration
-        configuration.HTTPAdditionalHeaders = staticHeaders as [NSObject : AnyObject]
         configuration.timeoutIntervalForRequest = 20.0
         return configuration
     }
     
     static func headers() -> [String : String] {
-        return ["Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString()]
+        return [
+            "Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
+            "X-Application-id"  : NStack.sharedInstance.configuration.appId,
+            "X-Rest-Api-Key"    : NStack.sharedInstance.configuration.restAPIKey
+        ]
     }
     
     //MARK: - API Calls
