@@ -28,7 +28,7 @@ struct NStackConnectionManager {
     
     static func headers() -> [String : String] {
         return [
-            "Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
+            "Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString(),
             "X-Application-id"  : NStack.sharedInstance.configuration.appId,
             "X-Rest-Api-Key"    : NStack.sharedInstance.configuration.restAPIKey
         ]
