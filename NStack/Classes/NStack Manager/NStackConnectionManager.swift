@@ -151,12 +151,12 @@ extension NStackConnectionManager {
     internal static func lastUpdatedString() -> String {
         
         let currentAcceptLangString = TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
-        if let prevAcceptLangString:String? = NOPersistentStore(id: NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where prevAcceptLangString != currentAcceptLangString {
-            NOPersistentStore(id: NStackConstants.persistentStoreID).setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
+        if let prevAcceptLangString:String? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where prevAcceptLangString != currentAcceptLangString {
+            NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
             self.setLastUpdatedToDistantPast()
         }
         
-        let date:NSDate? = NOPersistentStore(id: NStackConstants.persistentStoreID).objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate
+        let date:NSDate? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate
         
         let dateObject = Date(date: date ?? NSDate.distantPast())
         
@@ -164,10 +164,10 @@ extension NStackConnectionManager {
     }
     
     internal static func setLastUpdatedToNow() {
-        NOPersistentStore(id: NStackConstants.persistentStoreID).setObject(Date().value, forKey: NStackConstants.lastUpdatedDateKey)
+        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(Date().value, forKey: NStackConstants.lastUpdatedDateKey)
     }
     
     internal static func setLastUpdatedToDistantPast() {
-        NOPersistentStore(id: NStackConstants.persistentStoreID).setObject(NSDate.distantPast(), forKey: NStackConstants.lastUpdatedDateKey)
+        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(NSDate.distantPast(), forKey: NStackConstants.lastUpdatedDateKey)
     }
 }

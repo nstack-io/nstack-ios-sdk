@@ -137,7 +137,7 @@ public struct TranslationManager {
     
     public mutating func translations<T:Translatable>() -> T {
         
-        if let lastRequestedAcceptLangString:String? = NOPersistentStore(id: NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
+        if let lastRequestedAcceptLangString:String? = NOPersistentStore.cacheWithId( NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
         }
         

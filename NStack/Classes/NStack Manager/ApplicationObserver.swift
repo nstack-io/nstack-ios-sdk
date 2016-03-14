@@ -23,7 +23,7 @@ class ApplicationObserver {
             first = false
         } else {
             
-            let prevAcceptLangString:String? = NOPersistentStore(id: NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
+            let prevAcceptLangString:String? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
             
             NStack.sharedInstance.update({ (error) -> Void in
                 if let prevAcceptLangString = prevAcceptLangString where prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
