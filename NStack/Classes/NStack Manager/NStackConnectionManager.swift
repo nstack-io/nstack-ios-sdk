@@ -158,13 +158,13 @@ extension NStackConnectionManager {
         
         let date:NSDate? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate
         
-        let dateObject = Date(date: date ?? NSDate.distantPast())
+        let dateObject = date ?? NSDate.distantPast()
         
-        return dateObject?.stringRepresentation() ?? ""
+        return dateObject.stringRepresentation()
     }
     
     internal static func setLastUpdatedToNow() {
-        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(Date().value, forKey: NStackConstants.lastUpdatedDateKey)
+        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(NSDate(), forKey: NStackConstants.lastUpdatedDateKey)
     }
     
     internal static func setLastUpdatedToDistantPast() {
