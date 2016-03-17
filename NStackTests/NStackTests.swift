@@ -14,13 +14,18 @@ import Alamofire
 @testable import NStack
 
 class NStackTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
+
+    let configuration: Configuration = {
         var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
         conf.verboseMode = true
         conf.updateAutomaticallyOnStart = false
         NStack.start(configuration: conf)
+        return conf
+    }()
+
+    override func setUp() {
+        super.setUp()
+
     }
     
     override func tearDown() {
@@ -30,9 +35,13 @@ class NStackTests: XCTestCase {
     func testUpdate() {
         let expectation = expectationWithDescription("testOpen")
 
-        NStack.sharedInstance.update { (error) -> Void in
-            XCTAssertNil(error, "Error: \(error)")
-            expectation.fulfill()
+        NStackConnectionManager.doAppOpenCall(oldVersion: "1.0", currentVersion: "1.0") { (result) -> Void in
+            switch result {
+            case .Success(_):
+                expectation.fulfill()
+            case .Error(_, let error, _):
+                XCTAssertNil(error, "Error: \(error)")
+            }
         }
 
         waitForExpectationsWithTimeout(10, handler: nil)
@@ -40,8 +49,8 @@ class NStackTests: XCTestCase {
     
     func testTranslations() {
 
+        TranslationManager.sharedInstance.lastFetchedLanguage = nil
         TranslationManager.sharedInstance.languageOverride = Language(id: 11, name: "English (UK)", locale: "en-GB", direction: "LRM", data: NSDictionary())
-        TranslationManager.sharedInstance.cachedTranslationsObject = nil
 
         XCTAssertEqual(tr.defaultSection.successKey, "Success", "defaultSection.successKey does not have expected content in fallback!")
 

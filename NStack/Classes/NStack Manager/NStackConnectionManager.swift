@@ -36,9 +36,9 @@ struct NStackConnectionManager {
     
     //MARK: - API Calls
     
-    static func doAppOpenCall(completion: (ApiResult<[String : AnyObject]?>) -> Void) {
+    static func doAppOpenCall(oldVersion oldVersion: String, currentVersion: String, completion: (ApiResult<[String : AnyObject]?>) -> Void) {
         let params:[String : AnyObject] = [
-            "version"           : NStackVersionUtils.currentAppVersion(),
+            "version"           : currentVersion,
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
             "last_updated"      : lastUpdatedString(),

@@ -144,7 +144,7 @@ public struct NStack {
     */
     
     public func update(completion: ((error:NSError?)->Void)? = nil ) {
-        NStackConnectionManager.doAppOpenCall() { result in
+        NStackConnectionManager.doAppOpenCall(oldVersion: NStackVersionUtils.previousAppVersion(), currentVersion: NStackVersionUtils.currentAppVersion()) { result in
             switch result {
             case ApiResult.Success(let JSONdata):
                 
