@@ -1,5 +1,4 @@
 github "Alamofire/Alamofire" ~> 3.0
-github "nodes-ios/Serializable" "master"
-github "nodes-ios/Harbor" "master"
+github "nodes-ios/Serializable"
 github "nodes-ios/Cashier" "master"
 github "nodes-ios/Cashier-Serializable" "master"

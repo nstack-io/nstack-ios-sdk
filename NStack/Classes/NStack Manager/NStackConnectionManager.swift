@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 import Serializable
-import Harbor
 import Cashier
 
 struct NStackConnectionManager {
@@ -35,8 +34,8 @@ struct NStackConnectionManager {
     }
     
     //MARK: - API Calls
-    
-    static func doAppOpenCall(oldVersion oldVersion: String, currentVersion: String, completion: (ApiResult<[String : AnyObject]?>) -> Void) {
+
+    static func doAppOpenCall(oldVersion oldVersion: String, currentVersion: String, completion: (Response<AnyObject, NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid(),
@@ -49,13 +48,11 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        
-        NStackConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
-            return data as? [String : AnyObject]
-        }
+
+        NStackConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
     }
     
-    static func fetchTranslations(completion: (ApiResult<[String : AnyObject]?>) -> Void) {
+    static func fetchTranslations(completion: (Response<AnyObject, NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : 1.0,
             "guid"              : Configuration.guid(),
@@ -65,12 +62,10 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion) { (data) -> [String : AnyObject]?? in
-            return data as? [String : AnyObject]
-        }
+        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
     }
-    
-    static func fetchCurrentLanguage(completion: (ApiResult<Language>) -> Void) {
+
+    static func fetchCurrentLanguage(completion: (Response<Language, NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : 1.0,
             "guid"              : Configuration.guid(),
@@ -80,19 +75,19 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
-    static func fetchAvailableLanguages(completion: (ApiResult<[Language]>) -> Void) {
+    static func fetchAvailableLanguages(completion: (Response<[Language], NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : 1.0,
             "guid"              : Configuration.guid(),
         ]
         
-        NStackConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
-    static func fetchUpdates(completion: (ApiResult<Update>) -> Void) {
+    static func fetchUpdates(completion: (Response<Update, NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "current_version"   : NStackVersionUtils.currentAppVersion(),
             "guid"              : Configuration.guid(),
@@ -100,7 +95,7 @@ struct NStackConnectionManager {
             "old_version"      : NStackVersionUtils.previousAppVersion(),
         ]
         
-        NStackConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: headers()).JSONParse(completion)
+        NStackConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
     static func markNewerVersionAsSeen(id: Int, appStoreButtonPressed:Bool) {

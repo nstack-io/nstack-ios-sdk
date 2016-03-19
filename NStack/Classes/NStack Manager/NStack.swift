@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Harbor
 
 public struct Configuration {
     
@@ -144,11 +143,18 @@ public struct NStack {
     */
     
     public func update(completion: ((error:NSError?)->Void)? = nil ) {
-        NStackConnectionManager.doAppOpenCall(oldVersion: NStackVersionUtils.previousAppVersion(), currentVersion: NStackVersionUtils.currentAppVersion()) { result in
-            switch result {
-            case ApiResult.Success(let JSONdata):
-                
-                let wrapper = AppOpenResponseWrapper(dictionary: JSONdata)
+        NStackConnectionManager.doAppOpenCall(oldVersion: NStackVersionUtils.previousAppVersion(), currentVersion: NStackVersionUtils.currentAppVersion()) { response in
+            switch response.result {
+            case .Success(let JSONdata):
+                guard let dictionary = JSONdata as? NSDictionary else {
+                    if NStack.sharedInstance.configuration.verboseMode {
+                        print("failure: couldn't parse response")
+                    }
+                    completion?(error: NSError(domain: "com.nodes.nstack", code: 1000, userInfo: [NSLocalizedDescriptionKey : "Couldn't parse response dictionary."]))
+                    return
+                }
+
+                let wrapper = AppOpenResponseWrapper(dictionary: dictionary)
                 
                 if NStack.sharedInstance.configuration.verboseMode {
                     print(wrapper)
@@ -192,9 +198,9 @@ public struct NStack {
                 
                 completion?(error: nil)
                 
-            case let ApiResult.Error(_, error, rawResponse):
+            case let .Failure(error):
                 if NStack.sharedInstance.configuration.verboseMode {
-                    print("failure: \(rawResponse ?? "unknown error")")
+                    print("failure: \(response.response ?? "unknown error")")
                 }
                 completion?(error: error)
             }

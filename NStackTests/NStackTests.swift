@@ -8,7 +8,6 @@
 
 import UIKit
 import XCTest
-import Harbor
 import Serializable
 import Alamofire
 @testable import NStack
@@ -35,11 +34,12 @@ class NStackTests: XCTestCase {
     func testUpdate() {
         let expectation = expectationWithDescription("testOpen")
 
-        NStackConnectionManager.doAppOpenCall(oldVersion: "1.0", currentVersion: "1.0") { (result) -> Void in
-            switch result {
+        NStackConnectionManager.doAppOpenCall(oldVersion: "1.0", currentVersion: "1.0") { (response) -> Void in
+            switch response.result {
             case .Success(_):
                 expectation.fulfill()
-            case .Error(_, let error, _):
+            case .Failure(let error):
+                XCTAssert(false, "App open call failed - \(error.localizedDescription)")
                 XCTAssertNil(error, "Error: \(error)")
             }
         }
@@ -56,9 +56,9 @@ class NStackTests: XCTestCase {
 
         let expectation = expectationWithDescription("testFetchTranslations")
         
-        TranslationManager.sharedInstance.fetchAvailableLanguages { (result) -> Void in
-            switch result {
-            case let .Success(data: languages):
+        TranslationManager.sharedInstance.fetchAvailableLanguages { (response) -> Void in
+            switch response.result {
+            case .Success(let languages):
                 XCTAssert(languages.count > 0, "No languages available")
                 guard let secondLang = languages.last else { return }
                 TranslationManager.sharedInstance.languageOverride = secondLang
@@ -69,8 +69,8 @@ class NStackTests: XCTestCase {
                     expectation.fulfill()
                 }
 
-            case .Error:
-                XCTAssert(false, "Fetching languages failed!")
+            case .Failure(let error):
+                XCTAssert(false, "Fetching languages failed - \(error.localizedDescription)")
             }
         }
         waitForExpectationsWithTimeout(15, handler: nil)

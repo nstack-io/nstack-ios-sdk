@@ -8,9 +8,9 @@
 
 import Foundation
 import Serializable
-import Harbor
 import Cashier
 import CashierSerializable
+import Alamofire
 
 /**
 
@@ -62,12 +62,11 @@ public struct TranslationManager {
     
     public mutating func updateTranslations(completion:((error:NSError?) -> Void)? = nil) {
         
-        NStackConnectionManager.fetchTranslations { (result) -> Void in
+        NStackConnectionManager.fetchTranslations { (response) -> Void in
             
-            switch result {
+            switch response.result {
             case .Success(let JSONdata):
-                
-                if let JSONdata = JSONdata {
+                if let JSONdata = JSONdata as? [String : AnyObject] {
                     let unwrapped = JSONdata["data"] as? [String : AnyObject]
                     let meta = JSONdata["meta"] as? [String : AnyObject]
                     let language = meta?["language"] as? [String : AnyObject]
@@ -82,12 +81,10 @@ public struct TranslationManager {
                     completion?(error: NSError(domain: "NStack", code: 100, userInfo: [ NSLocalizedDescriptionKey : "Translations response empty"]))
                 }
                 
-            case .Error(let response, let error, let rawResponse):
+            case .Failure(let error):
                 print("Error downloading Translations data")
-                print(response, rawResponse)
-                if let error = error {
-                    print(error)
-                }
+                print(response.response, response.data)
+                print(error.localizedDescription)
                 completion?(error: error)
                 return
             }
@@ -96,19 +93,17 @@ public struct TranslationManager {
     
     public mutating func fetchCurrentLanguage(completion:((error:NSError?) -> Void)? = nil) {
         
-        NStackConnectionManager.fetchCurrentLanguage({ (result) -> Void in
-            switch result {
+        NStackConnectionManager.fetchCurrentLanguage({ (response) -> Void in
+            switch response.result {
             case .Success(let language):
                 
                 TranslationManager.sharedInstance.lastFetchedLanguage = language
                 completion?(error: nil)
                 
-            case .Error(let response, let error, let rawResponse):
+            case .Failure(let error):
                 print("Error downloading Language data")
-                print(response, rawResponse)
-                if let error = error {
-                    print(error)
-                }
+                print(response.response, response.data)
+                print(error)
                 completion?(error: error)
                 return
             }
@@ -203,7 +198,7 @@ public struct TranslationManager {
     
     */
     
-    public func fetchAvailableLanguages(completion:(ApiResult<[Language]>) -> Void) {
+    public func fetchAvailableLanguages(completion: Response<[Language], NSError> -> Void) {
         
         NStackConnectionManager.fetchAvailableLanguages(completion)
     }
