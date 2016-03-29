@@ -15,7 +15,7 @@ class ApplicationObserver {
     var first = true
     
     init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: NSSelectorFromString("applicationDidBecomeActive:"), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     @objc func applicationDidBecomeActive(notification: NSNotification) {

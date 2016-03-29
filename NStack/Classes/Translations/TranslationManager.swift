@@ -9,7 +9,6 @@
 import Foundation
 import Serializable
 import Cashier
-import CashierSerializable
 import Alamofire
 
 /**

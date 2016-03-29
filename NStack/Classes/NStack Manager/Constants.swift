@@ -15,14 +15,15 @@ internal struct NStackConstants {
     internal static let prevAcceptedLanguageKey = "PrevAcceptedLanguageKey"
 }
 
+
 extension UIApplication {
 
     class func safeSharedApplication() -> UIApplication? {
-        guard UIApplication.respondsToSelector("sharedApplication") else {
+        guard UIApplication.respondsToSelector(NSSelectorFromString("sharedApplication")) else {
             return nil
         }
 
-        guard let unmanagedSharedApplication = UIApplication.performSelector("sharedApplication") else {
+        guard let unmanagedSharedApplication = UIApplication.performSelector(NSSelectorFromString("sharedApplication")) else {
             return nil
         }
 
@@ -31,7 +32,7 @@ extension UIApplication {
 
     func safeOpenURL(url: NSURL) -> Bool? {
         if self.canOpenURL(url) {
-            guard let returnVal = self.performSelector("openURL", withObject: url) else {
+            guard let returnVal = self.performSelector(NSSelectorFromString("openURL"), withObject: url) else {
                 return false
             }
 
