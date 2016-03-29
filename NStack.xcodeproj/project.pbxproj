@@ -23,7 +23,6 @@
 		304C42941BA083F800AE3D6F /* NStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStack.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		304E07421BBA922300AFE13D /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
 		305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* NStackVersionUtils.swift */; };
-		307ED5321C9887C8002B7B74 /* CashierSerializable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307ED5301C9887C8002B7B74 /* CashierSerializable.framework */; };
 		30A3D84B1B9DB94100C2D15C /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A3D8561B9DB94100C2D15C /* NStackTests.swift */; };
 		30B0CAB11BD7C24E005463AA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B0CAB01BD7C24E005463AA /* Message.swift */; };
@@ -62,7 +61,6 @@
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
 		304E07411BBA922300AFE13D /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Language.swift; path = Classes/Model/Language.swift; sourceTree = "<group>"; };
 		305112711BD676DF005578DE /* NStackVersionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackVersionUtils.swift; sourceTree = "<group>"; };
-		307ED5301C9887C8002B7B74 /* CashierSerializable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CashierSerializable.framework; path = Carthage/Build/iOS/CashierSerializable.framework; sourceTree = "<group>"; };
 		30A3D8471B9DB94100C2D15C /* NStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30A3D84A1B9DB94100C2D15C /* NStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NStack.h; sourceTree = "<group>"; };
 		30A3D84C1B9DB94100C2D15C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0106ADA11C79105500E0C8BC /* Cashier.framework in Frameworks */,
-				307ED5321C9887C8002B7B74 /* CashierSerializable.framework in Frameworks */,
 				304C42891BA074D900AE3D6F /* Alamofire.framework in Frameworks */,
 				0106AD9D1C790FA900E0C8BC /* Serializable.framework in Frameworks */,
 			);
@@ -137,7 +134,6 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				307ED5301C9887C8002B7B74 /* CashierSerializable.framework */,
 				0106ADA01C79105500E0C8BC /* Cashier.framework */,
 				0106AD9A1C790FA900E0C8BC /* Serializable.framework */,
 				304C42861BA074D900AE3D6F /* Alamofire.framework */,
