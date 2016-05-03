@@ -212,14 +212,14 @@ public struct TranslationManager {
     public var languageOverride:Language? {
         set {
             if let newValue = newValue {
-                NOPersistentStore.cacheWithId("NSTACK").setSerializable(newValue, forKey: "LANGUAGE_OVERIDE")
+                NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setSerializable(newValue, forKey: "LANGUAGE_OVERIDE")
             } else {
-                NOPersistentStore.cacheWithId("NSTACK").deleteSerializableForKey("LANGUAGE_OVERIDE")
+                NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).deleteSerializableForKey("LANGUAGE_OVERIDE")
             }
             clearSavedTranslations()
         }
         get {
-            return NOPersistentStore.cacheWithId("NSTACK").serializableForKey("LANGUAGE_OVERIDE")
+            return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).serializableForKey("LANGUAGE_OVERIDE")
         }
     }
     
