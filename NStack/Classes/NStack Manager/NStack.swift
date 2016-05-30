@@ -120,6 +120,9 @@ public struct NStack {
         sharedInstance = NStack(configuration: configuration)
         if let translationsClass = configuration.translationsClass {
             TranslationManager.start(translationsType: translationsClass)
+            if NStackVersionUtils.isVersion(NStackVersionUtils.currentAppVersion(), greaterThanVersion: NStackVersionUtils.previousAppVersion()) {
+                TranslationManager.sharedInstance.clearSavedTranslations()
+            }
             if configuration.updateAutomaticallyOnStart {
                 sharedInstance.update()
             }
