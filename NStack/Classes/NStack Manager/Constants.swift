@@ -30,15 +30,13 @@ extension UIApplication {
         return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
     }
 
-    func safeOpenURL(url: NSURL) -> Bool? {
+    func safeOpenURL(url: NSURL) {
         if self.canOpenURL(url) {
-            guard let returnVal = self.performSelector(NSSelectorFromString("openURL"), withObject: url) else {
-                return false
+            guard let returnVal = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
+                return
             }
-
-            return returnVal.takeRetainedValue() as? Bool
+            return
         }
-
-        return false
+        return
     }
 }
