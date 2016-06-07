@@ -68,16 +68,16 @@ extension Update.UpdateTranslations: Serializable {
     init(dictionary: NSDictionary?) {
         title       <== (self, dictionary, "title")
         message     <== (self, dictionary, "message")
-        positiveBtn <== (self, dictionary, "positive_btn")
-        negativeBtn <== (self, dictionary, "negative_btn")
+        positiveBtn <== (self, dictionary, "positiveBtn")
+        negativeBtn <== (self, dictionary, "negativeBtn")
     }
     
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
         (dict, "title")        <== title
         (dict, "message")      <== message
-        (dict, "positive_btn") <== positiveBtn
-        (dict, "negative_btn") <== negativeBtn
+        (dict, "positiveBtn") <== positiveBtn
+        (dict, "negativeBtn") <== negativeBtn
         return dict
     }
 }

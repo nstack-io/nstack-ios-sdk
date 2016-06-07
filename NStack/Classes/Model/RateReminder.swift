@@ -25,7 +25,7 @@ extension RateReminder: Serializable {
         title    <== (self, dictionary, "title")
         body     <== (self, dictionary, "body")
         rateBtn  <== (self, dictionary, "yesBtn")
-        laterBtn <== (self, dictionary, "later_btn")
+        laterBtn <== (self, dictionary, "laterBtn")
         neverBtn <== (self, dictionary, "noBtn")
         link     <== (self, dictionary, "link")
     }
@@ -36,7 +36,7 @@ extension RateReminder: Serializable {
         (dict, "title")     <== title
         (dict, "body")      <== body
         (dict, "yesBtn")    <== rateBtn
-        (dict, "later_btn") <== laterBtn
+        (dict, "laterBtn") <== laterBtn
         (dict, "noBtn")     <== neverBtn
         (dict, "link")      <== link
         return dict
