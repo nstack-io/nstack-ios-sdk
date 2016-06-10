@@ -16,12 +16,8 @@ public struct Configuration {
     public var updateAutomaticallyOnStart = true
     public var updatesOnApplicationDidBecomeActive = true
     public var verboseMode = false
-    public var flat = false {
-        didSet {
-            print("flat: \(flat)")
-        }
-    }
-    
+    public var flat = false
+
     private static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
     
     internal static func guid() -> String {
