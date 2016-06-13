@@ -101,6 +101,7 @@ public struct NStack {
     
     public var languageChangedHandler:(() -> Void)?
     
+    private var avoidUpdateList = [UIApplicationLaunchOptionsLocationKey]
     
     //MARK: - Start NStack
     
@@ -112,15 +113,29 @@ public struct NStack {
     
     */
     
-    public static func start(configuration configuration: Configuration) {
+    public static func start(configuration configuration: Configuration, launchOptions: [NSObject: AnyObject]?) {
         sharedInstance = NStack(configuration: configuration)
+        
+        var shouldUpdate = true
+        if let launchOptions = launchOptions {
+            for key in sharedInstance.avoidUpdateList {
+                if launchOptions[key] != nil {
+                    shouldUpdate = false
+                }
+            }
+        }
         if let translationsClass = configuration.translationsClass {
             TranslationManager.start(translationsType: translationsClass)
-            if NStackVersionUtils.isVersion(NStackVersionUtils.currentAppVersion(), greaterThanVersion: NStackVersionUtils.previousAppVersion()) {
-                TranslationManager.sharedInstance.clearSavedTranslations()
+            if shouldUpdate {
+                if NStackVersionUtils.isVersion(NStackVersionUtils.currentAppVersion(), greaterThanVersion: NStackVersionUtils.previousAppVersion()) {
+                    TranslationManager.sharedInstance.clearSavedTranslations()
+                }
+                if configuration.updateAutomaticallyOnStart {
+                    sharedInstance.update()
+                }
             }
-            if configuration.updateAutomaticallyOnStart {
-                sharedInstance.update()
+            else {
+                let _ = TranslationManager.sharedInstance
             }
         }
     }
