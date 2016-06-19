@@ -1,4 +1,4 @@
-github "Alamofire/Alamofire" ~> 3.0
-github "nodes-ios/Serializable"
+github "Alamofire/Alamofire" "swift3"
+github "nodes-ios/Serializable" "swift-3.0"
 github "nodes-ios/Cashier"
 github "nodes-ios/Nodes"

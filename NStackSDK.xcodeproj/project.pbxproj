@@ -307,9 +307,11 @@
 				TargetAttributes = {
 					30A3D8461B9DB94100C2D15C = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					30A3D8501B9DB94100C2D15C = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -514,6 +516,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -539,6 +542,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -555,6 +559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -570,6 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

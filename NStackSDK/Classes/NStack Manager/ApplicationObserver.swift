@@ -22,12 +22,11 @@ class ApplicationObserver {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    @objc func applicationDidBecomeActive(notification: NSNotification) {
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
         if first {
             first = false
         } else {
             let prevAcceptLangString = NStack.persistentStore.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
-            
             NStack.sharedInstance.update({ (error) -> Void in
                 if let prevAcceptLangString = prevAcceptLangString where prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
                     NStack.sharedInstance.languageChangedHandler?()
