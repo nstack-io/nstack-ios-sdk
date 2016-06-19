@@ -16,7 +16,7 @@ struct RateReminder {
     var rateBtn     = "" //<-yesBtn
     var laterBtn    = ""
     var neverBtn    = "" //<-noBtn
-    var link:NSURL?
+    var link:URL?
 }
 
 extension RateReminder: Serializable {

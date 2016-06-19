@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Cashier
 
 public struct Configuration {
     
@@ -22,14 +21,14 @@ public struct Configuration {
     private static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
     
     internal static func guid() -> String {
-        let savedUUID = NSUserDefaults.standardUserDefaults().objectForKey(UUIDKey)
+        let savedUUID = UserDefaults.standard().object(forKey: UUIDKey)
         if let UUID = savedUUID as? String {
             return UUID
         }
-        
-        let newUUID = NSUUID().UUIDString
-        NSUserDefaults.standardUserDefaults().setObject(newUUID, forKey: UUIDKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+
+        let newUUID = UUID().uuidString
+        UserDefaults.standard().set(newUUID, forKey: UUIDKey)
+        UserDefaults.standard().synchronize()
         return newUUID
     }
     
@@ -44,12 +43,12 @@ public struct Configuration {
         var appId:String?
         var restAPIKey:String?
         var flatString:String?
-        
-        for bundle in NSBundle.allBundles() {
-            let fileName = plistName.stringByReplacingOccurrencesOfString(".plist", withString: "")
-            if let fileURL = bundle.URLForResource(fileName, withExtension: "plist") {
 
-                let object = NSDictionary(contentsOfURL: fileURL)
+        for bundle in Bundle.allBundles() {
+            let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
+            if let fileURL = bundle.urlForResource(fileName, withExtension: "plist") {
+
+                let object = NSDictionary(contentsOf: fileURL)
 
                 guard let keyDict = object as? [String : AnyObject] else {
                     fatalError("Can't parse file \(fileName).plist")
@@ -113,8 +112,7 @@ public struct NStack {
     - parameter configuration: A *configuration* object containing API keys and translations type
     
     */
-    
-    public static func start(configuration configuration: Configuration, launchOptions: [NSObject: AnyObject]?) {
+    public static func start(configuration: Configuration, launchOptions: [NSObject: AnyObject]?) {
         sharedInstance = NStack(configuration: configuration)
         
         var shouldUpdate = true
@@ -156,11 +154,10 @@ public struct NStack {
     - parameter completion: This is run after the call has finished. If *error* was nil, translation strings are up-to-date
     
     */
-    
-    public func update(completion: ((error:NSError?)->Void)? = nil ) {
+    public func update(_ completion: ((error:NSError?)->Void)? = nil ) {
         NStackConnectionManager.doAppOpenCall(oldVersion: NStackVersionUtils.previousAppVersion(), currentVersion: NStackVersionUtils.currentAppVersion()) { response in
             switch response.result {
-            case .Success(let JSONdata):
+            case .success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
                     if NStack.sharedInstance.configuration.verboseMode {
                         print("failure: couldn't parse response")
@@ -212,8 +209,8 @@ public struct NStack {
                 }
                 
                 completion?(error: nil)
-                
-            case let .Failure(error):
+
+            case let .failure(error):
                 if NStack.sharedInstance.configuration.verboseMode {
                     print("failure: \(response.response ?? "unknown error")")
                 }
@@ -267,13 +264,3 @@ public extension NStack {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-

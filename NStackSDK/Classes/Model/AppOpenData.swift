@@ -14,8 +14,8 @@ struct AppOpenData {
     var message:Message?
     var update:Update?
     var rateReminder:RateReminder?
-    var createdAt = NSDate()
-    var lastUpdated = NSDate()
+    var createdAt = Date()
+    var lastUpdated = Date()
     var translate:NSDictionary = [:]
 }
 

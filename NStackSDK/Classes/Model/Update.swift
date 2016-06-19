@@ -44,7 +44,7 @@ struct Update
         var lastId = 0
         var version = ""
         var translations = UpdateTranslations() //<-translate
-        var link:NSURL?
+        var link:URL?
         
 
     }

@@ -14,21 +14,22 @@ enum VersionUtilities {
     internal static var versionOverride: String?
     
     static func currentAppVersion() -> String {
-        return versionOverride ?? NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
+        return Bundle.main().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
     }
     
     static func previousAppVersion() -> String {
-        return NSUserDefaults.standardUserDefaults().stringForKey(previousVersionKey) ?? currentAppVersion()
+        return  UserDefaults.standard().string(forKey: previousVersionKey) ?? currentAppVersion()
     }
     
-    static func setPreviousAppVersion(version: String) {
-        NSUserDefaults.standardUserDefaults().setObject(version, forKey: previousVersionKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    static func setPreviousAppVersion(_ version:String) {
+        UserDefaults.standard().set(version, forKey: previousVersionKey)
+        UserDefaults.standard().synchronize()
     }
     
-    static func isVersion(versionA: String, greaterThanVersion versionB: String) -> Bool {
-        var versionAArray = versionA.componentsSeparatedByString(".")
-        var versionBArray = versionB.componentsSeparatedByString(".")
+    static func isVersion(_ versionA:String, greaterThanVersion versionB:String) -> Bool {
+        
+        var versionAArray = versionA.components(separatedBy: ".")
+        var versionBArray = versionB.components(separatedBy: ".")
         let maxCharCount = max(versionAArray.count, versionBArray.count)
         
         versionAArray = normalizedValuesFromArray(versionAArray, maxValues: maxCharCount)
@@ -44,7 +45,7 @@ enum VersionUtilities {
 
         return false
     }
-    
+
     static func normalizedValuesFromArray(array: [String], maxValues: Int) -> [String] {
         guard array.count < maxValues else {
             return array
