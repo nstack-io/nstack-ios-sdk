@@ -18,7 +18,7 @@ class NStackTests: XCTestCase {
         var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
         conf.verboseMode = true
         conf.updateAutomaticallyOnStart = false
-        NStack.start(configuration: conf)
+        NStack.start(configuration: conf, launchOptions: nil)
         return conf
     }()
 
@@ -36,9 +36,9 @@ class NStackTests: XCTestCase {
 
         NStackConnectionManager.doAppOpenCall(oldVersion: "1.0", currentVersion: "1.0") { (response) -> Void in
             switch response.result {
-            case .Success(_):
+            case .success:
                 expectation.fulfill()
-            case .Failure(let error):
+            case .failure(let error):
                 XCTAssert(false, "App open call failed - \(error.localizedDescription)")
                 XCTAssertNil(error, "Error: \(error)")
             }
@@ -58,7 +58,7 @@ class NStackTests: XCTestCase {
         
         TranslationManager.sharedInstance.fetchAvailableLanguages { (response) -> Void in
             switch response.result {
-            case .Success(let languages):
+            case .success(let languages):
                 XCTAssert(languages.count > 0, "No languages available")
                 guard let secondLang = languages.last else { return }
                 TranslationManager.sharedInstance.languageOverride = secondLang
@@ -69,7 +69,7 @@ class NStackTests: XCTestCase {
                     expectation.fulfill()
                 }
 
-            case .Failure(let error):
+            case .failure(let error):
                 XCTAssert(false, "Fetching languages failed - \(error.localizedDescription)")
             }
         }
