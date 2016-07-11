@@ -21,14 +21,14 @@ public struct Configuration {
     private static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
     
     internal static func guid() -> String {
-        let savedUUID = UserDefaults.standard().object(forKey: UUIDKey)
+        let savedUUID = UserDefaults.standard.object(forKey: UUIDKey)
         if let UUID = savedUUID as? String {
             return UUID
         }
         
         let newUUID = UUID().uuidString
-        UserDefaults.standard().set(newUUID, forKey: UUIDKey)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.set(newUUID, forKey: UUIDKey)
+        UserDefaults.standard.synchronize()
         return newUUID
     }
     
@@ -44,7 +44,7 @@ public struct Configuration {
         var restAPIKey:String?
         var flatString:String?
         
-        for bundle in Bundle.allBundles() {
+        for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
             if let fileURL = bundle.urlForResource(fileName, withExtension: "plist") {
 
@@ -177,7 +177,7 @@ public struct NStack {
                 if let appOpenResponseData = wrapper.data{
                     
                     if appOpenResponseData.translate.count > 0 {
-                        if var manager = TranslationManager.sharedInstance {
+                        if let manager = TranslationManager.sharedInstance {
                             manager.setTranslationsSource(appOpenResponseData.translate)
                         }
                     }

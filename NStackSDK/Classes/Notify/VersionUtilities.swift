@@ -14,16 +14,16 @@ enum VersionUtilities {
     internal static var versionOverride: String?
     
     static func currentAppVersion() -> String {
-        return Bundle.main().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
+        return Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
     }
     
     static func previousAppVersion() -> String {
-        return  UserDefaults.standard().string(forKey: previousVersionKey) ?? currentAppVersion()
+        return  UserDefaults.standard.string(forKey: previousVersionKey) ?? currentAppVersion()
     }
     
     static func setPreviousAppVersion(_ version:String) {
-        UserDefaults.standard().set(version, forKey: previousVersionKey)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.set(version, forKey: previousVersionKey)
+        UserDefaults.standard.synchronize()
     }
     
     static func isVersion(_ versionA:String, greaterThanVersion versionB:String) -> Bool {
