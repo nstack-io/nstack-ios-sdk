@@ -32,7 +32,7 @@ extension UIApplication {
 
     func safeOpenURL(_ url: URL) {
         if self.canOpenURL(url) {
-            guard let returnVal = self.perform(NSSelectorFromString("openURL:"), with: url) else {
+            guard let _ = self.perform(NSSelectorFromString("openURL:"), with: url) else {
                 return
             }
             return

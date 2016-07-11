@@ -19,7 +19,7 @@ Usually, direct interaction with the Translations Manager shouldn't be neccessar
 
 */
 
-public struct TranslationManager {
+public class TranslationManager {
     
     static let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
     
@@ -59,7 +59,7 @@ public struct TranslationManager {
     
     */
     
-    public mutating func updateTranslations(_ completion:((error:NSError?) -> Void)? = nil) {
+    public func updateTranslations(_ completion:((error:NSError?) -> Void)? = nil) {
         
         NStackConnectionManager.fetchTranslations { (response) -> Void in
             
@@ -90,7 +90,7 @@ public struct TranslationManager {
         }
     }
     
-    public mutating func fetchCurrentLanguage(_ completion:((error:NSError?) -> Void)? = nil) {
+    public func fetchCurrentLanguage(_ completion:((error:NSError?) -> Void)? = nil) {
         
         NStackConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
@@ -115,9 +115,9 @@ public struct TranslationManager {
     
     */
     
-    public mutating func clearSavedTranslations() {
-        UserDefaults.standard().removeObject(forKey: TranslationManager.allTranslationsUserDefaultsKey)
-        UserDefaults.standard().synchronize()
+    public func clearSavedTranslations() {
+        UserDefaults.standard.removeObject(forKey: TranslationManager.allTranslationsUserDefaultsKey)
+        UserDefaults.standard.synchronize()
         cachedTranslationsObject = nil
     }
     
@@ -130,7 +130,7 @@ public struct TranslationManager {
     
     */
     
-    public mutating func translations<T:Translatable>() -> T {
+    public func translations<T:Translatable>() -> T {
         
         if let lastRequestedAcceptLangString:String? = NOPersistentStore.cache( withId: NStackConstants.persistentStoreID).object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
@@ -154,7 +154,7 @@ public struct TranslationManager {
     
     */
     
-    mutating func setTranslations(_ translations:Translatable) {
+    func setTranslations(_ translations:Translatable) {
         self.setTranslationsSource(translations.encodableRepresentation())
     }
     
@@ -167,7 +167,7 @@ public struct TranslationManager {
     */
     
     public func savedTranslationsDict() -> [String : AnyObject] {
-        if let savedTranslationsDict = UserDefaults.standard().dictionary(forKey: TranslationManager.allTranslationsUserDefaultsKey) {
+        if let savedTranslationsDict = UserDefaults.standard.dictionary(forKey: TranslationManager.allTranslationsUserDefaultsKey) {
             return savedTranslationsDict
         }
         
@@ -182,10 +182,10 @@ public struct TranslationManager {
     
     */
     
-    mutating func setTranslationsSource(_ sourceDict:NSCoding) {
+    func setTranslationsSource(_ sourceDict:NSCoding) {
         
-        UserDefaults.standard().set(sourceDict, forKey: TranslationManager.allTranslationsUserDefaultsKey)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.set(sourceDict, forKey: TranslationManager.allTranslationsUserDefaultsKey)
+        UserDefaults.standard.synchronize()
         cachedTranslationsObject = nil
     }
     
@@ -231,7 +231,7 @@ public struct TranslationManager {
             components.append(languageOverride.locale)
         }
         
-        for (index, languageCode) in (Locale.preferredLanguages() as [String]).enumerated() {
+        for (index, languageCode) in (Locale.preferredLanguages as [String]).enumerated() {
             let q = 1.0 - (Double(index) * 0.1)
             components.append("\(languageCode);q=\(q)")
             if q <= 0.5 {
@@ -253,7 +253,7 @@ public struct TranslationManager {
     */
     
     private func loadTranslationFromLocalFile() -> [String : AnyObject] {
-        for bundle in Bundle.allBundles() {
+        for bundle in Bundle.allBundles {
             if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject] {
@@ -298,7 +298,7 @@ public struct TranslationManager {
         
         if languageJSON == nil {
             // First check to see if any of the translations match one of the user's device languages
-            for userLanguage in Locale.preferredLanguages() {
+            for userLanguage in Locale.preferredLanguages {
                 if languageJSON != nil {
                     // Already found one
                     break
