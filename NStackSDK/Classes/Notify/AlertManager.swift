@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct AlertManager {
         
@@ -107,7 +108,7 @@ public struct AlertManager {
     internal mutating func showUpdateAlert(newVersion version:Update.Version) {
         
         let appStoreCompletion =  { (didPressAppStore:Bool) -> Void in
-            NStackConnectionManager.markNewerVersionAsSeen(version.lastId, appStoreButtonPressed: didPressAppStore)
+            ConnectionManager.markNewerVersionAsSeen(version.lastId, appStoreButtonPressed: didPressAppStore)
             if didPressAppStore {
                 if let link = version.link {
                     UIApplication.safeSharedApplication()?.safeOpenURL(link)
@@ -132,21 +133,21 @@ public struct AlertManager {
     internal func showWhatsNewAlert(changeLog:Update.Changelog) {
         guard let translations = changeLog.translate else { return }
         let alertType = AlertManager.AlertType.WhatsNewAlert(title: translations.title, text: translations.message, dismissButtonText: "Ok") { () -> Void in
-            NStackConnectionManager.markWhatsNewAsSeen(changeLog.lastId)
+            ConnectionManager.markWhatsNewAsSeen(changeLog.lastId)
         }
         self.showAlertBlock(alertType: alertType)
     }
     
     internal func showMessage(message:Message) {
         let alertType = AlertManager.AlertType.Message(text: message.message, dismissButtonText: "Ok") { () -> Void in
-            NStackConnectionManager.markMessageAsRead(message.id)
+            ConnectionManager.markMessageAsRead(message.id)
         }
         self.showAlertBlock(alertType: alertType)
     }
     
     internal func showRateReminder(rateReminder:RateReminder) {
         let alertType = AlertManager.AlertType.RateReminder(title: rateReminder.title, text: rateReminder.body, rateButtonText: rateReminder.rateBtn, laterButtonText: rateReminder.laterBtn, neverButtonText: rateReminder.neverBtn) { (result) -> Void in
-            NStackConnectionManager.markRateReminderAsSeen(result)
+            ConnectionManager.markRateReminderAsSeen(result)
             if let link = rateReminder.link where result == .Rate {
                 UIApplication.safeSharedApplication()?.safeOpenURL(link)
             }

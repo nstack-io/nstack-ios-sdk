@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "30A3D8461B9DB94100C2D15C"
-               BuildableName = "NStack.framework"
-               BlueprintName = "NStack"
-               ReferencedContainer = "container:NStack.xcodeproj">
+               BuildableName = "NStackSDK.framework"
+               BlueprintName = "NStackSDK"
+               ReferencedContainer = "container:NStackSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,16 +26,17 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "30A3D8501B9DB94100C2D15C"
-               BuildableName = "NStackTests.xctest"
-               BlueprintName = "NStackTests"
-               ReferencedContainer = "container:NStack.xcodeproj">
+               BuildableName = "NStackSDKTests.xctest"
+               BlueprintName = "NStackSDKTests"
+               ReferencedContainer = "container:NStackSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "30A3D8461B9DB94100C2D15C"
-            BuildableName = "NStack.framework"
-            BlueprintName = "NStack"
-            ReferencedContainer = "container:NStack.xcodeproj">
+            BuildableName = "NStackSDK.framework"
+            BlueprintName = "NStackSDK"
+            ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "30A3D8461B9DB94100C2D15C"
-            BuildableName = "NStack.framework"
-            BlueprintName = "NStack"
-            ReferencedContainer = "container:NStack.xcodeproj">
+            BuildableName = "NStackSDK.framework"
+            BlueprintName = "NStackSDK"
+            ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "30A3D8461B9DB94100C2D15C"
-            BuildableName = "NStack.framework"
-            BlueprintName = "NStack"
-            ReferencedContainer = "container:NStack.xcodeproj">
+            BuildableName = "NStackSDK.framework"
+            BlueprintName = "NStackSDK"
+            ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -1,20 +1,14 @@
 //
-//  Constants.swift
-//  NStack
+//  Extensions.swift
+//  NStackSDK
 //
-//  Created by Kasper Welner on 02/10/15.
-//  Copyright © 2015 Nodes. All rights reserved.
+//  Created by Dominik Hádl on 12/08/16.
+//  Copyright © 2016 Nodes ApS. All rights reserved.
 //
 
+import Foundation
 import UIKit
-
-internal struct NStackConstants {
-    internal static let cacheID = "NStack"
-    internal static let persistentStoreID = "NStack"
-    internal static let lastUpdatedDateKey = "LastUpdated"
-    internal static let prevAcceptedLanguageKey = "PrevAcceptedLanguageKey"
-}
-
+import Cashier
 
 extension UIApplication {
 
@@ -32,11 +26,17 @@ extension UIApplication {
 
     func safeOpenURL(url: NSURL) {
         if self.canOpenURL(url) {
-            guard let returnVal = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
+            guard let _ = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
                 return
             }
             return
         }
         return
+    }
+}
+
+extension NStack {
+    internal static var persistentStore: NOPersistentStore {
+        return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID)
     }
 }

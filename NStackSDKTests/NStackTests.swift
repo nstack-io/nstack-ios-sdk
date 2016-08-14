@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 import Serializable
 import Alamofire
-@testable import NStack
+@testable import NStackSDK
 
 class NStackTests: XCTestCase {
 
@@ -18,7 +18,7 @@ class NStackTests: XCTestCase {
         var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
         conf.verboseMode = true
         conf.updateAutomaticallyOnStart = false
-        NStack.start(configuration: conf)
+        NStack.start(configuration: conf, launchOptions: nil)
         return conf
     }()
 
@@ -34,7 +34,7 @@ class NStackTests: XCTestCase {
     func testUpdate() {
         let expectation = expectationWithDescription("testOpen")
 
-        NStackConnectionManager.doAppOpenCall(oldVersion: "1.0", currentVersion: "1.0") { (response) -> Void in
+        ConnectionManager.postAppOpen(oldVersion: "1.0", currentVersion: "1.0") { (response) -> Void in
             switch response.result {
             case .Success(_):
                 expectation.fulfill()

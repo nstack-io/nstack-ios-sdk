@@ -10,17 +10,21 @@
 		0106AD9D1C790FA900E0C8BC /* Serializable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106AD9A1C790FA900E0C8BC /* Serializable.framework */; };
 		0106ADA11C79105500E0C8BC /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106ADA01C79105500E0C8BC /* Cashier.framework */; };
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
+		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
+		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
+		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
+		01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
 		01DA43191C7904E200D0FC04 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
 		01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
-		3027B2C11BBAE34D00C2F4FB /* NStackConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* NStackConnectionManager.swift */; };
+		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
 		304C42821BA0745500AE3D6F /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenResponse.swift */; };
 		304C42841BA0747300AE3D6F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
 		304C42891BA074D900AE3D6F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304C42861BA074D900AE3D6F /* Alamofire.framework */; };
 		304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
 		304C42931BA07DF300AE3D6F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304C42861BA074D900AE3D6F /* Alamofire.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		304C42941BA083F800AE3D6F /* NStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStack.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		304E07421BBA922300AFE13D /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
 		305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* NStackVersionUtils.swift */; };
 		30A3D84B1B9DB94100C2D15C /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,12 +52,16 @@
 		0106AD9A1C790FA900E0C8BC /* Serializable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serializable.framework; path = Carthage/Build/iOS/Serializable.framework; sourceTree = "<group>"; };
 		0106ADA01C79105500E0C8BC /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
+		01B5BA241D5E026C006EA3D7 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		01B5BA261D5E02D7006EA3D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		01B5BA281D5E02DD006EA3D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		01D4EDE81D5DF17800E7E94C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Classes/Model/Configuration.swift; sourceTree = "<group>"; };
 		01DA43131C7904E200D0FC04 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01DA43141C7904E200D0FC04 /* NStack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NStack.plist; sourceTree = "<group>"; };
 		01DA43171C7904E200D0FC04 /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
 		2729E8481B9ED06600286B12 /* TranslationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
-		3027B2C01BBAE34D00C2F4FB /* NStackConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackConnectionManager.swift; sourceTree = "<group>"; };
+		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
@@ -61,10 +69,10 @@
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
 		304E07411BBA922300AFE13D /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Language.swift; path = Classes/Model/Language.swift; sourceTree = "<group>"; };
 		305112711BD676DF005578DE /* NStackVersionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackVersionUtils.swift; sourceTree = "<group>"; };
-		30A3D8471B9DB94100C2D15C /* NStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30A3D8471B9DB94100C2D15C /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30A3D84A1B9DB94100C2D15C /* NStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NStack.h; sourceTree = "<group>"; };
 		30A3D84C1B9DB94100C2D15C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30A3D8511B9DB94100C2D15C /* NStackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NStackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30A3D8511B9DB94100C2D15C /* NStackSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NStackSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30A3D8561B9DB94100C2D15C /* NStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackTests.swift; sourceTree = "<group>"; };
 		30B0CAB01BD7C24E005463AA /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Classes/Model/Message.swift; sourceTree = "<group>"; };
 		30B2E8301B9DD6A10064DB21 /* NStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStack.swift; sourceTree = "<group>"; };
@@ -80,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
+				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
 				0106ADA11C79105500E0C8BC /* Cashier.framework in Frameworks */,
 				304C42891BA074D900AE3D6F /* Alamofire.framework in Frameworks */,
 				0106AD9D1C790FA900E0C8BC /* Serializable.framework in Frameworks */,
@@ -90,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				304C42941BA083F800AE3D6F /* NStack.framework in Frameworks */,
+				304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */,
 				304C42931BA07DF300AE3D6F /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +137,7 @@
 				304C42831BA0747300AE3D6F /* Update.swift */,
 				304C428C1BA075D500AE3D6F /* RateReminder.swift */,
 				304E07411BBA922300AFE13D /* Language.swift */,
+				01D4EDE81D5DF17800E7E94C /* Configuration.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -134,6 +145,8 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01B5BA281D5E02DD006EA3D7 /* Foundation.framework */,
+				01B5BA261D5E02D7006EA3D7 /* UIKit.framework */,
 				0106ADA01C79105500E0C8BC /* Cashier.framework */,
 				0106AD9A1C790FA900E0C8BC /* Serializable.framework */,
 				304C42861BA074D900AE3D6F /* Alamofire.framework */,
@@ -144,8 +157,8 @@
 		30A3D83D1B9DB94100C2D15C = {
 			isa = PBXGroup;
 			children = (
-				30A3D8491B9DB94100C2D15C /* NStack */,
-				30A3D8551B9DB94100C2D15C /* NStackTests */,
+				30A3D8491B9DB94100C2D15C /* NStackSDK */,
+				30A3D8551B9DB94100C2D15C /* NStackSDKTests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
 				30A3D8481B9DB94100C2D15C /* Products */,
 			);
@@ -154,14 +167,14 @@
 		30A3D8481B9DB94100C2D15C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30A3D8471B9DB94100C2D15C /* NStack.framework */,
-				30A3D8511B9DB94100C2D15C /* NStackTests.xctest */,
+				30A3D8471B9DB94100C2D15C /* NStackSDK.framework */,
+				30A3D8511B9DB94100C2D15C /* NStackSDKTests.xctest */,
 			);
 			name = Products;
 			path = TranslationModelGen/Products;
 			sourceTree = "<group>";
 		};
-		30A3D8491B9DB94100C2D15C /* NStack */ = {
+		30A3D8491B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXGroup;
 			children = (
 				304C42801BA0743D00AE3D6F /* Models */,
@@ -171,16 +184,16 @@
 				30A3D84A1B9DB94100C2D15C /* NStack.h */,
 				30A3D84C1B9DB94100C2D15C /* Info.plist */,
 			);
-			path = NStack;
+			path = NStackSDK;
 			sourceTree = "<group>";
 		};
-		30A3D8551B9DB94100C2D15C /* NStackTests */ = {
+		30A3D8551B9DB94100C2D15C /* NStackSDKTests */ = {
 			isa = PBXGroup;
 			children = (
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 			);
-			path = NStackTests;
+			path = NStackSDKTests;
 			sourceTree = "<group>";
 		};
 		30B2E82C1B9DCC1D0064DB21 /* NStack Manager */ = {
@@ -188,8 +201,9 @@
 			children = (
 				30B2E8301B9DD6A10064DB21 /* NStack.swift */,
 				30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */,
-				3027B2C01BBAE34D00C2F4FB /* NStackConnectionManager.swift */,
+				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 				30EC9E091BBE83BC00D3A625 /* Constants.swift */,
+				01B5BA241D5E026C006EA3D7 /* Extensions.swift */,
 			);
 			name = "NStack Manager";
 			path = "Classes/NStack Manager";
@@ -230,9 +244,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		30A3D8461B9DB94100C2D15C /* NStack */ = {
+		30A3D8461B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStack" */;
+			buildConfigurationList = 30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDK" */;
 			buildPhases = (
 				30A3D8421B9DB94100C2D15C /* Sources */,
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
@@ -243,14 +257,14 @@
 			);
 			dependencies = (
 			);
-			name = NStack;
+			name = NStackSDK;
 			productName = NStack;
-			productReference = 30A3D8471B9DB94100C2D15C /* NStack.framework */;
+			productReference = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		30A3D8501B9DB94100C2D15C /* NStackTests */ = {
+		30A3D8501B9DB94100C2D15C /* NStackSDKTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30A3D85E1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackTests" */;
+			buildConfigurationList = 30A3D85E1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDKTests" */;
 			buildPhases = (
 				30A3D84D1B9DB94100C2D15C /* Sources */,
 				30A3D84E1B9DB94100C2D15C /* Frameworks */,
@@ -261,9 +275,9 @@
 			dependencies = (
 				30A3D8541B9DB94100C2D15C /* PBXTargetDependency */,
 			);
-			name = NStackTests;
+			name = NStackSDKTests;
 			productName = NStackTests;
-			productReference = 30A3D8511B9DB94100C2D15C /* NStackTests.xctest */;
+			productReference = 30A3D8511B9DB94100C2D15C /* NStackSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +298,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStack" */;
+			buildConfigurationList = 30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStackSDK" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -297,8 +311,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				30A3D8461B9DB94100C2D15C /* NStack */,
-				30A3D8501B9DB94100C2D15C /* NStackTests */,
+				30A3D8461B9DB94100C2D15C /* NStackSDK */,
+				30A3D8501B9DB94100C2D15C /* NStackSDKTests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,6 +347,7 @@
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
+				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
 				305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
@@ -340,7 +355,8 @@
 				304C42821BA0745500AE3D6F /* AppOpenResponse.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
-				3027B2C11BBAE34D00C2F4FB /* NStackConnectionManager.swift in Sources */,
+				01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */,
+				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,7 +375,7 @@
 /* Begin PBXTargetDependency section */
 		30A3D8541B9DB94100C2D15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 30A3D8461B9DB94100C2D15C /* NStack */;
+			target = 30A3D8461B9DB94100C2D15C /* NStackSDK */;
 			targetProxy = 30A3D8531B9DB94100C2D15C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -470,11 +486,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = NStack/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStack;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
+				PRODUCT_NAME = NStackSDK;
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -495,11 +511,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = NStack/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStack;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
+				PRODUCT_NAME = NStackSDK;
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -515,10 +531,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
-				INFOPLIST_FILE = NStackTests/Resources/Info.plist;
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStack.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
+				PRODUCT_NAME = NStackSDKTests;
 			};
 			name = Debug;
 		};
@@ -530,17 +546,17 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = NStackTests/Resources/Info.plist;
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStack.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
+				PRODUCT_NAME = NStackSDKTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStack" */ = {
+		30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStackSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30A3D8591B9DB94100C2D15C /* Debug */,
@@ -549,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStack" */ = {
+		30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30A3D85C1B9DB94100C2D15C /* Debug */,
@@ -558,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30A3D85E1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackTests" */ = {
+		30A3D85E1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30A3D85F1B9DB94100C2D15C /* Debug */,
