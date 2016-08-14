@@ -34,13 +34,16 @@ struct ConnectionManager {
     
     //MARK: - API Calls
 
-    static func postAppOpen(oldVersion oldVersion: String, currentVersion: String, completion: (Response<AnyObject, NSError> -> Void)) {
+    static func postAppOpen(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
+                                       currentVersion: String = VersionUtilities.currentAppVersion(),
+                                       completion: (Response<AnyObject, NSError> -> Void)) {
+
         let params: [String : AnyObject] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
             "last_updated"      : lastUpdatedString(),
-            "old_version"       : NStackVersionUtils.previousAppVersion()
+            "old_version"       : oldVersion
         ]
         
         let slugs = "open" + (NStack.sharedInstance.configuration.flat ? "?flat=true" : "")
@@ -84,10 +87,10 @@ struct ConnectionManager {
     
     static func fetchUpdates(completion: (Response<Update, NSError> -> Void)) {
         let params:[String : AnyObject] = [
-            "current_version"   : NStackVersionUtils.currentAppVersion(),
+            "current_version"   : VersionUtilities.currentAppVersion(),
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
-            "old_version"      : NStackVersionUtils.previousAppVersion(),
+            "old_version"      : VersionUtilities.previousAppVersion(),
         ]
         
         ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })

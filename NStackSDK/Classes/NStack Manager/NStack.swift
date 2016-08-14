@@ -59,8 +59,8 @@ public class NStack {
         if let translationsClass = configuration.translationsClass {
             TranslationManager.start(translationsType: translationsClass)
 
-            if NStackVersionUtils.isVersion(NStackVersionUtils.currentAppVersion(),
-                                            greaterThanVersion: NStackVersionUtils.previousAppVersion()) {
+            if VersionUtilities.isVersion(VersionUtilities.currentAppVersion(),
+                                            greaterThanVersion: VersionUtilities.previousAppVersion()) {
                 TranslationManager.sharedInstance.clearSavedTranslations()
             }
         }
@@ -85,73 +85,66 @@ public class NStack {
     
     */
     
-    public func update(completion: ((error: NSError?) -> Void)? = nil ) {
+    public func update(completion: ((error: NStackError.Manager?) -> Void)? = nil) {
         guard configured else {
-            print("NStack needs to be configured before it can be used. Please, call the `start` function first.")
+            let errorMessage = "NStack needs to be configured before it can be used. Please, call the `start` function first."
+            print(errorMessage)
+            completion?(error: .UpdateFailed(reason: errorMessage))
             return
         }
 
-        ConnectionManager.postAppOpen(oldVersion: NStackVersionUtils.previousAppVersion(),
-                                      currentVersion: NStackVersionUtils.currentAppVersion()) { response in
-
+        ConnectionManager.postAppOpen(completion: { response in
             switch response.result {
             case .Success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
-                    if NStack.sharedInstance.configuration.verboseMode {
-                        print("failure: couldn't parse response")
-                    }
-                    completion?(error: NSError(domain: "com.nodes.nstack", code: 1000, userInfo: [NSLocalizedDescriptionKey : "Couldn't parse response dictionary."]))
+                    self.print("Failure: couldn't parse response. Response data: ", JSONdata)
+                    completion?(error: .UpdateFailed(reason: "Couldn't parse response dictionary."))
                     return
                 }
 
-                let wrapper = AppOpenResponseWrapper(dictionary: dictionary)
-                
-                if NStack.sharedInstance.configuration.verboseMode {
-                    print(wrapper)
+                let wrapper = AppOpenResponse(dictionary: dictionary)
+                self.print("App open response wrapper: ", wrapper)
+
+                defer {
+                    completion?(error: nil)
+                }
+
+                guard let appOpenResponseData = wrapper.data else { return }
+                    
+                if appOpenResponseData.translate.count > 0 {
+                    TranslationManager.sharedInstance.setTranslationsSource(appOpenResponseData.translate)
                 }
                 
-                if let appOpenResponseData = wrapper.data{
+                if !AlertManager.sharedInstance.alreadyShowingAlert {
                     
-                    if appOpenResponseData.translate.count > 0 {
-                        TranslationManager.sharedInstance.setTranslationsSource(appOpenResponseData.translate)
+                    if let newVersion = appOpenResponseData.update?.newerVersion {
+                        AlertManager.sharedInstance.showUpdateAlert(newVersion: newVersion)
+                        
+                    } else if let changelog = appOpenResponseData.update?.newInThisVersion {
+                        AlertManager.sharedInstance.showWhatsNewAlert(changelog)
+                        
+                    } else if let message = appOpenResponseData.message {
+                        AlertManager.sharedInstance.showMessage(message)
+                        
+                    } else if let rateReminder = appOpenResponseData.rateReminder {
+                        AlertManager.sharedInstance.showRateReminder(rateReminder)
                     }
                     
-                    if !AlertManager.sharedInstance.alreadyShowingAlert {
-                        
-                        if let newVersion = appOpenResponseData.update?.newerVersion {
-                            AlertManager.sharedInstance.showUpdateAlert(newVersion: newVersion)
-                            
-                        } else if let changelog = appOpenResponseData.update?.newInThisVersion {
-                            AlertManager.sharedInstance.showWhatsNewAlert(changelog)
-                            
-                        } else if let message = appOpenResponseData.message {
-                            AlertManager.sharedInstance.showMessage(message)
-                            
-                        } else if let rateReminder = appOpenResponseData.rateReminder {
-                            AlertManager.sharedInstance.showRateReminder(rateReminder)
-                        }
-                        
-                        NStackVersionUtils.setPreviousAppVersion(NStackVersionUtils.currentAppVersion())
-                    }
-                    
-                    
-                    if let languageMetaData = wrapper.meta{
-                        
-                        let lang = languageMetaData.language
-                        TranslationManager.sharedInstance.lastFetchedLanguage = lang
-                    }
-                    
-                    ConnectionManager.setLastUpdatedToNow()
+                    VersionUtilities.setPreviousAppVersion(VersionUtilities.currentAppVersion())
                 }
                 
-                completion?(error: nil)
+
+                // Get last fetched language
+                if let language = wrapper.languageData?.language {
+                    TranslationManager.sharedInstance.lastFetchedLanguage = language
+                }
                 
+                ConnectionManager.setLastUpdatedToNow()
+
             case let .Failure(error):
-                if NStack.sharedInstance.configuration.verboseMode {
-                    print("failure: \(response.response ?? "unknown error")")
-                }
-                completion?(error: error)
+                self.print("Failure: \(response.response ?? "unknown error")")
+                completion?(error: .UpdateFailed(reason: error.localizedDescription))
             }
-        }
+        })
     }
 }

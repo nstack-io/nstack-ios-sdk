@@ -1,5 +1,5 @@
 //
-//  NStackVersionUtils.swift
+//  VersionUtilities.swift
 //  NStack
 //
 //  Created by Kasper Welner on 20/10/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NStackVersionUtils {
+enum VersionUtilities {
     
     private static let previousVersionKey = "PreviousVersionKey"
     
@@ -17,16 +17,15 @@ struct NStackVersionUtils {
     }
     
     static func previousAppVersion() -> String {
-        return  NSUserDefaults.standardUserDefaults().stringForKey(previousVersionKey) ?? currentAppVersion()
+        return NSUserDefaults.standardUserDefaults().stringForKey(previousVersionKey) ?? currentAppVersion()
     }
     
-    static func setPreviousAppVersion(version:String) {
+    static func setPreviousAppVersion(version: String) {
         NSUserDefaults.standardUserDefaults().setObject(version, forKey: previousVersionKey)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
-    static func isVersion(versionA:String, greaterThanVersion versionB:String) -> Bool {
-        
+    static func isVersion(versionA: String, greaterThanVersion versionB: String) -> Bool {
         var versionAArray = versionA.componentsSeparatedByString(".")
         var versionBArray = versionB.componentsSeparatedByString(".")
         let maxCharCount = max(versionAArray.count, versionBArray.count)
@@ -38,26 +37,18 @@ struct NStackVersionUtils {
             if  versionAArray[i] > versionBArray[i] {
                 return true
             } else if versionAArray[i] < versionBArray[i] {
-                return false;
+                return false
             }
         }
-        return false;
+
+        return false
     }
     
-    
-    static func normalizedValuesFromArray(array:[String], maxValues:Int) -> [String] {
-        var arrayCopy = array
-        
-        if arrayCopy.count < maxValues {
-            let difference = maxValues - arrayCopy.count
-            for _ in 0..<difference {
-                arrayCopy.append("0")
-            }
-            
-            return arrayCopy
-            
-        } else {
-            return array;
+    static func normalizedValuesFromArray(array: [String], maxValues: Int) -> [String] {
+        guard array.count < maxValues else {
+            return array
         }
+
+        return array + [String](count: maxValues - array.count, repeatedValue: "0")
     }
 }
