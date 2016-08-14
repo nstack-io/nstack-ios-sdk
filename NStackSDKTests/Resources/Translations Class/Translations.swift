@@ -27,7 +27,7 @@
 
 import Foundation
 import Serializable
-import NStack
+import NStackSDK
 
 public var tr: Translations {
     get {

@@ -1,5 +1,5 @@
 //
-//  NStackConnectionManager.swift
+//  ConnectionManager.swift
 //  NStack
 //
 //  Created by Kasper Welner on 29/09/15.
@@ -11,13 +11,12 @@ import Alamofire
 import Serializable
 import Cashier
 
-struct NStackConnectionManager {
+struct ConnectionManager {
     
     //MARK: - Setup
     
-    internal static let kBaseURL = "https://nstack.io/api/v1/"
-    
-    static let manager:Manager = Manager(configuration: NStackConnectionManager.configuration())
+    static let kBaseURL = "https://nstack.io/api/v1/"
+    static let manager = Manager(configuration: ConnectionManager.configuration())
     
     static func configuration() -> NSURLSessionConfiguration {
         let configuration = Manager.sharedInstance.session.configuration
@@ -25,7 +24,7 @@ struct NStackConnectionManager {
         return configuration
     }
     
-    static func headers() -> [String : String] {
+    static var defaultHeaders: [String : String] {
         return [
             "Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString(),
             "X-Application-id"  : NStack.sharedInstance.configuration.appId,
@@ -35,8 +34,8 @@ struct NStackConnectionManager {
     
     //MARK: - API Calls
 
-    static func doAppOpenCall(oldVersion oldVersion: String, currentVersion: String, completion: (Response<AnyObject, NSError> -> Void)) {
-        let params:[String : AnyObject] = [
+    static func postAppOpen(oldVersion oldVersion: String, currentVersion: String, completion: (Response<AnyObject, NSError> -> Void)) {
+        let params: [String : AnyObject] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
@@ -44,12 +43,8 @@ struct NStackConnectionManager {
             "old_version"       : NStackVersionUtils.previousAppVersion()
         ]
         
-        var slugs = "open"
-        if NStack.sharedInstance.configuration.flat {
-            slugs += "?flat=true"
-        }
-
-        NStackConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
+        let slugs = "open" + (NStack.sharedInstance.configuration.flat ? "?flat=true" : "")
+        ConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
     
     static func fetchTranslations(completion: (Response<AnyObject, NSError> -> Void)) {
@@ -62,7 +57,7 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
+        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
 
     static func fetchCurrentLanguage(completion: (Response<Language, NSError> -> Void)) {
@@ -75,7 +70,7 @@ struct NStackConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
     static func fetchAvailableLanguages(completion: (Response<[Language], NSError> -> Void)) {
@@ -84,7 +79,7 @@ struct NStackConnectionManager {
             "guid"              : Configuration.guid(),
         ]
         
-        NStackConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
     static func fetchUpdates(completion: (Response<Update, NSError> -> Void)) {
@@ -95,7 +90,7 @@ struct NStackConnectionManager {
             "old_version"      : NStackVersionUtils.previousAppVersion(),
         ]
         
-        NStackConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
     static func markNewerVersionAsSeen(id: Int, appStoreButtonPressed:Bool) {
@@ -106,7 +101,7 @@ struct NStackConnectionManager {
             "type"              : "newer_version"
         ]
         
-        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
+        ConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: defaultHeaders)
     }
     
     static func markWhatsNewAsSeen(id: Int) {
@@ -117,26 +112,26 @@ struct NStackConnectionManager {
             "answer"            : "no",
         ]
         
-        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: headers())
+        ConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: defaultHeaders)
     }
     
     static func markMessageAsRead(id: String) {
-        let params:[String : AnyObject] = [
+        let params: [String : AnyObject] = [
             "guid"              : Configuration.guid(),
             "message_id"        : id
         ]
         
-        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: headers())
+        ConnectionManager.manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: defaultHeaders)
     }
     
     static func markRateReminderAsSeen(answer:AlertManager.RateReminderResult) {
-        let params:[String : AnyObject] = [
+        let params: [String : AnyObject] = [
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
             "answer"            : answer.rawValue
         ]
         
-        NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: headers())
+        ConnectionManager.manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: defaultHeaders)
     }
 	
 	//MARK: Geographic
@@ -146,29 +141,30 @@ struct NStackConnectionManager {
 	}
 }
 
-extension NStackConnectionManager {
-    //MARK: - Utility functions
+// MARK: - Utility Functions -
+
+extension ConnectionManager {
     
-    internal static func lastUpdatedString() -> String {
-        
+    static func lastUpdatedString() -> String {
+        let cache = NStack.persistentStore
         let currentAcceptLangString = TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
-        if let prevAcceptLangString:String? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where prevAcceptLangString != currentAcceptLangString {
-            NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
+
+        if let prevAcceptLangString = cache.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
+            where prevAcceptLangString != currentAcceptLangString {
+
+            cache.setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
             self.setLastUpdatedToDistantPast()
         }
-        
-        let date:NSDate? = NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate
-        
-        let dateObject = date ?? NSDate.distantPast()
-        
-        return dateObject.stringRepresentation() ?? ""
+
+        let date = cache.objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate ?? NSDate.distantPast()
+        return date.stringRepresentation() ?? ""
     }
     
-    internal static func setLastUpdatedToNow() {
-        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(NSDate(), forKey: NStackConstants.lastUpdatedDateKey)
+    static func setLastUpdatedToNow() {
+        NStack.persistentStore.setObject(NSDate(), forKey: NStackConstants.lastUpdatedDateKey)
     }
     
-    internal static func setLastUpdatedToDistantPast() {
-        NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setObject(NSDate.distantPast(), forKey: NStackConstants.lastUpdatedDateKey)
+    static func setLastUpdatedToDistantPast() {
+        NStack.persistentStore.setObject(NSDate.distantPast(), forKey: NStackConstants.lastUpdatedDateKey)
     }
 }

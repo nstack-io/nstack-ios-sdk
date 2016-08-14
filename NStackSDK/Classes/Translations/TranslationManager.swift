@@ -12,39 +12,33 @@ import Cashier
 import Alamofire
 
 /**
+ The Translations Manager handles everything related to translations.
 
-The Translations Manager handles everything related to translations.
-
-Usually, direct interaction with the Translations Manager shouldn't be neccessary, since it is setup automatically by the NStack manager, and the translations are accssible by the globael 'tr()' function defined in the auto-generated translations swift file.
-
+ Usually, direct interaction with the `Translations Manager` shouldn't be neccessary, since it is
+ setup automatically by the NStack manager, and the translations are accssible by the global 'tr()' 
+ function defined in the auto-generated translations Swift file.
 */
+public class TranslationManager {
+    
+    public static let sharedInstance = TranslationManager()
+    public var lastFetchedLanguage: Language?
 
-public struct TranslationManager {
-    
-    static let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
-    
-    let translationType:Translatable.Type
-    
-    public static var sharedInstance:TranslationManager!
-    
+    let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
+
+    var translationType: Translatable.Type!
     var cachedTranslationsObject:Translatable?
-    
-    public var lastFetchedLanguage:Language?
-    
-    init(type:Translatable.Type) {
-        self.translationType = type
-    }
-    
+
+    internal private(set) var configured = false
+    private init() {}
+
     /**
-    
-    Instantiates the shared singleton instance and sets the type of the translations object. Usually this is invoked by the NStack start method, so under normal circumstances, it should not be neccessary to invoke it directly.
+     Instantiates the shared singleton instance and sets the type of the translations object. Usually this is invoked by the NStack start method, so under normal circumstances, it should not be neccessary to invoke it directly.
     
     - parameter translationsType: The type of the translations object that should be used.
-    
     */
-    
-    public static func start(translationsType translationsType:Translatable.Type) {
-        sharedInstance = TranslationManager(type:translationsType)
+    public static func start(translationsType type: Translatable.Type) {
+        sharedInstance.translationType = type
+        sharedInstance.configured = true
     }
     
     //MARK: - Public update call
@@ -59,9 +53,14 @@ public struct TranslationManager {
     
     */
     
-    public mutating func updateTranslations(completion:((error:NSError?) -> Void)? = nil) {
-        
-        NStackConnectionManager.fetchTranslations { (response) -> Void in
+    public func updateTranslations(completion: ((error:NSError?) -> Void)? = nil) {
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return
+        }
+
+        ConnectionManager.fetchTranslations { (response) -> Void in
             
             switch response.result {
             case .Success(let JSONdata):
@@ -90,9 +89,14 @@ public struct TranslationManager {
         }
     }
     
-    public mutating func fetchCurrentLanguage(completion:((error:NSError?) -> Void)? = nil) {
-        
-        NStackConnectionManager.fetchCurrentLanguage({ (response) -> Void in
+    public func fetchCurrentLanguage(completion:((error:NSError?) -> Void)? = nil) {
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return
+        }
+
+        ConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
             case .Success(let language):
                 
@@ -115,9 +119,14 @@ public struct TranslationManager {
     
     */
     
-    public mutating func clearSavedTranslations() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(TranslationManager.allTranslationsUserDefaultsKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    public func clearSavedTranslations() {
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return
+        }
+
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(allTranslationsUserDefaultsKey)
         cachedTranslationsObject = nil
     }
     
@@ -130,9 +139,15 @@ public struct TranslationManager {
     
     */
     
-    public mutating func translations<T:Translatable>() -> T {
-        
-        if let lastRequestedAcceptLangString:String? = NOPersistentStore.cacheWithId( NStackConstants.persistentStoreID).objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
+    public func translations<T:Translatable>() -> T {
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return T(dictionary: nil)
+        }
+
+        if let lastRequestedAcceptLangString:String? = NStack.persistentStore.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
+            where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
         }
         
@@ -154,8 +169,8 @@ public struct TranslationManager {
     
     */
     
-    mutating func setTranslations(translations:Translatable) {
-        self.setTranslationsSource(translations.encodableRepresentation())
+    private func setTranslations(translations: Translatable) {
+        setTranslationsSource(translations.encodableRepresentation())
     }
     
     /**
@@ -167,7 +182,13 @@ public struct TranslationManager {
     */
     
     public func savedTranslationsDict() -> [String : AnyObject] {
-        if let savedTranslationsDict = NSUserDefaults.standardUserDefaults().dictionaryForKey(TranslationManager.allTranslationsUserDefaultsKey) {
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return [:]
+        }
+
+        if let savedTranslationsDict = NSUserDefaults.standardUserDefaults().dictionaryForKey(allTranslationsUserDefaultsKey) {
             return savedTranslationsDict
         }
         
@@ -175,62 +196,69 @@ public struct TranslationManager {
     }
     
     /**
-    
-    Directly saves the persisted dictionary representation of the translations
-    
-    - parameter sourceDict: A dictionary representation of the translations
-    
-    */
-    
-    mutating func setTranslationsSource(sourceDict:NSCoding) {
-        
-        NSUserDefaults.standardUserDefaults().setObject(sourceDict, forKey: TranslationManager.allTranslationsUserDefaultsKey)
+     Directly saves the persisted dictionary representation of the translations
+
+     - parameter sourceDict: A dictionary representation of the translations
+     */
+    func setTranslationsSource(sourceDict: NSCoding) {
+        NSUserDefaults.standardUserDefaults().setObject(sourceDict, forKey: allTranslationsUserDefaultsKey)
         NSUserDefaults.standardUserDefaults().synchronize()
         cachedTranslationsObject = nil
     }
     
-    //MARK: - Public Language Methods
-    
+    // MARK: - Public Language Methods -
+
     /**
-    
-    Gets the languages for which translations are available
-    
-    */
-    
+     Gets the languages for which translations are available
+
+     - parameter completion: <#completion description#>
+     */
     public func fetchAvailableLanguages(completion: Response<[Language], NSError> -> Void) {
-        
-        NStackConnectionManager.fetchAvailableLanguages(completion)
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return
+        }
+
+        ConnectionManager.fetchAvailableLanguages(completion)
     }
     
-    /**
-    
-    This language will be used instead of the phones' language when it is not *nil*
-    Remember to call *updateTranslations* after changing the value. Otherwise, the effect might not be seen.
-    
-    */
-    
-    public var languageOverride:Language? {
+    /// This language will be used instead of the phones' language when it is not *nil*
+    /// Remember to call *updateTranslations* after changing the value. Otherwise, the effect might not be seen.
+    public var languageOverride: Language? {
         set {
+            
             if let newValue = newValue {
-                NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setSerializable(newValue, forKey: "LANGUAGE_OVERIDE")
+                NStack.persistentStore.setSerializable(newValue, forKey: "LANGUAGE_OVERIDE")
             } else {
-                NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).deleteSerializableForKey("LANGUAGE_OVERIDE")
+                NStack.persistentStore.deleteSerializableForKey("LANGUAGE_OVERIDE")
             }
             clearSavedTranslations()
         }
         get {
-            return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).serializableForKey("LANGUAGE_OVERIDE")
+            return NStack.persistentStore.serializableForKey("LANGUAGE_OVERIDE")
         }
     }
-    
+
+    /**
+     <#Description#>
+
+     - returns: <#return value description#>
+     */
     public func acceptLanguageHeaderValueString() -> String {
-        
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return ""
+        }
+
         var components: [String] = []
         
         if let languageOverride = languageOverride {
             components.append(languageOverride.locale)
         }
-        
+
+        // FIXME: Black magic, needs comments
         for (index, languageCode) in (NSLocale.preferredLanguages() as [String]).enumerate() {
             let q = 1.0 - (Double(index) * 0.1)
             components.append("\(languageCode);q=\(q)")
@@ -245,13 +273,11 @@ public struct TranslationManager {
     //MARK: - Private instance methods
     
     /**
-    
-    Loads the local JSON copy, has a return value so that it can be synchronously loaded the first time they're needed.
-    the local JSON copy contains all available languages, and the right one is chosen based on the current locale.
+     Loads the local JSON copy, has a return value so that it can be synchronously loaded the first time they're needed.
+     the local JSON copy contains all available languages, and the right one is chosen based on the current locale.
     
     - returns: A dictionary representation of the selected local translations set.
     */
-    
     private func loadTranslationFromLocalFile() -> [String : AnyObject] {
         for bundle in NSBundle.allBundles() {
             if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = NSData(contentsOfFile: filePath) {
@@ -278,14 +304,12 @@ public struct TranslationManager {
     }
     
     /**
-    
-    Uses the device's current locale to select the appropriate translations set.
+     Uses the device's current locale to select the appropriate translations set.
     
     - parameter json: A dictionary containing translation sets by language code key.
-    
+
     - returns: A translations set as a dictionary.
     */
-    
     private func parseTranslationsFromJSON(json: [String : AnyObject]) -> [String : AnyObject] {
         var languageJSON: [String : AnyObject]? = nil
         
@@ -330,23 +354,41 @@ public struct TranslationManager {
         
         return lang
     }
-    
-    // Searches the translation file for a key matching the provided language code
+
+    /**
+     Searches the translation file for a key matching the provided language code.
+
+     - parameter language: A language code of the desired language. If `nil`, first language will be used.
+     - parameter json:     The JSON file containing translations for all languages.
+u
+     - returns: Translations dictionary for the given language.
+     */
     public func findTranslationMatchingLanguage(language: String?, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
-        if let language = language  {
-            for key in (json as NSDictionary).allKeys {
-                if (key as! NSString).substringToIndex(2) == (language as NSString).substringToIndex(2) {
-                    return json[key as! String] as? [String : AnyObject]
-                }
-            }
+        guard configured else {
+            print("Translations Manager has to be configured first before it can be used.")
+            print("Please call `start(translationsType:)` before calling any other functions.")
+            return nil
         }
-            // Intentionally passed nil to get the first language in the file
-        else {
+
+        // FIXME: Improve, remove unnecessary casts, cleanup
+
+        // Intentionally passed nil to get the first language in the file
+        guard let language = language else {
+
+            // json.keys.flatMap({$0})
             if let keys = (json as NSDictionary).allKeys as? [String] {
                 return json[keys[0]] as? [String : AnyObject]
             }
+
+            return nil
         }
+
+        for (key, _) in json {
+            if (key as NSString).substringToIndex(2) == (language as NSString).substringToIndex(2) {
+                return json[key] as? [String : AnyObject]
+            }
+        }
+
         return nil
-        
     }
 }
