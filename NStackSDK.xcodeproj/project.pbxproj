@@ -10,6 +10,7 @@
 		0106AD9D1C790FA900E0C8BC /* Serializable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106AD9A1C790FA900E0C8BC /* Serializable.framework */; };
 		0106ADA11C79105500E0C8BC /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106ADA01C79105500E0C8BC /* Cashier.framework */; };
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
+		0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
 		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -19,14 +20,14 @@
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
-		304C42821BA0745500AE3D6F /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenResponse.swift */; };
+		304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
 		304C42841BA0747300AE3D6F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
 		304C42891BA074D900AE3D6F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304C42861BA074D900AE3D6F /* Alamofire.framework */; };
 		304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
 		304C42931BA07DF300AE3D6F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304C42861BA074D900AE3D6F /* Alamofire.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		304E07421BBA922300AFE13D /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
-		305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* NStackVersionUtils.swift */; };
+		305112721BD676DF005578DE /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		30A3D84B1B9DB94100C2D15C /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A3D8561B9DB94100C2D15C /* NStackTests.swift */; };
 		30B0CAB11BD7C24E005463AA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B0CAB01BD7C24E005463AA /* Message.swift */; };
@@ -34,8 +35,8 @@
 		30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */; };
 		30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */; };
 		30EC9E0A1BBE83BC00D3A625 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC9E091BBE83BC00D3A625 /* Constants.swift */; };
-		82CB554B1C8DEAC200389D2B /* AppOpenResponseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponseWrapper.swift */; };
-		82CB554C1C8DEAC200389D2B /* LanguageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageWrapper.swift */; };
+		82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
+		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		0106AD9A1C790FA900E0C8BC /* Serializable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serializable.framework; path = Carthage/Build/iOS/Serializable.framework; sourceTree = "<group>"; };
 		0106ADA01C79105500E0C8BC /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
+		0184A2C41D60BF6B00E63E01 /* NStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackError.swift; sourceTree = "<group>"; };
 		01B5BA241D5E026C006EA3D7 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		01B5BA261D5E02D7006EA3D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01B5BA281D5E02DD006EA3D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,12 +65,12 @@
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
-		304C42811BA0745500AE3D6F /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
+		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
 		304C42861BA074D900AE3D6F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
 		304E07411BBA922300AFE13D /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Language.swift; path = Classes/Model/Language.swift; sourceTree = "<group>"; };
-		305112711BD676DF005578DE /* NStackVersionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackVersionUtils.swift; sourceTree = "<group>"; };
+		305112711BD676DF005578DE /* VersionUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionUtilities.swift; sourceTree = "<group>"; };
 		30A3D8471B9DB94100C2D15C /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30A3D84A1B9DB94100C2D15C /* NStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NStack.h; sourceTree = "<group>"; };
 		30A3D84C1B9DB94100C2D15C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,8 +81,8 @@
 		30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
 		30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		30EC9E091BBE83BC00D3A625 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		82CB55491C8DEAC200389D2B /* AppOpenResponseWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponseWrapper.swift; path = Classes/Model/AppOpenResponseWrapper.swift; sourceTree = "<group>"; };
-		82CB554A1C8DEAC200389D2B /* LanguageWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageWrapper.swift; path = Classes/Model/LanguageWrapper.swift; sourceTree = "<group>"; };
+		82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
+		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,9 +132,9 @@
 		304C42801BA0743D00AE3D6F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				82CB55491C8DEAC200389D2B /* AppOpenResponseWrapper.swift */,
-				82CB554A1C8DEAC200389D2B /* LanguageWrapper.swift */,
-				304C42811BA0745500AE3D6F /* AppOpenResponse.swift */,
+				82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */,
+				82CB554A1C8DEAC200389D2B /* LanguageData.swift */,
+				304C42811BA0745500AE3D6F /* AppOpenData.swift */,
 				30B0CAB01BD7C24E005463AA /* Message.swift */,
 				304C42831BA0747300AE3D6F /* Update.swift */,
 				304C428C1BA075D500AE3D6F /* RateReminder.swift */,
@@ -204,6 +206,7 @@
 				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 				30EC9E091BBE83BC00D3A625 /* Constants.swift */,
 				01B5BA241D5E026C006EA3D7 /* Extensions.swift */,
+				0184A2C41D60BF6B00E63E01 /* NStackError.swift */,
 			);
 			name = "NStack Manager";
 			path = "Classes/NStack Manager";
@@ -213,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */,
-				305112711BD676DF005578DE /* NStackVersionUtils.swift */,
+				305112711BD676DF005578DE /* VersionUtilities.swift */,
 			);
 			name = Notify;
 			path = Classes/Notify;
@@ -341,23 +344,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82CB554B1C8DEAC200389D2B /* AppOpenResponseWrapper.swift in Sources */,
+				82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */,
 				2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */,
 				30EC9E0A1BBE83BC00D3A625 /* Constants.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
-				305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */,
+				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
-				304C42821BA0745500AE3D6F /* AppOpenResponse.swift in Sources */,
+				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
+				0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
-				82CB554C1C8DEAC200389D2B /* LanguageWrapper.swift in Sources */,
+				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

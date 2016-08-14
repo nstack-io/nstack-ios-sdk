@@ -2,43 +2,28 @@
 //  AppOpenResponse.swift
 //  NStack
 //
-//  Created by Kasper Welner on 09/09/15.
-//  Copyright © 2015 Nodes. All rights reserved.
+//  Created by Andrew Lloyd on 04/02/2016.
+//  Copyright © 2016 Nodes. All rights reserved.
 //
 
 import Foundation
 import Serializable
 
 struct AppOpenResponse {
-    var count = 0
-    var message:Message?
-    var update:Update?
-    var rateReminder:RateReminder?
-    var createdAt = NSDate()
-    var lastUpdated = NSDate()
-    var translate:NSDictionary = [:]
+    var data : AppOpenData?
+    var languageData : LanguageData? // <-meta
 }
 
 extension AppOpenResponse: Serializable {
     init(dictionary: NSDictionary?) {
-        count        <== (self, dictionary, "count")
-        message      <== (self, dictionary, "message")
-        update       <== (self, dictionary, "update")
-        rateReminder <== (self, dictionary, "rate_reminder")
-        createdAt    <== (self, dictionary, "created_at")
-        lastUpdated  <== (self, dictionary, "last_updated")
-        translate    <== (self, dictionary, "translate")
+        data         <== (self, dictionary, "data")
+        languageData <== (self, dictionary, "meta")
     }
-    
+
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        (dict, "count")         <== count
-        (dict, "message")       <== message
-        (dict, "update")        <== update
-        (dict, "rate_reminder") <== rateReminder
-        (dict, "created_at")    <== createdAt
-        (dict, "last_updated")  <== lastUpdated
-        (dict, "translate")     <== translate
+        (dict, "data") <== data
+        (dict, "meta") <== languageData
         return dict
     }
 }

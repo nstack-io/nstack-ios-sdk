@@ -39,4 +39,10 @@ extension NStack {
     internal static var persistentStore: NOPersistentStore {
         return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID)
     }
+
+    internal func print(items: Any...) {
+        if configuration.verboseMode {
+            print(items)
+        }
+    }
 }

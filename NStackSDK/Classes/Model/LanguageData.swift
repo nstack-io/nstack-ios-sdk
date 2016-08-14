@@ -1,5 +1,5 @@
 //
-//  LanguageWrapper.swift
+//  LanguageData.swift
 //  NStack
 //
 //  Created by Andrew Lloyd on 04/02/2016.
@@ -9,12 +9,12 @@
 import Foundation
 import Serializable
 
-struct LanguageWrapper {
+struct LanguageData {
     var language:Language?
     // var isCached:Bool?
 }
 
-extension LanguageWrapper: Serializable {
+extension LanguageData: Serializable {
     init(dictionary: NSDictionary?) {
         language <== (self, dictionary, "language")
     }

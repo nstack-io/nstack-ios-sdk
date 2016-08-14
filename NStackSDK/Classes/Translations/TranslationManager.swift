@@ -26,7 +26,7 @@ public class TranslationManager {
     let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
 
     var translationType: Translatable.Type!
-    var cachedTranslationsObject:Translatable?
+    var cachedTranslationsObject: Translatable?
 
     internal private(set) var configured = false
     private init() {}
@@ -53,10 +53,11 @@ public class TranslationManager {
     
     */
     
-    public func updateTranslations(completion: ((error:NSError?) -> Void)? = nil) {
+    public func updateTranslations(completion: ((error: NStackError.Translations?) -> Void)? = nil) {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            let errorMessage = "Translations Manager has to be configured first before it can be used. Please call `start(translationsType:)` before calling any other functions."
+            print(errorMessage)
+            completion?(error: .UpdateFailed(reason: errorMessage))
             return
         }
 
@@ -76,20 +77,20 @@ public class TranslationManager {
                     TranslationManager.sharedInstance.lastFetchedLanguage = lang
                     completion?(error: nil)
                 } else {
-                    completion?(error: NSError(domain: "NStack", code: 100, userInfo: [ NSLocalizedDescriptionKey : "Translations response empty"]))
+                    completion?(error: .UpdateFailed(reason: "Translations response empty."))
                 }
                 
             case .Failure(let error):
-                print("Error downloading Translations data")
-                print(response.response, response.data)
-                print(error.localizedDescription)
-                completion?(error: error)
+                self.print("Error downloading Translations data")
+                self.print(response.response, response.data)
+                self.print(error.localizedDescription)
+                completion?(error: .UpdateFailed(reason: error.localizedDescription))
                 return
             }
         }
     }
     
-    public func fetchCurrentLanguage(completion:((error:NSError?) -> Void)? = nil) {
+    public func fetchCurrentLanguage(completion: ((error:NSError?) -> Void)? = nil) {
         guard configured else {
             print("Translations Manager has to be configured first before it can be used.")
             print("Please call `start(translationsType:)` before calling any other functions.")
@@ -99,15 +100,16 @@ public class TranslationManager {
         ConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
             case .Success(let language):
-                
                 TranslationManager.sharedInstance.lastFetchedLanguage = language
                 completion?(error: nil)
                 
             case .Failure(let error):
-                print("Error downloading Language data")
-                print(response.response, response.data)
-                print(error)
+                self.print("Error downloading language data: ", error.localizedDescription)
+                self.print("Response: ", response.response)
+                self.print("Data: ", response.data)
+
                 completion?(error: error)
+
                 return
             }
         })
@@ -390,5 +392,11 @@ u
         }
 
         return nil
+    }
+
+    // MARK: - Helpers -
+
+    internal func print(items: Any...) {
+        NStack.sharedInstance.print(items)
     }
 }
