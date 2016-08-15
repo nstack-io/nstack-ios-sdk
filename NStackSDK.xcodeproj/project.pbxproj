@@ -10,7 +10,10 @@
 		0106AD9D1C790FA900E0C8BC /* Serializable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106AD9A1C790FA900E0C8BC /* Serializable.framework */; };
 		0106ADA11C79105500E0C8BC /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0106ADA01C79105500E0C8BC /* Cashier.framework */; };
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
+		01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */; };
+		01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
 		0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
+		0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */; };
 		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -56,7 +59,10 @@
 		0106AD9A1C790FA900E0C8BC /* Serializable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serializable.framework; path = Carthage/Build/iOS/Serializable.framework; sourceTree = "<group>"; };
 		0106ADA01C79105500E0C8BC /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
+		01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManagerTests.swift; sourceTree = "<group>"; };
+		01814A271D61C9120053E804 /* TranslationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManagerTests.swift; sourceTree = "<group>"; };
 		0184A2C41D60BF6B00E63E01 /* NStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackError.swift; sourceTree = "<group>"; };
+		0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionUtilitiesTests.swift; sourceTree = "<group>"; };
 		01B5BA241D5E026C006EA3D7 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		01B5BA261D5E02D7006EA3D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01B5BA281D5E02DD006EA3D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -201,6 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
+				0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */,
+				01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */,
+				01814A271D61C9120053E804 /* TranslationManagerTests.swift */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 				839497C21DC22456007FE281 /* GeographyTests.swift */,
 			);
@@ -384,6 +393,9 @@
 			files = (
 				30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */,
 				839497C31DC22456007FE281 /* GeographyTests.swift in Sources */,
+				01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */,
+				01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */,
+				0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */,
 				01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
