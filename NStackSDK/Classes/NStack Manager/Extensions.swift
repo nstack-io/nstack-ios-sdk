@@ -13,11 +13,8 @@ import Cashier
 extension UIApplication {
 
     class func safeSharedApplication() -> UIApplication? {
-        guard UIApplication.respondsToSelector(NSSelectorFromString("sharedApplication")) else {
-            return nil
-        }
-
-        guard let unmanagedSharedApplication = UIApplication.performSelector(NSSelectorFromString("sharedApplication")) else {
+        guard UIApplication.respondsToSelector(NSSelectorFromString("sharedApplication")),
+            let unmanagedSharedApplication = UIApplication.performSelector(NSSelectorFromString("sharedApplication")) else {
             return nil
         }
 

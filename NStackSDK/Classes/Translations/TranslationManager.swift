@@ -55,9 +55,8 @@ public class TranslationManager {
     
     public func updateTranslations(completion: ((error: NStackError.Translations?) -> Void)? = nil) {
         guard configured else {
-            let errorMessage = "Translations Manager has to be configured first before it can be used. Please call `start(translationsType:)` before calling any other functions."
-            print(errorMessage)
-            completion?(error: .UpdateFailed(reason: errorMessage))
+            print(NStackError.Translations.NotConfigured.description)
+            completion?(error: .NotConfigured)
             return
         }
 
@@ -92,8 +91,7 @@ public class TranslationManager {
     
     public func fetchCurrentLanguage(completion: ((error:NSError?) -> Void)? = nil) {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return
         }
 
@@ -123,8 +121,7 @@ public class TranslationManager {
     
     public func clearSavedTranslations() {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return
         }
 
@@ -143,8 +140,7 @@ public class TranslationManager {
     
     public func translations<T:Translatable>() -> T {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return T(dictionary: nil)
         }
 
@@ -157,8 +153,7 @@ public class TranslationManager {
             return cachedObject
         }
         
-        let savedTransDict = savedTranslationsDict()
-        let fallback = T(dictionary: savedTransDict)
+        let fallback = T(dictionary: savedTranslationsDict())
         cachedTranslationsObject = fallback
         return fallback
     }
@@ -185,15 +180,14 @@ public class TranslationManager {
     
     public func savedTranslationsDict() -> [String : AnyObject] {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return [:]
         }
 
         if let savedTranslationsDict = NSUserDefaults.standardUserDefaults().dictionaryForKey(allTranslationsUserDefaultsKey) {
             return savedTranslationsDict
         }
-        
+
         return loadTranslationFromLocalFile()
     }
     
@@ -217,8 +211,7 @@ public class TranslationManager {
      */
     public func fetchAvailableLanguages(completion: Response<[Language], NSError> -> Void) {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return
         }
 
@@ -249,8 +242,7 @@ public class TranslationManager {
      */
     public func acceptLanguageHeaderValueString() -> String {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return ""
         }
 
@@ -367,8 +359,7 @@ u
      */
     public func findTranslationMatchingLanguage(language: String?, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
         guard configured else {
-            print("Translations Manager has to be configured first before it can be used.")
-            print("Please call `start(translationsType:)` before calling any other functions.")
+            print(NStackError.Translations.NotConfigured.description)
             return nil
         }
 

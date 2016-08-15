@@ -13,7 +13,7 @@ import Cashier
 
 struct ConnectionManager {
     
-    //MARK: - Setup
+    // MARK: - Setup -
     
     static let kBaseURL = "https://nstack.io/api/v1/"
     static let manager = Manager(configuration: ConnectionManager.configuration())
@@ -31,8 +31,10 @@ struct ConnectionManager {
             "X-Rest-Api-Key"    : NStack.sharedInstance.configuration.restAPIKey
         ]
     }
+
+    static let defaultUnwrapper: Parser.Unwrapper = { $0.0["data"] }
     
-    //MARK: - API Calls
+    // MARK: - API Calls -
 
     static func postAppOpen(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
                                        currentVersion: String = VersionUtilities.currentAppVersion(),
@@ -73,7 +75,7 @@ struct ConnectionManager {
         if NStack.sharedInstance.configuration.flat {
             slugs += "?flat=true"
         }
-        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
     static func fetchAvailableLanguages(completion: (Response<[Language], NSError> -> Void)) {
@@ -82,7 +84,7 @@ struct ConnectionManager {
             "guid"              : Configuration.guid(),
         ]
         
-        ConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
     static func fetchUpdates(completion: (Response<Update, NSError> -> Void)) {
@@ -93,7 +95,7 @@ struct ConnectionManager {
             "old_version"      : VersionUtilities.previousAppVersion(),
         ]
         
-        ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: { $0.0["data"] })
+        ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
     static func markNewerVersionAsSeen(id: Int, appStoreButtonPressed:Bool) {
@@ -127,7 +129,7 @@ struct ConnectionManager {
         ConnectionManager.manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: defaultHeaders)
     }
     
-    static func markRateReminderAsSeen(answer:AlertManager.RateReminderResult) {
+    static func markRateReminderAsSeen(answer: AlertManager.RateReminderResult) {
         let params: [String : AnyObject] = [
             "guid"              : Configuration.guid(),
             "platform"          : "ios",

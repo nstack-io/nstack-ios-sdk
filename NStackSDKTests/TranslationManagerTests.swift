@@ -1,0 +1,53 @@
+//
+//  TranslationManagerTests.swift
+//  NStackSDK
+//
+//  Created by Dominik Hádl on 15/08/16.
+//  Copyright © 2016 Nodes ApS. All rights reserved.
+//
+
+import XCTest
+@testable import NStackSDK
+
+class TranslationManagerTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        NStack.start(configuration: testConfiguration(), launchOptions: nil)
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
+    func testTranslations() {
+
+        TranslationManager.sharedInstance.lastFetchedLanguage = nil
+        TranslationManager.sharedInstance.languageOverride = Language(id: 11, name: "English (UK)", locale: "en-GB", direction: "LRM", data: NSDictionary())
+
+        XCTAssertEqual(tr.defaultSection.successKey, "Success", "defaultSection.successKey does not have expected content in fallback!")
+
+        let expectation = expectationWithDescription("testFetchTranslations")
+
+        TranslationManager.sharedInstance.fetchAvailableLanguages { (response) -> Void in
+            switch response.result {
+            case .Success(let languages):
+                XCTAssert(languages.count > 0, "No languages available")
+                guard let secondLang = languages.last else { return }
+                TranslationManager.sharedInstance.languageOverride = secondLang
+                TranslationManager.sharedInstance.updateTranslations { (error) -> Void in
+                    XCTAssertEqual(tr.defaultSection.successKey,
+                        "DET VAR EN SUCCESS",
+                        "defaultSection.successKey does not have expected content in response from API!")
+                    expectation.fulfill()
+                }
+
+            case .Failure(let error):
+                XCTAssert(false, "Fetching languages failed - \(error.localizedDescription)")
+            }
+        }
+        waitForExpectationsWithTimeout(15, handler: nil)
+    }
+
+}

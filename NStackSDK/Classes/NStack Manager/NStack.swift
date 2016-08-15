@@ -44,6 +44,10 @@ public class NStack {
 
     private func start(configuration configuration: Configuration,
                                      launchOptions: [NSObject: AnyObject]?) {
+        guard !configured else {
+            print("NStack is already configured. Kill the app and start it again with new configuration.")
+            return
+        }
 
         self.configuration = configuration
         self.configured = true
@@ -87,9 +91,8 @@ public class NStack {
     
     public func update(completion: ((error: NStackError.Manager?) -> Void)? = nil) {
         guard configured else {
-            let errorMessage = "NStack needs to be configured before it can be used. Please, call the `start` function first."
-            print(errorMessage)
-            completion?(error: .UpdateFailed(reason: errorMessage))
+            print(NStackError.Manager.NotConfigured.description)
+            completion?(error: .NotConfigured)
             return
         }
 
