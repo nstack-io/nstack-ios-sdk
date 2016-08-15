@@ -52,6 +52,11 @@ public class NStack {
         self.configuration = configuration
         self.configured = true
 
+        // Setup the connection manager
+        ConnectionManager.configuration = APIConfiguration(appId: configuration.appId,
+                                                           restAPIKey: configuration.restAPIKey,
+                                                           isFlat: configuration.flat)
+
         // Observe if necessary
         if configuration.updatesOnApplicationDidBecomeActive {
             observer = ApplicationObserver()
@@ -122,20 +127,16 @@ public class NStack {
                     
                     if let newVersion = appOpenResponseData.update?.newerVersion {
                         AlertManager.sharedInstance.showUpdateAlert(newVersion: newVersion)
-                        
                     } else if let changelog = appOpenResponseData.update?.newInThisVersion {
                         AlertManager.sharedInstance.showWhatsNewAlert(changelog)
-                        
                     } else if let message = appOpenResponseData.message {
                         AlertManager.sharedInstance.showMessage(message)
-                        
                     } else if let rateReminder = appOpenResponseData.rateReminder {
                         AlertManager.sharedInstance.showRateReminder(rateReminder)
                     }
                     
                     VersionUtilities.setPreviousAppVersion(VersionUtilities.currentAppVersion())
                 }
-                
 
                 // Get last fetched language
                 if let language = wrapper.languageData?.language {
