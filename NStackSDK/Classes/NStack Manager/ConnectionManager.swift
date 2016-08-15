@@ -11,24 +11,36 @@ import Alamofire
 import Serializable
 import Cashier
 
-struct ConnectionManager {
+struct APIConfiguration {
+    let appId: String
+    let restAPIKey: String
+    let isFlat: Bool
+
+    init(appId: String = "", restAPIKey: String = "", isFlat: Bool = false) {
+        self.appId = appId
+        self.restAPIKey = restAPIKey
+        self.isFlat = isFlat
+    }
+}
+
+enum ConnectionManager {
     
     // MARK: - Setup -
     
     static let kBaseURL = "https://nstack.io/api/v1/"
-    static let manager = Manager(configuration: ConnectionManager.configuration())
-    
-    static func configuration() -> NSURLSessionConfiguration {
+    static let manager  = Manager(configuration: {
         let configuration = Manager.sharedInstance.session.configuration
         configuration.timeoutIntervalForRequest = 20.0
         return configuration
-    }
+    }())
+
+    static var configuration = APIConfiguration()
     
     static var defaultHeaders: [String : String] {
         return [
-            "Accept-Language": TranslationManager.sharedInstance.acceptLanguageHeaderValueString(),
-            "X-Application-id"  : NStack.sharedInstance.configuration.appId,
-            "X-Rest-Api-Key"    : NStack.sharedInstance.configuration.restAPIKey
+            "Accept-Language" : TranslationManager.sharedInstance.acceptLanguageHeaderValueString(),
+            "X-Application-id"  : configuration.appId,
+            "X-Rest-Api-Key"    : configuration.restAPIKey
         ]
     }
 
@@ -48,7 +60,7 @@ struct ConnectionManager {
             "old_version"       : oldVersion
         ]
         
-        let slugs = "open" + (NStack.sharedInstance.configuration.flat ? "?flat=true" : "")
+        let slugs = "open" + (configuration.isFlat ? "?flat=true" : "")
         ConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
     

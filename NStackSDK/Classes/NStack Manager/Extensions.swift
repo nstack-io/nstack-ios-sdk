@@ -38,6 +38,7 @@ extension NStack {
     }
 
     internal func print(items: Any...) {
+        guard configured else { return }
         if configuration.verboseMode {
             print(items)
         }
