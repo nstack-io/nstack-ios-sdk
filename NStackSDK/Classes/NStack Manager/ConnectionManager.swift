@@ -51,7 +51,6 @@ enum ConnectionManager {
     static func postAppOpen(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
                                        currentVersion: String = VersionUtilities.currentAppVersion(),
                                        completion: (Response<AnyObject, NSError> -> Void)) {
-
         let params: [String : AnyObject] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid(),
@@ -60,21 +59,18 @@ enum ConnectionManager {
             "old_version"       : oldVersion
         ]
         
-        let slugs = "open" + (configuration.isFlat ? "?flat=true" : "")
-        ConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
+        ConnectionManager.manager.request(.POST, kBaseURL + "open", parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
     
-    static func fetchTranslations(completion: (Response<AnyObject, NSError> -> Void)) {
+    static func fetchTranslations(completion: (Response<TranslationsResponse, NSError> -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : 1.0,
             "guid"              : Configuration.guid(),
             "last_updated"      : lastUpdatedString(),
         ]
-        var slugs = "translate/mobile/keys"
-        if NStack.sharedInstance.configuration.flat {
-            slugs += "?flat=true"
-        }
-        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
+
+        let slugs = "translate/mobile/keys" + (configuration.isFlat ? "?flat=true" : "")
+        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion)
     }
 
     static func fetchCurrentLanguage(completion: (Response<Language, NSError> -> Void)) {
@@ -83,10 +79,8 @@ enum ConnectionManager {
             "guid"              : Configuration.guid(),
             "last_updated"      : lastUpdatedString(),
         ]
-        var slugs = "translate/mobile/languages/best_fit?show_inactive_languages=true"
-        if NStack.sharedInstance.configuration.flat {
-            slugs += "?flat=true"
-        }
+
+        let slugs = "translate/mobile/languages/best_fit?show_inactive_languages=true"
         ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
@@ -99,12 +93,14 @@ enum ConnectionManager {
         ConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
-    static func fetchUpdates(completion: (Response<Update, NSError> -> Void)) {
+    static func fetchUpdates(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
+                                        currentVersion: String = VersionUtilities.currentAppVersion(),
+                                        completion: (Response<Update, NSError> -> Void)) {
         let params:[String : AnyObject] = [
-            "current_version"   : VersionUtilities.currentAppVersion(),
+            "current_version"   : currentVersion,
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
-            "old_version"      : VersionUtilities.previousAppVersion(),
+            "old_version"       : oldVersion,
         ]
         
         ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
