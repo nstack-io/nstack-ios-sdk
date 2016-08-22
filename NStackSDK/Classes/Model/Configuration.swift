@@ -9,15 +9,25 @@
 import Foundation
 import Serializable
 
+public struct UpdateOptions: OptionSetType {
+    public let rawValue: Int
+    public init(rawValue: Int) { self.rawValue = rawValue }
+
+    public static let OnStart = UpdateOptions(rawValue: 1 << 0)
+    public static let OnDidBecomeActive = UpdateOptions(rawValue: 1 << 1)
+}
+
 public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
     public let translationsClass: Translatable.Type?
-    public var updateAutomaticallyOnStart = true
-    public var updatesOnApplicationDidBecomeActive = true
+    public var updateOptions: UpdateOptions = [.OnStart, .OnDidBecomeActive]
     public var verboseMode = false
     public var flat = false
+
+    // Used for tests
+    internal var versionOverride: String?
 
     private static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
 

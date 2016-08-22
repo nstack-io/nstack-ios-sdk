@@ -11,9 +11,10 @@ import Foundation
 enum VersionUtilities {
     
     private static let previousVersionKey = "PreviousVersionKey"
+    internal static var versionOverride: String?
     
     static func currentAppVersion() -> String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
+        return versionOverride ?? NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
     }
     
     static func previousAppVersion() -> String {

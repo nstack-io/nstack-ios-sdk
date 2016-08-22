@@ -63,24 +63,18 @@ public class TranslationManager {
         ConnectionManager.fetchTranslations { (response) -> Void in
             
             switch response.result {
-            case .Success(let JSONdata):
-                if let JSONdata = JSONdata as? [String : AnyObject] {
-                    let unwrapped = JSONdata["data"] as? [String : AnyObject]
-                    let meta = JSONdata["meta"] as? [String : AnyObject]
-                    let language = meta?["language"] as? [String : AnyObject]
-                    
-                    let translations = self.translationType.init(dictionary: unwrapped)
-                    self.setTranslations(translations)
-                    
-                    let lang = Language.init(dictionary: language)
-                    TranslationManager.sharedInstance.lastFetchedLanguage = lang
-                    completion?(error: nil)
-                } else {
-                    completion?(error: .UpdateFailed(reason: "Translations response empty."))
+            case .Success(let translationsData):
+                let translations = self.translationType.init(dictionary: translationsData.translations)
+                self.setTranslations(translations)
+
+                if let language = translationsData.languageData?.language {
+                    TranslationManager.sharedInstance.lastFetchedLanguage = language
                 }
-                
+
+                completion?(error: nil)
+
             case .Failure(let error):
-                self.print("Error downloading Translations data")
+                self.print("Error downloading translations data.")
                 self.print(response.response, response.data)
                 self.print(error.localizedDescription)
                 completion?(error: .UpdateFailed(reason: error.localizedDescription))
@@ -354,7 +348,7 @@ public class TranslationManager {
 
      - parameter language: A language code of the desired language. If `nil`, first language will be used.
      - parameter json:     The JSON file containing translations for all languages.
-u
+
      - returns: Translations dictionary for the given language.
      */
     public func findTranslationMatchingLanguage(language: String?, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {

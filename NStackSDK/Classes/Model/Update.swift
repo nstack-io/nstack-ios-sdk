@@ -9,6 +9,12 @@
 import Foundation
 import Serializable
 
+enum UpdateState : String {
+    case Disabled    = "no"
+    case Remind      = "yes"
+    case Force       = "force"
+}
+
 struct Update
 {
     var newInThisVersion:Changelog?
@@ -34,17 +40,13 @@ struct Update
     }
     
     struct Version {
-        var state = State.Disabled
+        var state = UpdateState.Disabled
         var lastId = 0
         var version = ""
         var translations = UpdateTranslations() //<-translate
         var link:NSURL?
         
-        enum State : String {
-            case Disabled    = "no"
-            case Remind      = "yes"
-            case Force       = "force"
-        }
+
     }
 }
 

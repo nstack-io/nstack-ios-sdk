@@ -52,16 +52,17 @@ public class NStack {
         self.configuration = configuration
         self.configured = true
 
+        // For testing purposes
+        VersionUtilities.versionOverride = configuration.versionOverride
+
         // Setup the connection manager
         ConnectionManager.configuration = APIConfiguration(appId: configuration.appId,
                                                            restAPIKey: configuration.restAPIKey,
                                                            isFlat: configuration.flat)
 
         // Observe if necessary
-        if configuration.updatesOnApplicationDidBecomeActive {
+        if configuration.updateOptions.contains(.OnDidBecomeActive) {
             observer = ApplicationObserver()
-        } else {
-            observer = nil
         }
 
         // Setup translations
@@ -75,7 +76,7 @@ public class NStack {
         }
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
-        if configuration.updateAutomaticallyOnStart && launchOptions?.keys.contains({ avoidUpdateList.contains($0) }) != true {
+        if configuration.updateOptions.contains(.OnStart) && launchOptions?.keys.contains({ avoidUpdateList.contains($0) }) != true {
             update()
         }
     }

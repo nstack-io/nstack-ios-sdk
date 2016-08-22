@@ -15,7 +15,8 @@ import Alamofire
 let testConfiguration: () -> Configuration = {
     var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
     conf.verboseMode = true
-    conf.updateAutomaticallyOnStart = false
+    conf.updateOptions = []
+    conf.versionOverride = "2.0"
     return conf
 }
 
@@ -30,10 +31,20 @@ class NStackTests: XCTestCase {
     }
 
     func testStart() {
-        //NStack.start(configuration: conf, launchOptions: nil)
+        NStack.start(configuration: testConfiguration(), launchOptions: nil)
+        XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
     }
 
     func testUpdate() {
+        let expectation = expectationWithDescription("NStack update should succeed.")
 
+        NStack.sharedInstance.update { (error) in
+            XCTAssertNil(error, "NStack shouldn't error on update. \(error!.description)")
+            if error == nil {
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectationsWithTimeout(5.0, handler: nil)
     }
 }

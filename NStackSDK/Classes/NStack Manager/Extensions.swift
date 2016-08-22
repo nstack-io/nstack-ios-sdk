@@ -21,14 +21,15 @@ extension UIApplication {
         return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
     }
 
-    func safeOpenURL(url: NSURL) {
-        if self.canOpenURL(url) {
-            guard let _ = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
-                return
-            }
-            return
+    func safeOpenURL(url: NSURL) -> Bool {
+        guard self.canOpenURL(url) else { return false }
+
+        guard let returnVal = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
+            return false
         }
-        return
+
+        let value = returnVal.takeRetainedValue() as? NSNumber
+        return value?.boolValue ?? false
     }
 }
 
@@ -40,7 +41,7 @@ extension NStack {
     internal func print(items: Any...) {
         guard configured else { return }
         if configuration.verboseMode {
-            print(items)
+            Swift.print(items)
         }
     }
 }

@@ -10,17 +10,20 @@ import XCTest
 @testable import NStackSDK
 
 class TranslationManagerTests: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
-        NStack.start(configuration: testConfiguration(), launchOptions: nil)
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
+//    func testTranslationUpdate() {
+//
+//    }
+
     func testTranslations() {
 
         TranslationManager.sharedInstance.lastFetchedLanguage = nil
@@ -49,5 +52,5 @@ class TranslationManagerTests: XCTestCase {
         }
         waitForExpectationsWithTimeout(15, handler: nil)
     }
-
+    
 }
