@@ -231,9 +231,12 @@ public class TranslationManager {
     }
 
     /**
-     <#Description#>
+     Returns a string containing the current locale's preferred languages in a prioritized manner to be used in a accept-language header.
+     Format example:
+     
+     "da;q=1.0, en-gb;q=0.8, en;q=0.7"
 
-     - returns: <#return value description#>
+     - returns: A string
      */
     public func acceptLanguageHeaderValueString() -> String {
         guard configured else {
@@ -312,17 +315,8 @@ public class TranslationManager {
         if languageJSON == nil {
             // First check to see if any of the translations match one of the user's device languages
             for userLanguage in NSLocale.preferredLanguages() {
-                if languageJSON != nil {
-                    // Already found one
-                    break
-                }
-                else {
-                    var string = userLanguage as NSString
-                    if string.length > 2 { // iOS9 changed it from "en" to "en-US" (as an example)
-                        string = string.substringToIndex(2)
-                    }
-                    languageJSON = findTranslationMatchingLanguage(string as String, inJSON: json)
-                }
+                languageJSON = findTranslationMatchingLanguage(userLanguage, inJSON: json)
+                if languageJSON != nil { break }
             }
             
             if languageJSON == nil {
@@ -331,7 +325,7 @@ public class TranslationManager {
             }
             if languageJSON == nil {
                 // No English translation, just use whatever the first one is
-                languageJSON = findTranslationMatchingLanguage(nil, inJSON: json)
+                languageJSON = json.first
             }
         }
         
@@ -352,27 +346,17 @@ public class TranslationManager {
 
      - returns: Translations dictionary for the given language.
      */
-    public func findTranslationMatchingLanguage(language: String?, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
+    public func findTranslationMatchingLanguage(language: String, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
         guard configured else {
             print(NStackError.Translations.NotConfigured.description)
             return nil
         }
 
-        // FIXME: Improve, remove unnecessary casts, cleanup
-
-        // Intentionally passed nil to get the first language in the file
-        guard let language = language else {
-
-            // json.keys.flatMap({$0})
-            if let keys = (json as NSDictionary).allKeys as? [String] {
-                return json[keys[0]] as? [String : AnyObject]
-            }
-
-            return nil
-        }
-
         for (key, _) in json {
-            if (key as NSString).substringToIndex(2) == (language as NSString).substringToIndex(2) {
+            if key == language {
+                if language.characters.count < key.characters.count { /* iOS 8 returns two-char language without the region */
+                    return json[key.substringToIndex(key.startIndex.advancedBy(language.characters.count))] as? [String : AnyObject]
+                }
                 return json[key] as? [String : AnyObject]
             }
         }
