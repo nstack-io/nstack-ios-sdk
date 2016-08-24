@@ -305,9 +305,6 @@ public class TranslationManager {
     private func parseTranslationsFromJSON(json: [String : AnyObject]) -> [String : AnyObject] {
         var languageJSON: [String : AnyObject]? = nil
         
-        //TODO: find a way to check region as well as language? In case we get to a point
-        // with our translations where that will make a difference (en-US vs en-UK for example)
-        
         if let languageOverride = languageOverride {
             languageJSON = findTranslationMatchingLanguage(languageOverride.locale, inJSON: json)
         }
@@ -316,6 +313,12 @@ public class TranslationManager {
             // First check to see if any of the translations match one of the user's device languages
             for userLanguage in NSLocale.preferredLanguages() {
                 languageJSON = findTranslationMatchingLanguage(userLanguage, inJSON: json)
+                if languageJSON != nil { break }
+            }
+            
+            //No matches, see if something matches when only using first two characters
+            for userLanguage in NSLocale.preferredLanguages() {
+                languageJSON = findTranslationMatchingLanguage(userLanguage.substringToIndex(userLanguage.startIndex.advancedBy(2)), inJSON: json)
                 if languageJSON != nil { break }
             }
             
