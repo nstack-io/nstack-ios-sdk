@@ -15,7 +15,7 @@ import Alamofire
  The Translations Manager handles everything related to translations.
 
  Usually, direct interaction with the `Translations Manager` shouldn't be neccessary, since it is
- setup automatically by the NStack manager, and the translations are accessible by the global 'tr()' 
+ setup automatically by the NStack manager, and the translations are accessible by the global 'tr()'
  function defined in the auto-generated translations Swift file.
 */
 public class TranslationManager {
@@ -201,9 +201,10 @@ public class TranslationManager {
     /**
      Gets the languages for which translations are available
 
-     - parameter completion: <#completion description#>
+     - parameter completion: An Alamofire Response object containing the array or languages on success
      */
-    public func fetchAvailableLanguages(completion: Response<[Language], NSError> -> Void) {
+    
+    public func fetchAvailableLanguages(completion: Alamofire.Response<[Language], NSError> -> Void) {
         guard configured else {
             print(NStackError.Translations.NotConfigured.description)
             return
