@@ -325,7 +325,7 @@ public class TranslationManager {
             }
             if languageJSON == nil {
                 // No English translation, just use whatever the first one is
-                languageJSON = json.first
+                languageJSON = json.values.first as? [String : AnyObject]
             }
         }
         
