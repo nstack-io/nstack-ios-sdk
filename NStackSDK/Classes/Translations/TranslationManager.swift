@@ -15,7 +15,7 @@ import Alamofire
  The Translations Manager handles everything related to translations.
 
  Usually, direct interaction with the `Translations Manager` shouldn't be neccessary, since it is
- setup automatically by the NStack manager, and the translations are accssible by the global 'tr()' 
+ setup automatically by the NStack manager, and the translations are accessible by the global 'tr()' 
  function defined in the auto-generated translations Swift file.
 */
 public class TranslationManager {
