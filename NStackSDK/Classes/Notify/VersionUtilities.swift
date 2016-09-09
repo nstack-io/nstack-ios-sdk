@@ -14,7 +14,7 @@ enum VersionUtilities {
     internal static var versionOverride: String?
     
     static func currentAppVersion() -> String {
-        return Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
     
     static func previousAppVersion() -> String {

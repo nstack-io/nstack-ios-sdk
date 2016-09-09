@@ -59,7 +59,7 @@ public class TranslationManager {
     
     */
     
-    public func updateTranslations(_ completion:((error:NSError?) -> Void)? = nil) {
+    public func updateTranslations(_ completion:((_ error:Error?) -> Void)? = nil) {
         
         NStackConnectionManager.fetchTranslations { (response) -> Void in
             
@@ -70,40 +70,40 @@ public class TranslationManager {
                     let meta = JSONdata["meta"] as? [String : AnyObject]
                     let language = meta?["language"] as? [String : AnyObject]
                     
-                    let translations = self.translationType.init(dictionary: unwrapped)
+                    let translations = self.translationType.init(dictionary: unwrapped as NSDictionary?)
                     self.setTranslations(translations)
                     
-                    let lang = Language.init(dictionary: language)
+                    let lang = Language.init(dictionary: language as NSDictionary?)
                     TranslationManager.sharedInstance.lastFetchedLanguage = lang
-                    completion?(error: nil)
+                    completion?(nil)
                 } else {
-                    completion?(error: NSError(domain: "NStack", code: 100, userInfo: [ NSLocalizedDescriptionKey : "Translations response empty"]))
+                    completion?(NSError(domain: "NStack", code: 100, userInfo: [ NSLocalizedDescriptionKey : "Translations response empty"]))
                 }
                 
             case .failure(let error):
                 print("Error downloading Translations data")
                 print(response.response, response.data)
                 print(error.localizedDescription)
-                completion?(error: error)
+                completion?(error)
                 return
             }
         }
     }
     
-    public func fetchCurrentLanguage(_ completion:((error:NSError?) -> Void)? = nil) {
+    public func fetchCurrentLanguage(_ completion:((_ error:Error?) -> Void)? = nil) {
         
         NStackConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
             case .success(let language):
                 
                 TranslationManager.sharedInstance.lastFetchedLanguage = language
-                completion?(error: nil)
+                completion?(nil)
                 
             case .failure(let error):
                 print("Error downloading Language data")
                 print(response.response, response.data)
                 print(error)
-                completion?(error: error)
+                completion?(error)
                 return
             }
         })
@@ -132,7 +132,7 @@ public class TranslationManager {
     
     public func translations<T:Translatable>() -> T {
         
-        if let lastRequestedAcceptLangString:String? = NOPersistentStore.cache( withId: NStackConstants.persistentStoreID).object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
+        if let lastRequestedAcceptLangString:String = NOPersistentStore.cache( withId: NStackConstants.persistentStoreID).object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String , lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
         }
         
@@ -141,7 +141,7 @@ public class TranslationManager {
         }
         
         let savedTransDict = savedTranslationsDict()
-        let fallback = T(dictionary: savedTransDict)
+        let fallback = T(dictionary: savedTransDict as NSDictionary?)
         cachedTranslationsObject = fallback
         return fallback
     }
@@ -168,7 +168,7 @@ public class TranslationManager {
     
     public func savedTranslationsDict() -> [String : AnyObject] {
         if let savedTranslationsDict = UserDefaults.standard.dictionary(forKey: TranslationManager.allTranslationsUserDefaultsKey) {
-            return savedTranslationsDict
+            return savedTranslationsDict as [String : AnyObject]
         }
         
         return loadTranslationFromLocalFile()
@@ -197,7 +197,7 @@ public class TranslationManager {
     
     */
     
-    public func fetchAvailableLanguages(_ completion: (Response<[Language], NSError>) -> Void) {
+    public func fetchAvailableLanguages(_ completion: (DataResponse<[Language]>) -> Void) {
         
         NStackConnectionManager.fetchAvailableLanguages(completion)
     }
@@ -254,7 +254,7 @@ public class TranslationManager {
     
     private func loadTranslationFromLocalFile() -> [String : AnyObject] {
         for bundle in Bundle.allBundles {
-            if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+            if let filePath = bundle.path(forResource: "Translations", ofType: "json"), let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject] {
                         let unwrapped = json["data"] as? [String : AnyObject]
@@ -306,7 +306,7 @@ public class TranslationManager {
                 else {
                     var string = userLanguage as NSString
                     if string.length > 2 { // iOS9 changed it from "en" to "en-US" (as an example)
-                        string = string.substring(to: 2)
+                        string = string.substring(to: 2) as NSString
                     }
                     languageJSON = findTranslationMatchingLanguage(string as String, inJSON: json)
                 }

@@ -18,24 +18,26 @@ public struct AlertManager {
     }
     
     public enum AlertType {
-        case updateAlert(title:String, text:String, dismissButtonText:String?, appStoreButtonText:String, completion:(didPressAppStore:Bool) -> Void)
+        case updateAlert(title:String, text:String, dismissButtonText:String?, appStoreButtonText:String, completion:(_ didPressAppStore:Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion:() -> Void)
         case message(text: String, dismissButtonText: String, completion:() -> Void)
-        case rateReminder(title:String, text: String, rateButtonText:String, laterButtonText:String, neverButtonText:String, completion:(result:RateReminderResult) -> Void)
+        case rateReminder(title:String, text: String, rateButtonText:String, laterButtonText:String, neverButtonText:String, completion:(_ result:RateReminderResult) -> Void)
     }
     
     public static var sharedInstance = AlertManager()
+    
+    
     
     init() {
         self.alertWindow.windowLevel = UIWindowLevelAlert + 1
         self.alertWindow.rootViewController = UIViewController()
     }
     
-    var alertWindow = UIWindow(frame: UIScreen.main().bounds)
+    var alertWindow = UIWindow(frame: UIScreen.main.bounds)
     
     var alreadyShowingAlert:Bool { return (AlertManager.sharedInstance.alertWindow.isHidden == false) }
     
-    public var showAlertBlock:(alertType:AlertType) -> Void = { (alertType:AlertType) -> Void in
+    public var showAlertBlock:(_ alertType:AlertType) -> Void = { (alertType:AlertType) -> Void in
         
         if AlertManager.sharedInstance.alreadyShowingAlert { return }
             
@@ -46,17 +48,17 @@ public struct AlertManager {
         switch alertType {
         case let .updateAlert(title, text, dismissText, appStoreText, completion):
             header = title
-            message = String(NSString(format: text))
+            message = String(NSString(format: text as NSString))
             if let dismissText = dismissText {
                 actions.append(UIAlertAction(title: dismissText, style: UIAlertActionStyle.default, handler: { action in
                     AlertManager.hideAlertWindow()
-                    completion(didPressAppStore: false)
+                    completion(false)
                 }))
             }
             
             actions.append(UIAlertAction(title: appStoreText, style: UIAlertActionStyle.default, handler: { action in
                 AlertManager.hideAlertWindow()
-                completion(didPressAppStore: true)
+                completion(true)
             }))
             
         case let .whatsNewAlert(title, text, dismissButtonText, completion):
@@ -79,16 +81,16 @@ public struct AlertManager {
             message = text
             actions.append(UIAlertAction(title: rateButtonText, style: UIAlertActionStyle.default, handler: { action in
                 AlertManager.hideAlertWindow()
-                completion(result: .Rate)
+                completion(.Rate)
             }))
             actions.append(UIAlertAction(title: laterButtonText, style: UIAlertActionStyle.default, handler: { action in
                 AlertManager.hideAlertWindow()
-                completion(result: .Later)
+                completion(.Later)
                 
             }))
             actions.append(UIAlertAction(title: neverButtonText, style: UIAlertActionStyle.cancel, handler: { action in
                 AlertManager.hideAlertWindow()
-                completion(result: .Never)
+                completion(.Never)
             }))
         }
         
@@ -119,11 +121,11 @@ public struct AlertManager {
         switch version.state {
         case .Force:
             let alertType = AlertManager.AlertType.updateAlert(title: version.translations.title, text: version.translations.message, dismissButtonText: nil, appStoreButtonText: version.translations.positiveBtn, completion:appStoreCompletion)
-            self.showAlertBlock(alertType: alertType)
+            self.showAlertBlock(alertType)
             
         case .Remind:
             let alertType = AlertManager.AlertType.updateAlert(title: version.translations.title, text: version.translations.message, dismissButtonText: version.translations.negativeBtn, appStoreButtonText: version.translations.positiveBtn, completion:appStoreCompletion)
-            self.showAlertBlock(alertType: alertType)
+            self.showAlertBlock(alertType)
             
         case .Disabled:
             return
@@ -135,23 +137,24 @@ public struct AlertManager {
         let alertType = AlertManager.AlertType.whatsNewAlert(title: translations.title, text: translations.message, dismissButtonText: "Ok") { () -> Void in
             NStackConnectionManager.markWhatsNewAsSeen(changeLog.lastId)
         }
-        self.showAlertBlock(alertType: alertType)
+        self.showAlertBlock(alertType)
     }
 
     internal func showMessage(_ message:Message) {
         let alertType = AlertManager.AlertType.message(text: message.message, dismissButtonText: "Ok") { () -> Void in
             NStackConnectionManager.markMessageAsRead(message.id)
         }
-        self.showAlertBlock(alertType: alertType)
+        self.showAlertBlock(alertType)
     }
 
     internal func showRateReminder(_ rateReminder:RateReminder) {
         let alertType = AlertManager.AlertType.rateReminder(title: rateReminder.title, text: rateReminder.body, rateButtonText: rateReminder.rateBtn, laterButtonText: rateReminder.laterBtn, neverButtonText: rateReminder.neverBtn) { (result) -> Void in
             NStackConnectionManager.markRateReminderAsSeen(result)
-            if let link = rateReminder.link where result == .Rate {
+            
+            if result == .Rate, let link = rateReminder.link {
                 UIApplication.safeSharedApplication()?.safeOpenURL(link)
             }
         }
-        self.showAlertBlock(alertType: alertType)
+        self.showAlertBlock(alertType)
     }
 }

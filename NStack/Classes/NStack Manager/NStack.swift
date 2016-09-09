@@ -46,7 +46,7 @@ public struct Configuration {
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
-            if let fileURL = bundle.urlForResource(fileName, withExtension: "plist") {
+            if let fileURL = bundle.url(forResource:fileName, withExtension: "plist") {
 
                 let object = NSDictionary(contentsOf: fileURL)
 
@@ -101,7 +101,7 @@ public struct NStack {
     
     public var languageChangedHandler:(() -> Void)?
     
-    private var avoidUpdateList = [UIApplicationLaunchOptionsLocationKey]
+    private var avoidUpdateList = [UIApplicationLaunchOptionsKey.location]
     
     //MARK: - Start NStack
     
@@ -112,7 +112,7 @@ public struct NStack {
     - parameter configuration: A *configuration* object containing API keys and translations type
     
     */
-    public static func start(configuration: Configuration, launchOptions: [NSObject: AnyObject]?) {
+    public static func start(configuration: Configuration, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         sharedInstance = NStack(configuration: configuration)
         
         var shouldUpdate = true
@@ -154,7 +154,7 @@ public struct NStack {
     - parameter completion: This is run after the call has finished. If *error* was nil, translation strings are up-to-date
     
     */
-    public func update(_ completion: ((error:NSError?)->Void)? = nil ) {
+    public func update(_ completion: ((_ error:Error?)->Void)? = nil ) {
         NStackConnectionManager.doAppOpenCall(oldVersion: NStackVersionUtils.previousAppVersion(), currentVersion: NStackVersionUtils.currentAppVersion()) { response in
             switch response.result {
             case .success(let JSONdata):
@@ -162,7 +162,7 @@ public struct NStack {
                     if NStack.sharedInstance.configuration.verboseMode {
                         print("failure: couldn't parse response")
                     }
-                    completion?(error: NSError(domain: "com.nodes.nstack", code: 1000, userInfo: [NSLocalizedDescriptionKey : "Couldn't parse response dictionary."]))
+                    completion?(NSError(domain: "com.nodes.nstack", code: 1000, userInfo: [NSLocalizedDescriptionKey : "Couldn't parse response dictionary."]))
                     return
                 }
 
@@ -207,14 +207,14 @@ public struct NStack {
                     
                     NStackConnectionManager.setLastUpdatedToNow()
                 }
-                
-                completion?(error: nil)
+
+                completion?(nil)
 
             case let .failure(error):
                 if NStack.sharedInstance.configuration.verboseMode {
-                    print("failure: \(response.response ?? "unknown error")")
+                    print("failure: \(response.response != nil ? String(describing: response.response!) : "unknown error")")
                 }
-                completion?(error: error)
+                completion?(error)
             }
         }
     }
