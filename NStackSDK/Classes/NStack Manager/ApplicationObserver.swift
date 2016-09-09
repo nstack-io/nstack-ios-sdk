@@ -28,7 +28,7 @@ class ApplicationObserver {
         } else {
             let prevAcceptLangString = NStack.persistentStore.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
             NStack.sharedInstance.update({ (error) -> Void in
-                if let prevAcceptLangString = prevAcceptLangString where prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
+                if let prevAcceptLangString = prevAcceptLangString, prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
                     NStack.sharedInstance.languageChangedHandler?()
                 }
             })

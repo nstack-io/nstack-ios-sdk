@@ -17,10 +17,10 @@ struct NStackConnectionManager {
     
     internal static let kBaseURL = "https://nstack.io/api/v1/"
     
-    static let manager:Manager = Manager(configuration: NStackConnectionManager.configuration())
+    static let manager:SessionManager = SessionManager(configuration: NStackConnectionManager.configuration())
     
     static func configuration() -> URLSessionConfiguration {
-        let configuration = Manager.sharedInstance.session.configuration
+        let configuration = SessionManager.default.session.configuration
         configuration.timeoutIntervalForRequest = 20.0
         return configuration
     }
@@ -35,8 +35,8 @@ struct NStackConnectionManager {
     
     //MARK: - API Calls
 
-    static func doAppOpenCall(oldVersion: String, currentVersion: String, completion: ((Response<AnyObject, NSError>) -> Void)) {
-        let params:[String : AnyObject] = [
+    static func doAppOpenCall(oldVersion: String, currentVersion: String, completion: ((DataResponse<AnyObject>) -> Void)) {
+        let params:[String : String] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid(),
             "platform"          : "ios",
@@ -49,12 +49,12 @@ struct NStackConnectionManager {
             slugs += "?flat=true"
         }
 
-        NStackConnectionManager.manager.request(.POST, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
+        NStackConnectionManager.manager.request(.POST, method: kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
     }
     
-    static func fetchTranslations(_ completion: ((Response<AnyObject, NSError>) -> Void)) {
-        let params:[String : AnyObject] = [
-            "version"           : 1.0,
+    static func fetchTranslations(_ completion: ((DataResponse<AnyObject>) -> Void)) {
+        let params:[String : String] = [
+            "version"           : String(1.0),
             "guid"              : Configuration.guid(),
             "last_updated"      : lastUpdatedString(),
         ]
@@ -65,9 +65,9 @@ struct NStackConnectionManager {
         NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseJSON(completionHandler: completion)
     }
 
-    static func fetchCurrentLanguage(_ completion: ((Response<Language, NSError>) -> Void)) {
+    static func fetchCurrentLanguage(_ completion: ((DataResponse<Language>) -> Void)) {
         let params:[String : AnyObject] = [
-            "version"           : 1.0,
+            "version"           : String(1.0),
             "guid"              : Configuration.guid(),
             "last_updated"      : lastUpdatedString(),
         ]
@@ -78,7 +78,7 @@ struct NStackConnectionManager {
         NStackConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
-    static func fetchAvailableLanguages(_ completion: ((Response<[Language], NSError>) -> Void)) {
+    static func fetchAvailableLanguages(_ completion: ((DataResponse<[Language]>) -> Void)) {
         let params:[String : AnyObject] = [
             "version"           : 1.0,
             "guid"              : Configuration.guid(),
@@ -87,7 +87,7 @@ struct NStackConnectionManager {
         NStackConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
     }
     
-    static func fetchUpdates(_ completion: ((Response<Update, NSError>) -> Void)) {
+    static func fetchUpdates(_ completion: ((DataResponse<Update>) -> Void)) {
         let params:[String : AnyObject] = [
             "current_version"   : NStackVersionUtils.currentAppVersion(),
             "guid"              : Configuration.guid(),
@@ -146,7 +146,7 @@ extension NStackConnectionManager {
     internal static func lastUpdatedString() -> String {
         
         let currentAcceptLangString = TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
-        if let prevAcceptLangString:String? = NOPersistentStore.cache(withId: NStackConstants.persistentStoreID).object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String where prevAcceptLangString != currentAcceptLangString {
+        if let prevAcceptLangString:String = NOPersistentStore.cache(withId: NStackConstants.persistentStoreID).object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String , prevAcceptLangString != currentAcceptLangString {
             NOPersistentStore.cache(withId: NStackConstants.persistentStoreID).setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
             self.setLastUpdatedToDistantPast()
         }
