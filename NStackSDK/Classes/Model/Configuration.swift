@@ -9,7 +9,7 @@
 import Foundation
 import Serializable
 
-public struct UpdateOptions: OptionSetType {
+public struct UpdateOptions: OptionSet {
     public let rawValue: Int
     public init(rawValue: Int) { self.rawValue = rawValue }
 
@@ -29,17 +29,17 @@ public struct Configuration {
     // Used for tests
     internal var versionOverride: String?
 
-    private static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
+    fileprivate static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
 
     internal static func guid() -> String {
-        let savedUUID = NSUserDefaults.standardUserDefaults().objectForKey(UUIDKey)
+        let savedUUID = UserDefaults.standard.object(forKey: UUIDKey)
         if let UUID = savedUUID as? String {
             return UUID
         }
 
-        let newUUID = NSUUID().UUIDString
-        NSUserDefaults.standardUserDefaults().setObject(newUUID, forKey: UUIDKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let newUUID = UUID().uuidString
+        UserDefaults.standard.set(newUUID, forKey: UUIDKey)
+        UserDefaults.standard.synchronize()
         return newUUID
     }
 
@@ -54,11 +54,11 @@ public struct Configuration {
         var restAPIKey:String?
         var flatString:String?
 
-        for bundle in NSBundle.allBundles() {
-            let fileName = plistName.stringByReplacingOccurrencesOfString(".plist", withString: "")
-            if let fileURL = bundle.URLForResource(fileName, withExtension: "plist") {
+        for bundle in Bundle.allBundles {
+            let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
+            if let fileURL = bundle.url(forResource: fileName, withExtension: "plist") {
 
-                let object = NSDictionary(contentsOfURL: fileURL)
+                let object = NSDictionary(contentsOf: fileURL)
 
                 guard let keyDict = object as? [String : AnyObject] else {
                     fatalError("Can't parse file \(fileName).plist")
@@ -78,7 +78,7 @@ public struct Configuration {
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
 
-        if let flat = flatString where flat == "1" {
+        if let flat = flatString , flat == "1" {
             self.flat = true
         }
     }

@@ -14,19 +14,19 @@ class ApplicationObserver {
     var first = true
     
     init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidBecomeActive),
-                                                         name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive),
+                                                         name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         if first {
             first = false
         } else {
-            let prevAcceptLangString = NStack.persistentStore.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
+            let prevAcceptLangString = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
             NStack.sharedInstance.update({ (error) -> Void in
                 if let prevAcceptLangString = prevAcceptLangString, prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
                     NStack.sharedInstance.languageChangedHandler?()

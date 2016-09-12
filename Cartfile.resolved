@@ -1,4 +1,6 @@
 github "Alamofire/Alamofire" "4.0.0"
 github "nodes-ios/Cashier" "1.1.1"
-github "nodes-ios/Nodes" "0.0.1"
+github "ashleymills/Reachability.swift" "3c7e72ac66186e2477d07d36e2b4589fb5e855d8"
 github "nodes-ios/Serializable" "e0e79c95a3e4fc8a6861b5f3faf700fd9e86836f"
+github "nodes-ios/Blobfish" "e3df4d72ada2668be1d60448e23e9774e954acb2"
+github "nodes-ios/Nodes" "a3018663c89b750594cdc0c93c2a37938e09e829"

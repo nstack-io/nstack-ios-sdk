@@ -10,7 +10,7 @@ import Foundation
 
 enum VersionUtilities {
     
-    private static let previousVersionKey = "PreviousVersionKey"
+    fileprivate static let previousVersionKey = "PreviousVersionKey"
     internal static var versionOverride: String?
     
     static func currentAppVersion() -> String {
@@ -46,11 +46,11 @@ enum VersionUtilities {
         return false
     }
 
-    static func normalizedValuesFromArray(array: [String], maxValues: Int) -> [String] {
+    static func normalizedValuesFromArray(_ array: [String], maxValues: Int) -> [String] {
         guard array.count < maxValues else {
             return array
         }
 
-        return array + [String](count: maxValues - array.count, repeatedValue: "0")
+        return array + [String](repeating: "0", count: maxValues - array.count)
     }
 }
