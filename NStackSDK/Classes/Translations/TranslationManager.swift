@@ -18,25 +18,25 @@ import Alamofire
  setup automatically by the NStack manager, and the translations are accessible by the global 'tr()'
  function defined in the auto-generated translations Swift file.
 */
-public class TranslationManager {
+open class TranslationManager {
     
-    public static let sharedInstance = TranslationManager()
-    public var lastFetchedLanguage: Language?
+    open static let sharedInstance = TranslationManager()
+    open var lastFetchedLanguage: Language?
 
     let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
 
     var translationType: Translatable.Type!
     var cachedTranslationsObject: Translatable?
 
-    internal private(set) var configured = false
-    private init() {}
+    internal fileprivate(set) var configured = false
+    fileprivate init() {}
 
     /**
      Instantiates the shared singleton instance and sets the type of the translations object. Usually this is invoked by the NStack start method, so under normal circumstances, it should not be neccessary to invoke it directly.
     
     - parameter translationsType: The type of the translations object that should be used.
     */
-    public static func start(translationsType type: Translatable.Type) {
+    open static func start(translationsType type: Translatable.Type) {
         sharedInstance.translationType = type
         sharedInstance.configured = true
     }
@@ -53,39 +53,39 @@ public class TranslationManager {
     
     */
     
-    public func updateTranslations(completion: ((error: NStackError.Translations?) -> Void)? = nil) {
+    open func updateTranslations(_ completion: ((_ error: NStackError.Translations?) -> Void)? = nil) {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
-            completion?(error: .NotConfigured)
+            print(NStackError.Translations.notConfigured.description)
+            completion?(.notConfigured)
             return
         }
 
         ConnectionManager.fetchTranslations { (response) -> Void in
             
             switch response.result {
-            case .Success(let translationsData):
-                let translations = self.translationType.init(dictionary: translationsData.translations)
+            case .success(let translationsData):
+                let translations = self.translationType.init(dictionary: translationsData.translations as NSDictionary?)
                 self.setTranslations(translations)
 
                 if let language = translationsData.languageData?.language {
                     TranslationManager.sharedInstance.lastFetchedLanguage = language
                 }
 
-                completion?(error: nil)
+                completion?(nil)
 
-            case .Failure(let error):
+            case .failure(let error):
                 self.print("Error downloading translations data.")
                 self.print(response.response, response.data)
                 self.print(error.localizedDescription)
-                completion?(error: .UpdateFailed(reason: error.localizedDescription))
+                completion?(.UpdateFailed(reason: error.localizedDescription))
                 return
             }
         }
     }
     
-    public func fetchCurrentLanguage(completion: ((error:NSError?) -> Void)? = nil) {
+    open func fetchCurrentLanguage(_ completion: ((_ error:NSError?) -> Void)? = nil) {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return
         }
 
@@ -113,13 +113,13 @@ public class TranslationManager {
     
     */
     
-    public func clearSavedTranslations() {
+    open func clearSavedTranslations() {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return
         }
 
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(allTranslationsUserDefaultsKey)
+        UserDefaults.standard.removeObject(forKey: allTranslationsUserDefaultsKey)
         cachedTranslationsObject = nil
     }
     
@@ -132,14 +132,14 @@ public class TranslationManager {
     
     */
     
-    public func translations<T:Translatable>() -> T {
+    open func translations<T:Translatable>() -> T {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return T(dictionary: nil)
         }
 
-        if let lastRequestedAcceptLangString:String? = NStack.persistentStore.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
-            where lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
+        if let lastRequestedAcceptLangString:String? = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
+            , lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
         }
         
@@ -147,7 +147,7 @@ public class TranslationManager {
             return cachedObject
         }
         
-        let fallback = T(dictionary: savedTranslationsDict())
+        let fallback = T(dictionary: savedTranslationsDict() as NSDictionary?)
         cachedTranslationsObject = fallback
         return fallback
     }
@@ -160,7 +160,7 @@ public class TranslationManager {
     
     */
     
-    private func setTranslations(translations: Translatable) {
+    fileprivate func setTranslations(_ translations: Translatable) {
         setTranslationsSource(translations.encodableRepresentation())
     }
     
@@ -172,14 +172,14 @@ public class TranslationManager {
     
     */
     
-    public func savedTranslationsDict() -> [String : AnyObject] {
+    open func savedTranslationsDict() -> [String : AnyObject] {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return [:]
         }
 
-        if let savedTranslationsDict = NSUserDefaults.standardUserDefaults().dictionaryForKey(allTranslationsUserDefaultsKey) {
-            return savedTranslationsDict
+        if let savedTranslationsDict = UserDefaults.standard.dictionary(forKey: allTranslationsUserDefaultsKey) {
+            return savedTranslationsDict as [String : AnyObject]
         }
 
         return loadTranslationFromLocalFile()
@@ -190,9 +190,9 @@ public class TranslationManager {
 
      - parameter sourceDict: A dictionary representation of the translations
      */
-    func setTranslationsSource(sourceDict: NSCoding) {
-        NSUserDefaults.standardUserDefaults().setObject(sourceDict, forKey: allTranslationsUserDefaultsKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func setTranslationsSource(_ sourceDict: NSCoding) {
+        UserDefaults.standard.set(sourceDict, forKey: allTranslationsUserDefaultsKey)
+        UserDefaults.standard.synchronize()
         cachedTranslationsObject = nil
     }
     
@@ -204,9 +204,9 @@ public class TranslationManager {
      - parameter completion: An Alamofire Response object containing the array or languages on success
      */
     
-    public func fetchAvailableLanguages(completion: Alamofire.Response<[Language], NSError> -> Void) {
+    open func fetchAvailableLanguages(_ completion: @escaping (Alamofire.DataResponse<[Language]>) -> Void) {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return
         }
 
@@ -215,7 +215,7 @@ public class TranslationManager {
     
     /// This language will be used instead of the phones' language when it is not *nil*
     /// Remember to call *updateTranslations* after changing the value. Otherwise, the effect might not be seen.
-    public var languageOverride: Language? {
+    open var languageOverride: Language? {
         set {
             
             if let newValue = newValue {
@@ -238,9 +238,9 @@ public class TranslationManager {
 
      - returns: A string
      */
-    public func acceptLanguageHeaderValueString() -> String {
+    open func acceptLanguageHeaderValueString() -> String {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return ""
         }
 
@@ -251,7 +251,7 @@ public class TranslationManager {
         }
 
         // FIXME: Black magic, needs comments
-        for (index, languageCode) in (NSLocale.preferredLanguages() as [String]).enumerate() {
+        for (index, languageCode) in (Locale.preferredLanguages as [String]).enumerated() {
             let q = 1.0 - (Double(index) * 0.1)
             components.append("\(languageCode);q=\(q)")
             if q <= 0.5 {
@@ -259,7 +259,7 @@ public class TranslationManager {
             }
         }
         
-        return components.joinWithSeparator(",")
+        return components.joined(separator: ",")
     }
     
     //MARK: - Private instance methods
@@ -270,11 +270,11 @@ public class TranslationManager {
     
     - returns: A dictionary representation of the selected local translations set.
     */
-    private func loadTranslationFromLocalFile() -> [String : AnyObject] {
-        for bundle in NSBundle.allBundles() {
-            if let filePath = bundle.pathForResource("Translations", ofType: "json"), data = NSData(contentsOfFile: filePath) {
+    fileprivate func loadTranslationFromLocalFile() -> [String : AnyObject] {
+        for bundle in Bundle.allBundles {
+            if let filePath = bundle.path(forResource: "Translations", ofType: "json"), let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
                 do {
-                    if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as? [String : AnyObject] {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject] {
                         let unwrapped = json["data"] as? [String : AnyObject]
                         
                         if let data = unwrapped {
@@ -302,7 +302,7 @@ public class TranslationManager {
 
     - returns: A translations set as a dictionary.
     */
-    private func parseTranslationsFromJSON(json: [String : AnyObject]) -> [String : AnyObject] {
+    fileprivate func parseTranslationsFromJSON(_ json: [String : AnyObject]) -> [String : AnyObject] {
         var languageJSON: [String : AnyObject]? = nil
         
         if let languageOverride = languageOverride {
@@ -311,14 +311,14 @@ public class TranslationManager {
         
         if languageJSON == nil {
             // First check to see if any of the translations match one of the user's device languages
-            for userLanguage in NSLocale.preferredLanguages() {
+            for userLanguage in Locale.preferredLanguages {
                 languageJSON = findTranslationMatchingLanguage(userLanguage, inJSON: json)
                 if languageJSON != nil { break }
             }
             
             //No matches, see if something matches when only using first two characters
-            for userLanguage in NSLocale.preferredLanguages() {
-                languageJSON = findTranslationMatchingLanguage(userLanguage.substringToIndex(userLanguage.startIndex.advancedBy(2)), inJSON: json)
+            for userLanguage in Locale.preferredLanguages {
+                languageJSON = findTranslationMatchingLanguage(userLanguage.substring(to: userLanguage.characters.index(userLanguage.startIndex, offsetBy: 2)), inJSON: json)
                 if languageJSON != nil { break }
             }
             
@@ -349,16 +349,16 @@ public class TranslationManager {
 
      - returns: Translations dictionary for the given language.
      */
-    public func findTranslationMatchingLanguage(language: String, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
+    open func findTranslationMatchingLanguage(_ language: String, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
         guard configured else {
-            print(NStackError.Translations.NotConfigured.description)
+            print(NStackError.Translations.notConfigured.description)
             return nil
         }
 
         for (key, _) in json {
             if key == language {
                 if language.characters.count < key.characters.count { /* iOS 8 returns two-char language without the region */
-                    return json[key.substringToIndex(key.startIndex.advancedBy(language.characters.count))] as? [String : AnyObject]
+                    return json[key.substring(to: key.characters.index(key.startIndex, offsetBy: language.characters.count))] as? [String : AnyObject]
                 }
                 return json[key] as? [String : AnyObject]
             }
@@ -369,7 +369,7 @@ public class TranslationManager {
 
     // MARK: - Helpers -
 
-    internal func print(items: Any...) {
+    internal func print(_ items: Any...) {
         NStack.sharedInstance.print(items)
     }
 }

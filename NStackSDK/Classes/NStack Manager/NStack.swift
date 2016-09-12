@@ -9,26 +9,26 @@
 import Foundation
 import UIKit
 
-public class NStack {
+open class NStack {
 
     /// The singleton object which should be used to interact with NStack API.
-    public static let sharedInstance = NStack()
+    open static let sharedInstance = NStack()
     
     /// The configuration object the shared instance have been initialized with.
-    public private(set) var configuration: Configuration!
+    open fileprivate(set) var configuration: Configuration!
 
     /// This gets called when the phone language has changed while app is running.
     /// At this point, translations have been updated, if there was an internet connection.
-    public var languageChangedHandler: (() -> Void)?
+    open var languageChangedHandler: (() -> Void)?
 
-    private var avoidUpdateList: [NSObject] = [UIApplicationLaunchOptionsLocationKey]
+    fileprivate var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [UIApplicationLaunchOptionsKey.location]
 
-    internal private(set) var configured = false
+    internal fileprivate(set) var configured = false
     internal var observer: ApplicationObserver?
 
     // MARK: - Start NStack -
 
-    private init() {}
+    fileprivate init() {}
 
     /**
      Initializes NStack and, if `updateAutomaticallyOnStart` is set on the passed `Configuration`
@@ -37,13 +37,13 @@ public class NStack {
      - parameter configuration: A `Configuration` struct containing API keys and translations type.
      - parameter launchOptions: Launch options passed from `applicationDidFinishLaunching:` func.
      */
-    public class func start(configuration configuration: Configuration,
-                                           launchOptions: [NSObject: AnyObject]?) {
+    open class func start(configuration: Configuration,
+                                           launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         sharedInstance.start(configuration: configuration, launchOptions: launchOptions)
     }
 
-    private func start(configuration configuration: Configuration,
-                                     launchOptions: [NSObject: AnyObject]?) {
+    fileprivate func start(configuration: Configuration,
+                                     launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         guard !configured else {
             print("NStack is already configured. Kill the app and start it again with new configuration.")
             return
@@ -76,7 +76,7 @@ public class NStack {
         }
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
-        if configuration.updateOptions.contains(.OnStart) && launchOptions?.keys.contains({ avoidUpdateList.contains($0) }) != true {
+        if configuration.updateOptions.contains(.OnStart) && launchOptions?.keys.contains(where: { self.avoidUpdateList.contains($0) }) != true {
             update()
         }
     }
@@ -95,19 +95,19 @@ public class NStack {
     
     */
     
-    public func update(completion: ((error: NStackError.Manager?) -> Void)? = nil) {
+    open func update(_ completion: ((_ error: NStackError.Manager?) -> Void)? = nil) {
         guard configured else {
-            print(NStackError.Manager.NotConfigured.description)
-            completion?(error: .NotConfigured)
+            print(NStackError.Manager.notConfigured.description)
+            completion?(.notConfigured)
             return
         }
 
         ConnectionManager.postAppOpen(completion: { response in
             switch response.result {
-            case .Success(let JSONdata):
+            case .success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
                     self.print("Failure: couldn't parse response. Response data: ", JSONdata)
-                    completion?(error: .UpdateFailed(reason: "Couldn't parse response dictionary."))
+                    completion?(.updateFailed(reason: "Couldn't parse response dictionary."))
                     return
                 }
 
@@ -115,7 +115,7 @@ public class NStack {
                 self.print("App open response wrapper: ", wrapper)
 
                 defer {
-                    completion?(error: nil)
+                    completion?(nil)
                 }
 
                 guard let appOpenResponseData = wrapper.data else { return }
@@ -146,9 +146,9 @@ public class NStack {
                 
                 ConnectionManager.setLastUpdatedToNow()
 
-            case let .Failure(error):
-                self.print("Failure: \(response.response ?? "unknown error")")
-                completion?(error: .UpdateFailed(reason: error.localizedDescription))
+            case let .failure(error):
+                self.print("Failure: \(response.response?.description ?? "unknown error")")
+                completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
     }

@@ -13,18 +13,18 @@ import Cashier
 extension UIApplication {
 
     class func safeSharedApplication() -> UIApplication? {
-        guard UIApplication.respondsToSelector(NSSelectorFromString("sharedApplication")),
-            let unmanagedSharedApplication = UIApplication.performSelector(NSSelectorFromString("sharedApplication")) else {
+        guard UIApplication.responds(to: NSSelectorFromString("sharedApplication")),
+            let unmanagedSharedApplication = UIApplication.perform(NSSelectorFromString("sharedApplication")) else {
             return nil
         }
 
         return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
     }
 
-    func safeOpenURL(url: NSURL) -> Bool {
+    func safeOpenURL(_ url: URL) -> Bool {
         guard self.canOpenURL(url) else { return false }
 
-        guard let returnVal = self.performSelector(NSSelectorFromString("openURL:"), withObject: url) else {
+        guard let returnVal = self.perform(NSSelectorFromString("openURL:"), with: url) else {
             return false
         }
 
@@ -35,10 +35,10 @@ extension UIApplication {
 
 extension NStack {
     internal static var persistentStore: NOPersistentStore {
-        return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID)
+        return NOPersistentStore.cache(withId: NStackConstants.persistentStoreID)
     }
 
-    internal func print(items: Any...) {
+    internal func print(_ items: Any...) {
         guard configured else { return }
         if configuration.verboseMode {
             Swift.print(items)

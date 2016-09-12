@@ -28,8 +28,8 @@ enum ConnectionManager {
     // MARK: - Setup -
     
     static let kBaseURL = "https://nstack.io/api/v1/"
-    static let manager  = Manager(configuration: {
-        let configuration = Manager.sharedInstance.session.configuration
+    static let manager  = SessionManager(configuration: {
+        let configuration = SessionManager.default.session.configuration
         configuration.timeoutIntervalForRequest = 20.0
         return configuration
     }())
@@ -48,103 +48,103 @@ enum ConnectionManager {
     
     // MARK: - API Calls -
 
-    static func postAppOpen(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
+    static func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion(),
                                        currentVersion: String = VersionUtilities.currentAppVersion(),
-                                       completion: (Response<AnyObject, NSError> -> Void)) {
+                                       completion: @escaping ((DataResponse<Any>) -> Void)) {
         let params: [String : AnyObject] = [
-            "version"           : currentVersion,
-            "guid"              : Configuration.guid(),
-            "platform"          : "ios",
-            "last_updated"      : lastUpdatedString(),
-            "old_version"       : oldVersion
+            "version"           : currentVersion as AnyObject,
+            "guid"              : Configuration.guid() as AnyObject,
+            "platform"          : "ios" as AnyObject,
+            "last_updated"      : lastUpdatedString() as AnyObject,
+            "old_version"       : oldVersion as AnyObject
         ]
         
-        ConnectionManager.manager.request(.POST, kBaseURL + "open", parameters:params, headers: defaultHeaders).responseJSON(completionHandler: completion)
+        ConnectionManager.manager.request(kBaseURL + "open", method: .post, parameters: params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
     
-    static func fetchTranslations(completion: (Response<TranslationsResponse, NSError> -> Void)) {
+    static func fetchTranslations(_ completion: @escaping ((DataResponse<TranslationsResponse>) -> Void)) {
         let params:[String : AnyObject] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
-            "last_updated"      : lastUpdatedString(),
+            "version"           : 1.0 as AnyObject,
+            "guid"              : Configuration.guid() as AnyObject,
+            "last_updated"      : lastUpdatedString() as AnyObject,
         ]
 
         let slugs = "translate/mobile/keys" + (configuration.isFlat ? "?flat=true" : "")
-        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion)
+        ConnectionManager.manager.request(kBaseURL + slugs, method: .get , parameters:params, headers: defaultHeaders).responseSerializable(completion)
     }
 
-    static func fetchCurrentLanguage(completion: (Response<Language, NSError> -> Void)) {
+    static func fetchCurrentLanguage(_ completion:  @escaping((DataResponse<Language>) -> Void)) {
         let params:[String : AnyObject] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
-            "last_updated"      : lastUpdatedString(),
+            "version"           : 1.0 as AnyObject,
+            "guid"              : Configuration.guid() as AnyObject,
+            "last_updated"      : lastUpdatedString() as AnyObject,
         ]
 
         let slugs = "translate/mobile/languages/best_fit?show_inactive_languages=true"
-        ConnectionManager.manager.request(.GET, kBaseURL + slugs, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
+        ConnectionManager.manager.request(kBaseURL + slugs, method: .get, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
-    static func fetchAvailableLanguages(completion: (Response<[Language], NSError> -> Void)) {
+    static func fetchAvailableLanguages(_ completion:  @escaping ((DataResponse<[Language]>) -> Void)) {
         let params:[String : AnyObject] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
+            "version"           : 1.0 as AnyObject,
+            "guid"              : Configuration.guid() as AnyObject,
         ]
         
-        ConnectionManager.manager.request(.GET, kBaseURL + "translate/mobile/languages", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
+        ConnectionManager.manager.request(kBaseURL + "translate/mobile/languages", method: .get, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
-    static func fetchUpdates(oldVersion oldVersion: String = VersionUtilities.previousAppVersion(),
+    static func fetchUpdates(oldVersion: String = VersionUtilities.previousAppVersion(),
                                         currentVersion: String = VersionUtilities.currentAppVersion(),
-                                        completion: (Response<Update, NSError> -> Void)) {
+                                        completion: @escaping ((DataResponse<Update>) -> Void)) {
         let params:[String : AnyObject] = [
-            "current_version"   : currentVersion,
-            "guid"              : Configuration.guid(),
-            "platform"          : "ios",
-            "old_version"       : oldVersion,
+            "current_version"   : currentVersion as AnyObject,
+            "guid"              : Configuration.guid() as AnyObject,
+            "platform"          : "ios" as AnyObject,
+            "old_version"       : oldVersion as AnyObject,
         ]
         
-        ConnectionManager.manager.request(.GET, kBaseURL + "notify/updates", parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
+        ConnectionManager.manager.request(kBaseURL + "notify/updates", method: .get, parameters:params, headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
     
-    static func markNewerVersionAsSeen(id: Int, appStoreButtonPressed:Bool) {
+    static func markNewerVersionAsSeen(_ id: Int, appStoreButtonPressed:Bool) {
         let params:[String : AnyObject] = [
-            "guid"              : Configuration.guid(),
-            "update_id"         : id,
-            "answer"            : appStoreButtonPressed ? "yes" : "no",
-            "type"              : "newer_version"
+            "guid"              : Configuration.guid() as AnyObject,
+            "update_id"         : id as AnyObject,
+            "answer"            : (appStoreButtonPressed ? "yes" : "no") as AnyObject,
+            "type"              : "newer_version" as AnyObject
         ]
         
-        ConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: defaultHeaders)
+        ConnectionManager.manager.request(kBaseURL + "notify/updates/views", method: .post, parameters:params, headers: defaultHeaders)
     }
     
-    static func markWhatsNewAsSeen(id: Int) {
+    static func markWhatsNewAsSeen(_ id: Int) {
         let params:[String : AnyObject] = [
-            "guid"              : Configuration.guid(),
-            "update_id"         : id,
-            "type"              : "new_in_version",
-            "answer"            : "no",
+            "guid"              : Configuration.guid() as AnyObject,
+            "update_id"         : id as AnyObject,
+            "type"              : "new_in_version" as AnyObject,
+            "answer"            : "no" as AnyObject,
         ]
         
-        ConnectionManager.manager.request(.POST, kBaseURL + "notify/updates/views", parameters:params, headers: defaultHeaders)
+        ConnectionManager.manager.request(kBaseURL + "notify/updates/views", method: .post, parameters:params, headers: defaultHeaders)
     }
     
-    static func markMessageAsRead(id: String) {
+    static func markMessageAsRead(_ id: String) {
         let params: [String : AnyObject] = [
-            "guid"              : Configuration.guid(),
-            "message_id"        : id
+            "guid"              : Configuration.guid() as AnyObject,
+            "message_id"        : id as AnyObject
         ]
         
-        ConnectionManager.manager.request(.POST, kBaseURL + "notify/messages/views", parameters:params, headers: defaultHeaders)
+        ConnectionManager.manager.request(kBaseURL + "notify/messages/views", method: .post, parameters:params, headers: defaultHeaders)
     }
     
-    static func markRateReminderAsSeen(answer: AlertManager.RateReminderResult) {
+    static func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
         let params: [String : AnyObject] = [
-            "guid"              : Configuration.guid(),
-            "platform"          : "ios",
-            "answer"            : answer.rawValue
+            "guid"              : Configuration.guid() as AnyObject,
+            "platform"          : "ios" as AnyObject,
+            "answer"            : answer.rawValue as AnyObject
         ]
         
-        ConnectionManager.manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: defaultHeaders)
+        ConnectionManager.manager.request(kBaseURL + "notify/rate_reminder/views", method: .post, parameters:params, headers: defaultHeaders)
     }
 }
 
@@ -156,22 +156,22 @@ extension ConnectionManager {
         let cache = NStack.persistentStore
         let currentAcceptLangString = TranslationManager.sharedInstance.acceptLanguageHeaderValueString()
 
-        if let prevAcceptLangString = cache.objectForKey(NStackConstants.prevAcceptedLanguageKey) as? String
-            where prevAcceptLangString != currentAcceptLangString {
+        if let prevAcceptLangString = cache.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
+            , prevAcceptLangString != currentAcceptLangString {
 
             cache.setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
             self.setLastUpdatedToDistantPast()
         }
         
-        let date = cache.objectForKey(NStackConstants.lastUpdatedDateKey) as? NSDate ?? NSDate.distantPast()
+        let date = cache.object(forKey: NStackConstants.lastUpdatedDateKey) as? Date ?? Date.distantPast
         return date.stringRepresentation()
     }
     
     static func setLastUpdatedToNow() {
-        NStack.persistentStore.setObject(NSDate(), forKey: NStackConstants.lastUpdatedDateKey)
+        NStack.persistentStore.setObject(Date(), forKey: NStackConstants.lastUpdatedDateKey)
     }
     
     static func setLastUpdatedToDistantPast() {
-        NStack.persistentStore.setObject(NSDate.distantPast(), forKey: NStackConstants.lastUpdatedDateKey)
+        NStack.persistentStore.setObject(Date.distantPast, forKey: NStackConstants.lastUpdatedDateKey)
     }
 }

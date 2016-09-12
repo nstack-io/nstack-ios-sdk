@@ -103,7 +103,7 @@ public struct AlertManager {
         AlertManager.sharedInstance.alertWindow.rootViewController!.present(alert, animated: true, completion: nil)
     }
     
-    private static func hideAlertWindow() {
+    fileprivate static func hideAlertWindow() {
         AlertManager.sharedInstance.alertWindow.isHidden = true
     }
     

@@ -9,26 +9,26 @@
 import Foundation
 
 public enum NStackError {
-    public enum Manager: ErrorType {
-        case NotConfigured
-        case UpdateFailed(reason: String)
+    public enum Manager: Error {
+        case notConfigured
+        case updateFailed(reason: String)
 
         var description: String {
             switch self {
-            case .NotConfigured: return "NStack needs to be configured before it can be used. Please, call the `start` function first."
-            case .UpdateFailed(let reason): return reason
+            case .notConfigured: return "NStack needs to be configured before it can be used. Please, call the `start` function first."
+            case .updateFailed(let reason): return reason
             }
         }
     }
 
-    public enum Translations: ErrorType {
-        case NotConfigured
-        case UpdateFailed(reason: String)
+    public enum Translations: Error {
+        case notConfigured
+        case updateFailed(reason: String)
 
         var description: String {
             switch self {
-            case .NotConfigured: return "Translations Manager has to be configured first before it can be used. Please call `start(translationsType:)` before calling any other functions."
-            case .UpdateFailed(let reason): return reason
+            case .notConfigured: return "Translations Manager has to be configured first before it can be used. Please call `start(translationsType:)` before calling any other functions."
+            case .updateFailed(let reason): return reason
             }
         }
     }
