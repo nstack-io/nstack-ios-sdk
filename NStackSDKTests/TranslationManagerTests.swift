@@ -31,11 +31,11 @@ class TranslationManagerTests: XCTestCase {
 
         XCTAssertEqual(tr.defaultSection.successKey, "Success", "defaultSection.successKey does not have expected content in fallback!")
 
-        let expectation = expectationWithDescription("testFetchTranslations")
+        let expected = expectation(description: "testFetchTranslations")
 
         TranslationManager.sharedInstance.fetchAvailableLanguages { (response) -> Void in
             switch response.result {
-            case .Success(let languages):
+            case .success(let languages):
                 XCTAssert(languages.count > 0, "No languages available")
                 guard let secondLang = languages.last else { return }
                 TranslationManager.sharedInstance.languageOverride = secondLang
@@ -43,14 +43,14 @@ class TranslationManagerTests: XCTestCase {
                     XCTAssertEqual(tr.defaultSection.successKey,
                         "DET VAR EN SUCCESS",
                         "defaultSection.successKey does not have expected content in response from API!")
-                    expectation.fulfill()
+                    expected.fulfill()
                 }
 
-            case .Failure(let error):
+            case .failure(let error):
                 XCTAssert(false, "Fetching languages failed - \(error.localizedDescription)")
             }
         }
-        waitForExpectationsWithTimeout(15, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
     }
     
 }
