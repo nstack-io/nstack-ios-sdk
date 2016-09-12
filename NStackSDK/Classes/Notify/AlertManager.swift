@@ -113,7 +113,7 @@ public struct AlertManager {
             ConnectionManager.markNewerVersionAsSeen(version.lastId, appStoreButtonPressed: didPressAppStore)
             if didPressAppStore {
                 if let link = version.link {
-                    UIApplication.safeSharedApplication()?.safeOpenURL(link)
+                    _ = UIApplication.safeSharedApplication()?.safeOpenURL(link)
                 }
             }
         }
@@ -135,24 +135,24 @@ public struct AlertManager {
     internal func showWhatsNewAlert(_ changeLog:Update.Changelog) {
         guard let translations = changeLog.translate else { return }
         let alertType = AlertManager.AlertType.whatsNewAlert(title: translations.title, text: translations.message, dismissButtonText: "Ok") { () -> Void in
-            NStackConnectionManager.markWhatsNewAsSeen(changeLog.lastId)
+            ConnectionManager.markWhatsNewAsSeen(changeLog.lastId)
         }
         self.showAlertBlock(alertType)
     }
 
     internal func showMessage(_ message:Message) {
         let alertType = AlertManager.AlertType.message(text: message.message, dismissButtonText: "Ok") { () -> Void in
-            NStackConnectionManager.markMessageAsRead(message.id)
+            ConnectionManager.markMessageAsRead(message.id)
         }
         self.showAlertBlock(alertType)
     }
 
     internal func showRateReminder(_ rateReminder:RateReminder) {
         let alertType = AlertManager.AlertType.rateReminder(title: rateReminder.title, text: rateReminder.body, rateButtonText: rateReminder.rateBtn, laterButtonText: rateReminder.laterBtn, neverButtonText: rateReminder.neverBtn) { (result) -> Void in
-            NStackConnectionManager.markRateReminderAsSeen(result)
+            ConnectionManager.markRateReminderAsSeen(result)
             
             if result == .Rate, let link = rateReminder.link {
-                UIApplication.safeSharedApplication()?.safeOpenURL(link)
+                _ = UIApplication.safeSharedApplication()?.safeOpenURL(link)
             }
         }
         self.showAlertBlock(alertType)
