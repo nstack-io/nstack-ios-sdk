@@ -77,13 +77,13 @@ open class TranslationManager {
                 self.print("Error downloading translations data.")
                 self.print(response.response, response.data)
                 self.print(error.localizedDescription)
-                completion?(.UpdateFailed(reason: error.localizedDescription))
+                completion?(.updateFailed(reason: error.localizedDescription))
                 return
             }
         }
     }
     
-    open func fetchCurrentLanguage(_ completion: ((_ error:NSError?) -> Void)? = nil) {
+    open func fetchCurrentLanguage(_ completion: ((_ error:Error?) -> Void)? = nil) {
         guard configured else {
             print(NStackError.Translations.notConfigured.description)
             return
@@ -91,16 +91,16 @@ open class TranslationManager {
 
         ConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
-            case .Success(let language):
+            case .success(let language):
                 TranslationManager.sharedInstance.lastFetchedLanguage = language
-                completion?(error: nil)
+                completion?(nil)
                 
-            case .Failure(let error):
+            case .failure(let error):
                 self.print("Error downloading language data: ", error.localizedDescription)
                 self.print("Response: ", response.response)
                 self.print("Data: ", response.data)
 
-                completion?(error: error)
+                completion?(error)
 
                 return
             }
@@ -138,7 +138,7 @@ open class TranslationManager {
             return T(dictionary: nil)
         }
 
-        if let lastRequestedAcceptLangString:String? = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
+        if let lastRequestedAcceptLangString:String = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
             , lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
         }

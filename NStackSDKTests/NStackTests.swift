@@ -36,15 +36,15 @@ class NStackTests: XCTestCase {
     }
 
     func testUpdate() {
-        let expectation = expectationWithDescription("NStack update should succeed.")
+        let expected = expectation(description: "NStack update should succeed.")
 
         NStack.sharedInstance.update { (error) in
             XCTAssertNil(error, "NStack shouldn't error on update. \(error!.description)")
             if error == nil {
-                expectation.fulfill()
+                expected.fulfill()
             }
         }
 
-        waitForExpectationsWithTimeout(5.0, handler: nil)
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }
