@@ -155,7 +155,7 @@ extension NStackConnectionManager {
         
         let dateObject = date ?? NSDate.distantPast()
         
-        return dateObject.stringRepresentation()
+        return dateObject.stringRepresentation() ?? ""
     }
     
     internal static func setLastUpdatedToNow() {
