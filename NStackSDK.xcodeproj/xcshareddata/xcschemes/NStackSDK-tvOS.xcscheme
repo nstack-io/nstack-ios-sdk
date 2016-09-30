@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E3689BB61D9EAB93004620D6"
-               BuildableName = "NStackSDK.framework"
+               BlueprintIdentifier = "E3689BE11D9EB9EA004620D6"
+               BuildableName = "NStackSDK-tvOS.framework"
                BlueprintName = "NStackSDK-tvOS"
                ReferencedContainer = "container:NStackSDK.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E3689BB61D9EAB93004620D6"
-            BuildableName = "NStackSDK.framework"
+            BlueprintIdentifier = "E3689BE11D9EB9EA004620D6"
+            BuildableName = "NStackSDK-tvOS.framework"
             BlueprintName = "NStackSDK-tvOS"
             ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E3689BB61D9EAB93004620D6"
-            BuildableName = "NStackSDK.framework"
+            BlueprintIdentifier = "E3689BE11D9EB9EA004620D6"
+            BuildableName = "NStackSDK-tvOS.framework"
             BlueprintName = "NStackSDK-tvOS"
             ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
