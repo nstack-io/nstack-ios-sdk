@@ -124,7 +124,7 @@ class ConnectionManagerTests: XCTestCase {
                 switch response.result {
                 case .success(let languages):
                     expectation.fulfill()
-                    XCTAssertTrue(languages.count == 2, "There should be two languages available")
+                    XCTAssertTrue(languages.count == 3, "There should be three languages available")
                     XCTAssertEqual(languages.first?.locale, "en-GB", "Default (first) language should be en-GB.")
                 case .failure(let error):
                     XCTAssertNil(error, "Available Languages download errored: \(error.localizedDescription).")

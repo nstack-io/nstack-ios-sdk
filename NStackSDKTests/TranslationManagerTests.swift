@@ -37,9 +37,10 @@ class TranslationManagerTests: XCTestCase {
             switch response.result {
             case .success(let languages):
                 XCTAssert(languages.count > 0, "No languages available")
-                guard let secondLang = languages.last else { return }
-                TranslationManager.sharedInstance.languageOverride = secondLang
+                guard let danishLang = languages.filter({$0.locale == "da-DK"}).first else { XCTAssert(false, "Danish language not found"); return }
+                TranslationManager.sharedInstance.languageOverride = danishLang
                 TranslationManager.sharedInstance.updateTranslations { (error) -> Void in
+                    print(tr.defaultSection.successKey)
                     XCTAssertEqual(tr.defaultSection.successKey,
                         "DET VAR EN SUCCESS",
                         "defaultSection.successKey does not have expected content in response from API!")
