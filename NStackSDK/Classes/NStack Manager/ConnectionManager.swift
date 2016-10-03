@@ -51,13 +51,16 @@ enum ConnectionManager {
     static func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion(),
                                        currentVersion: String = VersionUtilities.currentAppVersion(),
                                        completion: @escaping ((DataResponse<Any>) -> Void)) {
-        let params: [String : AnyObject] = [
+        var params: [String : AnyObject] = [
             "version"           : currentVersion as AnyObject,
             "guid"              : Configuration.guid() as AnyObject,
             "platform"          : "ios" as AnyObject,
             "last_updated"      : lastUpdatedString() as AnyObject,
             "old_version"       : oldVersion as AnyObject
         ]
+        if let overriddenVersion = VersionUtilities.versionOverride {
+            params["version"] = overriddenVersion as AnyObject
+        }
         
         ConnectionManager.manager.request(kBaseURL + "open", method: .post, parameters: params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
