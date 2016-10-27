@@ -18,7 +18,7 @@ class NStackTests: XCTestCase {
         var conf = Configuration(plistName: "NStack", translationsClass: Translations.self)
         conf.verboseMode = true
         conf.updateAutomaticallyOnStart = false
-        NStack.start(configuration: conf)
+        NStack.start(configuration: conf, launchOptions: nil)
         return conf
     }()
 

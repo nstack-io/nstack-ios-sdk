@@ -32,6 +32,9 @@
 		30EC9E0A1BBE83BC00D3A625 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC9E091BBE83BC00D3A625 /* Constants.swift */; };
 		82CB554B1C8DEAC200389D2B /* AppOpenResponseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponseWrapper.swift */; };
 		82CB554C1C8DEAC200389D2B /* LanguageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageWrapper.swift */; };
+		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
+		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		839497C31DC22456007FE281 /* GeographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C21DC22456007FE281 /* GeographyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		30EC9E091BBE83BC00D3A625 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82CB55491C8DEAC200389D2B /* AppOpenResponseWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponseWrapper.swift; path = Classes/Model/AppOpenResponseWrapper.swift; sourceTree = "<group>"; };
 		82CB554A1C8DEAC200389D2B /* LanguageWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageWrapper.swift; path = Classes/Model/LanguageWrapper.swift; sourceTree = "<group>"; };
+		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
+		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
+		839497C21DC22456007FE281 /* GeographyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeographyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,8 @@
 				304C42831BA0747300AE3D6F /* Update.swift */,
 				304C428C1BA075D500AE3D6F /* RateReminder.swift */,
 				304E07411BBA922300AFE13D /* Language.swift */,
+				839497BE1DC21DBF007FE281 /* Country.swift */,
+				839497C01DC21ED2007FE281 /* Timezone.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 			children = (
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
 				01DA43121C7904E200D0FC04 /* Resources */,
+				839497C21DC22456007FE281 /* GeographyTests.swift */,
 			);
 			path = NStackTests;
 			sourceTree = "<group>";
@@ -335,12 +344,14 @@
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
+				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
 				305112721BD676DF005578DE /* NStackVersionUtils.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenResponse.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
+				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* NStackConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageWrapper.swift in Sources */,
@@ -352,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */,
+				839497C31DC22456007FE281 /* GeographyTests.swift in Sources */,
 				01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

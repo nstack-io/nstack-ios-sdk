@@ -138,6 +138,12 @@ struct NStackConnectionManager {
         
         NStackConnectionManager.manager.request(.POST, kBaseURL + "notify/rate_reminder/views", parameters:params, headers: headers())
     }
+	
+	//MARK: Geographic
+	
+	static func fetchCountries(completion: Response<[Country], NSError> -> Void) {
+		NStackConnectionManager.manager.request(.GET, kBaseURL + "geographic/countries", headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
+	}
 }
 
 extension NStackConnectionManager {

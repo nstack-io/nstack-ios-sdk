@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cashier
 
 public struct Configuration {
     
@@ -230,3 +231,49 @@ public struct NStack {
         }
     }
 }
+
+//MARK: - Geography
+public extension NStack {
+	
+	/**
+	Updates the list of countries stored by NStack
+		
+	- parameter completion: Optional completion block when the API call has finished.
+	*/
+	public static func updateCountries(completion: ((countries: [Country], error: NSError?) -> ())? = nil) {
+		NStackConnectionManager.fetchCountries { (response) in
+			switch response.result {
+			case .Success(let data):
+				countries = data
+				completion?(countries: data, error: nil)
+			case .Failure(let error):
+				completion?(countries: [], error: error)
+			}
+		}
+	}
+	
+	/// Locally stored list of countries
+	public static private(set) var countries: [Country]? {
+		get {
+			return NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).serializableForKey(NStackConstants.CountriesKey)
+		}
+		set {
+			if let newValue = newValue {
+				NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).setSerializable(newValue, forKey: NStackConstants.CountriesKey)
+			}
+			else {
+				NOPersistentStore.cacheWithId(NStackConstants.persistentStoreID).deleteSerializableForKey(NStackConstants.CountriesKey)
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
