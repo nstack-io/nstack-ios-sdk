@@ -22,8 +22,8 @@ public struct Country {
 	public var currency = ""
 	public var currencyName = ""
 	public var languages = ""
-	public var image: UIImage?
-	public var image2: UIImage? //<-image_2
+	public var image: NSURL?
+	public var image2: NSURL? //<-image_2
 	public var timezone = Timezone()
 }
 
