@@ -9,11 +9,11 @@
 import Serializable
 
 public struct Timezone {
-	var id = 0
-	var name = ""
-	var abbreviation = "" //<-abbr
-	var offsetSec = 0
-	var label = ""
+	public var id = 0
+	public var name = ""
+	public var abbreviation = "" //<-abbr
+	public var offsetSec = 0
+	public var label = ""
 }
 
 extension Timezone: Serializable {

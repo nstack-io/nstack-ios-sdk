@@ -9,22 +9,22 @@
 import Serializable
 
 public struct Country {
-	var id = 0
-	var name = ""
-	var code = ""
-	var codeIso = ""
-	var native = ""
-	var phone = 0
-	var continent = ""
-	var capital = ""
-	var capitalLat = 0.0
-	var capitalLng = 0.0
-	var currency = ""
-	var currencyName = ""
-	var languages = ""
-	var image: UIImage?
-	var image2: UIImage? //<-image_2
-	var timezone = Timezone()
+	public var id = 0
+	public var name = ""
+	public var code = ""
+	public var codeIso = ""
+	public var native = ""
+	public var phone = 0
+	public var continent = ""
+	public var capital = ""
+	public var capitalLat = 0.0
+	public var capitalLng = 0.0
+	public var currency = ""
+	public var currencyName = ""
+	public var languages = ""
+	public var image: UIImage?
+	public var image2: UIImage? //<-image_2
+	public var timezone = Timezone()
 }
 
 extension Country: Serializable {
