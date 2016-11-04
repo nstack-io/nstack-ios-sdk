@@ -62,7 +62,7 @@ enum ConnectionManager {
             params["version"] = overriddenVersion as AnyObject
         }
         
-        ConnectionManager.manager.request(kBaseURL + "open", method: .post, parameters: params, headers: defaultHeaders).responseJSON(completionHandler: completion)
+        ConnectionManager.manager.request(kBaseURL + "open" + (configuration.isFlat ? "?flat=true" : ""), method: .post, parameters: params, headers: defaultHeaders).responseJSON(completionHandler: completion)
     }
     
     static func fetchTranslations(_ completion: @escaping ((DataResponse<TranslationsResponse>) -> Void)) {
