@@ -75,7 +75,7 @@ open class TranslationManager {
 
             case .failure(let error):
                 self.print("Error downloading translations data.")
-                self.print(response.response, response.data)
+                self.print(response.response ?? "No response", response.data ?? "No data")
                 self.print(error.localizedDescription)
                 completion?(.updateFailed(reason: error.localizedDescription))
                 return
@@ -97,8 +97,7 @@ open class TranslationManager {
                 
             case .failure(let error):
                 self.print("Error downloading language data: ", error.localizedDescription)
-                self.print("Response: ", response.response)
-                self.print("Data: ", response.data)
+                self.print(response.response ?? "No response", response.data ?? "No data")
 
                 completion?(error)
 
