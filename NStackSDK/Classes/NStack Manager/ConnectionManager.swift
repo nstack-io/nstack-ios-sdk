@@ -152,8 +152,8 @@ enum ConnectionManager {
 	
 	//MARK: Geographic
 	
-	static func fetchCountries(completion: Response<[Country], NSError> -> Void) {
-		NStackConnectionManager.manager.request(.GET, kBaseURL + "geographic/countries", headers: headers()).responseSerializable(completion, unwrapper: { $0.0["data"] })
+	static func fetchCountries(_ completion:  @escaping ((DataResponse<[Country]>) -> Void)) {
+        ConnectionManager.manager.request(kBaseURL + "geographic/countries", headers: defaultHeaders).responseSerializable(completion, unwrapper: defaultUnwrapper)
 	}
 }
 

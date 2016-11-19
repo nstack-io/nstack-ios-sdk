@@ -13,4 +13,5 @@ internal struct NStackConstants {
     internal static let persistentStoreID = "NStack"
     internal static let lastUpdatedDateKey = "LastUpdated"
     internal static let prevAcceptedLanguageKey = "PrevAcceptedLanguageKey"
+    internal static let CountriesKey = "CountriesKey"
 }

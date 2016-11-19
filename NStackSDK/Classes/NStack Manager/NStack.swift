@@ -153,3 +153,38 @@ open class NStack {
         })
     }
 }
+
+//MARK: - Geography
+public extension NStack {
+
+    /**
+     Updates the list of countries stored by NStack
+
+     - parameter completion: Optional completion block when the API call has finished.
+     */
+    public static func updateCountries(completion: ((_ countries: [Country], _ error: Error?) -> ())? = nil) {
+        ConnectionManager.fetchCountries { (response) in
+            switch response.result {
+            case .success(let data):
+                countries = data
+                completion?(data, nil)
+            case .failure(let error):
+                completion?([], error)
+            }
+        }
+    }
+
+    /// Locally stored list of countries
+    public static private(set) var countries: [Country]? {
+        get {
+            return persistentStore.serializableForKey(NStackConstants.CountriesKey)
+        }
+        set {
+            guard let newValue = newValue else {
+                persistentStore.deleteSerializableForKey(NStackConstants.CountriesKey, purgeMemoryCache: true)
+                return
+            }
+            persistentStore.setSerializable(newValue, forKey: NStackConstants.CountriesKey)
+        }
+    }
+}

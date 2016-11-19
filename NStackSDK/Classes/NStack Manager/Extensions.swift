@@ -10,16 +10,6 @@ import Foundation
 import UIKit
 import Cashier
 
-internal struct NStackConstants {
-    internal static let cacheID = "NStack"
-    internal static let persistentStoreID = "NStack"
-    internal static let lastUpdatedDateKey = "LastUpdated"
-    internal static let prevAcceptedLanguageKey = "PrevAcceptedLanguageKey"
-	
-	//MARK: Geography
-	internal static let CountriesKey = "CountriesKey"
-}
-
 extension UIApplication {
 
     class func safeSharedApplication() -> UIApplication? {

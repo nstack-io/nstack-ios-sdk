@@ -17,6 +17,8 @@
 		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
+		01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
+		01BBEFAF1DE0FC66003AC718 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
 		01DA43191C7904E200D0FC04 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
 		01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
@@ -38,11 +40,11 @@
 		30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */; };
 		30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */; };
 		30EC9E0A1BBE83BC00D3A625 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC9E091BBE83BC00D3A625 /* Constants.swift */; };
+		82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
+		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		839497C31DC22456007FE281 /* GeographyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C21DC22456007FE281 /* GeographyTests.swift */; };
-		82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
-		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF01D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */; };
 		E3689BF21D9EB9EB004620D6 /* NStackSDK-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,12 +127,12 @@
 		30B2E8301B9DD6A10064DB21 /* NStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStack.swift; sourceTree = "<group>"; };
 		30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
 		30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
-		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
-		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
-		839497C21DC22456007FE281 /* GeographyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeographyTests.swift; sourceTree = "<group>"; };
 		30EC9E091BBE83BC00D3A625 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "Classes/NStack Manager/Constants.swift"; sourceTree = "<group>"; };
 		82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
+		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
+		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
+		839497C21DC22456007FE281 /* GeographyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeographyTests.swift; sourceTree = "<group>"; };
 		E3689BD81D9EAB93004620D6 /* NStackSDK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NStackSDK copy-Info.plist"; path = "/Users/Nodes/Documents/Nodes-Projects/NStack/NStackSDK copy-Info.plist"; sourceTree = "<absolute>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-tvOS.h"; sourceTree = "<group>"; };
@@ -463,7 +465,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Nodes ApS";
 				TargetAttributes = {
 					30A3D8461B9DB94100C2D15C = {
@@ -594,8 +596,10 @@
 				E3689C021D9EBA54004620D6 /* Message.swift in Sources */,
 				E3689C031D9EBA54004620D6 /* Update.swift in Sources */,
 				E3689C041D9EBA54004620D6 /* RateReminder.swift in Sources */,
+				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
 				E3689C051D9EBA54004620D6 /* Language.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
+				01BBEFAF1DE0FC66003AC718 /* Timezone.swift in Sources */,
 				E3689C071D9EBA54004620D6 /* TranslationsResponse.swift in Sources */,
 				E3689C081D9EBA54004620D6 /* NStack.swift in Sources */,
 				E3689C091D9EBA54004620D6 /* ApplicationObserver.swift in Sources */,
@@ -645,8 +649,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -694,8 +700,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -728,6 +736,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -755,6 +764,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -950,6 +960,7 @@
 				E3689BF51D9EB9EB004620D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E3689BF61D9EB9EB004620D6 /* Build configuration list for PBXNativeTarget "NStackSDK-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -958,6 +969,7 @@
 				E3689BF81D9EB9EB004620D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
