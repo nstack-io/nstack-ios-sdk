@@ -1,12 +1,12 @@
-<center>
+<p align="center">
   <img src="NStack_Logo.png?raw=true" alt="NStack"/>
-</center>
+</p>
 
-<center>[![Travis](https://img.shields.io/travis/nodes-ios/Serpent.svg)](https://travis-ci.org/nodes-ios/NStack) 
+[![Travis](https://img.shields.io/travis/nodes-ios/Serpent.svg)](https://travis-ci.org/nodes-ios/NStack) 
 [![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/Serpent.svg)](https://codecov.io/github/nodes-ios/NStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS-lightgrey.svg) 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/Serpent/blob/master/LICENSE) </center>
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/Serpent/blob/master/LICENSE)
 
 NStackSDK is the companion software development kit to the [NStack](https://nstack.io) backend.
 
