@@ -133,7 +133,6 @@
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		839497C21DC22456007FE281 /* GeographyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeographyTests.swift; sourceTree = "<group>"; };
-		E3689BD81D9EAB93004620D6 /* NStackSDK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NStackSDK copy-Info.plist"; path = "/Users/Nodes/Documents/Nodes-Projects/NStack/NStackSDK copy-Info.plist"; sourceTree = "<absolute>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-tvOS.h"; sourceTree = "<group>"; };
 		E3689BE51D9EB9EA004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -247,7 +246,6 @@
 				E3689BEE1D9EB9EB004620D6 /* NStackSDK-tvOSTests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
 				30A3D8481B9DB94100C2D15C /* Products */,
-				E3689BD81D9EAB93004620D6 /* NStackSDK copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
