@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Serializable
+import Serpent
 
 internal struct Message {
     var id = ""

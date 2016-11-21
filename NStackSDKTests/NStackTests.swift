@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import Serializable
+import Serpent
 import Alamofire
 @testable import NStackSDK
 

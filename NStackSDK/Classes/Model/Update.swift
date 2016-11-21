@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Serializable
+import Serpent
 
 enum UpdateState : String {
     case Disabled    = "no"

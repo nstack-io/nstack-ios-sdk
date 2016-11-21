@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Serializable
+import Serpent
 
 // TODO: Fix update struct in app open and adjust fetchUpdates response model
 

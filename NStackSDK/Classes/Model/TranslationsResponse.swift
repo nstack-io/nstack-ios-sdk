@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Serializable
+import Serpent
 
 struct TranslationsResponse {
     var translations: [String: AnyObject]? // <-data

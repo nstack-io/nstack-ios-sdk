@@ -26,7 +26,7 @@
 // ----------------------------------------------------------------------
 
 import Foundation
-import Serializable
+import Serpent
 import NStackSDK
 
 public var tr: Translations {

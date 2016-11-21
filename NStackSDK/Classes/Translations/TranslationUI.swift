@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Serializable
+import Serpent
 import Alamofire
 
 internal func translationString(keyPath: String) -> String? {

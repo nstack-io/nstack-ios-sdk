@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import Serializable
+import Serpent
 import Cashier
 
 struct APIConfiguration {

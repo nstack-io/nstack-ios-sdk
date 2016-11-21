@@ -7,6 +7,6 @@
 //
 
 import Foundation
-import Serializable
+import Serpent
 
 public protocol Translatable: Serializable {}
