@@ -22,8 +22,8 @@ public struct Country {
 	public var currency = ""
 	public var currencyName = ""
 	public var languages = ""
-	public var imageUrl: NSURL?
-	public var imageUrl2: NSURL? //<- image_url_2
+	public var image: NSURL?
+	public var image_path_2: NSURL? //<- image_path_2
 	public var capitalTimeZone = Timezone()
 }
 
@@ -42,8 +42,8 @@ extension Country: Serializable {
 		currency        <== (self, dictionary, "currency")
 		currencyName    <== (self, dictionary, "currency_name")
 		languages       <== (self, dictionary, "languages")
-		imageUrl        <== (self, dictionary, "image_url")
-		imageUrl2       <== (self, dictionary, "image_url_2")
+		image           <== (self, dictionary, "image")
+		image_path_2    <== (self, dictionary, "image_path_2")
 		capitalTimeZone <== (self, dictionary, "capital_time_zone")
 	}
 	
@@ -62,8 +62,8 @@ extension Country: Serializable {
 		(dict, "currency")          <== currency
 		(dict, "currency_name")     <== currencyName
 		(dict, "languages")         <== languages
-		(dict, "image_url")         <== imageUrl
-		(dict, "image_url_2")       <== imageUrl2
+		(dict, "image")             <== image
+		(dict, "image_path_2")      <== image_path_2
 		(dict, "capital_time_zone") <== capitalTimeZone
 		return dict
 	}
