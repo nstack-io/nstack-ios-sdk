@@ -20,16 +20,17 @@ import Alamofire
 */
 open class TranslationManager {
     
-    open static let sharedInstance = TranslationManager()
+    open static var sharedInstance: TranslationManager!
     open var lastFetchedLanguage: Language?
 
     let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
 
-    var translationType: Translatable.Type!
+    let translationsType: Translatable.Type
     var cachedTranslationsObject: Translatable?
 
-    internal fileprivate(set) var configured = false
-    fileprivate init() {}
+    internal init(translationsType: Translatable.Type, repository: TranslationsRepository) {
+        self.translationsType = translationsType
+    }
 
     /**
      Instantiates the shared singleton instance and sets the type of the translations object. Usually this is invoked by the NStack start method, so under normal circumstances, it should not be neccessary to invoke it directly.
@@ -37,8 +38,7 @@ open class TranslationManager {
     - parameter translationsType: The type of the translations object that should be used.
     */
     open static func start(translationsType type: Translatable.Type) {
-        sharedInstance.translationType = type
-        sharedInstance.configured = true
+        //sharedInstance.translationsType = type
     }
     
     //MARK: - Public update call
@@ -54,17 +54,12 @@ open class TranslationManager {
     */
     
     open func updateTranslations(_ completion: ((_ error: NStackError.Translations?) -> Void)? = nil) {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            completion?(.notConfigured)
-            return
-        }
 
         ConnectionManager.fetchTranslations { (response) -> Void in
             
             switch response.result {
             case .success(let translationsData):
-                let translations = self.translationType.init(dictionary: translationsData.translations as NSDictionary?)
+                let translations = self.translationsType.init(dictionary: translationsData.translations as NSDictionary?)
                 self.setTranslations(translations)
 
                 if let language = translationsData.languageData?.language {
@@ -84,11 +79,6 @@ open class TranslationManager {
     }
     
     open func fetchCurrentLanguage(_ completion: ((_ error:Error?) -> Void)? = nil) {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return
-        }
-
         ConnectionManager.fetchCurrentLanguage({ (response) -> Void in
             switch response.result {
             case .success(let language):
@@ -113,11 +103,6 @@ open class TranslationManager {
     */
     
     open func clearSavedTranslations() {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return
-        }
-
         UserDefaults.standard.removeObject(forKey: allTranslationsUserDefaultsKey)
         cachedTranslationsObject = nil
     }
@@ -132,11 +117,6 @@ open class TranslationManager {
     */
     
     open func translations<T:Translatable>() -> T {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return T(dictionary: nil)
-        }
-
         if let lastRequestedAcceptLangString:String = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
             , lastRequestedAcceptLangString != acceptLanguageHeaderValueString() {
             clearSavedTranslations()
@@ -172,11 +152,6 @@ open class TranslationManager {
     */
     
     open func savedTranslationsDict() -> [String : AnyObject] {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return [:]
-        }
-
         if let savedTranslationsDict = UserDefaults.standard.dictionary(forKey: allTranslationsUserDefaultsKey) {
             return savedTranslationsDict as [String : AnyObject]
         }
@@ -204,11 +179,6 @@ open class TranslationManager {
      */
     
     open func fetchAvailableLanguages(_ completion: @escaping (Alamofire.DataResponse<[Language]>) -> Void) {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return
-        }
-
         ConnectionManager.fetchAvailableLanguages(completion)
     }
     
@@ -238,11 +208,6 @@ open class TranslationManager {
      - returns: A string
      */
     open func acceptLanguageHeaderValueString() -> String {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return ""
-        }
-
         var components: [String] = []
         
         if let languageOverride = languageOverride {
@@ -349,11 +314,6 @@ open class TranslationManager {
      - returns: Translations dictionary for the given language.
      */
     open func findTranslationMatchingLanguage(_ language: String, inJSON json: [String : AnyObject]) -> [String : AnyObject]? {
-        guard configured else {
-            print(NStackError.Translations.notConfigured.description)
-            return nil
-        }
-
         for (key, _) in json {
             if key == language {
                 if language.characters.count < key.characters.count { /* iOS 8 returns two-char language without the region */
