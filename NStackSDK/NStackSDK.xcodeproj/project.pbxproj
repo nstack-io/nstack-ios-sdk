@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
-		01503A211DF1D24700B521CF /* TranslationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A201DF1D24700B521CF /* TranslationsRepository.swift */; };
 		01503A231DF1D38300B521CF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A221DF1D38300B521CF /* Logger.swift */; };
 		01503A271DF1D57C00B521CF /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A241DF1D57C00B521CF /* Serpent.framework */; };
 		01503A281DF1D57C00B521CF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A251DF1D57C00B521CF /* Alamofire.framework */; };
 		01503A291DF1D57C00B521CF /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A261DF1D57C00B521CF /* Cashier.framework */; };
+		01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
+		01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
 		01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */; };
 		01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
 		01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
@@ -95,11 +96,12 @@
 
 /* Begin PBXFileReference section */
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
-		01503A201DF1D24700B521CF /* TranslationsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationsRepository.swift; sourceTree = "<group>"; };
 		01503A221DF1D38300B521CF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Classes/Utilities/Logger.swift; sourceTree = "<group>"; };
 		01503A241DF1D57C00B521CF /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serpent.framework; path = ../Carthage/Build/iOS/Serpent.framework; sourceTree = "<group>"; };
 		01503A251DF1D57C00B521CF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		01503A261DF1D57C00B521CF /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = ../Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
+		01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
+		01503A2D1DF1DD2500B521CF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManagerTests.swift; sourceTree = "<group>"; };
 		01814A271D61C9120053E804 /* TranslationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManagerTests.swift; sourceTree = "<group>"; };
 		01814A2B1D6209F40053E804 /* TranslationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslationsResponse.swift; path = Classes/Model/TranslationsResponse.swift; sourceTree = "<group>"; };
@@ -114,7 +116,7 @@
 		01DA43171C7904E200D0FC04 /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
 		2729E8481B9ED06600286B12 /* TranslationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
-		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
 		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
@@ -192,6 +194,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01503A2A1DF1DD0E00B521CF /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */,
+				01503A2D1DF1DD2500B521CF /* Repository.swift */,
+				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
+			);
+			name = Repository;
+			path = Classes/Repository;
+			sourceTree = "<group>";
+		};
 		01DA43121C7904E200D0FC04 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +282,7 @@
 				01B5BA241D5E026C006EA3D7 /* Extensions.swift */,
 				01503A221DF1D38300B521CF /* Logger.swift */,
 				304C42801BA0743D00AE3D6F /* Models */,
+				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
 				30B2E82D1B9DCDC00064DB21 /* Notify */,
 				30B2E82E1B9DCE200064DB21 /* Translations */,
@@ -295,7 +309,6 @@
 			children = (
 				30B2E8301B9DD6A10064DB21 /* NStack.swift */,
 				30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */,
-				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 				0184A2C41D60BF6B00E63E01 /* NStackError.swift */,
 			);
 			name = "NStack Manager";
@@ -315,7 +328,6 @@
 		30B2E82E1B9DCE200064DB21 /* Translations */ = {
 			isa = PBXGroup;
 			children = (
-				01503A201DF1D24700B521CF /* TranslationsRepository.swift */,
 				2729E8481B9ED06600286B12 /* TranslationManager.swift */,
 				2729E84A1B9ED47400286B12 /* Translatable.swift */,
 				3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */,
@@ -555,18 +567,19 @@
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
 				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
+				01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				01503A231DF1D38300B521CF /* Logger.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
-				01503A211DF1D24700B521CF /* TranslationsRepository.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
 				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
 				0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
 				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
+				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,

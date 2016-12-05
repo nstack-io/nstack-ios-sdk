@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Cashier
 
 extension UIApplication {
 
@@ -30,18 +29,5 @@ extension UIApplication {
 
         let value = returnVal.takeRetainedValue() as? NSNumber
         return value?.boolValue ?? false
-    }
-}
-
-extension NStack {
-    internal static var persistentStore: NOPersistentStore {
-        return NOPersistentStore.cache(withId: NStackConstants.persistentStoreID)
-    }
-
-    internal func print(_ items: Any...) {
-        guard configured else { return }
-        if configuration.verboseMode {
-            Swift.print(items)
-        }
     }
 }

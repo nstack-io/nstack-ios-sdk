@@ -9,29 +9,41 @@
 import UIKit
 import Foundation
 
+enum ApplicationAction {
+    case didBecomeActive
+}
+
 class ApplicationObserver {
-    
-    var first = true
-    
-    init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive),
-                                                         name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+
+    typealias ActionHandler = ((ApplicationAction) -> Void)
+
+    /// This closure is executed every time there is an app action happening.
+    let actionHandler: ActionHandler
+
+    private var first = true
+
+    // MARK: - Lifecycle -
+
+    init(handler: @escaping ActionHandler) {
+        self.actionHandler = handler
+
+        let selector = #selector(applicationDidBecomeActive)
+        let name = NSNotification.Name.UIApplicationDidBecomeActive
+        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
+    // MARK: - Actions -
+
     @objc func applicationDidBecomeActive(_ notification: Notification) {
-        if first {
+        guard !first else {
             first = false
-        } else {
-            let prevAcceptLangString = NStack.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
-            NStack.sharedInstance.update({ (error) -> Void in
-                if let prevAcceptLangString = prevAcceptLangString, prevAcceptLangString != TranslationManager.sharedInstance.acceptLanguageHeaderValueString() {
-                    NStack.sharedInstance.languageChangedHandler?()
-                }
-            })
+            return
         }
+
+        actionHandler(.didBecomeActive)
     }
 }

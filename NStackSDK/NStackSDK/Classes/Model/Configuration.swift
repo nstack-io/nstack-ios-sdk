@@ -13,8 +13,8 @@ public struct UpdateOptions: OptionSet {
     public let rawValue: Int
     public init(rawValue: Int) { self.rawValue = rawValue }
 
-    public static let OnStart = UpdateOptions(rawValue: 1 << 0)
-    public static let OnDidBecomeActive = UpdateOptions(rawValue: 1 << 1)
+    public static let onStart = UpdateOptions(rawValue: 1 << 0)
+    public static let onDidBecomeActive = UpdateOptions(rawValue: 1 << 1)
 }
 
 public struct Configuration {
@@ -22,7 +22,7 @@ public struct Configuration {
     public let appId: String
     public let restAPIKey: String
     public let translationsClass: Translatable.Type?
-    public var updateOptions: UpdateOptions = [.OnStart, .OnDidBecomeActive]
+    public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
 
