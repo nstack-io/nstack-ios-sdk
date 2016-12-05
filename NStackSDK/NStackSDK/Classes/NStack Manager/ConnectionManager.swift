@@ -37,8 +37,8 @@ final class ConnectionManager {
 }
 
 extension ConnectionManager: AppOpenRepository {
-    func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion(),
-                     currentVersion: String = VersionUtilities.currentAppVersion(),
+    func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion,
+                     currentVersion: String = VersionUtilities.currentAppVersion,
                      acceptLanguage: String = TranslationManager.acceptLanguageHeaderValueString(),
                      completion: @escaping Completion<Any>) {
         var params: [String : Any] = [
@@ -109,8 +109,8 @@ extension ConnectionManager: TranslationsRepository {
 }
 
 extension ConnectionManager: UpdatesRepository {
-    func fetchUpdates(oldVersion: String = VersionUtilities.previousAppVersion(),
-                      currentVersion: String = VersionUtilities.currentAppVersion(),
+    func fetchUpdates(oldVersion: String = VersionUtilities.previousAppVersion,
+                      currentVersion: String = VersionUtilities.currentAppVersion,
                       completion: @escaping Completion<Update>) {
         let params: [String : Any] = [
             "current_version"   : currentVersion,
@@ -190,25 +190,25 @@ extension ConnectionManager: GeographyRepository {
 extension ConnectionManager {
 
     func lastUpdatedString() -> String {
-        let cache = NStack.sharedInstance.persistentStore
+        let cache = Constants.persistentStore
         let currentAcceptLangString = TranslationManager.acceptLanguageHeaderValueString()
 
-        if let prevAcceptLangString = cache.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String,
+        if let prevAcceptLangString = cache.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String,
             prevAcceptLangString != currentAcceptLangString {
 
-            cache.setObject(currentAcceptLangString, forKey: NStackConstants.prevAcceptedLanguageKey)
+            cache.setObject(currentAcceptLangString, forKey: Constants.CacheKeys.prevAcceptedLanguage)
             self.setLastUpdatedToDistantPast()
         }
 
-        let date = cache.object(forKey: NStackConstants.lastUpdatedDateKey) as? Date ?? Date.distantPast
+        let date = cache.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date ?? Date.distantPast
         return date.stringRepresentation()
     }
 
     func setLastUpdatedToNow() {
-        NStack.sharedInstance.persistentStore.setObject(Date(), forKey: NStackConstants.lastUpdatedDateKey)
+        Constants.persistentStore.setObject(Date(), forKey: Constants.CacheKeys.lastUpdatedDate)
     }
     
     func setLastUpdatedToDistantPast() {
-        NStack.sharedInstance.persistentStore.setObject(Date.distantPast, forKey: NStackConstants.lastUpdatedDateKey)
+        Constants.persistentStore.setObject(Date.distantPast, forKey: Constants.CacheKeys.lastUpdatedDate)
     }
 }

@@ -5,13 +5,18 @@
 //  Created by Kasper Welner on 02/10/15.
 //  Copyright © 2015 Nodes. All rights reserved.
 //
-
 import UIKit
+import Cashier
 
-internal struct NStackConstants {
-    internal static let cacheID = "NStack"
-    internal static let persistentStoreID = "NStack"
-    internal static let lastUpdatedDateKey = "LastUpdated"
-    internal static let prevAcceptedLanguageKey = "PrevAcceptedLanguageKey"
-    internal static let CountriesKey = "CountriesKey"
+enum Constants {
+    static let persistentStore: NOPersistentStore = .cache(withId: "NStack")
+
+    enum CacheKeys {
+        static let previousVersion      = "PreviousVersionKey"
+        static let lastUpdatedDate      = "LastUpdated"
+        static let prevAcceptedLanguage = "PrevAcceptedLanguageKey"
+        static let countries            = "CountriesKey"
+
+        static let languageOverride     = "LanguageOverride"
+    }
 }

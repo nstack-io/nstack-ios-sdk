@@ -22,12 +22,10 @@ public enum NStackError {
     }
 
     public enum Translations: Error {
-        case notConfigured
         case updateFailed(reason: String)
 
         var description: String {
             switch self {
-            case .notConfigured: return "Translations Manager has to be configured first before it can be used. Please call `start(translationsType:)` before calling any other functions."
             case .updateFailed(let reason): return reason
             }
         }

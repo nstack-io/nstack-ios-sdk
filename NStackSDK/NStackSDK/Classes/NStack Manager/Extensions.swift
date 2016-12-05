@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UIApplication {
-
     class func safeSharedApplication() -> UIApplication? {
         guard UIApplication.responds(to: NSSelectorFromString("sharedApplication")),
             let unmanagedSharedApplication = UIApplication.perform(NSSelectorFromString("sharedApplication")) else {

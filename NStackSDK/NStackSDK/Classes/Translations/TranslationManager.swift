@@ -5,7 +5,6 @@
 //  Created by Chris Combs on 08/09/15.
 //  Copyright © 2015 Nodes. All rights reserved.
 //
-
 import Foundation
 import Serpent
 import Cashier
@@ -20,25 +19,23 @@ public class TranslationManager {
 
     public var lastFetchedLanguage: Language?
 
-    let allTranslationsUserDefaultsKey = "NSTACK_ALL_TRANSLATIONS_USER_DEFAULTS_KEY"
-
     let repository: TranslationsRepository
     let translationsType: Translatable.Type
 
-    var cachedTranslationsObject: Translatable?
+    var translationsObject: Translatable?
 
     /// This language will be used instead of the phones' language when it is not *nil*
     /// Remember to call *updateTranslations* after changing the value. Otherwise, the effect might not be seen.
     public var languageOverride: Language? {
         get {
-            return NStack.sharedInstance.persistentStore.serializableForKey("LANGUAGE_OVERIDE")
+            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languageOverride)
         }
 
         set {
             if let newValue = newValue {
-                NStack.sharedInstance.persistentStore.setSerializable(newValue, forKey: "LANGUAGE_OVERIDE")
+                Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languageOverride)
             } else {
-                NStack.sharedInstance.persistentStore.deleteSerializableForKey("LANGUAGE_OVERIDE")
+                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languageOverride)
             }
             clearSavedTranslations()
         }
@@ -52,7 +49,8 @@ public class TranslationManager {
     /// - Parameters:
     ///   - translationsType: The type of the translations object that should be used.
     ///   - repository: Repository that can provide translations.
-    internal init(translationsType: Translatable.Type, repository: TranslationsRepository) {
+    internal init(translationsType: Translatable.Type,
+                  repository: TranslationsRepository) {
         self.translationsType = translationsType
         self.repository = repository
     }
@@ -65,8 +63,8 @@ public class TranslationManager {
     /// - Parameter completion: Called when translation fetching has finished. Check if the error
     ///                         object is nil to determine whether the operation was a succes.
     public func updateTranslations(_ completion: ((_ error: NStackError.Translations?) -> Void)? = nil) {
-
-        repository.fetchTranslations(acceptLanguage: TranslationManager.acceptLanguageHeaderValueString(languageOverride: languageOverride)) { (response) -> Void in
+        let acceptLanguage = TranslationManager.acceptLanguageHeaderValueString(languageOverride: languageOverride)
+        repository.fetchTranslations(acceptLanguage: acceptLanguage) { (response) -> Void in
             
             switch response.result {
             case .success(let translationsData):
@@ -112,8 +110,7 @@ public class TranslationManager {
 
     /// Clears both the memory and persistent cache. Used for debugging purposes.
     public func clearSavedTranslations() {
-        UserDefaults.standard.removeObject(forKey: allTranslationsUserDefaultsKey)
-        cachedTranslationsObject = nil
+        translationsObject = nil
     }
 
     /// The parsed translations object is cached in memory, but persisted as a dictionary. If a persisted version cannot be found,
@@ -121,17 +118,17 @@ public class TranslationManager {
     ///
     /// - Returns: A translations object.
     public func translations<T:Translatable>() -> T {
-        if let lastRequestedAcceptLangString:String = NStack.sharedInstance.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String,
+        if let lastRequestedAcceptLangString:String = Constants.persistentStore.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String,
             lastRequestedAcceptLangString != TranslationManager.acceptLanguageHeaderValueString(languageOverride: languageOverride) {
             clearSavedTranslations()
         }
         
-        if let cachedObject = cachedTranslationsObject as? T {
+        if let cachedObject = translationsObject as? T {
             return cachedObject
         }
         
         let fallback = T(dictionary: savedTranslationsDict() as NSDictionary?)
-        cachedTranslationsObject = fallback
+        translationsObject = fallback
         return fallback
     }
 
@@ -146,8 +143,8 @@ public class TranslationManager {
     ///
     /// - Returns: A dictionary representation of the translations.
     public func savedTranslationsDict() -> [String : AnyObject] {
-        if let savedTranslationsDict = UserDefaults.standard.dictionary(forKey: allTranslationsUserDefaultsKey) {
-            return savedTranslationsDict as [String : AnyObject]
+        if let savedTranslationsDict = translationsObject?.encodableRepresentation() as? NSDictionary {
+            return savedTranslationsDict as? [String: AnyObject] ?? loadTranslationFromLocalFile()
         }
 
         return loadTranslationFromLocalFile()
@@ -157,9 +154,7 @@ public class TranslationManager {
     ///
     /// - Parameter sourceDict: A dictionary representation of the translations.
     func setTranslationsSource(_ sourceDict: NSCoding) {
-        UserDefaults.standard.set(sourceDict, forKey: allTranslationsUserDefaultsKey)
-        UserDefaults.standard.synchronize()
-        cachedTranslationsObject = nil
+        translationsObject = nil
     }
     
     // MARK: - Public Language Methods -

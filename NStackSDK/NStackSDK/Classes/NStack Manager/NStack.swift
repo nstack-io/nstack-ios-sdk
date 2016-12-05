@@ -30,9 +30,7 @@ public class NStack {
 
     internal var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [UIApplicationLaunchOptionsKey.location]
 
-    internal var persistentStore: NOPersistentStore {
-        return NOPersistentStore.cache(withId: NStackConstants.persistentStoreID)
-    }
+
 
     internal var connectionManager: ConnectionManager!
     internal fileprivate(set) var configured = false
@@ -79,7 +77,7 @@ public class NStack {
                 guard action == .didBecomeActive else { return }
 
                 // FIXME: Fix language accept header
-                let prevAcceptLangString = self.persistentStore.object(forKey: NStackConstants.prevAcceptedLanguageKey) as? String
+                let prevAcceptLangString = Constants.persistentStore.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String
                 self.update { error in
                     if let prevAcceptLangString = prevAcceptLangString, prevAcceptLangString != TranslationManager.acceptLanguageHeaderValueString() {
                         NStack.sharedInstance.languageChangedHandler?()
@@ -92,8 +90,8 @@ public class NStack {
         if let translationsClass = configuration.translationsClass {
             translationsManager = TranslationManager(translationsType: translationsClass, repository: connectionManager)
 
-            if VersionUtilities.isVersion(VersionUtilities.currentAppVersion(),
-                                          greaterThanVersion: VersionUtilities.previousAppVersion()) {
+            if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
+                                          greaterThanVersion: VersionUtilities.previousAppVersion) {
                 translationsManager?.clearSavedTranslations()
             }
         }
@@ -160,7 +158,7 @@ public class NStack {
                         self.alertManager.showRateReminder(rateReminder)
                     }
 
-                    VersionUtilities.setPreviousAppVersion(VersionUtilities.currentAppVersion())
+                    VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                 }
 
                 // Get last fetched language
@@ -178,14 +176,13 @@ public class NStack {
     }
 }
 
-//MARK: - Geography -
+// MARK: - Geography -
+
 public extension NStack {
 
-    /**
-     Updates the list of countries stored by NStack
-
-     - parameter completion: Optional completion block when the API call has finished.
-     */
+    /// Updates the list of countries stored by NStack.
+    ///
+    /// - Parameter completion: Optional completion block when the API call has finished.
     public func updateCountries(completion: ((_ countries: [Country], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchCountries { (response) in
             switch response.result {
@@ -201,14 +198,14 @@ public extension NStack {
     /// Locally stored list of countries
     public private(set) var countries: [Country]? {
         get {
-            return persistentStore.serializableForKey(NStackConstants.CountriesKey)
+            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
         }
         set {
             guard let newValue = newValue else {
-                persistentStore.deleteSerializableForKey(NStackConstants.CountriesKey, purgeMemoryCache: true)
+                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.countries, purgeMemoryCache: true)
                 return
             }
-            persistentStore.setSerializable(newValue, forKey: NStackConstants.CountriesKey)
+            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
         }
     }
 }

@@ -328,8 +328,8 @@
 		30B2E82E1B9DCE200064DB21 /* Translations */ = {
 			isa = PBXGroup;
 			children = (
-				2729E8481B9ED06600286B12 /* TranslationManager.swift */,
 				2729E84A1B9ED47400286B12 /* Translatable.swift */,
+				2729E8481B9ED06600286B12 /* TranslationManager.swift */,
 				3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */,
 			);
 			name = Translations;

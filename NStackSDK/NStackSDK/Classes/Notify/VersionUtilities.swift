@@ -10,20 +10,21 @@ import Foundation
 
 enum VersionUtilities {
     
-    fileprivate static let previousVersionKey = "PreviousVersionKey"
     internal static var versionOverride: String?
-    
-    static func currentAppVersion() -> String {
+
+    static var previousAppVersion: String {
+        get {
+            let savedVersion = Constants.persistentStore.string(forKey: Constants.CacheKeys.previousVersion)
+            return savedVersion ?? currentAppVersion
+        }
+
+        set {
+            Constants.persistentStore.setObject(newValue, forKey: Constants.CacheKeys.previousVersion)
+        }
+    }
+
+    static var currentAppVersion: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-    }
-    
-    static func previousAppVersion() -> String {
-        return  UserDefaults.standard.string(forKey: previousVersionKey) ?? currentAppVersion()
-    }
-    
-    static func setPreviousAppVersion(_ version:String) {
-        UserDefaults.standard.set(version, forKey: previousVersionKey)
-        UserDefaults.standard.synchronize()
     }
     
     static func isVersion(_ versionA:String, greaterThanVersion versionB:String) -> Bool {
