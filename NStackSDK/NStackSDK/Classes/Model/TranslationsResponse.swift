@@ -10,7 +10,7 @@ import Foundation
 import Serpent
 
 struct TranslationsResponse {
-    var translations: [String: AnyObject]? // <-data
+    var translations: NSDictionary? // <-data
     var languageData: LanguageData? // <-meta
 }
 

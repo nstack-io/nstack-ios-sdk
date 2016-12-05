@@ -20,10 +20,6 @@ class TranslationManagerTests: XCTestCase {
         super.tearDown()
     }
 
-//    func testTranslationUpdate() {
-//
-//    }
-
     func testTranslations() {
 
         TranslationManager.sharedInstance.lastFetchedLanguage = nil

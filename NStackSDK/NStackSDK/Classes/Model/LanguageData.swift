@@ -10,8 +10,7 @@ import Foundation
 import Serpent
 
 struct LanguageData {
-    var language:Language?
-    // var isCached:Bool?
+    var language: Language?
 }
 
 extension LanguageData: Serializable {

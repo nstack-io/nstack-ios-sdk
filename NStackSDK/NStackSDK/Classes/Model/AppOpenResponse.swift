@@ -12,12 +12,8 @@ import Serpent
 // TODO: Fix update struct in app open and adjust fetchUpdates response model
 
 struct AppOpenResponse {
-    var data : AppOpenData?
-    var languageData : LanguageData? // <-meta
-
-    struct Update {
-
-    }
+    var data: AppOpenData?
+    var languageData: LanguageData? // <-meta
 }
 
 extension AppOpenResponse: Serializable {

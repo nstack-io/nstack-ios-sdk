@@ -22,6 +22,15 @@ public class AlertManager {
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion:() -> Void)
         case message(text: String, dismissButtonText: String, completion:() -> Void)
         case rateReminder(title:String, text: String, rateButtonText:String, laterButtonText:String, neverButtonText:String, completion:(_ result:RateReminderResult) -> Void)
+
+        init(rateReminder: RateReminder, completion: @escaping (RateReminderResult) -> Void) {
+            self = .rateReminder(title: rateReminder.title,
+                                 text: rateReminder.body,
+                                 rateButtonText: rateReminder.yesButtonTitle,
+                                 laterButtonText: rateReminder.laterButtonTitle,
+                                 neverButtonText: rateReminder.noButtonTitle,
+                                 completion: completion)
+        }
     }
 
     let repository: VersionsRepository
@@ -150,8 +159,7 @@ public class AlertManager {
         guard let translations = changeLog.translate else { return }
         let alertType = AlertType.whatsNewAlert(title: translations.title,
                                                 text: translations.message,
-                                                dismissButtonText: "Ok")
-        {
+                                                dismissButtonText: "Ok") {
             self.repository.markWhatsNewAsSeen(changeLog.lastId)
         }
 
@@ -159,9 +167,7 @@ public class AlertManager {
     }
 
     internal func showMessage(_ message:Message) {
-        let alertType = AlertType.message(text: message.message,
-                                          dismissButtonText: "Ok")
-        {
+        let alertType = AlertType.message(text: message.message, dismissButtonText: "Ok") {
             self.repository.markMessageAsRead(message.id)
         }
 
@@ -169,12 +175,7 @@ public class AlertManager {
     }
 
     internal func showRateReminder(_ rateReminder:RateReminder) {
-        let alertType = AlertType.rateReminder(title: rateReminder.title,
-                                               text: rateReminder.body,
-                                               rateButtonText: rateReminder.rateBtn,
-                                               laterButtonText: rateReminder.laterBtn,
-                                               neverButtonText: rateReminder.neverBtn)
-        { result in
+        let alertType = AlertType(rateReminder: rateReminder) { result in
             self.repository.markRateReminderAsSeen(result)
 
             if result == .Rate, let link = rateReminder.link {

@@ -31,7 +31,7 @@ public struct Configuration {
 
     fileprivate static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
 
-    internal static func guid() -> String {
+    internal static var guid: String {
         let savedUUID = UserDefaults.standard.object(forKey: UUIDKey)
         if let UUID = savedUUID as? String {
             return UUID
@@ -43,16 +43,20 @@ public struct Configuration {
         return newUUID
     }
 
-    public init(appId: String, restAPIKey: String, translationsClass: Translatable.Type? = nil) {
+    public init(appId: String,
+                restAPIKey: String,
+                translationsClass: Translatable.Type? = nil,
+                flatTranslations: Bool = false) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
+        self.flat = flatTranslations
     }
 
     public init(plistName: String, translationsClass: Translatable.Type? = nil) {
-        var appId:String?
-        var restAPIKey:String?
-        var flatString:String?
+        var appId: String?
+        var restAPIKey: String?
+        var flatString: String?
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
@@ -78,7 +82,7 @@ public struct Configuration {
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
 
-        if let flat = flatString , flat == "1" {
+        if let flat = flatString, flat == "1" {
             self.flat = true
         }
     }

@@ -28,9 +28,7 @@ public class NStack {
     /// At this point, translations have been updated, if there was an internet connection.
     public var languageChangedHandler: (() -> Void)?
 
-    internal var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [UIApplicationLaunchOptionsKey.location]
-
-
+    internal var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [.location]
 
     internal var connectionManager: ConnectionManager!
     internal fileprivate(set) var configured = false
@@ -76,11 +74,10 @@ public class NStack {
             observer = ApplicationObserver(handler: { (action) in
                 guard action == .didBecomeActive else { return }
 
-                // FIXME: Fix language accept header
-                let prevAcceptLangString = Constants.persistentStore.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String
                 self.update { error in
-                    if let prevAcceptLangString = prevAcceptLangString, prevAcceptLangString != TranslationManager.acceptLanguageHeaderValueString() {
-                        NStack.sharedInstance.languageChangedHandler?()
+                    if let error = error {
+                        self.print("Error updating NStack on did become active. \(error.localizedDescription)")
+                        return
                     }
                 }
             })
@@ -90,9 +87,15 @@ public class NStack {
         if let translationsClass = configuration.translationsClass {
             translationsManager = TranslationManager(translationsType: translationsClass, repository: connectionManager)
 
+            // Delete translations if new version
             if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
                                           greaterThanVersion: VersionUtilities.previousAppVersion) {
-                translationsManager?.clearSavedTranslations()
+                translationsManager?.clearTranslations(includingPersisted: true)
+            }
+
+            // Set callback 
+            translationsManager?.languageChangedAction = {
+                self.languageChangedHandler?()
             }
         }
 
@@ -142,8 +145,9 @@ public class NStack {
 
                 guard let appOpenResponseData = wrapper.data else { return }
 
-                if appOpenResponseData.translate.count > 0 {
-                    self.translationsManager?.setTranslationsSource(appOpenResponseData.translate)
+                // Update translations
+                if let translations = appOpenResponseData.translate, translations.count > 0 {
+                    self.translationsManager?.set(translationsDictionary: translations)
                 }
 
                 if !self.alertManager.alreadyShowingAlert {
@@ -161,12 +165,7 @@ public class NStack {
                     VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                 }
 
-                // Get last fetched language
-                if let language = wrapper.languageData?.language {
-                    self.translationsManager?.lastFetchedLanguage = language
-                }
-
-                self.connectionManager.setLastUpdatedToNow()
+                self.connectionManager.setLastUpdated()
 
             case let .failure(error):
                 self.print("Failure: \(response.response?.description ?? "unknown error")")

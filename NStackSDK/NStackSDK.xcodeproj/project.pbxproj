@@ -14,6 +14,7 @@
 		01503A291DF1D57C00B521CF /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A261DF1D57C00B521CF /* Cashier.framework */; };
 		01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
 		01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
+		017E87201DF61A32009E9792 /* TranslationsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */; };
 		01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */; };
 		01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
 		01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
@@ -102,6 +103,7 @@
 		01503A261DF1D57C00B521CF /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = ../Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
 		01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
 		01503A2D1DF1DD2500B521CF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslationsRepositoryMock.swift; path = Translations/TranslationsRepositoryMock.swift; sourceTree = "<group>"; };
 		01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManagerTests.swift; sourceTree = "<group>"; };
 		01814A271D61C9120053E804 /* TranslationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManagerTests.swift; sourceTree = "<group>"; };
 		01814A2B1D6209F40053E804 /* TranslationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslationsResponse.swift; path = Classes/Model/TranslationsResponse.swift; sourceTree = "<group>"; };
@@ -205,6 +207,15 @@
 			path = Classes/Repository;
 			sourceTree = "<group>";
 		};
+		017E871E1DF61A1C009E9792 /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+				017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */,
+				01814A271D61C9120053E804 /* TranslationManagerTests.swift */,
+			);
+			name = Translations;
+			sourceTree = "<group>";
+		};
 		01DA43121C7904E200D0FC04 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,7 +309,7 @@
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
 				0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */,
 				01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */,
-				01814A271D61C9120053E804 /* TranslationManagerTests.swift */,
+				017E871E1DF61A1C009E9792 /* Translations */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 			);
 			path = NStackSDKTests;
@@ -595,6 +606,7 @@
 				01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */,
 				01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */,
 				0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */,
+				017E87201DF61A32009E9792 /* TranslationsRepositoryMock.swift in Sources */,
 				01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

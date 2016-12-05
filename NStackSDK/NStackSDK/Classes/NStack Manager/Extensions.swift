@@ -30,3 +30,9 @@ extension UIApplication {
         return value?.boolValue ?? false
     }
 }
+
+extension FileManager {
+    var documentsDirectory: URL {
+        return urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+}

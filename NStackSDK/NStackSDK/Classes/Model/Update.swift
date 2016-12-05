@@ -9,14 +9,13 @@
 import Foundation
 import Serpent
 
-enum UpdateState : String {
+enum UpdateState: String {
     case Disabled    = "no"
     case Remind      = "yes"
     case Force       = "force"
 }
 
-struct Update
-{
+struct Update {
     var newInThisVersion:Changelog?
     var newerVersion:Version?
     

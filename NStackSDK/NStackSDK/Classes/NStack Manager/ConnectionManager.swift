@@ -39,13 +39,12 @@ final class ConnectionManager {
 extension ConnectionManager: AppOpenRepository {
     func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion,
                      currentVersion: String = VersionUtilities.currentAppVersion,
-                     acceptLanguage: String = TranslationManager.acceptLanguageHeaderValueString(),
-                     completion: @escaping Completion<Any>) {
+                     acceptLanguage: String? = nil, completion: @escaping Completion<Any>) {
         var params: [String : Any] = [
             "version"           : currentVersion,
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "platform"          : "ios",
-            "last_updated"      : lastUpdatedString(),
+            "last_updated"      : ConnectionManager.lastUpdatedString,
             "old_version"       : oldVersion
         ]
 
@@ -54,7 +53,9 @@ extension ConnectionManager: AppOpenRepository {
         }
 
         var headers = defaultHeaders
-        headers["Accept-Language"] = acceptLanguage
+        if let acceptLanguage = acceptLanguage {
+            headers["Accept-Language"] = acceptLanguage
+        }
 
         let url = baseURL + "open" + (configuration.isFlat ? "?flat=true" : "")
 
@@ -68,37 +69,41 @@ extension ConnectionManager: TranslationsRepository {
     func fetchTranslations(acceptLanguage: String,
                            completion: @escaping Completion<TranslationsResponse>) {
         let params: [String : Any] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
-            "last_updated"      : lastUpdatedString()
+            "guid"              : Configuration.guid,
+            "last_updated"      : ConnectionManager.lastUpdatedString
         ]
 
-        let url = baseURL + "translate/mobile/keys" + (configuration.isFlat ? "?flat=true" : "")
+        let url = baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
+
+        var headers = defaultHeaders
+        headers["Accept-Language"] = acceptLanguage
 
         manager
-            .request(url, method: .get, parameters:params, headers: defaultHeaders)
+            .request(url, method: .get, parameters:params, headers: headers)
             .responseSerializable(completion)
     }
 
-    func fetchCurrentLanguage(completion:  @escaping Completion<Language>) {
+    func fetchCurrentLanguage(acceptLanguage: String,
+                              completion:  @escaping Completion<Language>) {
         let params: [String : Any] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
-            "last_updated"      : lastUpdatedString(),
-            ]
+            "guid"              : Configuration.guid,
+            "last_updated"      : ConnectionManager.lastUpdatedString
+        ]
 
         let url = baseURL + "translate/mobile/languages/best_fit?show_inactive_languages=true"
 
+        var headers = defaultHeaders
+        headers["Accept-Language"] = acceptLanguage
+
         manager
-            .request(url, method: .get, parameters: params, headers: defaultHeaders)
+            .request(url, method: .get, parameters: params, headers: headers)
             .responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
 
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
         let params: [String : Any] = [
-            "version"           : 1.0,
-            "guid"              : Configuration.guid(),
-            ]
+            "guid"              : Configuration.guid,
+        ]
 
         let url = baseURL + "translate/mobile/languages"
 
@@ -114,7 +119,7 @@ extension ConnectionManager: UpdatesRepository {
                       completion: @escaping Completion<Update>) {
         let params: [String : Any] = [
             "current_version"   : currentVersion,
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "platform"          : "ios",
             "old_version"       : oldVersion,
             ]
@@ -129,7 +134,7 @@ extension ConnectionManager: UpdatesRepository {
 extension ConnectionManager: VersionsRepository {
     func markNewerVersionAsSeen(_ id: Int, appStoreButtonPressed:Bool) {
         let params: [String : Any] = [
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "update_id"         : id,
             "answer"            : (appStoreButtonPressed ? "yes" : "no"),
             "type"              : "newer_version"
@@ -141,7 +146,7 @@ extension ConnectionManager: VersionsRepository {
 
     func markWhatsNewAsSeen(_ id: Int) {
         let params: [String : Any] = [
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "update_id"         : id,
             "type"              : "new_in_version",
             "answer"            : "no",
@@ -153,7 +158,7 @@ extension ConnectionManager: VersionsRepository {
 
     func markMessageAsRead(_ id: String) {
         let params: [String : Any] = [
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "message_id"        : id
         ]
 
@@ -163,7 +168,7 @@ extension ConnectionManager: VersionsRepository {
 
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
         let params: [String : Any] = [
-            "guid"              : Configuration.guid(),
+            "guid"              : Configuration.guid,
             "platform"          : "ios",
             "answer"            : answer.rawValue
         ]
@@ -189,26 +194,24 @@ extension ConnectionManager: GeographyRepository {
 
 extension ConnectionManager {
 
-    func lastUpdatedString() -> String {
+    static var lastUpdatedString: String {
         let cache = Constants.persistentStore
-        let currentAcceptLangString = TranslationManager.acceptLanguageHeaderValueString()
 
-        if let prevAcceptLangString = cache.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String,
-            prevAcceptLangString != currentAcceptLangString {
+        // FIXME: Handle language change
+//        let previousAcceptLanguage = cache.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
+//        let currentAcceptLanguage  = TranslationManager.acceptLanguage()
+//
+//        if let previous = previousAcceptLanguage, previous != currentAcceptLanguage {
+//            cache.setObject(currentAcceptLanguage, forKey: Constants.CacheKeys.prevAcceptedLanguage)
+//            setLastUpdated(Date.distantPast)
+//        }
 
-            cache.setObject(currentAcceptLangString, forKey: Constants.CacheKeys.prevAcceptedLanguage)
-            self.setLastUpdatedToDistantPast()
-        }
-
-        let date = cache.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date ?? Date.distantPast
+        let key = Constants.CacheKeys.lastUpdatedDate
+        let date = cache.object(forKey: key) as? Date ?? Date.distantPast
         return date.stringRepresentation()
     }
 
-    func setLastUpdatedToNow() {
-        Constants.persistentStore.setObject(Date(), forKey: Constants.CacheKeys.lastUpdatedDate)
-    }
-    
-    func setLastUpdatedToDistantPast() {
-        Constants.persistentStore.setObject(Date.distantPast, forKey: Constants.CacheKeys.lastUpdatedDate)
+    func setLastUpdated(toDate date: Date = Date()) {
+        Constants.persistentStore.setObject(date, forKey: Constants.CacheKeys.lastUpdatedDate)
     }
 }

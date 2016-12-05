@@ -14,25 +14,25 @@ public struct Language {
     public var name = ""
     public var locale = ""
     public var direction = ""
-    public var data:NSDictionary = [:]
+    public var acceptLanguage = "" // <-Accept-Language
 }
 
 extension Language: Serializable {
     public init(dictionary: NSDictionary?) {
-        id        <== (self, dictionary, "id")
-        name      <== (self, dictionary, "name")
-        locale    <== (self, dictionary, "locale")
-        direction <== (self, dictionary, "direction")
-        data      <== (self, dictionary, "data")
+        id             <== (self, dictionary, "id")
+        name           <== (self, dictionary, "name")
+        locale         <== (self, dictionary, "locale")
+        direction      <== (self, dictionary, "direction")
+        acceptLanguage <== (self, dictionary, "Accept-Language")
     }
-    
+
     public func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        (dict, "id")        <== id
-        (dict, "name")      <== name
-        (dict, "locale")    <== locale
-        (dict, "direction") <== direction
-        (dict, "data")      <== data
+        (dict, "id")              <== id
+        (dict, "name")            <== name
+        (dict, "locale")          <== locale
+        (dict, "direction")       <== direction
+        (dict, "Accept-Language") <== acceptLanguage
         return dict
     }
 }

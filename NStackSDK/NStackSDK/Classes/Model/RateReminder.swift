@@ -10,35 +10,35 @@ import Foundation
 import Serpent
 
 struct RateReminder {
-    var id          = 0
-    var title       = ""
-    var body        = ""
-    var rateBtn     = "" //<-yesBtn
-    var laterBtn    = ""
-    var neverBtn    = "" //<-noBtn
-    var link:URL?
+    var id = 0
+    var title = ""
+    var body = ""
+    var yesButtonTitle = ""     // <-yesBtn
+    var laterButtonTitle = ""   // <-laterBtn
+    var noButtonTitle = ""      // <-noBtn
+    var link: URL?
 }
 
 extension RateReminder: Serializable {
     init(dictionary: NSDictionary?) {
-        id       <== (self, dictionary, "id")
-        title    <== (self, dictionary, "title")
-        body     <== (self, dictionary, "body")
-        rateBtn  <== (self, dictionary, "yesBtn")
-        laterBtn <== (self, dictionary, "laterBtn")
-        neverBtn <== (self, dictionary, "noBtn")
-        link     <== (self, dictionary, "link")
+        id               <== (self, dictionary, "id")
+        title            <== (self, dictionary, "title")
+        body             <== (self, dictionary, "body")
+        yesButtonTitle   <== (self, dictionary, "yesBtn")
+        laterButtonTitle <== (self, dictionary, "laterBtn")
+        noButtonTitle    <== (self, dictionary, "noBtn")
+        link             <== (self, dictionary, "link")
     }
-    
+
     func encodableRepresentation() -> NSCoding {
         let dict = NSMutableDictionary()
-        (dict, "id")        <== id
-        (dict, "title")     <== title
-        (dict, "body")      <== body
-        (dict, "yesBtn")    <== rateBtn
-        (dict, "laterBtn") <== laterBtn
-        (dict, "noBtn")     <== neverBtn
-        (dict, "link")      <== link
+        (dict, "id")       <== id
+        (dict, "title")    <== title
+        (dict, "body")     <== body
+        (dict, "yesBtn")   <== yesButtonTitle
+        (dict, "laterBtn") <== laterButtonTitle
+        (dict, "noBtn")    <== noButtonTitle
+        (dict, "link")     <== link
         return dict
     }
 }
