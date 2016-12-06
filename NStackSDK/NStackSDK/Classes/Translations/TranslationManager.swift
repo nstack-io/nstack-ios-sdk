@@ -110,10 +110,10 @@ public class TranslationManager {
                 }
 
             case .failure(let error):
-                self.print("Error downloading translations data.")
-                self.print(response.response ?? "No response", response.data ?? "No data")
-                self.print(error.localizedDescription)
-
+                log("Error downloading translations data.\nResponse: ",
+                    response.response ?? "No response",
+                    "\nData: ", response.data ?? "No data",
+                    "\nError: ", error.localizedDescription, level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         }
@@ -375,10 +375,6 @@ public class TranslationManager {
     
     // MARK: - Helpers -
     
-    func print(_ items: Any...) {
-        NStack.sharedInstance.print("[NSTACK TRANSLATIONS] ", items)
-    }
-
     var translationsFileUrl: URL {
         return FileManager.default.documentsDirectory.appendingPathComponent("Translations.nstack")
     }

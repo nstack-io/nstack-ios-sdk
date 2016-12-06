@@ -28,6 +28,13 @@ public class NStack {
     /// At this point, translations have been updated, if there was an internet connection.
     public var languageChangedHandler: (() -> Void)?
 
+    /// <#Description#>
+    public var logLevel: LogLevel = .error {
+        didSet {
+            Logger.logLevel = logLevel
+        }
+    }
+
     internal var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [.location]
 
     internal var connectionManager: ConnectionManager!
@@ -53,7 +60,8 @@ public class NStack {
     fileprivate func start(configuration: Configuration,
                            launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         guard !configured else {
-            print("NStack is already configured. Kill the app and start it again with new configuration.")
+            log("NStack is already configured. Kill the app and start it again with new configuration.",
+                level: .error)
             return
         }
 
@@ -76,7 +84,8 @@ public class NStack {
 
                 self.update { error in
                     if let error = error {
-                        self.print("Error updating NStack on did become active. \(error.localizedDescription)")
+                        log("Error updating NStack on did become active. \(error.localizedDescription)",
+                            level: .error)
                         return
                     }
                 }
@@ -131,13 +140,14 @@ public class NStack {
             switch response.result {
             case .success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
-                    self.print("Failure: couldn't parse response. Response data: ", JSONdata)
+                    log("Failure: couldn't parse response. Response data: ", JSONdata,
+                        level: .error)
                     completion?(.updateFailed(reason: "Couldn't parse response dictionary."))
                     return
                 }
 
                 let wrapper = AppOpenResponse(dictionary: dictionary)
-                self.print("App open response wrapper: ", wrapper)
+                log("App open response wrapper: ", wrapper, level: .verbose)
 
                 defer {
                     completion?(nil)
@@ -168,7 +178,7 @@ public class NStack {
                 self.connectionManager.setLastUpdated()
 
             case let .failure(error):
-                self.print("Failure: \(response.response?.description ?? "unknown error")")
+                log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
@@ -205,17 +215,6 @@ public extension NStack {
                 return
             }
             Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
-        }
-    }
-}
-
-// MARK: - Utilities -
-
-extension NStack {
-    internal func print(_ items: Any...) {
-        guard configured else { return }
-        if configuration.verboseMode {
-            Swift.print(items)
         }
     }
 }
