@@ -151,7 +151,7 @@ public class TranslationManager {
         }
 
         // Get all languages and calculate lowest quality
-        var languages = Locale.preferredLanguages
+        var languages = repository.fetchPreferredLanguages()
         let startValue = 1.0 - (0.1 * Double(components.count))
         let endValue = startValue - (0.1 * Double(languages.count))
 
@@ -314,8 +314,10 @@ public class TranslationManager {
             return languageDictionary
         }
 
+        let languages = repository.fetchPreferredLanguages()
+
         // First check to see if any of the translations match one of the user's device languages.
-        for userLanguage in Locale.preferredLanguages {
+        for userLanguage in languages {
             languageDictionary = translationsMatching(locale: userLanguage, inDictionary: dictionary)
             if let languageDictionary = languageDictionary {
                 return languageDictionary
@@ -323,7 +325,7 @@ public class TranslationManager {
         }
 
         // No matches, see if something matches when only using first two characters.
-        for userLanguage in Locale.preferredLanguages {
+        for userLanguage in languages {
             let index = userLanguage.characters.index(userLanguage.startIndex, offsetBy: 2)
             let substring = userLanguage.substring(to: index)
             languageDictionary = translationsMatching(locale: substring, inDictionary: dictionary)

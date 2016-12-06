@@ -20,6 +20,9 @@
 		01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
 		0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
 		0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */; };
+		0198A4161DF6971800C0162C /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A241DF1D57C00B521CF /* Serpent.framework */; };
+		0198A4171DF6971800C0162C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A251DF1D57C00B521CF /* Alamofire.framework */; };
+		0198A4181DF6971800C0162C /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A261DF1D57C00B521CF /* Cashier.framework */; };
 		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -169,6 +172,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */,
+				0198A4161DF6971800C0162C /* Serpent.framework in Frameworks */,
+				0198A4171DF6971800C0162C /* Alamofire.framework in Frameworks */,
+				0198A4181DF6971800C0162C /* Cashier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,7 +504,9 @@
 					};
 					30A3D8501B9DB94100C2D15C = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = HW27H6H98R;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					E3689BE11D9EB9EA004620D6 = {
 						CreatedOnToolsVersion = 8.0;
@@ -785,7 +793,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -812,7 +820,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
@@ -820,6 +828,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = HW27H6H98R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
@@ -829,7 +838,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -837,6 +846,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = HW27H6H98R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
@@ -846,7 +856,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};

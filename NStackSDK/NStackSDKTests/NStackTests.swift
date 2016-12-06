@@ -30,41 +30,8 @@ class NStackTests: XCTestCase {
         super.tearDown()
     }
 
-    func testStart() {
+    func testConfigured() {
         NStack.start(configuration: testConfiguration(), launchOptions: nil)
         XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
-    }
-
-    func testUpdate() {
-        let expected = expectation(description: "NStack update should succeed.")
-
-        NStack.sharedInstance.update { (error) in
-            XCTAssertNil(error, "NStack shouldn't error on update. \(error!.description)")
-            if error == nil {
-                expected.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 5.0, handler: nil)
-    }
-    
-    func testUpdateWithDanish() {
-        let expected = expectation(description: "NStack update should succeed.")
-        
-        NStack.sharedInstance.update { (error) in
-            XCTAssertNil(error, "NStack shouldn't error on update. \(error!.description)")
-            if error == nil {
-                if Locale.current.identifier == "da_DK" {
-                    XCTAssert(tr.defaultSection.successKey == "DET VAR EN SUCCESS" , "Check for danish value")
-                     expected.fulfill()
-                }
-                else {
-                    expected.fulfill()
-                }
-                
-            }
-        }
-        
-        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }

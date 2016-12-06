@@ -111,6 +111,10 @@ extension ConnectionManager: TranslationsRepository {
             .request(url, method: .get, parameters:params, headers: defaultHeaders)
             .responseSerializable(completion, unwrapper: defaultUnwrapper)
     }
+
+    func fetchPreferredLanguages() -> [String] {
+        return Locale.preferredLanguages
+    }
 }
 
 extension ConnectionManager: UpdatesRepository {

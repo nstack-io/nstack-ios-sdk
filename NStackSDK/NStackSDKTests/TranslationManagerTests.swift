@@ -11,43 +11,66 @@ import XCTest
 
 class TranslationManagerTests: XCTestCase {
 
+    var repositoryMock: TranslationsRepositoryMock!
+    var manager: TranslationManager!
+
     override func setUp() {
         super.setUp()
+        repositoryMock = TranslationsRepositoryMock()
+        manager = TranslationManager(translationsType: Translations.self, repository: repositoryMock)
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        manager = nil
+        repositoryMock = nil
     }
 
-    func testTranslations() {
+    func testAcceptLanguage() {
+        repositoryMock.preferredLanguages = ["en"]
+        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0")
 
-        TranslationManager.sharedInstance.lastFetchedLanguage = nil
-        TranslationManager.sharedInstance.languageOverride = Language(id: 11, name: "English (UK)", locale: "en-GB", direction: "LRM", data: NSDictionary())
+        repositoryMock.preferredLanguages = ["da-DK", "en-GB"]
+        XCTAssertEqual(manager.acceptLanguage, "da-DK;q=1.0,en-GB;q=1.0")
 
-        XCTAssertEqual(tr.defaultSection.successKey, "Success", "defaultSection.successKey does not have expected content in fallback!")
-
-        let expected = expectation(description: "testFetchTranslations")
-
-        TranslationManager.sharedInstance.fetchAvailableLanguages { (response) -> Void in
-            switch response.result {
-            case .success(let languages):
-                XCTAssert(languages.count > 0, "No languages available")
-                guard let danishLang = languages.filter({$0.locale == "da-DK"}).first else { XCTAssert(false, "Danish language not found"); return }
-                TranslationManager.sharedInstance.languageOverride = danishLang
-                TranslationManager.sharedInstance.updateTranslations { (error) -> Void in
-                    print(tr.defaultSection.successKey)
-                    XCTAssertEqual(tr.defaultSection.successKey,
-                        "DET VAR EN SUCCESS",
-                        "defaultSection.successKey does not have expected content in response from API!")
-                    expected.fulfill()
-                }
-
-            case .failure(let error):
-                XCTAssert(false, "Fetching languages failed - \(error.localizedDescription)")
-            }
-        }
-        waitForExpectations(timeout: 15, handler: nil)
+        // TODO: Add more tests
     }
-    
+
+    func testOverrideLanguage() {
+        // TODO: Add more tests
+    }
+
+    func testPersistedTranslations() {
+        let lang = LanguageData(language: Language(id: 0, name: "Danish", locale: "da-DK", direction: "lrm", acceptLanguage: "da-DK"))
+        let response = TranslationsResponse(translations:
+            ["en-GB" :
+                [
+                    "default" : ["englishKey" : "englishValue"]
+                ],
+             "da-DK" :
+                [
+                    "section1" : ["testKey" : "testValue"],
+                    "section2" : ["key2" : "value2"]
+                ]
+            ], languageData: lang)
+        repositoryMock.translationsResponse = response
+        manager.updateTranslations()
+        XCTAssertNotNil(manager.persistedTranslations, "Fallback translations should be available.")
+    }
+
+    func testFallbackTranslations() {
+        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should be available.")
+    }
+
+    func testClearTranslations() {
+        XCTAssertNotNil(manager.translationsObject, "Translations object shouldn't be nil.")
+        manager.clearTranslations()
+        XCTAssertNil(manager.translationsObject, "Translations should not exist after clear.")
+    }
+
+    func testClearPersistedTranslations() {
+        XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should exist.")
+        manager.clearTranslations(includingPersisted: true)
+        XCTAssertNil(manager.persistedTranslations, "Persisted translations should not exist after clear.")
+    }
 }

@@ -31,13 +31,15 @@ import NStackSDK
 
 public var tr: Translations {
     get {
-        return TranslationManager.sharedInstance.translations()
+        guard let manager = NStack.sharedInstance.translationsManager else {
+            return Translations()
+        }
+        return manager.translations()
     }
 }
 
 public struct Translations: Translatable {
     var defaultSection = DefaultSection() //<-default
-
 
     public struct DefaultSection {
         var successKey = ""
