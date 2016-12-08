@@ -37,7 +37,7 @@
 		304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
 		304C42841BA0747300AE3D6F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
 		304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
-		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		304E07421BBA922300AFE13D /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
 		305112721BD676DF005578DE /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		30A3D84B1B9DB94100C2D15C /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -835,7 +835,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				SWIFT_VERSION = 3.0.1;
@@ -852,7 +852,7 @@
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

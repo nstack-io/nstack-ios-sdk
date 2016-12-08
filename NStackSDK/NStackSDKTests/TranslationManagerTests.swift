@@ -14,33 +14,7 @@ class TranslationManagerTests: XCTestCase {
     var repositoryMock: TranslationsRepositoryMock!
     var manager: TranslationManager!
 
-    override func setUp() {
-        super.setUp()
-        repositoryMock = TranslationsRepositoryMock()
-        manager = TranslationManager(translationsType: Translations.self, repository: repositoryMock)
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        manager = nil
-        repositoryMock = nil
-    }
-
-    func testAcceptLanguage() {
-        repositoryMock.preferredLanguages = ["en"]
-        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0")
-
-        repositoryMock.preferredLanguages = ["da-DK", "en-GB"]
-        XCTAssertEqual(manager.acceptLanguage, "da-DK;q=1.0,en-GB;q=1.0")
-
-        // TODO: Add more tests
-    }
-
-    func testOverrideLanguage() {
-        // TODO: Add more tests
-    }
-
-    func testPersistedTranslations() {
+    var mockTranslations: TranslationsResponse {
         let lang = LanguageData(language: Language(id: 0, name: "Danish", locale: "da-DK", direction: "lrm", acceptLanguage: "da-DK"))
         let response = TranslationsResponse(translations:
             ["en-GB" :
@@ -53,9 +27,51 @@ class TranslationManagerTests: XCTestCase {
                     "section2" : ["key2" : "value2"]
                 ]
             ], languageData: lang)
-        repositoryMock.translationsResponse = response
+        return response
+    }
+
+    override func setUp() {
+        super.setUp()
+        repositoryMock = TranslationsRepositoryMock()
+        manager = TranslationManager(translationsType: Translations.self, repository: repositoryMock)
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        manager.persistedTranslations = nil
+        manager = nil
+        repositoryMock = nil
+    }
+
+    func testAcceptLanguage() {
+        // Test simple language
+        repositoryMock.preferredLanguages = ["en"]
+        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0")
+
+        // Test two languages with locale
+        repositoryMock.preferredLanguages = ["da-DK", "en-GB"]
+        XCTAssertEqual(manager.acceptLanguage, "da-DK;q=1.0,en-GB;q=0.9")
+
+        // Test max lang limit
+        repositoryMock.preferredLanguages = ["da-DK", "en-GB", "en", "cs-CZ", "sk-SK", "no-NO"]
+        XCTAssertEqual(manager.acceptLanguage,
+                       "da-DK;q=1.0,en-GB;q=0.9,en;q=0.8,cs-CZ;q=0.7,sk-SK;q=0.6",
+                       "There should be maximum 5 accept languages.")
+
+        // Test fallback
+        repositoryMock.preferredLanguages = []
+        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0",
+                       "If no accept language there should be fallback to english.")
+    }
+
+    func testOverrideLanguage() {
+        // TODO: Add more tests
+    }
+
+    func testPersistedTranslations() {
+        repositoryMock.translationsResponse = mockTranslations
         manager.updateTranslations()
-        XCTAssertNotNil(manager.persistedTranslations, "Fallback translations should be available.")
+        XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should be available.")
     }
 
     func testFallbackTranslations() {
@@ -63,14 +79,18 @@ class TranslationManagerTests: XCTestCase {
     }
 
     func testClearTranslations() {
-        XCTAssertNotNil(manager.translationsObject, "Translations object shouldn't be nil.")
+        _ = manager.loadFallbackTranslations() as Translations
+        XCTAssertNotNil(manager.translationsObject, "Translations shouldn't be nil.")
         manager.clearTranslations()
         XCTAssertNil(manager.translationsObject, "Translations should not exist after clear.")
     }
 
     func testClearPersistedTranslations() {
-        XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should exist.")
-        manager.clearTranslations(includingPersisted: true)
-        XCTAssertNil(manager.persistedTranslations, "Persisted translations should not exist after clear.")
+        repositoryMock.translationsResponse = mockTranslations
+        manager.updateTranslations { error in
+            XCTAssertNotNil(self.manager.persistedTranslations, "Persisted translations should exist.")
+            self.manager.clearTranslations(includingPersisted: true)
+            XCTAssertNil(self.manager.persistedTranslations, "Persisted translations should not exist after clear.")
+        }
     }
 }

@@ -136,11 +136,11 @@ public class TranslationManager {
     // MARK: - Accept Language -
 
     /// Returns a string containing the current locale's preferred languages in a prioritized
-    /// manner to be used in a accept-language header. Format example:
+    /// manner to be used in a accept-language header. If no preferred language available, 
+    /// fallback language is returned (English). Format example:
     ///
-    /// "da;q=1.0, en-gb;q=0.8, en;q=0.7"
+    /// "da;q=1.0,en-gb;q=0.8,en;q=0.7"
     ///
-    /// - Parameter languageOverride: Language that should take precedence over preferred languages.
     /// - Returns: An accept language header string.
     public var acceptLanguage: String {
         var components: [String] = []
@@ -152,6 +152,12 @@ public class TranslationManager {
 
         // Get all languages and calculate lowest quality
         var languages = repository.fetchPreferredLanguages()
+
+        // Append fallback language if we don't have any provided
+        if components.count == 0 && languages.count == 0 {
+            languages.append("en")
+        }
+
         let startValue = 1.0 - (0.1 * Double(components.count))
         let endValue = startValue - (0.1 * Double(languages.count))
 
@@ -184,9 +190,7 @@ public class TranslationManager {
         }
 
         // Load persisted or fallback translations
-        let fallbackTranslations = T(dictionary: translationsDictionary)
-        translationsObject = fallbackTranslations
-        return fallbackTranslations
+        return loadFallbackTranslations()
     }
 
     /// Clears both the memory and persistent cache. Used for debugging purposes.
@@ -199,6 +203,15 @@ public class TranslationManager {
         if includingPersisted {
             persistedTranslations = nil
         }
+    }
+
+    /// <#Description#>
+    ///
+    /// - Returns: <#return value description#>
+    func loadFallbackTranslations<T: Translatable>() -> T {
+        let fallbackTranslations = T(dictionary: translationsDictionary)
+        translationsObject = fallbackTranslations
+        return fallbackTranslations
     }
 
     // MARK: - Dictionaries -
