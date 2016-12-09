@@ -23,6 +23,12 @@ public class TranslationManager {
     /// The translations object type
     let translationsType: Translatable.Type
 
+    /// Persistent store to use to store information
+    let store: NOPersistentStore
+
+    /// File manager handling persisting new translation data
+    let fileManager: FileManager
+
     /// In memory cache of the translations object
     var translationsObject: Translatable?
 
@@ -31,16 +37,14 @@ public class TranslationManager {
 
     var lastAcceptHeader: String? {
         get {
-            let key = Constants.CacheKeys.prevAcceptedLanguage
-            return Constants.persistentStore.string(forKey: key)
+            return store.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
         }
         set {
-            let key = Constants.CacheKeys.prevAcceptedLanguage
             guard let newValue = newValue else {
-                Constants.persistentStore.deleteObject(forKey: key)
+                store.deleteObject(forKey: Constants.CacheKeys.prevAcceptedLanguage)
                 return
             }
-            Constants.persistentStore.setObject(newValue, forKey: key)
+            store.setObject(newValue, forKey: Constants.CacheKeys.prevAcceptedLanguage)
         }
     }
 
@@ -49,24 +53,20 @@ public class TranslationManager {
     /// Otherwise, the effect will not be seen.
     public var languageOverride: Language? {
         get {
-            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languageOverride)
+            return store.serializableForKey(Constants.CacheKeys.languageOverride)
         }
 
         set {
             if let newValue = newValue {
-                Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languageOverride)
+                store.setSerializable(newValue, forKey: Constants.CacheKeys.languageOverride)
             } else {
-                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languageOverride)
+                store.deleteSerializableForKey(Constants.CacheKeys.languageOverride)
             }
             clearTranslations()
         }
     }
 
     // MARK: - Lifecycle -
-
-    private init() {
-        fatalError("init() should never be called.")
-    }
 
     /// Instantiates and sets the type of the translations object and the repository from which
     /// translations are fetched. Usually this is invoked by the NStack start method, so under normal
@@ -76,9 +76,13 @@ public class TranslationManager {
     ///   - translationsType: The type of the translations object that should be used.
     ///   - repository: Repository that can provide translations.
     internal init(translationsType: Translatable.Type,
-                  repository: TranslationsRepository) {
+                  repository: TranslationsRepository,
+                  store: NOPersistentStore = Constants.persistentStore,
+                  fileManager: FileManager = .default) {
         self.translationsType = translationsType
         self.repository = repository
+        self.store = store
+        self.fileManager = fileManager
     }
 
     // MARK: - Update & Fetch -
@@ -97,10 +101,11 @@ public class TranslationManager {
 
                 var languageChanged = false
                 if self.lastAcceptHeader != self.acceptLanguage {
-                    self.clearTranslations()
+                    self.clearTranslations(includingPersisted: true)
                     languageChanged = true
                 }
 
+                self.lastAcceptHeader = self.acceptLanguage
                 self.set(translationsDictionary: translationsData.translations)
 
                 completion?(nil)
@@ -181,6 +186,7 @@ public class TranslationManager {
     public func translations<T: Translatable>() -> T {
         // Clear translations if language changed
         if lastAcceptHeader != acceptLanguage {
+            lastAcceptHeader = acceptLanguage
             clearTranslations()
         }
 
@@ -190,7 +196,10 @@ public class TranslationManager {
         }
 
         // Load persisted or fallback translations
-        return loadFallbackTranslations()
+        loadTranslations()
+
+        // Now we must have correct translations, so return it
+        return translationsObject as! T
     }
 
     /// Clears both the memory and persistent cache. Used for debugging purposes.
@@ -206,12 +215,10 @@ public class TranslationManager {
     }
 
     /// <#Description#>
-    ///
-    /// - Returns: <#return value description#>
-    func loadFallbackTranslations<T: Translatable>() -> T {
-        let fallbackTranslations = T(dictionary: translationsDictionary)
-        translationsObject = fallbackTranslations
-        return fallbackTranslations
+    func loadTranslations() {
+        let parsed = processAllTranslations(translationsDictionary)
+        let translations = translationsType.init(dictionary: parsed)
+        translationsObject = translations
     }
 
     // MARK: - Dictionaries -
@@ -220,11 +227,11 @@ public class TranslationManager {
     ///
     /// - Parameter translations: The new translations.
     func set(translationsDictionary: NSDictionary?) {
-        // Create the translations object and save in memory
-        translationsObject = translationsType.init(dictionary: translationsDictionary)
-
         // Persist the object
         persistedTranslations = translationsDictionary
+
+        // Reload the translations
+        _ = loadTranslations()
     }
 
     /// Returns the saved dictionary representation of the translations.
@@ -240,7 +247,7 @@ public class TranslationManager {
             // Delete if new value is nil
             guard let newValue = newValue else {
                 do {
-                    try FileManager.default.removeItem(at: translationsFileUrl)
+                    try fileManager.removeItem(at: translationsFileUrl)
                 } catch {
                     print("Failed to delete persisted translatons. \(error.localizedDescription)")
                 }
@@ -273,7 +280,6 @@ public class TranslationManager {
     var fallbackTranslations: NSDictionary {
         for bundle in Bundle.allBundles {
             guard let filePath = bundle.path(forResource: "Translations", ofType: "json") else {
-                print("Failed to get path for fallback translations.")
                 continue
             }
 
@@ -294,12 +300,7 @@ public class TranslationManager {
                     continue
                 }
 
-                guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
-                    print("Failed to get data from fallback NSDictionary.")
-                    continue
-                }
-
-                return parseTranslationDictionary(translations)
+                return dictionary
             } catch {
                 print("Error loading translations JSON file. \(error.localizedDescription)")
             }
@@ -311,11 +312,20 @@ public class TranslationManager {
 
     // MARK: - Parsing -
 
+    private func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
+        guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
+            print("Failed to get data from fallback NSDictionary.")
+            return nil
+        }
+
+        return extractLanguageDictionary(fromDictionary: translations)
+    }
+
     /// Uses the device's current locale to select the appropriate translations set.
     ///
     /// - Parameter json: A dictionary containing translation sets by language code key.
     /// - Returns: A translations set as a dictionary.
-    private func parseTranslationDictionary(_ dictionary: NSDictionary) -> NSDictionary {
+    func extractLanguageDictionary(fromDictionary dictionary: NSDictionary) -> NSDictionary {
         var languageDictionary: NSDictionary? = nil
 
         if let languageOverride = languageOverride {
@@ -389,6 +399,6 @@ public class TranslationManager {
     // MARK: - Helpers -
     
     var translationsFileUrl: URL {
-        return FileManager.default.documentsDirectory.appendingPathComponent("Translations.nstack")
+        return fileManager.documentsDirectory.appendingPathComponent("Translations.nstack")
     }
 }
