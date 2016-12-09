@@ -31,7 +31,7 @@ public class NStack {
     /// <#Description#>
     public var logLevel: LogLevel = .error {
         didSet {
-            Logger.logLevel = logLevel
+            logger.logLevel = logLevel
         }
     }
 
@@ -40,7 +40,7 @@ public class NStack {
     internal var connectionManager: ConnectionManager!
     internal fileprivate(set) var configured = false
     internal var observer: ApplicationObserver?
-
+    internal var logger: LoggerType = Logger()
     // MARK: - Start NStack -
 
     fileprivate init() {}
@@ -60,7 +60,7 @@ public class NStack {
     fileprivate func start(configuration: Configuration,
                            launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         guard !configured else {
-            log("NStack is already configured. Kill the app and start it again with new configuration.",
+            logger.log("NStack is already configured. Kill the app and start it again with new configuration.",
                 level: .error)
             return
         }
@@ -84,7 +84,7 @@ public class NStack {
 
                 self.update { error in
                     if let error = error {
-                        log("Error updating NStack on did become active. \(error.localizedDescription)",
+                        self.logger.log("Error updating NStack on did become active. \(error.localizedDescription)",
                             level: .error)
                         return
                     }
@@ -94,7 +94,9 @@ public class NStack {
 
         // Setup translations
         if let translationsClass = configuration.translationsClass {
-            translationsManager = TranslationManager(translationsType: translationsClass, repository: connectionManager)
+            translationsManager = TranslationManager(translationsType: translationsClass,
+                                                     repository: connectionManager,
+                                                     logger: logger)
 
             // Delete translations if new version
             if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
@@ -140,14 +142,14 @@ public class NStack {
             switch response.result {
             case .success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
-                    log("Failure: couldn't parse response. Response data: ", JSONdata,
+                    self.logger.log("Failure: couldn't parse response. Response data: ", JSONdata,
                         level: .error)
                     completion?(.updateFailed(reason: "Couldn't parse response dictionary."))
                     return
                 }
 
                 let wrapper = AppOpenResponse(dictionary: dictionary)
-                log("App open response wrapper: ", wrapper, level: .verbose)
+                self.logger.log("App open response wrapper: ", wrapper, level: .verbose)
 
                 defer {
                     completion?(nil)
@@ -178,7 +180,7 @@ public class NStack {
                 self.connectionManager.setLastUpdated()
 
             case let .failure(error):
-                log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
+                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })

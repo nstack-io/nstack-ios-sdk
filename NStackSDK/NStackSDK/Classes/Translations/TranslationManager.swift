@@ -17,24 +17,28 @@ import Alamofire
 /// global 'tr' variable defined in the auto-generated translations Swift file.
 public class TranslationManager {
 
-    /// Repository that provides translations
+    /// Repository that provides translations.
     let repository: TranslationsRepository
 
-    /// The translations object type
+    /// The translations object type.
     let translationsType: Translatable.Type
 
-    /// Persistent store to use to store information
+    /// Persistent store to use to store information.
     let store: NOPersistentStore
 
-    /// File manager handling persisting new translation data
+    /// File manager handling persisting new translation data.
     let fileManager: FileManager
 
-    /// In memory cache of the translations object
+    /// Logger used to log valuable information.
+    let logger: LoggerType
+
+    /// In memory cache of the translations object.
     var translationsObject: Translatable?
 
-    /// Internal handler closure for language change
+    /// Internal handler closure for language change.
     var languageChangedAction: (() -> Void)?
 
+    /// The previous accept header string that was used.
     var lastAcceptHeader: String? {
         get {
             return store.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
@@ -77,12 +81,14 @@ public class TranslationManager {
     ///   - repository: Repository that can provide translations.
     internal init(translationsType: Translatable.Type,
                   repository: TranslationsRepository,
+                  logger: LoggerType,
                   store: NOPersistentStore = Constants.persistentStore,
                   fileManager: FileManager = .default) {
         self.translationsType = translationsType
         self.repository = repository
         self.store = store
         self.fileManager = fileManager
+        self.logger = logger
     }
 
     // MARK: - Update & Fetch -
@@ -115,10 +121,10 @@ public class TranslationManager {
                 }
 
             case .failure(let error):
-                log("Error downloading translations data.\nResponse: ",
-                    response.response ?? "No response",
-                    "\nData: ", response.data ?? "No data",
-                    "\nError: ", error.localizedDescription, level: .error)
+                self.logger.log("Error downloading translations data.\nResponse: ",
+                                response.response ?? "No response",
+                                "\nData: ", response.data ?? "No data",
+                                "\nError: ", error.localizedDescription, level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         }
@@ -214,7 +220,7 @@ public class TranslationManager {
         }
     }
 
-    /// <#Description#>
+    /// Loads and initializes the translations object from either persisted or fallback dictionary.
     func loadTranslations() {
         let parsed = processAllTranslations(translationsDictionary)
         let translations = translationsType.init(dictionary: parsed)
@@ -239,6 +245,7 @@ public class TranslationManager {
         return persistedTranslations ?? fallbackTranslations
     }
 
+    /// Translations that were downloaded and persisted on disk.
     var persistedTranslations: NSDictionary? {
         get {
             return NSDictionary(contentsOf: translationsFileUrl)
@@ -249,7 +256,8 @@ public class TranslationManager {
                 do {
                     try fileManager.removeItem(at: translationsFileUrl)
                 } catch {
-                    print("Failed to delete persisted translatons. \(error.localizedDescription)")
+                    logger.log("Failed to delete persisted translatons. \(error.localizedDescription)",
+                        level: .error)
                 }
                 return
             }
@@ -257,7 +265,7 @@ public class TranslationManager {
             // Save to disk
             var url = translationsFileUrl
             guard newValue.write(to: url, atomically: true) else {
-                print("Failed to persist translations to disk.")
+                logger.log("Failed to persist translations to disk.", level: .error)
                 return
             }
 
@@ -267,7 +275,8 @@ public class TranslationManager {
                 resourceValues.isExcludedFromBackup = true
                 try url.setResourceValues(resourceValues)
             } catch {
-                print("Failed to exclude translations from backup. \(error.localizedDescription)")
+                logger.log("Failed to exclude translations from backup. \(error.localizedDescription)",
+                    level: .warning)
             }
         }
     }
@@ -289,32 +298,39 @@ public class TranslationManager {
             do {
                 data = try Data(contentsOf: fileUrl)
             } catch {
-                print("Failed to get data from fallback translations file. \(error.localizedDescription)")
+                logger.log("Failed to get data from fallback translations file. \(error.localizedDescription)",
+                    level: .error)
                 continue
             }
 
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
                 guard let dictionary = json as? NSDictionary else {
-                    print("Failed to get NSDictionary from fallback JSON file.")
+                    logger.log("Failed to get NSDictionary from fallback JSON file.", level: .error)
                     continue
                 }
 
                 return dictionary
             } catch {
-                print("Error loading translations JSON file. \(error.localizedDescription)")
+                logger.log("Error loading translations JSON file. \(error.localizedDescription)",
+                    level: .error)
             }
         }
 
-        print("Failed to load fallback translations, file non-existent.")
+        logger.log("Failed to load fallback translations, file non-existent.", level: .error)
         return [:]
     }
 
     // MARK: - Parsing -
 
+    /// Unwraps and extracts proper language dictionary out of the dictionary containing 
+    /// all translations.
+    ///
+    /// - Parameter dictionary: Dictionary containing all translations under the `data` key.
+    /// - Returns: Returns extracted language dictioanry for current accept language.
     private func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
         guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
-            print("Failed to get data from fallback NSDictionary.")
+            logger.log("Failed to get data from all translations NSDictionary.", level: .error)
             return nil
         }
 
@@ -366,7 +382,7 @@ public class TranslationManager {
             return languageDictionary
         }
 
-        print("Error loading translations. No translations available.")
+        logger.log("Error loading translations. No translations available.", level: .error)
         return [:]
     }
 
@@ -397,7 +413,8 @@ public class TranslationManager {
     }
     
     // MARK: - Helpers -
-    
+
+    /// The URL used to persist downloaded translations.
     var translationsFileUrl: URL {
         return fileManager.documentsDirectory.appendingPathComponent("Translations.nstack")
     }

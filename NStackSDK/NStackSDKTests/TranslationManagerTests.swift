@@ -44,6 +44,7 @@ class TranslationManagerTests: XCTestCase {
         repositoryMock = TranslationsRepositoryMock()
         manager = TranslationManager(translationsType: Translations.self,
                                      repository: repositoryMock,
+                                     logger: Logger(),
                                      store: store)
     }
 
@@ -65,6 +66,34 @@ class TranslationManagerTests: XCTestCase {
     }
 
     // MARK: - Update -
+
+    func testUpdateSuccess() {
+        repositoryMock.translationsResponse = mockTranslations
+        let exp = expectation(description: "Update translations should succeed.")
+        manager.updateTranslations { error in
+            XCTAssertNil(error, "Error should be nil.")
+            XCTAssertNotNil(self.manager.translationsObject,
+                         "Translations should be loaded after successful update.")
+            XCTAssertNotNil(self.manager.persistedTranslations,
+                         "Persistent translations should be saved after successful update.")
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
+    func testUpdateFailure() {
+        repositoryMock.translationsResponse = nil
+        let exp = expectation(description: "Update translations should fail.")
+        manager.updateTranslations { error in
+            XCTAssertNotNil(error, "Error shouldn't be nil.")
+            XCTAssertNil(self.manager.translationsObject,
+                         "Translations should not be loaded after failed update.")
+            XCTAssertNil(self.manager.persistedTranslations,
+                         "Persistent translations should not be saved after failed update.")
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 
     // MARK: - Fetch -
 

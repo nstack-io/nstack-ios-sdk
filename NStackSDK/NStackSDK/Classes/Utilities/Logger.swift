@@ -24,15 +24,17 @@ public enum LogLevel: Int {
     }
 }
 
-enum Logger {
-    static var logLevel: LogLevel = .error
+protocol LoggerType {
+    var logLevel: LogLevel { get set }
+    func log(_ items: Any..., level: LogLevel)
+}
 
-    static func log(_ items: Any..., level: LogLevel) {
+class Logger: LoggerType {
+
+    var logLevel: LogLevel = .error
+
+    func log(_ items: Any..., level: LogLevel) {
         guard level.rawValue <= logLevel.rawValue else { return }
         print("[NStackSDK]", " ", level.message, " ", items)
     }
-}
-
-func log(_ items: Any..., level: LogLevel) {
-    Logger.log(items, level: level)
 }
