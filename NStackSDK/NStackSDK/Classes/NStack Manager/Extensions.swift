@@ -32,8 +32,8 @@ extension UIApplication {
 }
 
 extension FileManager {
-    var documentsDirectory: URL {
-        return urls(for: .documentDirectory, in: .userDomainMask)[0]
+    var documentsDirectory: URL? {
+        return urls(for: .documentDirectory, in: .userDomainMask).first
     }
 }
 

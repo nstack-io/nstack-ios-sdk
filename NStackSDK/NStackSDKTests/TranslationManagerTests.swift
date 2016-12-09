@@ -14,6 +14,7 @@ class TranslationManagerTests: XCTestCase {
 
     let store = NOPersistentStore.cache(withId: "TranslationManagerTests")!
     var repositoryMock: TranslationsRepositoryMock!
+    var fileManagerMock: FileManagerMock!
     var manager: TranslationManager!
 
     let mockLanguage = Language(id: 0, name: "Danish", locale: "da-DK",
@@ -36,15 +37,30 @@ class TranslationManagerTests: XCTestCase {
         return manager.translations()
     }
 
+    var mockBundle: BundleMock {
+        let path = fileManagerMock.urls(for: .cachesDirectory, in: .userDomainMask)[0].absoluteString
+        return BundleMock(path: path.replacingOccurrences(of: "file://", with: ""))!
+    }
+
+    var invalidTranslationsJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/InvalidTranslations.json"
+    }
+
+    var wrongFormatJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeTranslations.json"
+    }
+
     // MARK: - Test Case Lifecycle -
 
     override func setUp() {
         super.setUp()
         repositoryMock = TranslationsRepositoryMock()
+        fileManagerMock = FileManagerMock()
         manager = TranslationManager(translationsType: Translations.self,
                                      repository: repositoryMock,
                                      logger: Logger(),
-                                     store: store)
+                                     store: store,
+                                     fileManager: fileManagerMock)
     }
 
     override func tearDown() {
@@ -52,6 +68,7 @@ class TranslationManagerTests: XCTestCase {
         manager.persistedTranslations = nil
         manager = nil
         repositoryMock = nil
+        fileManagerMock = nil
         store.clearAllData(true)
     }
 
@@ -68,30 +85,20 @@ class TranslationManagerTests: XCTestCase {
 
     func testUpdateSuccess() {
         repositoryMock.translationsResponse = mockTranslations
-        let exp = expectation(description: "Update translations should succeed.")
-        manager.updateTranslations { error in
-            XCTAssertNil(error, "Error should be nil.")
-            XCTAssertNotNil(self.manager.translationsObject,
-                         "Translations should be loaded after successful update.")
-            XCTAssertNotNil(self.manager.persistedTranslations,
-                         "Persistent translations should be saved after successful update.")
-            exp.fulfill()
-        }
-        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNil(manager.synchronousUpdateTranslations(), "Error should be nil.")
+        XCTAssertNotNil(manager.translationsObject,
+                        "Translations should be loaded after successful update.")
+        XCTAssertNotNil(manager.persistedTranslations,
+                        "Persistent translations should be saved after successful update.")
     }
 
     func testUpdateFailure() {
         repositoryMock.translationsResponse = nil
-        let exp = expectation(description: "Update translations should fail.")
-        manager.updateTranslations { error in
-            XCTAssertNotNil(error, "Error shouldn't be nil.")
-            XCTAssertNil(self.manager.translationsObject,
-                         "Translations should not be loaded after failed update.")
-            XCTAssertNil(self.manager.persistedTranslations,
-                         "Persistent translations should not be saved after failed update.")
-            exp.fulfill()
-        }
-        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(manager.synchronousUpdateTranslations(), "Error shouldn't be nil.")
+        XCTAssertNil(manager.translationsObject,
+                     "Translations should not be loaded after failed update.")
+        XCTAssertNil(manager.persistedTranslations,
+                     "Persistent translations should not be saved after failed update.")
     }
 
     // MARK: - Fetch -
@@ -236,6 +243,20 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil.")
     }
 
+    func testPersistedTranslationsSaveFailure() {
+        fileManagerMock.searchPathUrlsOverride = []
+        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
+        manager.persistedTranslations = mockTranslations.translations
+        XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
+    }
+
+    func testPersistedTranslationsSaveFailureBadUrl() {
+        fileManagerMock.searchPathUrlsOverride = [URL(string: "test://")!]
+        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
+        manager.persistedTranslations = mockTranslations.translations
+        XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
+    }
+
     func testPersistedTranslationsOnUpdate() {
         repositoryMock.translationsResponse = mockTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations(), "No error should happen on update.")
@@ -244,6 +265,27 @@ class TranslationManagerTests: XCTestCase {
 
     func testFallbackTranslations() {
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should be available.")
+    }
+
+    func testFallbackTranslationsInvalidPath() {
+        let bundle = mockBundle
+        bundle.resourcePathOverride = "file://BlaBlaBla.json" // invalid path
+        repositoryMock.customBundles = [bundle]
+        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid path.")
+    }
+
+    func testFallbackTranslationsInvalidJSON() {
+        let bundle = mockBundle
+        bundle.resourcePathOverride = invalidTranslationsJSONPath // invalid json file
+        repositoryMock.customBundles = [bundle]
+        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid JSON.")
+    }
+
+    func testFallbackTranslationsWrongFormatJSON() {
+        let bundle = mockBundle
+        bundle.resourcePathOverride = wrongFormatJSONPath // wrong format json file
+        repositoryMock.customBundles = [bundle]
+        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with wrong format JSON.")
     }
 
     // MARK: - Unwrap & Parse -
@@ -276,6 +318,25 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
 
+    func testExtractWithLanguageOverride() {
+        repositoryMock.preferredLanguages = ["en-GB", "en"]
+        manager.languageOverride = mockLanguage
+        let lang: NSDictionary = ["en-GB" : ["correct" : "no"],
+                                  "da-DK" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
+    func testExtractWithWrongLanguageOverride() {
+        repositoryMock.preferredLanguages = ["en-GB", "en"]
+        manager.languageOverride = mockLanguage
+        let lang: NSDictionary = ["en" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
     func testExtractWithNoLocale() {
         repositoryMock.preferredLanguages = []
         let lang: NSDictionary = ["da-DK" : ["correct" : "no"],
@@ -292,6 +353,14 @@ class TranslationManagerTests: XCTestCase {
         let dict = manager.extractLanguageDictionary(fromDictionary: lang)
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
+    func testExtractFailure() {
+        repositoryMock.preferredLanguages = ["da-DK"]
+        let lang: NSDictionary = [:]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.allKeys.count, 0, "Extracted dictionary should not be empty.")
     }
 
     // MARK: - Clearing -

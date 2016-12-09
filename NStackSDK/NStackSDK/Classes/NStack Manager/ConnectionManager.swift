@@ -115,6 +115,10 @@ extension ConnectionManager: TranslationsRepository {
     func fetchPreferredLanguages() -> [String] {
         return Locale.preferredLanguages
     }
+
+    func fetchBundles() -> [Bundle] {
+        return Bundle.allBundles
+    }
 }
 
 extension ConnectionManager: UpdatesRepository {

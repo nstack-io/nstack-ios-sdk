@@ -31,6 +31,10 @@
 		01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
 		01DA43191C7904E200D0FC04 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
 		01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
+		01FC66771DFAD52C001682AA /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
+		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
+		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
+		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -119,6 +123,10 @@
 		01DA43131C7904E200D0FC04 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01DA43141C7904E200D0FC04 /* NStack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NStack.plist; sourceTree = "<group>"; };
 		01DA43171C7904E200D0FC04 /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
+		01FC66761DFAD52C001682AA /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
+		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
+		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
+		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
 		2729E8481B9ED06600286B12 /* TranslationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
@@ -216,7 +224,7 @@
 		017E871E1DF61A1C009E9792 /* Translations */ = {
 			isa = PBXGroup;
 			children = (
-				017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */,
+				01FC667E1DFADEE4001682AA /* Mocks */,
 				01814A271D61C9120053E804 /* TranslationManagerTests.swift */,
 			);
 			name = Translations;
@@ -235,10 +243,22 @@
 		01DA43151C7904E200D0FC04 /* Translations Class */ = {
 			isa = PBXGroup;
 			children = (
+				01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */,
+				01FC667A1DFADC35001682AA /* InvalidTranslations.json */,
 				0106ADA21C7914B700E0C8BC /* Translations.json */,
 				01DA43171C7904E200D0FC04 /* Translations.swift */,
 			);
 			path = "Translations Class";
+			sourceTree = "<group>";
+		};
+		01FC667E1DFADEE4001682AA /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */,
+				01FC66781DFAD905001682AA /* BundleMock.swift */,
+				01FC66761DFAD52C001682AA /* FileManagerMock.swift */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		304C42801BA0743D00AE3D6F /* Models */ = {
@@ -555,6 +575,8 @@
 			files = (
 				01DA43191C7904E200D0FC04 /* NStack.plist in Resources */,
 				0106ADA31C7914B700E0C8BC /* Translations.json in Resources */,
+				01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */,
+				01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,9 +635,11 @@
 				30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */,
 				01814A261D61C7D00053E804 /* ConnectionManagerTests.swift in Sources */,
 				01814A281D61C9120053E804 /* TranslationManagerTests.swift in Sources */,
+				01FC66771DFAD52C001682AA /* FileManagerMock.swift in Sources */,
 				0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */,
 				017E87201DF61A32009E9792 /* TranslationsRepositoryMock.swift in Sources */,
 				01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */,
+				01FC66791DFAD905001682AA /* BundleMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

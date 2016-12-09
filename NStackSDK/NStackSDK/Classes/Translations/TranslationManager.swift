@@ -248,9 +248,16 @@ public class TranslationManager {
     /// Translations that were downloaded and persisted on disk.
     var persistedTranslations: NSDictionary? {
         get {
-            return NSDictionary(contentsOf: translationsFileUrl)
+            guard let url = translationsFileUrl else {
+                return nil
+            }
+            return NSDictionary(contentsOf: url)
         }
         set {
+            guard let translationsFileUrl = translationsFileUrl else {
+                return
+            }
+
             // Delete if new value is nil
             guard let newValue = newValue else {
                 do {
@@ -287,7 +294,7 @@ public class TranslationManager {
     ///
     /// - Returns: A dictionary representation of the selected local translations set.
     var fallbackTranslations: NSDictionary {
-        for bundle in Bundle.allBundles {
+        for bundle in repository.fetchBundles() {
             guard let filePath = bundle.path(forResource: "Translations", ofType: "json") else {
                 continue
             }
@@ -425,7 +432,7 @@ public class TranslationManager {
     // MARK: - Helpers -
 
     /// The URL used to persist downloaded translations.
-    var translationsFileUrl: URL {
-        return fileManager.documentsDirectory.appendingPathComponent("Translations.nstack")
+    var translationsFileUrl: URL? {
+        return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
     }
 }

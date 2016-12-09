@@ -1,0 +1,20 @@
+ [{
+  "en-GB": {
+		"default": {
+  "successKey": "Success"
+		}
+  },
+  "da-DK": {
+		"default": {
+  "successKey": "Fedt"
+		}
+  }
+  }, {
+  "is_cached": false,
+  "language": {
+		"locale": "en-GB",
+		"id": 11,
+		"name": "English (UK)",
+		"direction": "LRM"
+  }
+  }]

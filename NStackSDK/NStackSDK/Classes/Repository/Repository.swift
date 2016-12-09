@@ -32,6 +32,7 @@ protocol TranslationsRepository {
     func fetchCurrentLanguage(acceptLanguage: String, completion: @escaping Completion<Language>)
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>)
     func fetchPreferredLanguages() -> [String]
+    func fetchBundles() -> [Bundle]
 }
 
 // MARK: - Geography -

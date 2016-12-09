@@ -15,6 +15,7 @@ class TranslationsRepositoryMock: TranslationsRepository {
     var availableLanguages: [Language]?
     var currentLanguage: Language?
     var preferredLanguages = ["en"]
+    var customBundles: [Bundle]?
 
     func fetchTranslations(acceptLanguage: String, completion: @escaping ((DataResponse<TranslationsResponse>) -> Void)) {
         let error = NSError(domain: "", code: 0, userInfo: nil)
@@ -39,5 +40,9 @@ class TranslationsRepositoryMock: TranslationsRepository {
 
     func fetchPreferredLanguages() -> [String] {
         return preferredLanguages
+    }
+
+    func fetchBundles() -> [Bundle] {
+        return customBundles ?? Bundle.allBundles
     }
 }
