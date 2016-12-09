@@ -328,7 +328,7 @@ public class TranslationManager {
     ///
     /// - Parameter dictionary: Dictionary containing all translations under the `data` key.
     /// - Returns: Returns extracted language dictioanry for current accept language.
-    private func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
+    func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
         guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
             logger.log("Failed to get data from all translations NSDictionary.", level: .error)
             return nil
@@ -344,39 +344,42 @@ public class TranslationManager {
     func extractLanguageDictionary(fromDictionary dictionary: NSDictionary) -> NSDictionary {
         var languageDictionary: NSDictionary? = nil
 
+        // First try overriden language
         if let languageOverride = languageOverride {
             languageDictionary = translationsMatching(language: languageOverride,
                                                       inDictionary: dictionary)
-        }
-
-        if let languageDictionary = languageDictionary {
-            return languageDictionary
+            if let languageDictionary = languageDictionary {
+                return languageDictionary
+            }
         }
 
         let languages = repository.fetchPreferredLanguages()
 
         // First check to see if any of the translations match one of the user's device languages.
         for userLanguage in languages {
+            if let languageDictionary = dictionary.value(forKey: userLanguage) as? NSDictionary {
+                return languageDictionary
+            }
+        }
+
+        let shortLanguages = languages.map({ $0.substring(to: 2) })
+
+        // No matches, see if something matches when only using first two characters.
+        for userLanguage in shortLanguages {
             languageDictionary = translationsMatching(locale: userLanguage, inDictionary: dictionary)
             if let languageDictionary = languageDictionary {
                 return languageDictionary
             }
         }
 
-        // No matches, see if something matches when only using first two characters.
-        for userLanguage in languages {
-            let index = userLanguage.characters.index(userLanguage.startIndex, offsetBy: 2)
-            let substring = userLanguage.substring(to: index)
-            languageDictionary = translationsMatching(locale: substring, inDictionary: dictionary)
-            if let languageDictionary = languageDictionary {
-                return languageDictionary
-            }
+        // No matches, try English otherwise just use whatever the first one is
+        languageDictionary = translationsMatching(locale: "en", inDictionary: dictionary)
+
+        if let languageDictionary = languageDictionary {
+            return languageDictionary
         }
 
-        // No matches, try English otherwise just use whatever the first one is
-        languageDictionary = translationsMatching(locale: "en", inDictionary: dictionary) ??
-            dictionary.allValues.first as? NSDictionary
-
+        languageDictionary = dictionary.allValues.first as? NSDictionary
 
         if let languageDictionary = languageDictionary {
             return languageDictionary
@@ -403,8 +406,15 @@ public class TranslationManager {
     ///   - json: The dictionary containing translations for all languages.
     /// - Returns: Translations dictionary for the given language.
     func translationsMatching(locale: String, inDictionary dictionary: NSDictionary) -> NSDictionary? {
+        // If we have perfect match
+        if let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
+            return dictionary
+        }
+
+        // Try short keys
         for case let key as String in dictionary.allKeys {
-            if key == locale {
+            let shortKey = key.substring(to: 2)
+            if shortKey == locale {
                 return dictionary.value(forKey: key) as? NSDictionary
             }
         }

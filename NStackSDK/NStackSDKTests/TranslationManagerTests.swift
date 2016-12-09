@@ -23,12 +23,11 @@ class TranslationManagerTests: XCTestCase {
         return TranslationsResponse(translations:
             ["en-GB" :
                 [
-                    "default" : ["englishKey" : "englishValue"]
+                    "default" : ["successKey" : "SuccessUpdated"]
                 ],
              "da-DK" :
                 [
-                    "section1" : ["testKey" : "testValue"],
-                    "section2" : ["key2" : "value2"]
+                    "default" : ["successKey" : "FedtUpdated"]
                 ]
             ], languageData: LanguageData(language: mockLanguage))
     }
@@ -245,6 +244,54 @@ class TranslationManagerTests: XCTestCase {
 
     func testFallbackTranslations() {
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should be available.")
+    }
+
+    // MARK: - Unwrap & Parse -
+
+    func testUnwrapAndParse() {
+        let wrapped = NSDictionary(dictionary: ["data" : mockTranslations.translations!])
+        repositoryMock.preferredLanguages = ["da"]
+        let final = manager.processAllTranslations(wrapped)
+        XCTAssertNotNil(final, "Unwrap and parse should succeed.")
+        XCTAssertEqual(final?.value(forKeyPath: "default.successKey") as? String, Optional("FedtUpdated"))
+    }
+
+    // MARK: - Extraction -
+
+    func testExtractWithFullLocale() {
+        repositoryMock.preferredLanguages = ["en-GB", "da-DK"]
+        let lang: NSDictionary = ["da-DK" : ["correct" : "no"],
+                                  "en-GB" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
+    func testExtractWithShortLocale() {
+        repositoryMock.preferredLanguages = ["da"]
+        let lang: NSDictionary = ["da-DK" : ["correct" : "yes"],
+                                  "en-GB" : ["correct" : "no"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
+    func testExtractWithNoLocale() {
+        repositoryMock.preferredLanguages = []
+        let lang: NSDictionary = ["da-DK" : ["correct" : "no"],
+                                  "en-GB" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
+    func testExtractWithNoLocaleAndNoEnglish() {
+        repositoryMock.preferredLanguages = []
+        let lang: NSDictionary = ["es" : ["correct" : "no"],
+                                  "da-DK" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
 
     // MARK: - Clearing -
