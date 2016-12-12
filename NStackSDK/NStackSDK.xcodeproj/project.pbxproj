@@ -440,6 +440,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDK" */;
 			buildPhases = (
+				01F4C6601DFF07060050D0F1 /* Check for FIXME | TODO */,
 				30A3D8421B9DB94100C2D15C /* Sources */,
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
 				30A3D8441B9DB94100C2D15C /* Headers */,
@@ -595,6 +596,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01F4C6601DFF07060050D0F1 /* Check for FIXME | TODO */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check for FIXME | TODO";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION = \"Release\" ]; then\nTAGS=\"FIXME\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ error: \\$1/\"\nTAGS=\"TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nelse\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		30A3D8421B9DB94100C2D15C /* Sources */ = {
