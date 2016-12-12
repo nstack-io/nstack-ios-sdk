@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
-		01503A231DF1D38300B521CF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A221DF1D38300B521CF /* Logger.swift */; };
 		01503A271DF1D57C00B521CF /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A241DF1D57C00B521CF /* Serpent.framework */; };
 		01503A281DF1D57C00B521CF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A251DF1D57C00B521CF /* Alamofire.framework */; };
 		01503A291DF1D57C00B521CF /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A261DF1D57C00B521CF /* Cashier.framework */; };
@@ -31,6 +30,9 @@
 		01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
 		01DA43191C7904E200D0FC04 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
 		01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
+		01F4C6621DFF0D050050D0F1 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */; };
+		01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
+		01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
 		01FC66771DFAD52C001682AA /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
@@ -104,7 +106,6 @@
 
 /* Begin PBXFileReference section */
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
-		01503A221DF1D38300B521CF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Classes/Utilities/Logger.swift; sourceTree = "<group>"; };
 		01503A241DF1D57C00B521CF /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serpent.framework; path = ../Carthage/Build/iOS/Serpent.framework; sourceTree = "<group>"; };
 		01503A251DF1D57C00B521CF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		01503A261DF1D57C00B521CF /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = ../Carthage/Build/iOS/Cashier.framework; sourceTree = "<group>"; };
@@ -123,6 +124,9 @@
 		01DA43131C7904E200D0FC04 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01DA43141C7904E200D0FC04 /* NStack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NStack.plist; sourceTree = "<group>"; };
 		01DA43171C7904E200D0FC04 /* Translations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
+		01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
+		01F4C6661DFF14690050D0F1 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		01F4C6671DFF14690050D0F1 /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		01FC66761DFAD52C001682AA /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
@@ -251,6 +255,16 @@
 			path = "Translations Class";
 			sourceTree = "<group>";
 		};
+		01F4C6651DFF14690050D0F1 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				01F4C6661DFF14690050D0F1 /* Logger.swift */,
+				01F4C6671DFF14690050D0F1 /* LogLevel.swift */,
+			);
+			name = Logger;
+			path = Classes/Logger;
+			sourceTree = "<group>";
+		};
 		01FC667E1DFADEE4001682AA /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,12 +331,12 @@
 			children = (
 				30EC9E091BBE83BC00D3A625 /* Constants.swift */,
 				01B5BA241D5E026C006EA3D7 /* Extensions.swift */,
-				01503A221DF1D38300B521CF /* Logger.swift */,
 				304C42801BA0743D00AE3D6F /* Models */,
 				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
 				30B2E82D1B9DCDC00064DB21 /* Notify */,
 				30B2E82E1B9DCE200064DB21 /* Translations */,
+				01F4C6651DFF14690050D0F1 /* Logger */,
 				30A3D84A1B9DB94100C2D15C /* NStack.h */,
 				30A3D84C1B9DB94100C2D15C /* Info.plist */,
 			);
@@ -335,6 +349,7 @@
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
 				0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */,
 				01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */,
+				01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */,
 				017E871E1DF61A1C009E9792 /* Translations */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 			);
@@ -628,12 +643,13 @@
 				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
 				01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
+				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
-				01503A231DF1D38300B521CF /* Logger.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
 				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,
+				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
 				0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
@@ -657,6 +673,7 @@
 				0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */,
 				017E87201DF61A32009E9792 /* TranslationsRepositoryMock.swift in Sources */,
 				01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */,
+				01F4C6621DFF0D050050D0F1 /* LoggerTests.swift in Sources */,
 				01FC66791DFAD905001682AA /* BundleMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

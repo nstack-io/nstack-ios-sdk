@@ -40,18 +40,18 @@ public class NStack {
     internal var connectionManager: ConnectionManager!
     internal fileprivate(set) var configured = false
     internal var observer: ApplicationObserver?
-    internal var logger: LoggerType = Logger()
+    internal var logger: LoggerType = ConsoleLogger()
+
     // MARK: - Start NStack -
 
     fileprivate init() {}
 
-    /**
-     Initializes NStack and, if `updateAutomaticallyOnStart` is set on the passed `Configuration`
-     object, fetches all data (including translations if enabled) from NStack API right away.
-
-     - parameter configuration: A `Configuration` struct containing API keys and translations type.
-     - parameter launchOptions: Launch options passed from `applicationDidFinishLaunching:` func.
-     */
+    /// Initializes NStack and, if `updateAutomaticallyOnStart` is set on the passed `Configuration`
+    /// object, fetches all data (including translations if enabled) from NStack API right away.
+    ///
+    /// - Parameters:
+    ///   - configuration: A `Configuration` struct containing API keys and translations type.
+    ///   - launchOptions: Launch options passed from `applicationDidFinishLaunching:` function.
     public class func start(configuration: Configuration,
                             launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         sharedInstance.start(configuration: configuration, launchOptions: launchOptions)
@@ -142,14 +142,14 @@ public class NStack {
             switch response.result {
             case .success(let JSONdata):
                 guard let dictionary = JSONdata as? NSDictionary else {
-                    self.logger.log("Failure: couldn't parse response. Response data: ", JSONdata,
+                    self.logger.log("Failure: couldn't parse response. Response data: \(JSONdata)",
                         level: .error)
                     completion?(.updateFailed(reason: "Couldn't parse response dictionary."))
                     return
                 }
 
                 let wrapper = AppOpenResponse(dictionary: dictionary)
-                self.logger.log("App open response wrapper: ", wrapper, level: .verbose)
+                self.logger.log("App open response wrapper: \(wrapper)", level: .verbose)
 
                 defer {
                     completion?(nil)

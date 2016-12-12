@@ -121,10 +121,10 @@ public class TranslationManager {
                 }
 
             case .failure(let error):
-                self.logger.log("Error downloading translations data.\nResponse: ",
-                                response.response ?? "No response",
-                                "\nData: ", response.data ?? "No data",
-                                "\nError: ", error.localizedDescription, level: .error)
+                self.logger.log("Error downloading translations data.\n",
+                                "Response: ", response.response ?? "No response", "\n",
+                                "Data: ", response.data ?? "No data", "\n",
+                                "Error: ", error.localizedDescription, level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         }

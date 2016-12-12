@@ -1,8 +1,8 @@
 //
-//  Logger.swift
+//  LogLevel.swift
 //  NStackSDK
 //
-//  Created by Dominik Hádl on 02/12/2016.
+//  Created by Dominik Hádl on 12/12/2016.
 //  Copyright © 2016 Nodes ApS. All rights reserved.
 //
 
@@ -24,17 +24,8 @@ public enum LogLevel: Int {
     }
 }
 
-protocol LoggerType {
-    var logLevel: LogLevel { get set }
-    func log(_ items: Any..., level: LogLevel)
-}
-
-class Logger: LoggerType {
-
-    var logLevel: LogLevel = .error
-
-    func log(_ items: Any..., level: LogLevel) {
-        guard level.rawValue <= logLevel.rawValue else { return }
-        print("[NStackSDK]", " ", level.message, " ", items)
+extension LogLevel: Comparable {
+    static public func <(lhs: LogLevel, rhs: LogLevel) -> Bool {
+        return lhs.rawValue < rhs.rawValue
     }
 }

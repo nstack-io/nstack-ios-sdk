@@ -54,11 +54,13 @@ class TranslationManagerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        let logger = ConsoleLogger()
+        logger.logLevel = .verbose
         repositoryMock = TranslationsRepositoryMock()
         fileManagerMock = FileManagerMock()
         manager = TranslationManager(translationsType: Translations.self,
                                      repository: repositoryMock,
-                                     logger: Logger(),
+                                     logger: logger,
                                      store: store,
                                      fileManager: fileManagerMock)
     }
