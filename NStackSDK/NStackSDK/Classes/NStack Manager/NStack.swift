@@ -96,7 +96,7 @@ public class NStack {
         if let translationsClass = configuration.translationsClass {
             translationsManager = TranslationManager(translationsType: translationsClass,
                                                      repository: connectionManager,
-                                                     logger: logger)
+                                                     logger: ConsoleLogger())
 
             // Delete translations if new version
             if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,

@@ -16,6 +16,7 @@ class TranslationManagerTests: XCTestCase {
     var repositoryMock: TranslationsRepositoryMock!
     var fileManagerMock: FileManagerMock!
     var manager: TranslationManager!
+    var logger: LoggerType!
 
     let mockLanguage = Language(id: 0, name: "Danish", locale: "da-DK",
                                 direction: "lrm", acceptLanguage: "da-DK")
@@ -31,6 +32,12 @@ class TranslationManagerTests: XCTestCase {
                     "default" : ["successKey" : "FedtUpdated"]
                 ]
             ], languageData: LanguageData(language: mockLanguage))
+    }
+
+    var mockWrappedTranslations: TranslationsResponse {
+        var mock = mockTranslations
+        mock.translations = ["data" : mock.translations!]
+        return mock
     }
 
     var testTranslations: Translations {
@@ -54,7 +61,9 @@ class TranslationManagerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let logger = ConsoleLogger()
+        print()
+
+        logger = ConsoleLogger()
         logger.logLevel = .verbose
         repositoryMock = TranslationsRepositoryMock()
         fileManagerMock = FileManagerMock()
@@ -67,11 +76,19 @@ class TranslationManagerTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
+
+        // Stop logger logging before teardown
+        logger.logLevel = .none
+
         manager.persistedTranslations = nil
         manager = nil
         repositoryMock = nil
         fileManagerMock = nil
         store.clearAllData(true)
+
+        // To separate test cases in output
+        print("-----------")
+        print()
     }
 
     // MARK: - Loading -
@@ -86,7 +103,7 @@ class TranslationManagerTests: XCTestCase {
     // MARK: - Update -
 
     func testUpdateSuccess() {
-        repositoryMock.translationsResponse = mockTranslations
+        repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations(), "Error should be nil.")
         XCTAssertNotNil(manager.translationsObject,
                         "Translations should be loaded after successful update.")
@@ -260,7 +277,7 @@ class TranslationManagerTests: XCTestCase {
     }
 
     func testPersistedTranslationsOnUpdate() {
-        repositoryMock.translationsResponse = mockTranslations
+        repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations(), "No error should happen on update.")
         XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should be available.")
     }
@@ -293,9 +310,8 @@ class TranslationManagerTests: XCTestCase {
     // MARK: - Unwrap & Parse -
 
     func testUnwrapAndParse() {
-        let wrapped = NSDictionary(dictionary: ["data" : mockTranslations.translations!])
         repositoryMock.preferredLanguages = ["da"]
-        let final = manager.processAllTranslations(wrapped)
+        let final = manager.processAllTranslations(mockWrappedTranslations.translations!)
         XCTAssertNotNil(final, "Unwrap and parse should succeed.")
         XCTAssertEqual(final?.value(forKeyPath: "default.successKey") as? String, Optional("FedtUpdated"))
     }
@@ -375,7 +391,7 @@ class TranslationManagerTests: XCTestCase {
     }
 
     func testClearPersistedTranslations() {
-        repositoryMock.translationsResponse = mockTranslations
+        repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations())
         XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should exist.")
         manager.clearTranslations(includingPersisted: true)
