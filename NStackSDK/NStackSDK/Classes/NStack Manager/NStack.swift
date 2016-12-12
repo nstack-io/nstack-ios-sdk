@@ -85,8 +85,8 @@ public class NStack {
 
                 self.update { error in
                     if let error = error {
-                        self.logger.log("Error updating NStack on did become active. \(error.localizedDescription)",
-                            level: .error)
+                        self.logger.logError("Error updating NStack on did become active: " +
+                            error.localizedDescription)
                         return
                     }
                 }
@@ -150,7 +150,7 @@ public class NStack {
                 }
 
                 let wrapper = AppOpenResponse(dictionary: dictionary)
-                self.logger.log("App open response wrapper: \(wrapper)", level: .verbose)
+
 
                 defer {
                     completion?(nil)
