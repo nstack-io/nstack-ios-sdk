@@ -32,6 +32,7 @@ public class NStack {
     public var logLevel: LogLevel = .error {
         didSet {
             logger.logLevel = logLevel
+            translationsManager?.logger.logLevel = logLevel
         }
     }
 
