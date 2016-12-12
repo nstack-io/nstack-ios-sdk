@@ -1,0 +1,20 @@
+{
+  "data" : {
+    "en-GB" : {
+      "default" : {
+        "successKey" : "Success"
+      }
+    },
+    "da-DK" : {
+      "default" : {
+        "successKey" : "Fedt"
+      }
+    }oeakaoe
+  },
+  "meta" : {
+    "is_cached" : false,
+    "language" : {
+      "locale" : "en-GB",adkoda
+      "name" : "English (UK)",
+      "direction" : "LRM"
+}
