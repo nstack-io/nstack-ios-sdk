@@ -158,9 +158,9 @@ public class NStack {
                 guard let appOpenResponseData = wrapper.data else { return }
 
                 // Update translations
-                if let translations = appOpenResponseData.translate, translations.count > 0 {
-                    self.translationsManager?.set(translationsDictionary: translations)
-                }
+//                if let translations = appOpenResponseData.translate, translations.count > 0 {
+//                    self.translationsManager?.set(translationsDictionary: translations)
+//                }
 
                 if !self.alertManager.alreadyShowingAlert {
 
@@ -184,6 +184,9 @@ public class NStack {
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
+
+        // Update translations if needed
+        translationsManager?.updateTranslations()
     }
 }
 
