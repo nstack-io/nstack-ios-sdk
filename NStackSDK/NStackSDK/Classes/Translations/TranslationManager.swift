@@ -41,7 +41,7 @@ public class TranslationManager {
     /// The previous accept header string that was used.
     var lastAcceptHeader: String? {
         get {
-            return store.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
+            return store.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String
         }
         set {
             guard let newValue = newValue else {
@@ -120,7 +120,7 @@ public class TranslationManager {
                 }
 
                 self.lastAcceptHeader = self.acceptLanguage
-                self.set(translationsDictionary: translationsData.translations)
+                self.set(response: translationsData)
 
                 completion?(nil)
 
@@ -131,9 +131,9 @@ public class TranslationManager {
 
             case .failure(let error):
                 self.logger.logError("Error downloading translations data.\n",
-                                    "Response: ", response.response ?? "No response", "\n",
-                                    "Data: ", response.data ?? "No data", "\n",
-                                    "Error: ", error.localizedDescription)
+                                     "Response: ", response.response ?? "No response", "\n",
+                                     "Data: ", response.data ?? "No data", "\n",
+                                     "Error: ", error.localizedDescription)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         }
@@ -158,7 +158,7 @@ public class TranslationManager {
     // MARK: - Accept Language -
 
     /// Returns a string containing the current locale's preferred languages in a prioritized
-    /// manner to be used in a accept-language header. If no preferred language available, 
+    /// manner to be used in a accept-language header. If no preferred language available,
     /// fallback language is returned (English). Format example:
     ///
     /// "da;q=1.0,en-gb;q=0.8,en;q=0.7"
@@ -191,14 +191,12 @@ public class TranslationManager {
         }
 
         // Joins all components together to get "da;q=1.0,en-gb;q=0.8" string
-        let header = components.joined(separator: ",")
-        logger.logVerbose("Created Accept-Language header: \(header).")
-        return header
+        return components.joined(separator: ",")
     }
 
     // MARK: - Translations -
 
-    /// The parsed translations object is cached in memory, but persisted as a dictionary. 
+    /// The parsed translations object is cached in memory, but persisted as a dictionary.
     /// If a persisted version cannot be found, the fallback json file in the bundle will be used.
     ///
     /// - Returns: A translations object.
@@ -248,9 +246,14 @@ public class TranslationManager {
     /// Saves the translations set.
     ///
     /// - Parameter translations: The new translations.
-    func set(translationsDictionary: NSDictionary?) {
+    func set(response: TranslationsResponse?) {
+        guard let dictionary = response?.encodableRepresentation() as? NSDictionary else {
+            logger.logError("Failed to create dicitonary from translations API response.")
+            return
+        }
+
         // Persist the object
-        persistedTranslations = translationsDictionary
+        persistedTranslations = dictionary
 
         // Reload the translations
         _ = loadTranslations()
@@ -360,7 +363,7 @@ public class TranslationManager {
 
     // MARK: - Parsing -
 
-    /// Unwraps and extracts proper language dictionary out of the dictionary containing 
+    /// Unwraps and extracts proper language dictionary out of the dictionary containing
     /// all translations.
     ///
     /// - Parameter dictionary: Dictionary containing all translations under the `data` key.
@@ -368,7 +371,7 @@ public class TranslationManager {
     func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
         logger.logVerbose("Processing translations dictionary.")
         guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
-            logger.logError("Failed to get data from all translations NSDictionary.")
+            logger.logError("Failed to get data from all translations NSDictionary. \(dictionary)")
             return nil
         }
 
@@ -470,7 +473,7 @@ public class TranslationManager {
     }
     
     // MARK: - Helpers -
-
+    
     /// The URL used to persist downloaded translations.
     var translationsFileUrl: URL? {
         return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
