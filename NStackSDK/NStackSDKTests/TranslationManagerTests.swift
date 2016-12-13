@@ -355,6 +355,15 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
 
+    func testExtractWithSameRegions() {
+        repositoryMock.preferredLanguages = ["de-DK", "da-DK"]
+        let lang: NSDictionary = ["de-DE" : ["correct" : "yes"],
+                                  "da-DK" : ["correct" : "no"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+
     func testExtractWithNoLocale() {
         repositoryMock.preferredLanguages = []
         let lang: NSDictionary = ["da-DK" : ["correct" : "no"],

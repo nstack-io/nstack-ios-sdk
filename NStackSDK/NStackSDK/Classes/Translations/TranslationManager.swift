@@ -397,24 +397,21 @@ public class TranslationManager {
         }
 
         let languages = repository.fetchPreferredLanguages()
-        logger.logVerbose("Finding language for matching preferred languages: \(languages)")
-
-        // First check to see if any of the translations match one of the user's device languages.
-        for userLanguage in languages {
-            if let languageDictionary = dictionary.value(forKey: userLanguage) as? NSDictionary {
-                logger.logVerbose("Found matching language for: " + userLanguage)
-                return languageDictionary
-            }
-        }
-
         let shortLanguages = languages.map({ $0.substring(to: 2) })
+        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
 
-        // No matches, see if something matches when only using first two characters.
-        for userLanguage in shortLanguages {
-            languageDictionary = translationsMatching(locale: userLanguage, inDictionary: dictionary)
-            if let languageDictionary = languageDictionary {
-                logger.logVerbose("Found matching language for: " + userLanguage)
-                return languageDictionary
+        // Find matching language
+        for (long, short) in zip(languages, shortLanguages) {
+            // Try matching on both language and region
+            if let dictionary = dictionary.value(forKey: long) as? NSDictionary {
+                logger.logVerbose("Found matching language for language with region: " + long)
+                return dictionary
+            }
+
+            // Match just on language
+            if let dictinoary = translationsMatching(locale: short, inDictionary: dictionary) {
+                logger.logVerbose("Found matching language for short language code: " + short)
+                return dictinoary
             }
         }
 
@@ -454,17 +451,15 @@ public class TranslationManager {
     ///   - json: The dictionary containing translations for all languages.
     /// - Returns: Translations dictionary for the given language.
     func translationsMatching(locale: String, inDictionary dictionary: NSDictionary) -> NSDictionary? {
-        // If we have perfect match
-        if let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
-            logger.logVerbose("Found a language match. Desired: " + locale + ". Found: " + locale)
+        // If we have perfect match on language and region
+        if locale.characters.count > 2,
+            let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
             return dictionary
         }
 
-        // Try short keys
+        // Try shortening keys in dictionary
         for case let key as String in dictionary.allKeys {
-            let shortKey = key.substring(to: 2)
-            if shortKey == locale {
-                logger.logVerbose("Found a language match. Desired: " + locale + ". Found: " + shortKey)
+            if key.substring(to: 2) == locale {
                 return dictionary.value(forKey: key) as? NSDictionary
             }
         }
