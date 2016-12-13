@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import NStackSDK_tvOS
+@testable import NStackSDK
 
 class NStackSDK_tvOSTests: XCTestCase {
     

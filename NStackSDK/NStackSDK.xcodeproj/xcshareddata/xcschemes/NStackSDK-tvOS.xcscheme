@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E3689BE91D9EB9EB004620D6"
+               BuildableName = "NStackSDK-tvOSTests.xctest"
+               BlueprintName = "NStackSDK-tvOSTests"
+               ReferencedContainer = "container:NStackSDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E3689BE11D9EB9EA004620D6"
+            BuildableName = "NStackSDK.framework"
+            BlueprintName = "NStackSDK-tvOS"
+            ReferencedContainer = "container:NStackSDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

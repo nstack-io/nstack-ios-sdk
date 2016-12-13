@@ -1,3 +1,4 @@
+
 //
 //  ConnectionManagerTests.swift
 //  NStackSDK
