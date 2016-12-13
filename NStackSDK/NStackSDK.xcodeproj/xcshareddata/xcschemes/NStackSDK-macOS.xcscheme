@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E3B654391E00450C00FC9380"
-               BuildableName = "NStackSDK-macOS.framework"
+               BuildableName = "NStackSDKmacOS.framework"
                BlueprintName = "NStackSDK-macOS"
                ReferencedContainer = "container:NStackSDK.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3B654391E00450C00FC9380"
-            BuildableName = "NStackSDK-macOS.framework"
+            BuildableName = "NStackSDKmacOS.framework"
             BlueprintName = "NStackSDK-macOS"
             ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3B654391E00450C00FC9380"
-            BuildableName = "NStackSDK-macOS.framework"
+            BuildableName = "NStackSDKmacOS.framework"
             BlueprintName = "NStackSDK-macOS"
             ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3B654391E00450C00FC9380"
-            BuildableName = "NStackSDK-macOS.framework"
+            BuildableName = "NStackSDKmacOS.framework"
             BlueprintName = "NStackSDK-macOS"
             ReferencedContainer = "container:NStackSDK.xcodeproj">
          </BuildableReference>
