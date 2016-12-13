@@ -96,6 +96,15 @@ public class TranslationManager {
         self.logger.customName = "-Translations"
     }
 
+    public func translationString(keyPath: String) -> String? {
+        if keyPath.characters.count == 0 {
+            return nil;
+        }
+        
+        let langDict = self.translationsDictionary as NSDictionary
+        return langDict.value(forKeyPath: keyPath) as? String
+    }
+    
     // MARK: - Update & Fetch -
 
     /// Fetches the latest version of the translations. Normally, the translations are aquired
