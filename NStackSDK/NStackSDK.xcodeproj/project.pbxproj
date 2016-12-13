@@ -33,6 +33,26 @@
 		01F4C6621DFF0D050050D0F1 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */; };
 		01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
 		01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
+		01F4C6AF1DFF72620050D0F1 /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		01F4C6B01DFF72620050D0F1 /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
+		01F4C6B11DFF72620050D0F1 /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
+		01F4C6B21DFF72620050D0F1 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
+		01F4C6B31DFF72660050D0F1 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
+		01F4C6B41DFF726A0050D0F1 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
+		01F4C6B51DFF726F0050D0F1 /* TranslationsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */; };
+		01F4C6B61DFF726F0050D0F1 /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
+		01F4C6B71DFF726F0050D0F1 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
+		01F4C6B81DFF72720050D0F1 /* NStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A3D8561B9DB94100C2D15C /* NStackTests.swift */; };
+		01F4C6B91DFF72720050D0F1 /* VersionUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */; };
+		01F4C6BA1DFF72720050D0F1 /* ConnectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */; };
+		01F4C6BB1DFF72720050D0F1 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */; };
+		01F4C6C21DFF72A80050D0F1 /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F4C6BC1DFF72A10050D0F1 /* Serpent.framework */; };
+		01F4C6C31DFF72A80050D0F1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F4C6BD1DFF72A10050D0F1 /* Alamofire.framework */; };
+		01F4C6C41DFF72A80050D0F1 /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F4C6BE1DFF72A10050D0F1 /* Cashier.framework */; };
+		01F4C6C51DFF72D50050D0F1 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
+		01F4C6C61DFF72D70050D0F1 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
+		01F4C6C71DFF72F00050D0F1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
+		01F4C6C81DFF72F00050D0F1 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
 		01FC66771DFAD52C001682AA /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
@@ -57,7 +77,6 @@
 		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
-		BDCEA6EC1DE30EB900F4EEDC /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCEA6EB1DE30EB900F4EEDC /* Serpent.framework */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF01D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */; };
 		E3689BF21D9EB9EB004620D6 /* NStackSDK-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,9 +101,6 @@
 		E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		E3689C0E1D9EBA54004620D6 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		E3689C0F1D9EBA54004620D6 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
-		E3689C171D9EBC99004620D6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689C131D9EBC99004620D6 /* Alamofire.framework */; };
-		E3689C181D9EBC99004620D6 /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689C141D9EBC99004620D6 /* Cashier.framework */; };
-		E3689C191D9EBC99004620D6 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689C151D9EBC99004620D6 /* Reachability.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +143,9 @@
 		01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		01F4C6661DFF14690050D0F1 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		01F4C6671DFF14690050D0F1 /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		01F4C6BC1DFF72A10050D0F1 /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Serpent.framework; sourceTree = "<group>"; };
+		01F4C6BD1DFF72A10050D0F1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		01F4C6BE1DFF72A10050D0F1 /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cashier.framework; sourceTree = "<group>"; };
 		01FC66761DFAD52C001682AA /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
@@ -154,16 +173,12 @@
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
-		BDCEA6EB1DE30EB900F4EEDC /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Serpent.framework; path = Carthage/Build/tvOS/Serpent.framework; sourceTree = "<group>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-tvOS.h"; sourceTree = "<group>"; };
 		E3689BE51D9EB9EA004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_tvOSTests.swift; sourceTree = "<group>"; };
 		E3689BF11D9EB9EB004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E3689C131D9EBC99004620D6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
-		E3689C141D9EBC99004620D6 /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cashier.framework; path = Carthage/Build/tvOS/Cashier.framework; sourceTree = "<group>"; };
-		E3689C151D9EBC99004620D6 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/tvOS/Reachability.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,11 +210,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */,
+				01F4C6C41DFF72A80050D0F1 /* Cashier.framework in Frameworks */,
 				E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */,
-				BDCEA6EC1DE30EB900F4EEDC /* Serpent.framework in Frameworks */,
-				E3689C171D9EBC99004620D6 /* Alamofire.framework in Frameworks */,
-				E3689C181D9EBC99004620D6 /* Cashier.framework in Frameworks */,
-				E3689C191D9EBC99004620D6 /* Reachability.framework in Frameworks */,
+				01F4C6C21DFF72A80050D0F1 /* Serpent.framework in Frameworks */,
+				01F4C6C31DFF72A80050D0F1 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,12 +435,12 @@
 		E3689C121D9EBC6F004620D6 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				BDCEA6EB1DE30EB900F4EEDC /* Serpent.framework */,
-				E3689C131D9EBC99004620D6 /* Alamofire.framework */,
-				E3689C141D9EBC99004620D6 /* Cashier.framework */,
-				E3689C151D9EBC99004620D6 /* Reachability.framework */,
+				01F4C6BC1DFF72A10050D0F1 /* Serpent.framework */,
+				01F4C6BD1DFF72A10050D0F1 /* Alamofire.framework */,
+				01F4C6BE1DFF72A10050D0F1 /* Cashier.framework */,
 			);
 			name = tvOS;
+			path = ../Carthage/Build/tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -492,6 +506,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3689BF31D9EB9EB004620D6 /* Build configuration list for PBXNativeTarget "NStackSDK-tvOS" */;
 			buildPhases = (
+				01F4C6AE1DFF72430050D0F1 /* Check for FIXME | TODO */,
 				E3689BDD1D9EB9EA004620D6 /* Sources */,
 				E3689BDE1D9EB9EA004620D6 /* Frameworks */,
 				E3689BDF1D9EB9EA004620D6 /* Headers */,
@@ -607,6 +622,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F4C6AF1DFF72620050D0F1 /* WrongTypeTranslations.json in Resources */,
+				01F4C6B01DFF72620050D0F1 /* InvalidTranslations.json in Resources */,
+				01F4C6B31DFF72660050D0F1 /* NStack.plist in Resources */,
+				01F4C6B11DFF72620050D0F1 /* Translations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +633,20 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		01F4C6601DFF07060050D0F1 /* Check for FIXME | TODO */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check for FIXME | TODO";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+		01F4C6AE1DFF72430050D0F1 /* Check for FIXME | TODO */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -689,7 +722,10 @@
 				E3689C011D9EBA54004620D6 /* AppOpenData.swift in Sources */,
 				E3689C021D9EBA54004620D6 /* Message.swift in Sources */,
 				E3689C031D9EBA54004620D6 /* Update.swift in Sources */,
+				01F4C6C71DFF72F00050D0F1 /* Logger.swift in Sources */,
+				01F4C6C51DFF72D50050D0F1 /* APIConfiguration.swift in Sources */,
 				E3689C041D9EBA54004620D6 /* RateReminder.swift in Sources */,
+				01F4C6C61DFF72D70050D0F1 /* Repository.swift in Sources */,
 				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
 				E3689C051D9EBA54004620D6 /* Language.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
@@ -697,6 +733,7 @@
 				E3689C071D9EBA54004620D6 /* TranslationsResponse.swift in Sources */,
 				E3689C081D9EBA54004620D6 /* NStack.swift in Sources */,
 				E3689C091D9EBA54004620D6 /* ApplicationObserver.swift in Sources */,
+				01F4C6C81DFF72F00050D0F1 /* LogLevel.swift in Sources */,
 				E3689C0A1D9EBA54004620D6 /* ConnectionManager.swift in Sources */,
 				E3689C0B1D9EBA54004620D6 /* NStackError.swift in Sources */,
 				E3689C0C1D9EBA54004620D6 /* AlertManager.swift in Sources */,
@@ -710,7 +747,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F4C6B61DFF726F0050D0F1 /* BundleMock.swift in Sources */,
 				E3689BF01D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift in Sources */,
+				01F4C6B41DFF726A0050D0F1 /* TranslationManagerTests.swift in Sources */,
+				01F4C6BA1DFF72720050D0F1 /* ConnectionManagerTests.swift in Sources */,
+				01F4C6B91DFF72720050D0F1 /* VersionUtilitiesTests.swift in Sources */,
+				01F4C6BB1DFF72720050D0F1 /* LoggerTests.swift in Sources */,
+				01F4C6B51DFF726F0050D0F1 /* TranslationsRepositoryMock.swift in Sources */,
+				01F4C6B21DFF72620050D0F1 /* Translations.swift in Sources */,
+				01F4C6B81DFF72720050D0F1 /* NStackTests.swift in Sources */,
+				01F4C6B71DFF726F0050D0F1 /* FileManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,7 +980,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = "NStackSDK-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -964,7 +1010,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = "NStackSDK-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
