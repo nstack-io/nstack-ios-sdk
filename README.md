@@ -2,11 +2,11 @@
   <img src="NStack_Logo.png?raw=true" alt="NStack"/>
 </p>
 
-[![Travis](https://img.shields.io/travis/nodes-ios/Serpent.svg)](https://travis-ci.org/nodes-ios/NStack) 
-[![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/Serpent.svg)](https://codecov.io/github/nodes-ios/NStack)
+[![Travis](https://img.shields.io/travis/nodes-ios/NStackSDK.svg)](https://travis-ci.org/nodes-ios/NStack) 
+[![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/NStackSDK.svg)](https://codecov.io/github/nodes-ios/NStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS-lightgrey.svg) 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/Serpent/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/NStackSDK/blob/master/LICENSE)
 
 NStackSDK is the companion software development kit to the [NStack](https://nstack.io) backend.
 
@@ -16,7 +16,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## 📝 Requirements
 
-* iOS 8.0+
+* iOS 8.0+ / tvOS 9.0+
 * Swift 3.0+
 
 ## 📦 Installation
@@ -35,7 +35,37 @@ github "nodes-ios/NStack" == 3.10.0
 
 ## 💻 Usage
 
-### Getting started
+> **NOTE:** Don't forget to `import NStackSDK` in the top of the file.
+
+### Getting Started
+
+#### Plist
+
+In your AppDelegate's `didFinishLaunching:` function start NStack by running:
+
+~~~swift
+let configuration = Configuration(plistName: "NStack", translationsClass: Translations.self)
+NStack.start(configuration: configuration, launchOptions: launchOptions)
+~~~
+
+#### Manually
+
+> TODO: Docs
+
+
+### Translations
+
+> TODO: Docs
+
+### Updates
+
+> TODO: Docs
+
+### Messages
+
+> TODO: Docs
+
+### Rate Reminder
 
 > TODO: Docs
 
