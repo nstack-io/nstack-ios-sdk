@@ -98,7 +98,26 @@ public class TranslationManager {
         self.logger = logger
         self.logger.customName = "-Translations"
     }
+
+    ///Find a translation for a key.
+    ///
+    /// - Parameters:
+    ///   - keyPath: The key that string should be found on.
     
+    public func translationString(keyPath: String) -> String? {
+        guard !keyPath.characters.isEmpty else {
+            return nil
+        }
+        
+        // Try to load if we don't have any translations
+        if translationsObject == nil {
+            loadTranslations()
+        }
+        
+        let dictionary = translationsObject?.encodableRepresentation() as? NSDictionary
+        return dictionary?.value(forKeyPath: keyPath) as? String
+    }
+
     // MARK: - Update & Fetch -
     
     /// Fetches the latest version of the translations. Normally, the translations are aquired
