@@ -1,0 +1,17 @@
+{
+  "data" : {
+    "en-GB" : {
+      "default" : {
+        "successKey" : "Success"
+      }
+    },
+    "da-DK" : {
+      "default" : {
+        "successKey" : "Fedt"
+      }
+    }
+  },
+  "meta" : {
+    "is_cached" : false,
+  }
+}
