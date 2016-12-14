@@ -389,7 +389,7 @@ public class TranslationManager {
     /// - Parameter dictionary: Dictionary containing all translations under the `meta` key.
     /// - Returns: Returns extracted language for last language.
     func processLanguage(_ dictionary: NSDictionary) -> Language? {
-        logger.logVerbose("Processing translations dictionary.")
+        logger.logVerbose("Processing language dictionary.")
         guard let meta = dictionary.value(forKey: "meta") as? NSDictionary else {
             logger.logError("Failed to get meta from all translations NSDictionary. \(dictionary)")
             return nil
@@ -496,10 +496,6 @@ public class TranslationManager {
     
     /// The URL used to persist downloaded translations.
     var translationsFileUrl: URL? {
-        #if !(os(watchOS))
-            return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
-        #else
-            return nil
-        #endif
+        return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
     }
 }
