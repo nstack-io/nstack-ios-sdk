@@ -52,10 +52,19 @@ class TranslationManagerTests: XCTestCase {
     var invalidTranslationsJSONPath: String {
         return Bundle(for: type(of: self)).resourcePath! + "/InvalidTranslations.json"
     }
+    
+    var emptyTranslationsJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/EmptyTranslations.json"
+    }
 
+    var emptyLanguageMetaTranslationsJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/EmptyLanguageMetaTranslations.json"
+    }
+    
     var wrongFormatJSONPath: String {
         return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeTranslations.json"
     }
+    
 
     // MARK: - Test Case Lifecycle -
 
@@ -120,6 +129,28 @@ class TranslationManagerTests: XCTestCase {
                      "Persistent translations should not be saved after failed update.")
     }
 
+    // MARK: - Translation for key
+    
+    func testTranslationForKeyFailure() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNotEqual(manager.translationString(keyPath: "default.successKey"), "Success")
+    }
+    
+    func testTranslationForWrongKeyFailure() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNil(manager.translationString(keyPath: "wrong.successKey"))
+    }
+    
+    func testTranslationForKeySuccess() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
+    }
+    
+    func testTranslationForEmptyKey() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNil(manager.translationString(keyPath: ""))
+    }
+    
     // MARK: - Fetch -
 
     func testFetchCurrentLanguageSuccess() {
@@ -299,7 +330,21 @@ class TranslationManagerTests: XCTestCase {
         repositoryMock.customBundles = [bundle]
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid JSON.")
     }
+    
+    func testFallbackTranslationsEmptyJSON() {
+        let bundle = mockBundle
+        bundle.resourcePathOverride = emptyTranslationsJSONPath // empty json file
+        repositoryMock.customBundles = [bundle]
+        XCTAssertNotNil(manager.loadTranslations(), "Fallback translations should fail with invalid JSON.")
+    }
 
+    func testFallbackTranslationsEmptyLanguageJSON() {
+        let bundle = mockBundle
+        bundle.resourcePathOverride = emptyLanguageMetaTranslationsJSONPath// empty meta laguage file
+        repositoryMock.customBundles = [bundle]
+        XCTAssertNotNil(manager.loadTranslations(), "Fallback translations should fail with empty language meta JSON.")
+    }
+    
     func testFallbackTranslationsWrongFormatJSON() {
         let bundle = mockBundle
         bundle.resourcePathOverride = wrongFormatJSONPath // wrong format json file

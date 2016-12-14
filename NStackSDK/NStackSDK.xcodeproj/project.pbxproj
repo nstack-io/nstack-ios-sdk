@@ -101,6 +101,10 @@
 		E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		E3689C0E1D9EBA54004620D6 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		E3689C0F1D9EBA54004620D6 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
+		E3DC93F71E01935400FC9693 /* EmptyTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F61E01935400FC9693 /* EmptyTranslations.json */; };
+		E3DC93F91E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */; };
+		E3DC93FA1E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */; };
+		E3DC93FB1E0195D500FC9693 /* EmptyTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F61E01935400FC9693 /* EmptyTranslations.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +183,8 @@
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_tvOSTests.swift; sourceTree = "<group>"; };
 		E3689BF11D9EB9EB004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3DC93F61E01935400FC9693 /* EmptyTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyTranslations.json; sourceTree = "<group>"; };
+		E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyLanguageMetaTranslations.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,7 +268,9 @@
 			isa = PBXGroup;
 			children = (
 				01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */,
+				E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */,
 				01FC667A1DFADC35001682AA /* InvalidTranslations.json */,
+				E3DC93F61E01935400FC9693 /* EmptyTranslations.json */,
 				0106ADA21C7914B700E0C8BC /* Translations.json */,
 				01DA43171C7904E200D0FC04 /* Translations.swift */,
 			);
@@ -606,7 +614,9 @@
 			files = (
 				01DA43191C7904E200D0FC04 /* NStack.plist in Resources */,
 				0106ADA31C7914B700E0C8BC /* Translations.json in Resources */,
+				E3DC93F91E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
 				01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */,
+				E3DC93F71E01935400FC9693 /* EmptyTranslations.json in Resources */,
 				01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,6 +634,8 @@
 			files = (
 				01F4C6AF1DFF72620050D0F1 /* WrongTypeTranslations.json in Resources */,
 				01F4C6B01DFF72620050D0F1 /* InvalidTranslations.json in Resources */,
+				E3DC93FA1E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
+				E3DC93FB1E0195D500FC9693 /* EmptyTranslations.json in Resources */,
 				01F4C6B31DFF72660050D0F1 /* NStack.plist in Resources */,
 				01F4C6B11DFF72620050D0F1 /* Translations.json in Resources */,
 			);
@@ -644,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
 		};
 		01F4C6AE1DFF72430050D0F1 /* Check for FIXME | TODO */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -658,7 +670,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1034,8 +1046,9 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/tvOS";
 				INFOPLIST_FILE = "NStackSDK-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1054,8 +1067,9 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/tvOS";
 				INFOPLIST_FILE = "NStackSDK-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
