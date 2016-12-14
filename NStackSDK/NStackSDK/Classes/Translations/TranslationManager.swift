@@ -390,7 +390,7 @@ public class TranslationManager {
     /// - Returns: Returns extracted language for last language.
     func processLanguage(_ dictionary: NSDictionary) -> Language? {
         logger.logVerbose("Processing translations dictionary.")
-        guard let meta = dictionary.value(forKey: "data") as? NSDictionary else {
+        guard let meta = dictionary.value(forKey: "meta") as? NSDictionary else {
             logger.logError("Failed to get meta from all translations NSDictionary. \(dictionary)")
             return nil
         }
