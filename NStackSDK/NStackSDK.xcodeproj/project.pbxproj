@@ -101,12 +101,58 @@
 		E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		E3689C0E1D9EBA54004620D6 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		E3689C0F1D9EBA54004620D6 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
-		E3B654431E00450C00FC9380 /* NStackSDKmacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6543A1E00450C00FC9380 /* NStackSDKmacOS.framework */; };
 		E3B654481E00450C00FC9380 /* NStackSDK_macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B654471E00450C00FC9380 /* NStackSDK_macOSTests.swift */; };
 		E3B6544A1E00450C00FC9380 /* NStackSDK-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E3B6543C1E00450C00FC9380 /* NStackSDK-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3B654841E00490D00FC9380 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654781E00484F00FC9380 /* Alamofire.framework */; };
 		E3B654851E00490D00FC9380 /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547A1E00484F00FC9380 /* Cashier.framework */; };
 		E3B654861E00490D00FC9380 /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547C1E00484F00FC9380 /* Serpent.framework */; };
+		E3B6549F1E0056F300FC9380 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EC9E091BBE83BC00D3A625 /* Constants.swift */; };
+		E3B654A01E0056F300FC9380 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
+		E3B654A11E0056F300FC9380 /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
+		E3B654A21E0056F300FC9380 /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
+		E3B654A31E0056F300FC9380 /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
+		E3B654A41E0056F300FC9380 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B0CAB01BD7C24E005463AA /* Message.swift */; };
+		E3B654A51E0056F300FC9380 /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
+		E3B654A61E0056F300FC9380 /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
+		E3B654A71E0056F300FC9380 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
+		E3B654A81E0056F300FC9380 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
+		E3B654A91E0056F300FC9380 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		E3B654AA1E0056F300FC9380 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
+		E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
+		E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
+		E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
+		E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2E8301B9DD6A10064DB21 /* NStack.swift */; };
+		E3B654B01E0056F300FC9380 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */; };
+		E3B654B11E0056F300FC9380 /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
+		E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */; };
+		E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
+		E3B654B41E0056F300FC9380 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
+		E3B654B51E0056F300FC9380 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
+		E3B654B61E0056F300FC9380 /* TranslationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */; };
+		E3B654B71E0056F300FC9380 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
+		E3B654B81E0056F300FC9380 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
+		E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654B91E0063EC00FC9380 /* AppKit.framework */; };
+		E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654BC1E00642100FC9380 /* Foundation.framework */; };
+		E3B654BE1E00643700FC9380 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6543A1E00450C00FC9380 /* NStackSDK.framework */; };
+		E3B654BF1E0064B200FC9380 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
+		E3B654C01E0064B200FC9380 /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		E3B654C11E0064B200FC9380 /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
+		E3B654C21E0064B200FC9380 /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
+		E3DC93961E01495200FC9693 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654BC1E00642100FC9380 /* Foundation.framework */; };
+		E3DC93971E01495800FC9693 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654B91E0063EC00FC9380 /* AppKit.framework */; };
+		E3DC93981E01495A00FC9693 /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547A1E00484F00FC9380 /* Cashier.framework */; };
+		E3DC93991E01495D00FC9693 /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547C1E00484F00FC9380 /* Serpent.framework */; };
+		E3DC939A1E01496000FC9693 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654781E00484F00FC9380 /* Alamofire.framework */; };
+		E3DC939B1E014B5F00FC9693 /* NStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A3D8561B9DB94100C2D15C /* NStackTests.swift */; };
+		E3DC939C1E014B5F00FC9693 /* VersionUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */; };
+		E3DC939D1E014B5F00FC9693 /* ConnectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A251D61C7D00053E804 /* ConnectionManagerTests.swift */; };
+		E3DC939E1E014B5F00FC9693 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6611DFF0D050050D0F1 /* LoggerTests.swift */; };
+		E3DC939F1E014B5F00FC9693 /* TranslationsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */; };
+		E3DC93A01E014B5F00FC9693 /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
+		E3DC93A11E014B5F00FC9693 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
+		E3DC93A21E014B5F00FC9693 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
+		E3DC93A31E014BB200FC9693 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,7 +238,7 @@
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_tvOSTests.swift; sourceTree = "<group>"; };
 		E3689BF11D9EB9EB004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E3B6543A1E00450C00FC9380 /* NStackSDKmacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDKmacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3B6543A1E00450C00FC9380 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B6543C1E00450C00FC9380 /* NStackSDK-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-macOS.h"; sourceTree = "<group>"; };
 		E3B6543D1E00450C00FC9380 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3B654421E00450C00FC9380 /* NStackSDK-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +250,8 @@
 		E3B654781E00484F00FC9380 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		E3B6547A1E00484F00FC9380 /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cashier.framework; sourceTree = "<group>"; };
 		E3B6547C1E00484F00FC9380 /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Serpent.framework; sourceTree = "<group>"; };
+		E3B654B91E0063EC00FC9380 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		E3B654BC1E00642100FC9380 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +302,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */,
+				E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */,
 				E3B654841E00490D00FC9380 /* Alamofire.framework in Frameworks */,
 				E3B654851E00490D00FC9380 /* Cashier.framework in Frameworks */,
 				E3B654861E00490D00FC9380 /* Serpent.framework in Frameworks */,
@@ -264,7 +314,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3B654431E00450C00FC9380 /* NStackSDKmacOS.framework in Frameworks */,
+				E3DC93981E01495A00FC9693 /* Cashier.framework in Frameworks */,
+				E3DC939A1E01496000FC9693 /* Alamofire.framework in Frameworks */,
+				E3DC93991E01495D00FC9693 /* Serpent.framework in Frameworks */,
+				E3DC93971E01495800FC9693 /* AppKit.framework in Frameworks */,
+				E3B654BE1E00643700FC9380 /* NStackSDK.framework in Frameworks */,
+				E3DC93961E01495200FC9693 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +437,7 @@
 				30A3D8511B9DB94100C2D15C /* NStackSDKTests.xctest */,
 				E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */,
 				E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */,
-				E3B6543A1E00450C00FC9380 /* NStackSDKmacOS.framework */,
+				E3B6543A1E00450C00FC9380 /* NStackSDK.framework */,
 				E3B654421E00450C00FC9380 /* NStackSDK-macOSTests.xctest */,
 			);
 			name = Products;
@@ -524,6 +579,8 @@
 		E3B654771E00484F00FC9380 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				E3B654BC1E00642100FC9380 /* Foundation.framework */,
+				E3B654B91E0063EC00FC9380 /* AppKit.framework */,
 				E3B654781E00484F00FC9380 /* Alamofire.framework */,
 				E3B6547A1E00484F00FC9380 /* Cashier.framework */,
 				E3B6547C1E00484F00FC9380 /* Serpent.framework */,
@@ -651,7 +708,7 @@
 			);
 			name = "NStackSDK-macOS";
 			productName = "NStackSDK-macOS";
-			productReference = E3B6543A1E00450C00FC9380 /* NStackSDKmacOS.framework */;
+			productReference = E3B6543A1E00450C00FC9380 /* NStackSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E3B654411E00450C00FC9380 /* NStackSDK-macOSTests */ = {
@@ -785,6 +842,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B654BF1E0064B200FC9380 /* NStack.plist in Resources */,
+				E3B654C01E0064B200FC9380 /* WrongTypeTranslations.json in Resources */,
+				E3B654C11E0064B200FC9380 /* InvalidTranslations.json in Resources */,
+				E3B654C21E0064B200FC9380 /* Translations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +984,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B6549F1E0056F300FC9380 /* Constants.swift in Sources */,
+				E3B654A01E0056F300FC9380 /* Extensions.swift in Sources */,
+				E3B654A11E0056F300FC9380 /* AppOpenResponse.swift in Sources */,
+				E3B654A21E0056F300FC9380 /* LanguageData.swift in Sources */,
+				E3B654A31E0056F300FC9380 /* AppOpenData.swift in Sources */,
+				E3B654A41E0056F300FC9380 /* Message.swift in Sources */,
+				E3B654A51E0056F300FC9380 /* Update.swift in Sources */,
+				E3B654A61E0056F300FC9380 /* RateReminder.swift in Sources */,
+				E3B654A71E0056F300FC9380 /* Language.swift in Sources */,
+				E3B654A81E0056F300FC9380 /* Country.swift in Sources */,
+				E3B654A91E0056F300FC9380 /* Timezone.swift in Sources */,
+				E3B654AA1E0056F300FC9380 /* Configuration.swift in Sources */,
+				E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */,
+				E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */,
+				E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */,
+				E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */,
+				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
+				E3B654B01E0056F300FC9380 /* ApplicationObserver.swift in Sources */,
+				E3B654B11E0056F300FC9380 /* NStackError.swift in Sources */,
+				E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */,
+				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
+				E3B654B41E0056F300FC9380 /* Translatable.swift in Sources */,
+				E3B654B51E0056F300FC9380 /* TranslationManager.swift in Sources */,
+				E3B654B61E0056F300FC9380 /* TranslationUI.swift in Sources */,
+				E3B654B71E0056F300FC9380 /* Logger.swift in Sources */,
+				E3B654B81E0056F300FC9380 /* LogLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,6 +1017,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3DC939B1E014B5F00FC9693 /* NStackTests.swift in Sources */,
+				E3DC93A31E014BB200FC9693 /* Translations.swift in Sources */,
+				E3DC939C1E014B5F00FC9693 /* VersionUtilitiesTests.swift in Sources */,
+				E3DC939D1E014B5F00FC9693 /* ConnectionManagerTests.swift in Sources */,
+				E3DC939E1E014B5F00FC9693 /* LoggerTests.swift in Sources */,
+				E3DC939F1E014B5F00FC9693 /* TranslationsRepositoryMock.swift in Sources */,
+				E3DC93A01E014B5F00FC9693 /* BundleMock.swift in Sources */,
+				E3DC93A11E014B5F00FC9693 /* FileManagerMock.swift in Sources */,
+				E3DC93A21E014B5F00FC9693 /* TranslationManagerTests.swift in Sources */,
 				E3B654481E00450C00FC9380 /* NStackSDK_macOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1261,9 +1357,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "NStackSDK-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
-				PRODUCT_NAME = NStackSDKmacOS;
+				PRODUCT_NAME = NStackSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1288,9 +1384,9 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "NStackSDK-macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
-				PRODUCT_NAME = NStackSDKmacOS;
+				PRODUCT_NAME = NStackSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1303,36 +1399,38 @@
 		E3B6544D1E00450C00FC9380 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "NStackSDK-macOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
+				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
 		E3B6544E1E00450C00FC9380 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "NStackSDK-macOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
+				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};

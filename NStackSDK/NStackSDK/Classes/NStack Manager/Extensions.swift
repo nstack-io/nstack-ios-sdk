@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+#if !os(macOS)
 import UIKit
 
 extension UIApplication {
@@ -30,6 +32,7 @@ extension UIApplication {
         return value?.boolValue ?? false
     }
 }
+#endif
 
 extension FileManager {
     var documentsDirectory: URL? {

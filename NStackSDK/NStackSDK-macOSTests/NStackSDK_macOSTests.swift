@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import NStackSDK_macOS
+@testable import NStackSDK
 
 class NStackSDK_macOSTests: XCTestCase {
     
@@ -32,5 +32,4 @@ class NStackSDK_macOSTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
 }

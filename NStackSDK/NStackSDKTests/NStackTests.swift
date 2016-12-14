@@ -6,7 +6,7 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
-import UIKit
+
 import XCTest
 import Serpent
 import Alamofire
@@ -31,7 +31,11 @@ class NStackTests: XCTestCase {
     }
 
     func testConfigured() {
-        NStack.start(configuration: testConfiguration(), launchOptions: nil)
+        #if !os(macOS)
+            NStack.start(configuration: testConfiguration(), launchOptions: nil)
+        #else
+            NStack.start(configuration: testConfiguration())
+        #endif
         XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
     }
 }

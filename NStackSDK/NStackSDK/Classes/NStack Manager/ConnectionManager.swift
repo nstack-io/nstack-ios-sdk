@@ -174,6 +174,7 @@ extension ConnectionManager: VersionsRepository {
         manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
     }
 
+    #if !os(macOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
         let params: [String : Any] = [
             "guid"              : Configuration.guid,
@@ -184,6 +185,7 @@ extension ConnectionManager: VersionsRepository {
         let url = baseURL + "notify/rate_reminder/views"
         manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
     }
+    #endif
 }
 
 // MARK: - Geography -

@@ -6,7 +6,9 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
+#if !os(macOS)
 import UIKit
+#endif
 import Foundation
 
 enum ApplicationAction {
@@ -27,13 +29,18 @@ class ApplicationObserver {
     init(handler: @escaping ActionHandler) {
         self.actionHandler = handler
 
+        #if !os(macOS)
         let selector = #selector(applicationDidBecomeActive)
         let name = NSNotification.Name.UIApplicationDidBecomeActive
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
+        #endif
+
     }
 
     deinit {
+        #if !os(macOS)
         NotificationCenter.default.removeObserver(self)
+        #endif
     }
 
     // MARK: - Actions -
