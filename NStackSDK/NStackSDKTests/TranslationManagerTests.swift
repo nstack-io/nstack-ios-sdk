@@ -129,6 +129,28 @@ class TranslationManagerTests: XCTestCase {
                      "Persistent translations should not be saved after failed update.")
     }
 
+    // MARK: - Translation for key
+    
+    func testTranslationForKeyFailure() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNotEqual(manager.translationString(keyPath: "default.successKey"), "Success")
+    }
+    
+    func testTranslationForWrongKeyFailure() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNil(manager.translationString(keyPath: "wrong.successKey"))
+    }
+    
+    func testTranslationForKeySuccess() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
+    }
+    
+    func testTranslationForEmptyKey() {
+        repositoryMock.preferredLanguages = [mockLanguage.locale]
+        XCTAssertNil(manager.translationString(keyPath: ""))
+    }
+    
     // MARK: - Fetch -
 
     func testFetchCurrentLanguageSuccess() {
