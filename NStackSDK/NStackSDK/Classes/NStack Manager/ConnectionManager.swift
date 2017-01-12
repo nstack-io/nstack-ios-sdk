@@ -16,6 +16,7 @@ import Cashier
 final class ConnectionManager {
     let baseURL = "https://nstack.io/api/v1/"
     let defaultUnwrapper: Parser.Unwrapper = { $0.0["data"] }
+    let passthroughUnwrapper: Parser.Unwrapper = { return $0.0 }
 
     let manager: SessionManager
     let configuration: APIConfiguration
@@ -80,7 +81,7 @@ extension ConnectionManager: TranslationsRepository {
 
         manager
             .request(url, method: .get, parameters:params, headers: headers)
-            .responseSerializable(completion)
+            .responseSerializable(completion, unwrapper: passthroughUnwrapper)
     }
 
     func fetchCurrentLanguage(acceptLanguage: String,
