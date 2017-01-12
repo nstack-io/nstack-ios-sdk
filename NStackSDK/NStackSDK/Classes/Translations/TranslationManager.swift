@@ -258,11 +258,13 @@ public class TranslationManager {
     /// Loads and initializes the translations object from either persisted or fallback dictionary.
     func loadTranslations() {
         logger.logVerbose("Loading translations.")
+
         let dictionary = translationsDictionary
         let parsed = processAllTranslations(dictionary)
         let translations = translationsType.init(dictionary: parsed)
+
         translationsObject = translations
-        currentLanguage = processLanguage(dictionary)
+        currentLanguage = languageOverride ?? processLanguage(dictionary)
     }
     
     // MARK: - Dictionaries -
