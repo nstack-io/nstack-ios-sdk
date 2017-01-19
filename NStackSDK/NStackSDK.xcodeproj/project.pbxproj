@@ -57,6 +57,7 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		23FE6FB41E31049B0011B167 /* NodesUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FE6FB31E31049B0011B167 /* NodesUserAgent.swift */; };
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -154,6 +155,7 @@
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
 		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
+		23FE6FB31E31049B0011B167 /* NodesUserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesUserAgent.swift; sourceTree = "<group>"; };
 		2729E8481B9ED06600286B12 /* TranslationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */,
 				01503A2D1DF1DD2500B521CF /* Repository.swift */,
 				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
+				23FE6FB31E31049B0011B167 /* NodesUserAgent.swift */,
 			);
 			name = Repository;
 			path = Classes/Repository;
@@ -687,6 +690,7 @@
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
 				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
 				01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */,
+				23FE6FB41E31049B0011B167 /* NodesUserAgent.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
