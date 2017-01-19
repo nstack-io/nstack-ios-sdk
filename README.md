@@ -48,6 +48,8 @@ let configuration = Configuration(plistName: "NStack", translationsClass: Transl
 NStack.start(configuration: configuration, launchOptions: launchOptions)
 ~~~
 
+You should have a file called NStack.plist in your application bundle. It needs to contain a key called **REST_API_KEY** and a key called **APPLICATION_ID**
+
 #### Manually
 
 > TODO: Docs
