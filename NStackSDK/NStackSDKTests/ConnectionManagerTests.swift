@@ -22,7 +22,7 @@ class ConnectionManagerTests: XCTestCase {
 
     let connectionManagerConfig: APIConfiguration = {
         let test = testConfiguration()
-        return APIConfiguration(appId: test.appId, restAPIKey: test.restAPIKey, isFlat: test.flat)
+        return APIConfiguration(appId: test.appId, restAPIKey: test.restAPIKey, isFlat: test.flat, environment: AppEnvironment.production)
     }()
 
     var connectionManager: ConnectionManager!
