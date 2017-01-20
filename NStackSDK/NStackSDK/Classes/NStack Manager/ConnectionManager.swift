@@ -24,7 +24,8 @@ final class ConnectionManager {
     var defaultHeaders: [String : String] {
         return [
             "X-Application-id"  : configuration.appId,
-            "X-Rest-Api-Key"    : configuration.restAPIKey
+            "X-Rest-Api-Key"    : configuration.restAPIKey,
+            "N-Meta"            : userAgentString(environment: configuration.environment)
         ]
     }
 
