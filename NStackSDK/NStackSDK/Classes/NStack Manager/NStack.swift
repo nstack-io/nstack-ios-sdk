@@ -145,8 +145,8 @@ public class NStack {
 
         // Setup the connection manager
         let apiConfiguration = APIConfiguration(appId: configuration.appId,
-                                             restAPIKey: configuration.restAPIKey,
-                                             isFlat: configuration.flat)
+                                                restAPIKey: configuration.restAPIKey,
+                                                isFlat: configuration.flat)
         connectionManager = ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary

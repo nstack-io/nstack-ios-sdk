@@ -153,6 +153,10 @@
 		E3DC93A11E014B5F00FC9693 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66761DFAD52C001682AA /* FileManagerMock.swift */; };
 		E3DC93A21E014B5F00FC9693 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A271D61C9120053E804 /* TranslationManagerTests.swift */; };
 		E3DC93A31E014BB200FC9693 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
+		E3DC93F71E01935400FC9693 /* EmptyTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F61E01935400FC9693 /* EmptyTranslations.json */; };
+		E3DC93F91E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */; };
+		E3DC93FA1E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */; };
+		E3DC93FB1E0195D500FC9693 /* EmptyTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F61E01935400FC9693 /* EmptyTranslations.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +256,8 @@
 		E3B6547C1E00484F00FC9380 /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Serpent.framework; sourceTree = "<group>"; };
 		E3B654B91E0063EC00FC9380 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		E3B654BC1E00642100FC9380 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E3DC93F61E01935400FC9693 /* EmptyTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyTranslations.json; sourceTree = "<group>"; };
+		E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyLanguageMetaTranslations.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,7 +366,9 @@
 			isa = PBXGroup;
 			children = (
 				01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */,
+				E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */,
 				01FC667A1DFADC35001682AA /* InvalidTranslations.json */,
+				E3DC93F61E01935400FC9693 /* EmptyTranslations.json */,
 				0106ADA21C7914B700E0C8BC /* Translations.json */,
 				01DA43171C7904E200D0FC04 /* Translations.swift */,
 			);
@@ -808,7 +816,9 @@
 			files = (
 				01DA43191C7904E200D0FC04 /* NStack.plist in Resources */,
 				0106ADA31C7914B700E0C8BC /* Translations.json in Resources */,
+				E3DC93F91E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
 				01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */,
+				E3DC93F71E01935400FC9693 /* EmptyTranslations.json in Resources */,
 				01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -826,6 +836,8 @@
 			files = (
 				01F4C6AF1DFF72620050D0F1 /* WrongTypeTranslations.json in Resources */,
 				01F4C6B01DFF72620050D0F1 /* InvalidTranslations.json in Resources */,
+				E3DC93FA1E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
+				E3DC93FB1E0195D500FC9693 /* EmptyTranslations.json in Resources */,
 				01F4C6B31DFF72660050D0F1 /* NStack.plist in Resources */,
 				01F4C6B11DFF72620050D0F1 /* Translations.json in Resources */,
 			);
@@ -864,7 +876,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
 		};
 		01F4C6AE1DFF72430050D0F1 /* Check for FIXME | TODO */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -878,7 +890,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1096,6 +1108,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1141,6 +1154,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -1173,7 +1187,6 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -1200,7 +1213,6 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
@@ -1209,6 +1221,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
@@ -1218,7 +1231,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
-				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -1236,7 +1248,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
@@ -1265,7 +1276,6 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
@@ -1295,7 +1305,6 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Release;
@@ -1309,6 +1318,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/tvOS";
 				INFOPLIST_FILE = "NStackSDK-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
@@ -1316,7 +1326,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
@@ -1337,7 +1346,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
