@@ -31,11 +31,7 @@ class NStackTests: XCTestCase {
     }
 
     func testConfigured() {
-        #if !os(macOS)
-            NStack.start(configuration: testConfiguration(), launchOptions: nil)
-        #else
-            NStack.start(configuration: testConfiguration())
-        #endif
+        NStack.start(configuration: testConfiguration(), launchOptions: nil)
         XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
     }
 }
