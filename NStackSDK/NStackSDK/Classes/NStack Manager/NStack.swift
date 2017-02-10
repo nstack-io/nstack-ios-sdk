@@ -20,8 +20,8 @@ public class NStack {
     /// The manager responsible for fetching, updating and persisting translations.
     public fileprivate(set) var translationsManager: TranslationManager?
 
-    /// The manager responsible for handling and showing version alerts and messages.
     #if !os(macOS)
+    /// The manager responsible for handling and showing version alerts and messages.
     public fileprivate(set) var alertManager: AlertManager!
     #endif
 
@@ -37,8 +37,12 @@ public class NStack {
         }
     }
 
-    #if !os(macOS)
-    internal var avoidUpdateList: [UIApplicationLaunchOptionsKey] = [.location]
+    #if os(macOS)
+    public typealias LaunchOptionsKeyType = String
+    internal var avoidUpdateList: [LaunchOptionsKeyType] = []
+    #else
+    public typealias LaunchOptionsKeyType = UIApplicationLaunchOptionsKey
+    internal var avoidUpdateList: [LaunchOptionsKeyType] = [.location]
     #endif
 
     internal var connectionManager: ConnectionManager!
@@ -56,81 +60,13 @@ public class NStack {
     /// - Parameters:
     ///   - configuration: A `Configuration` struct containing API keys and translations type.
     ///   - launchOptions: Launch options passed from `applicationDidFinishLaunching:` function.
-    public class func start(configuration: Configuration) {
-        sharedInstance.start(configuration: configuration)
-    }
-    
-    fileprivate func start(configuration: Configuration) {
-        guard !configured else {
-            logger.log("NStack is already configured. Kill the app and start it again with new configuration.",
-                       level: .error)
-            return
-        }
-        
-        self.configuration = configuration
-        self.configured = true
-        
-        // For testing purposes
-        VersionUtilities.versionOverride = configuration.versionOverride
-        
-        // Setup the connection manager
-        let apiConfiguration = APIConfiguration(appId: configuration.appId,
-                                                restAPIKey: configuration.restAPIKey,
-                                                isFlat: configuration.flat)
-        connectionManager = ConnectionManager(configuration: apiConfiguration)
-        
-        // Observe if necessary
-        if configuration.updateOptions.contains(.onDidBecomeActive) {
-            observer = ApplicationObserver(handler: { (action) in
-                guard action == .didBecomeActive else { return }
-                
-                self.update { error in
-                    if let error = error {
-                        self.logger.logError("Error updating NStack on did become active: " +
-                            error.localizedDescription)
-                        return
-                    }
-                }
-            })
-        }
-        
-        // Setup translations
-        if let translationsClass = configuration.translationsClass {
-            translationsManager = TranslationManager(translationsType: translationsClass,
-                                                     repository: connectionManager,
-                                                     logger: ConsoleLogger())
-            
-            // Delete translations if new version
-            if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
-                                          greaterThanVersion: VersionUtilities.previousAppVersion) {
-                translationsManager?.clearTranslations(includingPersisted: true)
-            }
-            
-            // Set callback
-            translationsManager?.languageChangedAction = {
-                self.languageChangedHandler?()
-            }
-        }
-        
-        // Setup alert manager
-        #if !os(macOS)
-            alertManager = AlertManager(repository: connectionManager)
-        #endif
-        
-        // Update if necessary and launch options doesn't contain a key present in avoid update list
-        if configuration.updateOptions.contains(.onStart) {
-            update()
-        }
-    }
-
-    #if !os(macOS)
-    
-    public class func start(configuration: Configuration, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    public class func start(configuration: Configuration,
+                            launchOptions: [LaunchOptionsKeyType: Any]?) {
         sharedInstance.start(configuration: configuration, launchOptions: launchOptions)
     }
-    
+
     fileprivate func start(configuration: Configuration,
-                           launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+                           launchOptions: [LaunchOptionsKeyType: Any]?) {
         guard !configured else {
             logger.log("NStack is already configured. Kill the app and start it again with new configuration.",
                 level: .error)
@@ -188,11 +124,11 @@ public class NStack {
         #endif
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
-        if configuration.updateOptions.contains(.onStart) && launchOptions?.keys.contains(where: { self.avoidUpdateList.contains($0) }) != true {
+        if configuration.updateOptions.contains(.onStart) &&
+            launchOptions?.keys.contains(where: { self.avoidUpdateList.contains($0) }) != true {
             update()
         }
     }
-    #endif
 
     /// Fetches the latest data from the NStack server and updates accordingly.
     ///
