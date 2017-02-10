@@ -22,6 +22,9 @@
 		0198A4161DF6971800C0162C /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A241DF1D57C00B521CF /* Serpent.framework */; };
 		0198A4171DF6971800C0162C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A251DF1D57C00B521CF /* Alamofire.framework */; };
 		0198A4181DF6971800C0162C /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01503A261DF1D57C00B521CF /* Cashier.framework */; };
+		01A3343F1E4E7DFD003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01A334401E4E7E1C003CE9BA /* EmptyLanguageMetaTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */; };
+		01A334411E4E7E21003CE9BA /* EmptyTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = E3DC93F61E01935400FC9693 /* EmptyTranslations.json */; };
 		01B5BA251D5E026C006EA3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5BA241D5E026C006EA3D7 /* Extensions.swift */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -101,8 +104,6 @@
 		E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		E3689C0E1D9EBA54004620D6 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		E3689C0F1D9EBA54004620D6 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
-		E3B654481E00450C00FC9380 /* NStackSDK_macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B654471E00450C00FC9380 /* NStackSDK_macOSTests.swift */; };
-		E3B6544A1E00450C00FC9380 /* NStackSDK-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E3B6543C1E00450C00FC9380 /* NStackSDK-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3B654841E00490D00FC9380 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654781E00484F00FC9380 /* Alamofire.framework */; };
 		E3B654851E00490D00FC9380 /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547A1E00484F00FC9380 /* Cashier.framework */; };
 		E3B654861E00490D00FC9380 /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B6547C1E00484F00FC9380 /* Serpent.framework */; };
@@ -243,11 +244,7 @@
 		E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_tvOSTests.swift; sourceTree = "<group>"; };
 		E3689BF11D9EB9EB004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3B6543A1E00450C00FC9380 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3B6543C1E00450C00FC9380 /* NStackSDK-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-macOS.h"; sourceTree = "<group>"; };
-		E3B6543D1E00450C00FC9380 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3B654421E00450C00FC9380 /* NStackSDK-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3B654471E00450C00FC9380 /* NStackSDK_macOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_macOSTests.swift; sourceTree = "<group>"; };
-		E3B654491E00450C00FC9380 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3B654531E00481300FC9380 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		E3B654551E00481300FC9380 /* Cashier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cashier.framework; sourceTree = "<group>"; };
 		E3B654591E00481300FC9380 /* Serpent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Serpent.framework; sourceTree = "<group>"; };
@@ -428,11 +425,9 @@
 			isa = PBXGroup;
 			children = (
 				30A3D8491B9DB94100C2D15C /* NStackSDK */,
-				30A3D8551B9DB94100C2D15C /* NStackSDKTests */,
+				30A3D8551B9DB94100C2D15C /* NStackSDK Tests */,
 				E3689BE31D9EB9EA004620D6 /* NStackSDK-tvOS */,
 				E3689BEE1D9EB9EB004620D6 /* NStackSDK-tvOSTests */,
-				E3B6543B1E00450C00FC9380 /* NStackSDK-macOS */,
-				E3B654461E00450C00FC9380 /* NStackSDK-macOSTests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
 				30A3D8481B9DB94100C2D15C /* Products */,
 			);
@@ -469,7 +464,7 @@
 			path = NStackSDK;
 			sourceTree = "<group>";
 		};
-		30A3D8551B9DB94100C2D15C /* NStackSDKTests */ = {
+		30A3D8551B9DB94100C2D15C /* NStackSDK Tests */ = {
 			isa = PBXGroup;
 			children = (
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
@@ -479,6 +474,7 @@
 				017E871E1DF61A1C009E9792 /* Translations */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 			);
+			name = "NStackSDK Tests";
 			path = NStackSDKTests;
 			sourceTree = "<group>";
 		};
@@ -555,24 +551,6 @@
 			path = ../Carthage/Build/tvOS;
 			sourceTree = "<group>";
 		};
-		E3B6543B1E00450C00FC9380 /* NStackSDK-macOS */ = {
-			isa = PBXGroup;
-			children = (
-				E3B6543C1E00450C00FC9380 /* NStackSDK-macOS.h */,
-				E3B6543D1E00450C00FC9380 /* Info.plist */,
-			);
-			path = "NStackSDK-macOS";
-			sourceTree = "<group>";
-		};
-		E3B654461E00450C00FC9380 /* NStackSDK-macOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				E3B654471E00450C00FC9380 /* NStackSDK_macOSTests.swift */,
-				E3B654491E00450C00FC9380 /* Info.plist */,
-			);
-			path = "NStackSDK-macOSTests";
-			sourceTree = "<group>";
-		};
 		E3B654511E00481300FC9380 /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,7 +598,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3B6544A1E00450C00FC9380 /* NStackSDK-macOS.h in Headers */,
+				01A3343F1E4E7DFD003CE9BA /* NStack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,6 +834,8 @@
 			files = (
 				E3B654BF1E0064B200FC9380 /* NStack.plist in Resources */,
 				E3B654C01E0064B200FC9380 /* WrongTypeTranslations.json in Resources */,
+				01A334401E4E7E1C003CE9BA /* EmptyLanguageMetaTranslations.json in Resources */,
+				01A334411E4E7E21003CE9BA /* EmptyTranslations.json in Resources */,
 				E3B654C11E0064B200FC9380 /* InvalidTranslations.json in Resources */,
 				E3B654C21E0064B200FC9380 /* Translations.json in Resources */,
 			);
@@ -1038,7 +1018,6 @@
 				E3DC93A01E014B5F00FC9693 /* BundleMock.swift in Sources */,
 				E3DC93A11E014B5F00FC9693 /* FileManagerMock.swift in Sources */,
 				E3DC93A21E014B5F00FC9693 /* TranslationManagerTests.swift in Sources */,
-				E3B654481E00450C00FC9380 /* NStackSDK_macOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,7 +1342,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
-				INFOPLIST_FILE = "NStackSDK-macOS/Info.plist";
+				INFOPLIST_FILE = NStackSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
@@ -1390,7 +1369,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
-				INFOPLIST_FILE = "NStackSDK-macOS/Info.plist";
+				INFOPLIST_FILE = NStackSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
@@ -1413,7 +1392,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
-				INFOPLIST_FILE = "NStackSDK-macOSTests/Info.plist";
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1432,7 +1411,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
-				INFOPLIST_FILE = "NStackSDK-macOSTests/Info.plist";
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
