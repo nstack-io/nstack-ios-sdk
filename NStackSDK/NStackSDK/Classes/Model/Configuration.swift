@@ -25,8 +25,7 @@ public struct Configuration {
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
-    public var environment = AppEnvironment.production
-    
+
     // Used for tests
     internal var versionOverride: String?
 
@@ -47,13 +46,11 @@ public struct Configuration {
     public init(appId: String,
                 restAPIKey: String,
                 translationsClass: Translatable.Type? = nil,
-                flatTranslations: Bool = false,
-                environment: AppEnvironment = .production) {
+                flatTranslations: Bool = false) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
-        self.environment = environment
     }
 
     public init(plistName: String, translationsClass: Translatable.Type? = nil) {

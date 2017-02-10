@@ -25,7 +25,6 @@ final class ConnectionManager {
         return [
             "X-Application-id"  : configuration.appId,
             "X-Rest-Api-Key"    : configuration.restAPIKey,
-            "N-Meta"            : userAgentString(environment: configuration.environment)
         ]
     }
 
