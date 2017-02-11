@@ -33,6 +33,7 @@
 		01A3344F1E4E825E003CE9BA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334481E4E825E003CE9BA /* Extensions.swift */; };
 		01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
 		01A334511E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
+		01A3349B1E4F205E003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
 		01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
@@ -87,8 +88,6 @@
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
-		E3689BF01D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */; };
-		E3689BF21D9EB9EB004620D6 /* NStackSDK-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
 		E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		E3689BFF1D9EBA54004620D6 /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
@@ -241,11 +240,7 @@
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NStackSDK-tvOS.h"; sourceTree = "<group>"; };
-		E3689BE51D9EB9EA004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NStackSDK_tvOSTests.swift; sourceTree = "<group>"; };
-		E3689BF11D9EB9EB004620D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3B6543A1E00450C00FC9380 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B654421E00450C00FC9380 /* NStackSDK-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B654531E00481300FC9380 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
@@ -440,8 +435,6 @@
 			children = (
 				30A3D8491B9DB94100C2D15C /* NStackSDK */,
 				30A3D8551B9DB94100C2D15C /* NStackSDK Tests */,
-				E3689BE31D9EB9EA004620D6 /* NStackSDK-tvOS */,
-				E3689BEE1D9EB9EB004620D6 /* NStackSDK-tvOSTests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
 				30A3D8481B9DB94100C2D15C /* Products */,
 			);
@@ -523,24 +516,6 @@
 			path = Classes/Translations;
 			sourceTree = "<group>";
 		};
-		E3689BE31D9EB9EA004620D6 /* NStackSDK-tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				E3689BE41D9EB9EA004620D6 /* NStackSDK-tvOS.h */,
-				E3689BE51D9EB9EA004620D6 /* Info.plist */,
-			);
-			path = "NStackSDK-tvOS";
-			sourceTree = "<group>";
-		};
-		E3689BEE1D9EB9EB004620D6 /* NStackSDK-tvOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				E3689BEF1D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift */,
-				E3689BF11D9EB9EB004620D6 /* Info.plist */,
-			);
-			path = "NStackSDK-tvOSTests";
-			sourceTree = "<group>";
-		};
 		E3689C111D9EBC63004620D6 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,7 +578,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3689BF21D9EB9EB004620D6 /* NStackSDK-tvOS.h in Headers */,
+				01A3349B1E4F205E003CE9BA /* NStack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,7 +950,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F4C6B61DFF726F0050D0F1 /* BundleMock.swift in Sources */,
-				E3689BF01D9EB9EB004620D6 /* NStackSDK_tvOSTests.swift in Sources */,
 				01F4C6B41DFF726A0050D0F1 /* TranslationManagerTests.swift in Sources */,
 				01F4C6BA1DFF72720050D0F1 /* ConnectionManagerTests.swift in Sources */,
 				01F4C6B91DFF72720050D0F1 /* VersionUtilitiesTests.swift in Sources */,
@@ -1262,7 +1236,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
 				);
-				INFOPLIST_FILE = "NStackSDK-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOS";
@@ -1291,7 +1265,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
 				);
-				INFOPLIST_FILE = "NStackSDK-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOS";
@@ -1314,7 +1288,7 @@
 				DEVELOPMENT_TEAM = HW27H6H98R;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/tvOS";
-				INFOPLIST_FILE = "NStackSDK-tvOSTests/Info.plist";
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1334,7 +1308,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = HW27H6H98R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/tvOS";
-				INFOPLIST_FILE = "NStackSDK-tvOSTests/Info.plist";
+				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
