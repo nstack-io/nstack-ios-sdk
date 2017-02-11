@@ -7,7 +7,7 @@
 //
 
 import Foundation
-#if !os(macOS)
+#if os(tvOS) || os(iOS)
 import UIKit
 
 public class AlertManager {
