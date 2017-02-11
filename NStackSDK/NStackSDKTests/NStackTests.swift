@@ -6,7 +6,7 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
-import UIKit
+
 import XCTest
 import Serpent
 import Alamofire
