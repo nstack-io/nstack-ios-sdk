@@ -5,7 +5,6 @@
 //  Created by Kasper Welner on 02/10/15.
 //  Copyright © 2015 Nodes. All rights reserved.
 //
-import UIKit
 import Cashier
 
 enum Constants {

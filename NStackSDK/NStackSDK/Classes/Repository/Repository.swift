@@ -47,5 +47,8 @@ protocol VersionsRepository {
     func markNewerVersionAsSeen(_ id: Int, appStoreButtonPressed: Bool)
     func markWhatsNewAsSeen(_ id: Int)
     func markMessageAsRead(_ id: String)
+
+    #if os(iOS) || os(tvOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)
+    #endif
 }

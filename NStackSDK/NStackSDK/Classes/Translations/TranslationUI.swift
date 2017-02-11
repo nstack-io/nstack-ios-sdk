@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Nodes All rights reserved.
 //
 
+#if !os(macOS)
 import UIKit
 import Serpent
 import Alamofire
@@ -112,3 +113,4 @@ internal func translationString(keyPath: String) -> String? {
 		
 	}
 }
+#endif

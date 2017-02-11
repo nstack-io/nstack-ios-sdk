@@ -5,7 +5,7 @@
 [![Travis](https://img.shields.io/travis/nodes-ios/NStackSDK.svg)](https://travis-ci.org/nodes-ios/NStackSDK) 
 [![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/NStackSDK.svg)](https://codecov.io/github/nodes-ios/NStackSDK)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Plaform](https://img.shields.io/badge/platform-iOS-lightgrey.svg) 
+![Plaform](https://img.shields.io/badge/platform-iOS%20|%20macOS%20|%20tvOS%20|%20watchOS-lightgrey.svg) 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/NStackSDK/blob/master/LICENSE)
 
 NStackSDK is the companion software development kit to the [NStack](https://nstack.io) backend.
@@ -16,7 +16,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## 📝 Requirements
 
-* iOS 8.0+ / tvOS 9.0+
+* iOS 8.0+ / tvOS 9.0+ / macOS 10.10+ / watchOS 2.0+
 * Swift 3.0+
 
 ## 📦 Installation
@@ -48,12 +48,13 @@ let configuration = Configuration(plistName: "NStack", translationsClass: Transl
 NStack.start(configuration: configuration, launchOptions: launchOptions)
 ~~~
 
-You should have a file called NStack.plist in your application bundle. It needs to contain a key called **REST_API_KEY** and a key called **APPLICATION_ID**
+You should have a file called NStack.plist in your application bundle. It needs to contain a key called **`REST_API_KEY`** and a key called **`APPLICATION_ID`**.
 
 #### Manually
 
 > TODO: Docs
 
+## Features
 
 ### Translations
 
@@ -63,13 +64,25 @@ You should have a file called NStack.plist in your application bundle. It needs 
 
 > TODO: Docs
 
+Shows alerts if there is a new app update available.
+
+> **NOTE:** This feature is not yet supported on macOS and watchOS.
+
 ### Messages
 
 > TODO: Docs
 
+Ability to show custom messages to users, for example warning them about server outage.
+
+> **NOTE:** This feature is not yet supported on macOS and watchOS.
+
 ### Rate Reminder
 
 > TODO: Docs
+
+Alerts to remind the user to rate the application.
+
+> **NOTE:** This feature is not yet supported on macOS and watchOS.
 
 ## 👥 Credits
 Made with ❤️ at [Nodes](http://nodesagency.com).

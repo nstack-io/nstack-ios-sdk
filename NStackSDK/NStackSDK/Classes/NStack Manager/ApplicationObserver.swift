@@ -6,7 +6,11 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
+#if os(macOS)
+import Cocoa
+#else
 import UIKit
+#endif
 import Foundation
 
 enum ApplicationAction {
@@ -28,7 +32,13 @@ class ApplicationObserver {
         self.actionHandler = handler
 
         let selector = #selector(applicationDidBecomeActive)
-        let name = NSNotification.Name.UIApplicationDidBecomeActive
+        #if os(macOS)
+            let name = NSNotification.Name.NSApplicationDidBecomeActive
+        #elseif os(watchOS)
+            let name = NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification")
+        #else
+            let name = NSNotification.Name.UIApplicationDidBecomeActive
+        #endif
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 

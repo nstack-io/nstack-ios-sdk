@@ -7,6 +7,7 @@
 //
 
 import Foundation
+#if os(tvOS) || os(iOS)
 import UIKit
 
 public class AlertManager {
@@ -186,3 +187,5 @@ public class AlertManager {
         showAlertBlock(alertType)
     }
 }
+#endif
+
