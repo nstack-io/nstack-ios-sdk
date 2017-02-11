@@ -20,7 +20,7 @@ public class NStack {
     /// The manager responsible for fetching, updating and persisting translations.
     public fileprivate(set) var translationsManager: TranslationManager?
 
-    #if !os(macOS)
+    #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
     public fileprivate(set) var alertManager: AlertManager!
     #endif
@@ -37,7 +37,7 @@ public class NStack {
         }
     }
 
-    #if os(macOS)
+    #if os(macOS) || os(watchOS)
     public typealias LaunchOptionsKeyType = String
     internal var avoidUpdateList: [LaunchOptionsKeyType] = []
     #else
@@ -118,8 +118,8 @@ public class NStack {
             }
         }
 
+        #if os(iOS) || os(tvOS)
         // Setup alert manager
-        #if !os(macOS)
         alertManager = AlertManager(repository: connectionManager)
         #endif
 
@@ -173,7 +173,7 @@ public class NStack {
 //                    self.translationsManager?.set(translationsDictionary: translations)
 //                }
 
-                #if !os(macOS)
+                #if os(iOS) || os(tvOS)
 
                 if !self.alertManager.alreadyShowingAlert {
 

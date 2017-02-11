@@ -175,7 +175,7 @@ extension ConnectionManager: VersionsRepository {
         manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
     }
 
-    #if !os(macOS)
+    #if os(iOS) || os(tvOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
         let params: [String : Any] = [
             "guid"              : Configuration.guid,

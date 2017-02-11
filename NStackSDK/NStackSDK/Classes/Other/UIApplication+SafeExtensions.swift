@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+#if !os(watchOS)
+
 extension UIApplication {
     class func safeSharedApplication() -> UIApplication? {
         guard UIApplication.responds(to: NSSelectorFromString("sharedApplication")),
@@ -30,3 +32,5 @@ extension UIApplication {
         return value?.boolValue ?? false
     }
 }
+
+#endif

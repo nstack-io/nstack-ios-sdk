@@ -34,6 +34,36 @@
 		01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
 		01A334511E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
 		01A3349B1E4F205E003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
+		01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
+		01A3347E1E4F1B43003CE9BA /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
+		01A3347F1E4F1B43003CE9BA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B0CAB01BD7C24E005463AA /* Message.swift */; };
+		01A334801E4F1B43003CE9BA /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
+		01A334811E4F1B43003CE9BA /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
+		01A334821E4F1B43003CE9BA /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304E07411BBA922300AFE13D /* Language.swift */; };
+		01A334831E4F1B43003CE9BA /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
+		01A334841E4F1B43003CE9BA /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
+		01A334861E4F1B43003CE9BA /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
+		01A334881E4F1B47003CE9BA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
+		01A334891E4F1B47003CE9BA /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
+		01A3348A1E4F1B4B003CE9BA /* NStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2E8301B9DD6A10064DB21 /* NStack.swift */; };
+		01A3348B1E4F1B4B003CE9BA /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */; };
+		01A3348C1E4F1B4B003CE9BA /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
+		01A3348D1E4F1B50003CE9BA /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */; };
+		01A3348E1E4F1B50003CE9BA /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
+		01A3348F1E4F1B55003CE9BA /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
+		01A334901E4F1B55003CE9BA /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
+		01A334921E4F1B59003CE9BA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
+		01A334931E4F1B59003CE9BA /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
+		01A334941E4F1B5E003CE9BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334471E4E825E003CE9BA /* Constants.swift */; };
+		01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334481E4E825E003CE9BA /* Extensions.swift */; };
+		01A334961E4F1B5E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
+		01A334971E4F1B8A003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01A334981E4F1B97003CE9BA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654531E00481300FC9380 /* Alamofire.framework */; };
+		01A334991E4F1B99003CE9BA /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654551E00481300FC9380 /* Cashier.framework */; };
+		01A3349A1E4F1B9B003CE9BA /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654591E00481300FC9380 /* Serpent.framework */; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
 		01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
@@ -131,7 +161,6 @@
 		E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		E3B654B41E0056F300FC9380 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		E3B654B51E0056F300FC9380 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
-		E3B654B61E0056F300FC9380 /* TranslationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */; };
 		E3B654B71E0056F300FC9380 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6661DFF14690050D0F1 /* Logger.swift */; };
 		E3B654B81E0056F300FC9380 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4C6671DFF14690050D0F1 /* LogLevel.swift */; };
 		E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654B91E0063EC00FC9380 /* AppKit.framework */; };
@@ -201,6 +230,7 @@
 		01A334471E4E825E003CE9BA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		01A334481E4E825E003CE9BA /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+SafeExtensions.swift"; sourceTree = "<group>"; };
+		01A334741E4F1B2A003CE9BA /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B5BA261D5E02D7006EA3D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01B5BA281D5E02DD006EA3D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01D4EDE81D5DF17800E7E94C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Classes/Model/Configuration.swift; sourceTree = "<group>"; };
@@ -256,6 +286,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		01A334701E4F1B2A003CE9BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A334981E4F1B97003CE9BA /* Alamofire.framework in Frameworks */,
+				01A334991E4F1B99003CE9BA /* Cashier.framework in Frameworks */,
+				01A3349A1E4F1B9B003CE9BA /* Serpent.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		30A3D8431B9DB94100C2D15C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -449,6 +489,7 @@
 				E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */,
 				E3B6543A1E00450C00FC9380 /* NStackSDK.framework */,
 				E3B654421E00450C00FC9380 /* NStackSDK-macOSTests.xctest */,
+				01A334741E4F1B2A003CE9BA /* NStackSDK.framework */,
 			);
 			name = Products;
 			path = TranslationModelGen/Products;
@@ -566,6 +607,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		01A334711E4F1B2A003CE9BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A334971E4F1B8A003CE9BA /* NStack.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		30A3D8441B9DB94100C2D15C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,6 +642,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		01A334731E4F1B2A003CE9BA /* NStackSDK-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01A3347B1E4F1B2B003CE9BA /* Build configuration list for PBXNativeTarget "NStackSDK-watchOS" */;
+			buildPhases = (
+				01A3346F1E4F1B2A003CE9BA /* Sources */,
+				01A334701E4F1B2A003CE9BA /* Frameworks */,
+				01A334711E4F1B2A003CE9BA /* Headers */,
+				01A334721E4F1B2A003CE9BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NStackSDK-watchOS";
+			productName = "NStackSDK-watchOS";
+			productReference = 01A334741E4F1B2A003CE9BA /* NStackSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		30A3D8461B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDK" */;
@@ -713,6 +780,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Nodes ApS";
 				TargetAttributes = {
+					01A334731E4F1B2A003CE9BA = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					30A3D8461B9DB94100C2D15C = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0800;
@@ -764,11 +835,19 @@
 				E3689BE91D9EB9EB004620D6 /* NStackSDK-tvOSTests */,
 				E3B654391E00450C00FC9380 /* NStackSDK-macOS */,
 				E3B654411E00450C00FC9380 /* NStackSDK-macOSTests */,
+				01A334731E4F1B2A003CE9BA /* NStackSDK-watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		01A334721E4F1B2A003CE9BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		30A3D8451B9DB94100C2D15C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -863,6 +942,39 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		01A3346F1E4F1B2A003CE9BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01A334941E4F1B5E003CE9BA /* Constants.swift in Sources */,
+				01A3348B1E4F1B4B003CE9BA /* ApplicationObserver.swift in Sources */,
+				01A334861E4F1B43003CE9BA /* TranslationsResponse.swift in Sources */,
+				01A3347E1E4F1B43003CE9BA /* AppOpenData.swift in Sources */,
+				01A334961E4F1B5E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
+				01A334811E4F1B43003CE9BA /* RateReminder.swift in Sources */,
+				01A3348E1E4F1B50003CE9BA /* VersionUtilities.swift in Sources */,
+				01A3348C1E4F1B4B003CE9BA /* NStackError.swift in Sources */,
+				01A334891E4F1B47003CE9BA /* ConnectionManager.swift in Sources */,
+				01A3348A1E4F1B4B003CE9BA /* NStack.swift in Sources */,
+				01A334881E4F1B47003CE9BA /* Repository.swift in Sources */,
+				01A334921E4F1B59003CE9BA /* Logger.swift in Sources */,
+				01A3348D1E4F1B50003CE9BA /* AlertManager.swift in Sources */,
+				01A334841E4F1B43003CE9BA /* Timezone.swift in Sources */,
+				01A3347F1E4F1B43003CE9BA /* Message.swift in Sources */,
+				01A334821E4F1B43003CE9BA /* Language.swift in Sources */,
+				01A334901E4F1B55003CE9BA /* TranslationManager.swift in Sources */,
+				01A334831E4F1B43003CE9BA /* Country.swift in Sources */,
+				01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */,
+				01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */,
+				01A334801E4F1B43003CE9BA /* Update.swift in Sources */,
+				01A334931E4F1B59003CE9BA /* LogLevel.swift in Sources */,
+				01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */,
+				01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */,
+				01A3348F1E4F1B55003CE9BA /* Translatable.swift in Sources */,
+				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		30A3D8421B9DB94100C2D15C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -986,7 +1098,6 @@
 				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
 				E3B654B41E0056F300FC9380 /* Translatable.swift in Sources */,
 				E3B654B51E0056F300FC9380 /* TranslationManager.swift in Sources */,
-				E3B654B61E0056F300FC9380 /* TranslationUI.swift in Sources */,
 				E3B654B71E0056F300FC9380 /* Logger.swift in Sources */,
 				E3B654B81E0056F300FC9380 /* LogLevel.swift in Sources */,
 				01A3344C1E4E825E003CE9BA /* Constants.swift in Sources */,
@@ -1031,6 +1142,58 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		01A334791E4F1B2B003CE9BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/watchOS";
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nodes.NStackSDK-watchOS";
+				PRODUCT_NAME = NStackSDK;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		01A3347A1E4F1B2B003CE9BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/watchOS";
+				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nodes.NStackSDK-watchOS";
+				PRODUCT_NAME = NStackSDK;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		30A3D8591B9DB94100C2D15C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1417,6 +1580,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		01A3347B1E4F1B2B003CE9BA /* Build configuration list for PBXNativeTarget "NStackSDK-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01A334791E4F1B2B003CE9BA /* Debug */,
+				01A3347A1E4F1B2B003CE9BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStackSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
