@@ -21,15 +21,12 @@ extension UIApplication {
         return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
     }
 
-    func safeOpenURL(_ url: URL) -> Bool {
-        guard self.canOpenURL(url) else { return false }
+    func safeOpenURL(_ url: URL) {
+        guard self.canOpenURL(url) else { return }
 
-        guard let returnVal = self.perform(NSSelectorFromString("openURL:"), with: url) else {
-            return false
+        guard let _ = self.perform(NSSelectorFromString("openURL:"), with: url) else {
+            return
         }
-
-        let value = returnVal.takeRetainedValue() as? NSNumber
-        return value?.boolValue ?? false
     }
 }
 

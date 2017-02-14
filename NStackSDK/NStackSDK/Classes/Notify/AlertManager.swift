@@ -129,7 +129,7 @@ public class AlertManager {
             self.repository.markNewerVersionAsSeen(version.lastId, appStoreButtonPressed: didPressAppStore)
             if didPressAppStore {
                 if let link = version.link {
-                    _ = UIApplication.safeSharedApplication()?.safeOpenURL(link)
+                    UIApplication.safeSharedApplication()?.safeOpenURL(link)
                 }
             }
         }
@@ -180,7 +180,7 @@ public class AlertManager {
             self.repository.markRateReminderAsSeen(result)
 
             if result == .Rate, let link = rateReminder.link {
-                _ = UIApplication.safeSharedApplication()?.safeOpenURL(link)
+                UIApplication.safeSharedApplication()?.safeOpenURL(link)
             }
         }
 
