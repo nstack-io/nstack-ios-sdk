@@ -14,7 +14,7 @@ enum VersionUtilities {
 
     static var previousAppVersion: String {
         get {
-            let savedVersion = Constants.persistentStore.string(forKey: Constants.CacheKeys.previousVersion)
+            let savedVersion = Constants.persistentStore.object(forKey: Constants.CacheKeys.previousVersion) as? String
             return savedVersion ?? currentAppVersion
         }
 
