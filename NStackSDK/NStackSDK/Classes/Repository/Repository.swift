@@ -44,7 +44,6 @@ protocol GeographyRepository {
 // MARK: - Versions -
 
 protocol VersionsRepository {
-    func markNewerVersionAsSeen(_ id: Int, appStoreButtonPressed: Bool)
     func markWhatsNewAsSeen(_ id: Int)
     func markMessageAsRead(_ id: String)
 
