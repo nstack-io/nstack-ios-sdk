@@ -126,9 +126,7 @@ public class AlertManager {
     internal func showUpdateAlert(newVersion version:Update.Version) {
 
         let appStoreCompletion = { (didPressAppStore:Bool) -> Void in
-            if version.state != .Force {
-                self.repository.markNewerVersionAsSeen(version.lastId, appStoreButtonPressed: didPressAppStore)
-            }
+            
             if didPressAppStore {
                 if let link = version.link {
                     UIApplication.safeSharedApplication()?.safeOpenURL(link)

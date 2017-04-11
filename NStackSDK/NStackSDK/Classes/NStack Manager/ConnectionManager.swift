@@ -141,18 +141,6 @@ extension ConnectionManager: UpdatesRepository {
 }
 
 extension ConnectionManager: VersionsRepository {
-    func markNewerVersionAsSeen(_ id: Int, appStoreButtonPressed:Bool) {
-        let params: [String : Any] = [
-            "guid"              : Configuration.guid,
-            "update_id"         : id,
-            "answer"            : (appStoreButtonPressed ? "yes" : "no"),
-            "type"              : "newer_version"
-        ]
-
-        let url = baseURL + "notify/updates/views"
-        manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
-    }
-
     func markWhatsNewAsSeen(_ id: Int) {
         let params: [String : Any] = [
             "guid"              : Configuration.guid,
