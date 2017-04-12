@@ -36,7 +36,7 @@ public class TranslationManager {
     var translationsObject: Translatable?
     
     /// In memory cache of the last language object.
-    public fileprivate(set) var currentLanguage: Language?
+    public var currentLanguage: Language?
     
     /// Internal handler closure for language change.
     var languageChangedAction: (() -> Void)?
@@ -441,32 +441,33 @@ public class TranslationManager {
                 return languageDictionary
             }
         }
+        // Take preferred language form backend
+        if let currentLanguage = currentLanguage, let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
+            return languageDictionary
+        }
         
         let languages = repository.fetchPreferredLanguages()
-        let shortLanguages = languages.map({ $0.substring(to: 2) })
         logger.logVerbose("Finding language for matching preferred languages: \(languages).")
         
-        // Find matching language
-        for (long, short) in zip(languages, shortLanguages) {
+        // Find matching language and region
+        for lan in languages {
             // Try matching on both language and region
-            if let dictionary = dictionary.value(forKey: long) as? NSDictionary {
-                logger.logVerbose("Found matching language for language with region: " + long)
+            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
+                logger.logVerbose("Found matching language for language with region: " + lan)
                 return dictionary
-            }
-            
-            // Match just on language
-            if let dictinoary = translationsMatching(locale: short, inDictionary: dictionary) {
-                logger.logVerbose("Found matching language for short language code: " + short)
-                return dictinoary
             }
         }
         
-        // No matches, try English otherwise just use whatever the first one is
-        logger.logWarning("Falling back to English language.")
-        languageDictionary = translationsMatching(locale: "en", inDictionary: dictionary)
+        let shortLanguages = languages.map({ $0.substring(to: 2) })
+        logger.logVerbose("Finding language for matching preferred  short languages: \(languages).")
         
-        if let languageDictionary = languageDictionary {
-            return languageDictionary
+        // Find matching language only
+        for lanShort in shortLanguages {
+            // Match just on language
+            if let dictinoary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
+                logger.logVerbose("Found matching language for short language code: " + lanShort)
+                return dictinoary
+            }
         }
         
         logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first)")
