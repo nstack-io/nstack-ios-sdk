@@ -33,7 +33,6 @@
 		01A3344F1E4E825E003CE9BA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334481E4E825E003CE9BA /* Extensions.swift */; };
 		01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
 		01A334511E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */; };
-		01A3349B1E4F205E003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
 		01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		01A3347E1E4F1B43003CE9BA /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
@@ -64,10 +63,14 @@
 		01A334981E4F1B97003CE9BA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654531E00481300FC9380 /* Alamofire.framework */; };
 		01A334991E4F1B99003CE9BA /* Cashier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654551E00481300FC9380 /* Cashier.framework */; };
 		01A3349A1E4F1B9B003CE9BA /* Serpent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B654591E00481300FC9380 /* Serpent.framework */; };
+		01A3349B1E4F205E003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
 		01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
 		01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		01BBEFAF1DE0FC66003AC718 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		01C979E41EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01C979E31EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json */; };
+		01C979E51EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01C979E31EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json */; };
+		01C979E61EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01C979E31EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json */; };
 		01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
 		01DA43191C7904E200D0FC04 /* NStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01DA43141C7904E200D0FC04 /* NStack.plist */; };
 		01DA431B1C7904E200D0FC04 /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA43171C7904E200D0FC04 /* Translations.swift */; };
@@ -233,6 +236,7 @@
 		01A334741E4F1B2A003CE9BA /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B5BA261D5E02D7006EA3D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01B5BA281D5E02DD006EA3D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		01C979E31EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BackendSelectedLanguageTranslations.json; sourceTree = "<group>"; };
 		01D4EDE81D5DF17800E7E94C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Classes/Model/Configuration.swift; sourceTree = "<group>"; };
 		01DA43131C7904E200D0FC04 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01DA43141C7904E200D0FC04 /* NStack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NStack.plist; sourceTree = "<group>"; };
@@ -415,6 +419,7 @@
 				E3DC93F81E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json */,
 				01FC667A1DFADC35001682AA /* InvalidTranslations.json */,
 				E3DC93F61E01935400FC9693 /* EmptyTranslations.json */,
+				01C979E31EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json */,
 				0106ADA21C7914B700E0C8BC /* Translations.json */,
 				01DA43171C7904E200D0FC04 /* Translations.swift */,
 			);
@@ -864,6 +869,7 @@
 				E3DC93F91E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
 				01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */,
 				E3DC93F71E01935400FC9693 /* EmptyTranslations.json in Resources */,
+				01C979E41EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */,
 				01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -884,6 +890,7 @@
 				E3DC93FA1E0195BA00FC9693 /* EmptyLanguageMetaTranslations.json in Resources */,
 				E3DC93FB1E0195D500FC9693 /* EmptyTranslations.json in Resources */,
 				01F4C6B31DFF72660050D0F1 /* NStack.plist in Resources */,
+				01C979E51EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */,
 				01F4C6B11DFF72620050D0F1 /* Translations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -904,6 +911,7 @@
 				01A334401E4E7E1C003CE9BA /* EmptyLanguageMetaTranslations.json in Resources */,
 				01A334411E4E7E21003CE9BA /* EmptyTranslations.json in Resources */,
 				E3B654C11E0064B200FC9380 /* InvalidTranslations.json in Resources */,
+				01C979E61EA8EB98001D8DBF /* BackendSelectedLanguageTranslations.json in Resources */,
 				E3B654C21E0064B200FC9380 /* Translations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1587,6 +1595,7 @@
 				01A3347A1E4F1B2B003CE9BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		30A3D8411B9DB94100C2D15C /* Build configuration list for PBXProject "NStackSDK" */ = {
 			isa = XCConfigurationList;

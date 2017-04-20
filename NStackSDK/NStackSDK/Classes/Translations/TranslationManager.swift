@@ -36,7 +36,7 @@ public class TranslationManager {
     var translationsObject: Translatable?
     
     /// In memory cache of the last language object.
-    public var currentLanguage: Language?
+    public fileprivate(set) var currentLanguage: Language?
     
     /// Internal handler closure for language change.
     var languageChangedAction: (() -> Void)?
@@ -260,11 +260,14 @@ public class TranslationManager {
         logger.logVerbose("Loading translations.")
 
         let dictionary = translationsDictionary
+
+        // Set our language
+        currentLanguage = languageOverride ?? processLanguage(dictionary)
+
+        // Figure out and set translations
         let parsed = processAllTranslations(dictionary)
         let translations = translationsType.init(dictionary: parsed)
-
         translationsObject = translations
-        currentLanguage = languageOverride ?? processLanguage(dictionary)
     }
     
     // MARK: - Dictionaries -
@@ -441,8 +444,11 @@ public class TranslationManager {
                 return languageDictionary
             }
         }
-        // Take preferred language form backend
-        if let currentLanguage = currentLanguage, let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
+
+        // Take preferred language from backend
+        if let currentLanguage = currentLanguage,
+            let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
+            logger.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
             return languageDictionary
         }
         
@@ -470,7 +476,7 @@ public class TranslationManager {
             }
         }
         
-        logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first)")
+        logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first ?? "None")")
         languageDictionary = dictionary.allValues.first as? NSDictionary
         
         if let languageDictionary = languageDictionary {
@@ -499,8 +505,7 @@ public class TranslationManager {
     /// - Returns: Translations dictionary for the given language.
     func translationsMatching(locale: String, inDictionary dictionary: NSDictionary) -> NSDictionary? {
         // If we have perfect match on language and region
-        if locale.characters.count > 2,
-            let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
+        if let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
             return dictionary
         }
         

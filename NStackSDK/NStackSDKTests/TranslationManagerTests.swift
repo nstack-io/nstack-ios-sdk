@@ -64,6 +64,10 @@ class TranslationManagerTests: XCTestCase {
     var wrongFormatJSONPath: String {
         return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeTranslations.json"
     }
+
+    var backendSelectedTranslationsJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/BackendSelectedLanguageTranslations.json"
+    }
     
 
     // MARK: - Test Case Lifecycle -
@@ -143,7 +147,7 @@ class TranslationManagerTests: XCTestCase {
     
     func testTranslationForKeySuccess() {
         repositoryMock.preferredLanguages = [mockLanguage.locale]
-        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
+        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Success")
     }
     
     func testTranslationForEmptyKey() {
@@ -272,6 +276,17 @@ class TranslationManagerTests: XCTestCase {
         _ = manager.translations() as Translations
         XCTAssertNotNil(manager.translationsObject,
                         "Translations should load with language override.")
+    }
+
+    func testBackendLanguagePriority() {
+        // We request da-DK as preferred language, which is not a part of the translations we get.
+        // The manager then should prioritise falling back to the language that the backend provided.
+        // Instead of falling to any type of english or first in the array.
+        //
+        // In the JSON backends return US english as most appropriate.
+        repositoryMock.preferredLanguages = ["da-DK"]
+        mockBundle.resourcePathOverride = backendSelectedTranslationsJSONPath
+        XCTAssertEqual(testTranslations.defaultSection.successKey, "Whatever")
     }
     
     // MARK: - Translations -
@@ -402,7 +417,7 @@ class TranslationManagerTests: XCTestCase {
     
     func testExtractWithSameRegionsWithCurrentLanguage() {
         repositoryMock.preferredLanguages = ["da-DK", "en-DK"]
-        manager.currentLanguage = Language(id: 0, name: "English", locale: "en-UK",
+        manager.languageOverride = Language(id: 0, name: "English", locale: "en-UK",
                                            direction: "lrm", acceptLanguage: "en-UK")
         let lang: NSDictionary = ["en-AU" : ["correct" : "no"],
                                   "en-UK" : ["correct" : "yes"]]
@@ -413,7 +428,7 @@ class TranslationManagerTests: XCTestCase {
     
     func testExtractWithNoLocaleButWithCurrentLanguage() {
         repositoryMock.preferredLanguages = []
-        manager.currentLanguage = mockLanguage
+        manager.languageOverride = mockLanguage
         let lang: NSDictionary = ["en-GB" : ["correct" : "no"],
                                   "da-DK" : ["correct" : "yes"]]
         let dict = manager.extractLanguageDictionary(fromDictionary: lang)
