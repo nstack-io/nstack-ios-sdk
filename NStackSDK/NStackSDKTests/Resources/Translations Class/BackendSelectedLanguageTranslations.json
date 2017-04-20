@@ -1,0 +1,23 @@
+{
+    "data" : {
+        "en-GB" : {
+            "default" : {
+                "successKey" : "Success"
+            }
+        },
+        "en-US" : {
+            "default" : {
+                "successKey" : "Whatever"
+            }
+        }
+    },
+    "meta" : {
+        "is_cached" : false,
+        "language" : {
+            "locale" : "en-US",
+            "id" : 8,
+            "name" : "English (US)",
+            "direction" : "LRM"
+        }
+    }
+}
