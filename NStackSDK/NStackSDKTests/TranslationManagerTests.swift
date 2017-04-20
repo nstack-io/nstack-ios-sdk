@@ -93,7 +93,7 @@ class TranslationManagerTests: XCTestCase {
         // Stop logger logging before teardown
         logger.logLevel = .none
 
-        manager.persistedTranslations = nil
+        manager.clearTranslations(includingPersisted: true)
         manager = nil
         repositoryMock = nil
         fileManagerMock = nil
@@ -284,8 +284,10 @@ class TranslationManagerTests: XCTestCase {
         // Instead of falling to any type of english or first in the array.
         //
         // In the JSON backends return US english as most appropriate.
+        manager.clearTranslations(includingPersisted: true)
         repositoryMock.preferredLanguages = ["da-DK"]
         mockBundle.resourcePathOverride = backendSelectedTranslationsJSONPath
+        repositoryMock.customBundles = [mockBundle]
         XCTAssertEqual(testTranslations.defaultSection.successKey, "Whatever")
     }
     
