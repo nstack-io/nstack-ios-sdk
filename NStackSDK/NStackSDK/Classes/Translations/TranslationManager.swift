@@ -260,11 +260,14 @@ public class TranslationManager {
         logger.logVerbose("Loading translations.")
 
         let dictionary = translationsDictionary
+
+        // Set our language
+        currentLanguage = languageOverride ?? processLanguage(dictionary)
+
+        // Figure out and set translations
         let parsed = processAllTranslations(dictionary)
         let translations = translationsType.init(dictionary: parsed)
-
         translationsObject = translations
-        currentLanguage = languageOverride ?? processLanguage(dictionary)
     }
     
     // MARK: - Dictionaries -
@@ -441,35 +444,39 @@ public class TranslationManager {
                 return languageDictionary
             }
         }
+
+        // Take preferred language from backend
+        if let currentLanguage = currentLanguage,
+            let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
+            logger.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
+            return languageDictionary
+        }
         
         let languages = repository.fetchPreferredLanguages()
-        let shortLanguages = languages.map({ $0.substring(to: 2) })
         logger.logVerbose("Finding language for matching preferred languages: \(languages).")
         
-        // Find matching language
-        for (long, short) in zip(languages, shortLanguages) {
+        // Find matching language and region
+        for lan in languages {
             // Try matching on both language and region
-            if let dictionary = dictionary.value(forKey: long) as? NSDictionary {
-                logger.logVerbose("Found matching language for language with region: " + long)
+            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
+                logger.logVerbose("Found matching language for language with region: " + lan)
                 return dictionary
             }
-            
+        }
+        
+        let shortLanguages = languages.map({ $0.substring(to: 2) })
+        logger.logVerbose("Finding language for matching preferred  short languages: \(languages).")
+        
+        // Find matching language only
+        for lanShort in shortLanguages {
             // Match just on language
-            if let dictinoary = translationsMatching(locale: short, inDictionary: dictionary) {
-                logger.logVerbose("Found matching language for short language code: " + short)
+            if let dictinoary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
+                logger.logVerbose("Found matching language for short language code: " + lanShort)
                 return dictinoary
             }
         }
         
-        // No matches, try English otherwise just use whatever the first one is
-        logger.logWarning("Falling back to English language.")
-        languageDictionary = translationsMatching(locale: "en", inDictionary: dictionary)
-        
-        if let languageDictionary = languageDictionary {
-            return languageDictionary
-        }
-        
-        logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first)")
+        logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first ?? "None")")
         languageDictionary = dictionary.allValues.first as? NSDictionary
         
         if let languageDictionary = languageDictionary {
@@ -498,8 +505,7 @@ public class TranslationManager {
     /// - Returns: Translations dictionary for the given language.
     func translationsMatching(locale: String, inDictionary dictionary: NSDictionary) -> NSDictionary? {
         // If we have perfect match on language and region
-        if locale.characters.count > 2,
-            let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
+        if let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
             return dictionary
         }
         

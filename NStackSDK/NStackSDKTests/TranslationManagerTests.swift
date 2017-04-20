@@ -64,6 +64,10 @@ class TranslationManagerTests: XCTestCase {
     var wrongFormatJSONPath: String {
         return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeTranslations.json"
     }
+
+    var backendSelectedTranslationsJSONPath: String {
+        return Bundle(for: type(of: self)).resourcePath! + "/BackendSelectedLanguageTranslations.json"
+    }
     
 
     // MARK: - Test Case Lifecycle -
@@ -89,7 +93,7 @@ class TranslationManagerTests: XCTestCase {
         // Stop logger logging before teardown
         logger.logLevel = .none
 
-        manager.persistedTranslations = nil
+        manager.clearTranslations(includingPersisted: true)
         manager = nil
         repositoryMock = nil
         fileManagerMock = nil
@@ -101,16 +105,16 @@ class TranslationManagerTests: XCTestCase {
     }
 
     // MARK: - Loading -
-
+    
     func testLoadTranslations() {
         XCTAssertNil(manager.translationsObject)
         manager.loadTranslations()
         XCTAssertNotNil(manager.translationsObject,
                         "Translations object shouldn't be nil after loading.")
     }
-
+    
     // MARK: - Update -
-
+    
     func testUpdateSuccess() {
         repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations(), "Error should be nil.")
@@ -119,7 +123,7 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(manager.persistedTranslations,
                         "Persistent translations should be saved after successful update.")
     }
-
+    
     func testUpdateFailure() {
         repositoryMock.translationsResponse = nil
         XCTAssertNotNil(manager.synchronousUpdateTranslations(), "Error shouldn't be nil.")
@@ -128,12 +132,12 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNil(manager.persistedTranslations,
                      "Persistent translations should not be saved after failed update.")
     }
-
+    
     // MARK: - Translation for key
     
     func testTranslationForKeyFailure() {
         repositoryMock.preferredLanguages = [mockLanguage.locale]
-        XCTAssertNotEqual(manager.translationString(keyPath: "default.successKey"), "Success")
+        XCTAssertNotEqual(manager.translationString(keyPath: "default.successKey"), "NoSuccess")
     }
     
     func testTranslationForWrongKeyFailure() {
@@ -143,7 +147,7 @@ class TranslationManagerTests: XCTestCase {
     
     func testTranslationForKeySuccess() {
         repositoryMock.preferredLanguages = [mockLanguage.locale]
-        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
+        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Success")
     }
     
     func testTranslationForEmptyKey() {
@@ -152,7 +156,7 @@ class TranslationManagerTests: XCTestCase {
     }
     
     // MARK: - Fetch -
-
+    
     func testFetchCurrentLanguageSuccess() {
         repositoryMock.currentLanguage = mockLanguage
         let exp = expectation(description: "Fetch language should return one language.")
@@ -162,12 +166,12 @@ class TranslationManagerTests: XCTestCase {
             } else {
                 XCTAssert(false)
             }
-
+            
             exp.fulfill()
         }
         waitForExpectations(timeout: 5, handler: nil)
     }
-
+    
     func testFetchCurrentLanguageFailure() {
         repositoryMock.currentLanguage = nil
         let exp = expectation(description: "Fetch language should fail without language.")
@@ -179,7 +183,7 @@ class TranslationManagerTests: XCTestCase {
         }
         waitForExpectations(timeout: 5, handler: nil)
     }
-
+    
     func testFetchAvailableLanguagesSuccess() {
         repositoryMock.availableLanguages = [
             Language(id: 0, name: "English", locale: "en-GB",
@@ -187,7 +191,7 @@ class TranslationManagerTests: XCTestCase {
             Language(id: 1, name: "Danish", locale: "da-DK",
                      direction: "LRM", acceptLanguage: "da-DK")
         ]
-
+        
         let exp = expectation(description: "Fetch available should return two languages.")
         manager.fetchAvailableLanguages { (response) in
             if case .failure(_) = response.result {
@@ -197,7 +201,7 @@ class TranslationManagerTests: XCTestCase {
         }
         waitForExpectations(timeout: 5, handler: nil)
     }
-
+    
     func testFetchAvailableLanguagesFailure() {
         repositoryMock.availableLanguages = nil
         let exp = expectation(description: "Fetch available should fail without languages.")
@@ -209,30 +213,30 @@ class TranslationManagerTests: XCTestCase {
         }
         waitForExpectations(timeout: 5, handler: nil)
     }
-
+    
     // MARK: - Accept -
-
+    
     func testAcceptLanguage() {
         // Test simple language
         repositoryMock.preferredLanguages = ["en"]
         XCTAssertEqual(manager.acceptLanguage, "en;q=1.0")
-
+        
         // Test two languages with locale
         repositoryMock.preferredLanguages = ["da-DK", "en-GB"]
         XCTAssertEqual(manager.acceptLanguage, "da-DK;q=1.0,en-GB;q=0.9")
-
+        
         // Test max lang limit
         repositoryMock.preferredLanguages = ["da-DK", "en-GB", "en", "cs-CZ", "sk-SK", "no-NO"]
         XCTAssertEqual(manager.acceptLanguage,
                        "da-DK;q=1.0,en-GB;q=0.9,en;q=0.8,cs-CZ;q=0.7,sk-SK;q=0.6",
                        "There should be maximum 5 accept languages.")
-
+        
         // Test fallback
         repositoryMock.preferredLanguages = []
         XCTAssertEqual(manager.acceptLanguage, "en;q=1.0",
                        "If no accept language there should be fallback to english.")
     }
-
+    
     func testLastAcceptHeader() {
         XCTAssertNil(manager.lastAcceptHeader, "Last accept header should be nil at start.")
         manager.lastAcceptHeader = "da-DK;q=1.0,en;q=1.0"
@@ -240,15 +244,15 @@ class TranslationManagerTests: XCTestCase {
         manager.lastAcceptHeader = nil
         XCTAssertNil(manager.lastAcceptHeader, "Last accept header should be nil.")
     }
-
+    
     // MARK: - Language Override -
-
+    
     func testLanguageOverride() {
         XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
         manager.languageOverride = mockLanguage
         XCTAssertEqual(testTranslations.defaultSection.successKey, "Fedt")
     }
-
+    
     func testLanguageOverrideStore() {
         XCTAssertNil(manager.languageOverride, "Language override should be nil at start.")
         manager.languageOverride = mockLanguage
@@ -256,35 +260,48 @@ class TranslationManagerTests: XCTestCase {
         manager.languageOverride = nil
         XCTAssertNil(manager.languageOverride, "Language override should be nil.")
     }
-
+    
     func testLanguageOverrideClearTranslations() {
         // Load translations
         manager.loadTranslations()
         XCTAssertNotNil(manager.translationsObject,
                         "Translations shouldn't be nil after loading.")
-
+        
         // Override lang, should clear all loaded
         manager.languageOverride = mockLanguage
         XCTAssertNil(manager.translationsObject,
                      "Translations should be cleared if language is overriden.")
-
+        
         // Accessing again should load with override lang
         _ = manager.translations() as Translations
         XCTAssertNotNil(manager.translationsObject,
                         "Translations should load with language override.")
     }
 
+    func testBackendLanguagePriority() {
+        // We request da-DK as preferred language, which is not a part of the translations we get.
+        // The manager then should prioritise falling back to the language that the backend provided.
+        // Instead of falling to any type of english or first in the array.
+        //
+        // In the JSON backends return US english as most appropriate.
+        manager.clearTranslations(includingPersisted: true)
+        repositoryMock.preferredLanguages = ["da-DK"]
+        mockBundle.resourcePathOverride = backendSelectedTranslationsJSONPath
+        repositoryMock.customBundles = [mockBundle]
+        XCTAssertEqual(testTranslations.defaultSection.successKey, "Whatever")
+    }
+    
     // MARK: - Translations -
-
+    
     func testTranslationsMemoryCache() {
         XCTAssertNil(manager.translationsObject)
         XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
         XCTAssertNotNil(manager.translationsObject)
         XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
     }
-
+    
     // MARK: - Translation Dictionaries -
-
+    
     func testPersistedTranslations() {
         XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
         manager.persistedTranslations = mockTranslations.translations
@@ -292,38 +309,38 @@ class TranslationManagerTests: XCTestCase {
         manager.persistedTranslations = nil
         XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil.")
     }
-
+    
     func testPersistedTranslationsSaveFailure() {
         fileManagerMock.searchPathUrlsOverride = []
         XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
         manager.persistedTranslations = mockTranslations.translations
         XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
     }
-
+    
     func testPersistedTranslationsSaveFailureBadUrl() {
         fileManagerMock.searchPathUrlsOverride = [URL(string: "test://")!]
         XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
         manager.persistedTranslations = mockTranslations.translations
         XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
     }
-
+    
     func testPersistedTranslationsOnUpdate() {
         repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations(), "No error should happen on update.")
         XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should be available.")
     }
-
+    
     func testFallbackTranslations() {
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should be available.")
     }
-
+    
     func testFallbackTranslationsInvalidPath() {
         let bundle = mockBundle
         bundle.resourcePathOverride = "file://BlaBlaBla.json" // invalid path
         repositoryMock.customBundles = [bundle]
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid path.")
     }
-
+    
     func testFallbackTranslationsInvalidJSON() {
         let bundle = mockBundle
         bundle.resourcePathOverride = invalidTranslationsJSONPath // invalid json file
@@ -337,7 +354,7 @@ class TranslationManagerTests: XCTestCase {
         repositoryMock.customBundles = [bundle]
         XCTAssertNotNil(manager.loadTranslations(), "Fallback translations should fail with invalid JSON.")
     }
-
+    
     func testFallbackTranslationsEmptyLanguageJSON() {
         let bundle = mockBundle
         bundle.resourcePathOverride = emptyLanguageMetaTranslationsJSONPath// empty meta laguage file
@@ -351,27 +368,27 @@ class TranslationManagerTests: XCTestCase {
         repositoryMock.customBundles = [bundle]
         XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with wrong format JSON.")
     }
-
+    
     // MARK: - Unwrap & Parse -
-
+    
     func testUnwrapAndParse() {
-        repositoryMock.preferredLanguages = ["da"]
+        repositoryMock.preferredLanguages = ["en"]
         let final = manager.processAllTranslations(mockWrappedTranslations.translations!)
         XCTAssertNotNil(final, "Unwrap and parse should succeed.")
-        XCTAssertEqual(final?.value(forKeyPath: "default.successKey") as? String, Optional("FedtUpdated"))
+        XCTAssertEqual(final?.value(forKeyPath: "default.successKey") as? String, Optional("SuccessUpdated"))
     }
-
+    
     // MARK: - Extraction -
-
+    
     func testExtractWithFullLocale() {
         repositoryMock.preferredLanguages = ["en-GB", "da-DK"]
-        let lang: NSDictionary = ["da-DK" : ["correct" : "no"],
-                                  "en-GB" : ["correct" : "yes"]]
+        let lang: NSDictionary = ["en-GB" : ["correct" : "yes"],
+                                  "da-DK" : ["correct" : "no"]]
         let dict = manager.extractLanguageDictionary(fromDictionary: lang)
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
+    
     func testExtractWithShortLocale() {
         repositoryMock.preferredLanguages = ["da"]
         let lang: NSDictionary = ["da-DK" : ["correct" : "yes"],
@@ -380,7 +397,7 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
+    
     func testExtractWithLanguageOverride() {
         repositoryMock.preferredLanguages = ["en-GB", "en"]
         manager.languageOverride = mockLanguage
@@ -390,7 +407,7 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
+    
     func testExtractWithWrongLanguageOverride() {
         repositoryMock.preferredLanguages = ["en-GB", "en"]
         manager.languageOverride = mockLanguage
@@ -399,25 +416,37 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
-    func testExtractWithSameRegions() {
-        repositoryMock.preferredLanguages = ["de-DK", "da-DK"]
-        let lang: NSDictionary = ["de-DE" : ["correct" : "yes"],
+    
+    func testExtractWithSameRegionsWithCurrentLanguage() {
+        repositoryMock.preferredLanguages = ["da-DK", "en-DK"]
+        manager.languageOverride = Language(id: 0, name: "English", locale: "en-UK",
+                                           direction: "lrm", acceptLanguage: "en-UK")
+        let lang: NSDictionary = ["en-AU" : ["correct" : "no"],
+                                  "en-UK" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+    
+    func testExtractWithNoLocaleButWithCurrentLanguage() {
+        repositoryMock.preferredLanguages = []
+        manager.languageOverride = mockLanguage
+        let lang: NSDictionary = ["en-GB" : ["correct" : "no"],
+                                  "da-DK" : ["correct" : "yes"]]
+        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+        XCTAssertNotNil(dict)
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+    }
+    
+    func testExtractWithNoLocaleAndNoCurrentLanguage() {
+        repositoryMock.preferredLanguages = []
+        let lang: NSDictionary = ["en-GB" : ["correct" : "yes"],
                                   "da-DK" : ["correct" : "no"]]
         let dict = manager.extractLanguageDictionary(fromDictionary: lang)
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
-    func testExtractWithNoLocale() {
-        repositoryMock.preferredLanguages = []
-        let lang: NSDictionary = ["da-DK" : ["correct" : "no"],
-                                  "en-GB" : ["correct" : "yes"]]
-        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
-        XCTAssertNotNil(dict)
-        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
-    }
-
+    
     func testExtractWithNoLocaleAndNoEnglish() {
         repositoryMock.preferredLanguages = []
         let lang: NSDictionary = ["es" : ["correct" : "no"],
@@ -426,7 +455,7 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
-
+    
     func testExtractFailure() {
         repositoryMock.preferredLanguages = ["da-DK"]
         let lang: NSDictionary = [:]
@@ -434,16 +463,16 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNotNil(dict)
         XCTAssertEqual(dict.allKeys.count, 0, "Extracted dictionary should not be empty.")
     }
-
+    
     // MARK: - Clearing -
-
+    
     func testClearTranslations() {
         manager.loadTranslations()
         XCTAssertNotNil(manager.translationsObject, "Translations shouldn't be nil.")
         manager.clearTranslations()
         XCTAssertNil(manager.translationsObject, "Translations should not exist after clear.")
     }
-
+    
     func testClearPersistedTranslations() {
         repositoryMock.translationsResponse = mockWrappedTranslations
         XCTAssertNil(manager.synchronousUpdateTranslations())
@@ -459,13 +488,13 @@ extension TranslationManager {
     fileprivate func synchronousUpdateTranslations() -> NStackError.Translations? {
         let semaphore = DispatchSemaphore(value: 0)
         var error: NStackError.Translations?
-
+        
         updateTranslations { e in
             error = e
             semaphore.signal()
         }
         semaphore.wait()
-
+        
         return error
     }
 }
