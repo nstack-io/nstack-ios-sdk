@@ -50,6 +50,7 @@ NStack.start(configuration: configuration, launchOptions: launchOptions)
 
 You should have a file called NStack.plist in your application bundle. It needs to contain a key called **`REST_API_KEY`** and a key called **`APPLICATION_ID`**.
 
+
 #### Manually
 
 > TODO: Docs
@@ -57,8 +58,15 @@ You should have a file called NStack.plist in your application bundle. It needs 
 ## Features
 
 ### Translations
+To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example: 
+~~~~swift
+@IBOutlet weak var forgotPasswordButton: UIButton! {
+    didSet {
+ 	forgotPasswordButton.setTitle(tr.login.forgotPassword, for: .normal)
+    }
+}
+~~~~
 
-> TODO: Docs
 
 ### Updates
 
