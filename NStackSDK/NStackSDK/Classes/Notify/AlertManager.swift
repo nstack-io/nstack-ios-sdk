@@ -9,6 +9,7 @@
 import Foundation
 #if os(tvOS) || os(iOS)
 import UIKit
+import StoreKit
 
 public class AlertManager {
 
@@ -22,16 +23,7 @@ public class AlertManager {
         case updateAlert(title:String, text:String, dismissButtonText:String?, appStoreButtonText:String, completion:(_ didPressAppStore:Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion:() -> Void)
         case message(text: String, dismissButtonText: String, completion:() -> Void)
-        case rateReminder(title:String, text: String, rateButtonText:String, laterButtonText:String, neverButtonText:String, completion:(_ result:RateReminderResult) -> Void)
 
-        init(rateReminder: RateReminder, completion: @escaping (RateReminderResult) -> Void) {
-            self = .rateReminder(title: rateReminder.title,
-                                 text: rateReminder.body,
-                                 rateButtonText: rateReminder.yesButtonTitle,
-                                 laterButtonText: rateReminder.laterButtonTitle,
-                                 neverButtonText: rateReminder.noButtonTitle,
-                                 completion: completion)
-        }
     }
 
     let repository: VersionsRepository
@@ -84,22 +76,6 @@ public class AlertManager {
                 completion()
             }))
 
-        case let .rateReminder(title, text, rateButtonText, laterButtonText, neverButtonText, completion):
-            header = title
-            message = text
-            actions.append(UIAlertAction(title: rateButtonText, style: .default, handler: { action in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
-                completion(.Rate)
-            }))
-            actions.append(UIAlertAction(title: laterButtonText, style: .default, handler: { action in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
-                completion(.Later)
-
-            }))
-            actions.append(UIAlertAction(title: neverButtonText, style: .cancel, handler: { action in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
-                completion(.Never)
-            }))
         }
 
         let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
@@ -111,6 +87,14 @@ public class AlertManager {
         NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
+    public var requestReview: () -> Void = {
+        
+        if #available(iOS 10.3, *) {
+            StoreReviewManager.requestReview()
+        }
+        
+    }
+    
     // MARK: - Lifecyle -
 
     init(repository: VersionsRepository) {
@@ -176,15 +160,11 @@ public class AlertManager {
     }
 
     internal func showRateReminder(_ rateReminder:RateReminder) {
-        let alertType = AlertType(rateReminder: rateReminder) { result in
+        
+        self.requestReview()
+        if let result = AlertManager.RateReminderResult(rawValue: "yes") {
             self.repository.markRateReminderAsSeen(result)
-
-            if result == .Rate, let link = rateReminder.link {
-                UIApplication.safeSharedApplication()?.safeOpenURL(link)
-            }
         }
-
-        showAlertBlock(alertType)
     }
 }
 #endif

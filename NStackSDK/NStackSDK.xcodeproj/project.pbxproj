@@ -138,6 +138,7 @@
 		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
 		E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA261D5E02D7006EA3D7 /* UIKit.framework */; };
@@ -294,6 +295,7 @@
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
+		CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreReviewManager.swift; sourceTree = "<group>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B6543A1E00450C00FC9380 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -570,6 +572,7 @@
 			children = (
 				30E8AEDB1BD4F6BE00D43262 /* AlertManager.swift */,
 				305112711BD676DF005578DE /* VersionUtilities.swift */,
+				CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */,
 			);
 			name = Notify;
 			path = Classes/Notify;
@@ -1030,6 +1033,7 @@
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
+				CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */,
 				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,
 				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
