@@ -14,7 +14,8 @@ public struct UpdateOptions: OptionSet {
     public init(rawValue: Int) { self.rawValue = rawValue }
 
     public static let onStart = UpdateOptions(rawValue: 1 << 0)
-    public static let onDidBecomeActive = UpdateOptions(rawValue: 1 << 1)
+    public static let onDidBecomeActive = UpdateOptions(rawValue: 2 << 1)
+    public static let never = UpdateOptions(rawValue: 2 << 2)
 }
 
 public struct Configuration {
