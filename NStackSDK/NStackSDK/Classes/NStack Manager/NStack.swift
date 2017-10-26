@@ -125,7 +125,8 @@ public class NStack {
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
         if configuration.updateOptions.contains(.onStart) &&
-            launchOptions?.keys.contains(where: { self.avoidUpdateList.contains($0) }) != true {
+            launchOptions?.keys.contains(where: { self.avoidUpdateList.contains($0) }) != true &&
+            !configuration.updateOptions.contains(.never) {
             update()
         }
     }
