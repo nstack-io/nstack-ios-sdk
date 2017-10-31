@@ -41,6 +41,12 @@ protocol GeographyRepository {
     func fetchCountries(completion:  @escaping Completion<[Country]>)
 }
 
+// MARK: - Validation -
+
+protocol ValidationRepository {
+    func validateEmail(_ email: String, completion:  @escaping Completion<Validation>)
+}
+
 // MARK: - Versions -
 
 protocol VersionsRepository {

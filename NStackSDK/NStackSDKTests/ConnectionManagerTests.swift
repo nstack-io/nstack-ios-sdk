@@ -37,5 +37,31 @@ class ConnectionManagerTests: XCTestCase {
         connectionManager = nil
     }
 
-    // TODO: Write tests
+    func testInvalidateEmail() {
+        connectionManager.validateEmail("veryWrongEmail") { (response) in
+            XCTAssertTrue(response.result.isFailure)
+        }
+    }
+    
+    func testValidateEmail() {
+        let exp = expectation(description: "Endpoint Succeeds")
+        
+        connectionManager.validateEmail("chgr@nodes.dk") { (response) in
+            switch response.result {
+            case .success(let valid):
+                if valid.ok {
+                    exp.fulfill()
+                } else {
+                   XCTFail()
+                }
+            case .failure(_):
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 5.0) { (_) -> Void in
+        }
+    }
+    
+    // TODO: Write more tests
+    
 }

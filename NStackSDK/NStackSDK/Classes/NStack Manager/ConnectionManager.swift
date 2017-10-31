@@ -187,6 +187,16 @@ extension ConnectionManager: GeographyRepository {
     }
 }
 
+// MARK: - Validation -
+
+extension ConnectionManager: ValidationRepository {
+    func validateEmail(_ email: String, completion:  @escaping Completion<Validation>) {
+        manager
+            .request(baseURL + "validator/email?email=\(email)", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+}
+
 // MARK: - Utility Functions -
 
 // FIXME: Refactor

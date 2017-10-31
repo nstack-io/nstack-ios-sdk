@@ -238,3 +238,24 @@ public extension NStack {
         }
     }
 }
+
+// MARK: - Validation -
+
+public extension NStack {
+    
+    /// Validate an email.
+    ///
+    /// - Parameters
+    ///     email: A string to be validated as a email
+    ///     completion: Completion block when the API call has finished.
+    public func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
+        connectionManager.validateEmail(email) { (response) in
+            switch response.result {
+            case .success(let data):
+                completion(data.ok, nil)
+            case .failure(let error):
+                completion(false,error)
+            }
+        }
+    }
+}
