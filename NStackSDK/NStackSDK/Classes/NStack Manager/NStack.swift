@@ -208,7 +208,25 @@ public class NStack {
 // MARK: - Geography -
 
 public extension NStack {
-
+    
+    // MARK: - IPAddress
+    
+    /// Retrieve details based on the requestee's ip address
+    ///
+    /// - Parameter completion: Completion block when the API call has finished.
+    public func ipDetails(completion: @escaping ((_ ipDetails: IPAddress?, _ error: Error?) -> ())) {
+        connectionManager.fetchIPDetails { (response) in
+            switch response.result {
+            case .success(let data):
+                completion(data, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
+    }
+    
+    // MARK: - Countries
+    
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
@@ -223,7 +241,7 @@ public extension NStack {
             }
         }
     }
-
+    
     /// Locally stored list of countries
     public private(set) var countries: [Country]? {
         get {
@@ -235,6 +253,116 @@ public extension NStack {
                 return
             }
             Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
+        }
+    }
+    
+    // MARK: - Continents
+    
+    /// Updates the list of continents stored by NStack.
+    ///
+    /// - Parameter completion: Optional completion block when the API call has finished.
+    public func updateContinents(completion: ((_ countries: [Continent], _ error: Error?) -> ())? = nil) {
+        connectionManager.fetchContinents { (response) in
+            switch response.result {
+            case .success(let data):
+                self.continents = data
+                completion?(data, nil)
+            case .failure(let error):
+                completion?([], error)
+            }
+        }
+    }
+    
+    /// Locally stored list of continents
+    public private(set) var continents: [Continent]? {
+        get {
+            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
+        }
+        set {
+            guard let newValue = newValue else {
+                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.continents, purgeMemoryCache: true)
+                return
+            }
+            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
+        }
+    }
+    
+    // MARK: - Languages
+    
+    /// Updates the list of languages stored by NStack.
+    ///
+    /// - Parameter completion: Optional completion block when the API call has finished.
+    public func updateLanguages(completion: ((_ countries: [Language], _ error: Error?) -> ())? = nil) {
+        connectionManager.fetchLanguages { (response) in
+            switch response.result {
+            case .success(let data):
+                self.languages = data
+                completion?(data, nil)
+            case .failure(let error):
+                completion?([], error)
+            }
+        }
+    }
+    
+    /// Locally stored list of languages
+    public private(set) var languages: [Language]? {
+        get {
+            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
+        }
+        set {
+            guard let newValue = newValue else {
+                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languanges, purgeMemoryCache: true)
+                return
+            }
+            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
+        }
+    }
+    
+    // MARK: - Timezones
+    
+    /// Updates the list of timezones stored by NStack.
+    ///
+    /// - Parameter completion: Optional completion block when the API call has finished.
+    public func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
+        connectionManager.fetchTimeZones { (response) in
+            switch response.result {
+            case .success(let data):
+                self.timezones = data
+                completion?(data, nil)
+            case .failure(let error):
+                completion?([], error)
+            }
+        }
+    }
+    
+    /// Locally stored list of timezones
+    public private(set) var timezones: [Timezone]? {
+        get {
+            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
+        }
+        set {
+            guard let newValue = newValue else {
+                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.timezones, purgeMemoryCache: true)
+                return
+            }
+            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
+        }
+    }
+    
+    /// Get timezone for latitude and longitude
+    ///
+    /// - Parameters
+    ///     lat: A double representing the latitude
+    ///     lgn: A double representing the longitude
+    ///     completion: Completion block when the API call has finished.
+    public func timezone(lat: Double, lng: Double, completion: @escaping ((_ timezone: Timezone?, _ error: Error?) -> ())) {
+        connectionManager.fetchTimeZone(lat: lat, lng: lng) { (response) in
+            switch response.result {
+            case .success(let data):
+                completion(data, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
 }

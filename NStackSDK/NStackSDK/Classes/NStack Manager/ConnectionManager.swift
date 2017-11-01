@@ -180,6 +180,36 @@ extension ConnectionManager: VersionsRepository {
 // MARK: - Geography -
 
 extension ConnectionManager: GeographyRepository {
+    func fetchContinents(completion: @escaping Completion<[Continent]>) {
+        manager
+            .request(baseURL + "geographic/continents", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+    
+    func fetchLanguages(completion: @escaping Completion<[Language]>) {
+        manager
+            .request(baseURL + "geographic/languages", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+    
+    func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
+        manager
+            .request(baseURL + "geographic/time_zones", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+    
+    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+        manager
+            .request(baseURL + "geographic/time_zones/by_lat_lng?lat_lng=\(String(lat)),\(String(lng))", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+    
+    func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
+        manager
+            .request(baseURL + "geographic/ip-address", headers: defaultHeaders)
+            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+    }
+    
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
         manager
             .request(baseURL + "geographic/countries", headers: defaultHeaders)

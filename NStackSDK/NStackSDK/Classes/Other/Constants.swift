@@ -15,7 +15,9 @@ enum Constants {
         static let lastUpdatedDate      = "LastUpdated"
         static let prevAcceptedLanguage = "PrevAcceptedLanguageKey"
         static let countries            = "CountriesKey"
-
+        static let continents           = "ContinentsKey"
+        static let languanges           = "LanguangesKey"
+        static let timezones            = "TimezonesKey"
         static let languageOverride     = "LanguageOverride"
     }
 }
