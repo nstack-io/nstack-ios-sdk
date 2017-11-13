@@ -387,3 +387,36 @@ public extension NStack {
         }
     }
 }
+
+// MARK: - Content -
+
+public extension NStack {
+    public func getContentResponseForId(_ id: Int, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+        connectionManager.fetchContentWithId(id) { (response) in
+            switch response.result {
+            case .success(let JSONdata):
+                completion(JSONdata, nil)
+            case let .failure(error):
+                completion(nil,error)
+            }
+        }
+    }
+    
+    public func getValueForId(_ id: Int, andKey key:String, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+        connectionManager.fetchContentWithId(id) { (response) in
+            switch response.result {
+            case .success(let JSONdata):
+                guard let dictionary = JSONdata as? NSDictionary,
+                    let data = dictionary.object(forKey: "data") as? NSDictionary,
+                    let value = data.object(forKey: key) else {
+                       completion(nil, NSError())
+                        return
+                }
+                completion(value, nil)
+            case let .failure(error):
+                completion(nil,error)
+            }
+        }
+    }
+}
+

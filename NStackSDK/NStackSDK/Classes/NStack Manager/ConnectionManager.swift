@@ -227,6 +227,16 @@ extension ConnectionManager: ValidationRepository {
     }
 }
 
+// MARK: - Content -
+
+extension ConnectionManager: ContentRepository {
+    func fetchContentWithId(_ id: Int, completion: @escaping Completion<Any>) {
+        manager
+            .request(baseURL + "content/responses/\(id)", headers: defaultHeaders)
+            .responseJSON(completionHandler: completion)
+    }
+}
+
 // MARK: - Utility Functions -
 
 // FIXME: Refactor

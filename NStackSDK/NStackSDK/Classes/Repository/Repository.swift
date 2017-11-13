@@ -52,6 +52,12 @@ protocol ValidationRepository {
     func validateEmail(_ email: String, completion:  @escaping Completion<Validation>)
 }
 
+// MARK: - Content -
+
+protocol ContentRepository {
+    func fetchContentWithId(_ id: Int, completion:  @escaping Completion<Any>)
+}
+
 // MARK: - Versions -
 
 protocol VersionsRepository {
