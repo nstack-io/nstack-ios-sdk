@@ -15,8 +15,8 @@ import Cashier
 
 final class ConnectionManager {
     let baseURL = "https://nstack.io/api/v1/"
-    let defaultUnwrapper: Parser.Unwrapper = { $0.0["data"] }
-    let passthroughUnwrapper: Parser.Unwrapper = { return $0.0 }
+    let defaultUnwrapper: Parser.Unwrapper = { dict, _ in dict["data"] }
+    let passthroughUnwrapper: Parser.Unwrapper = { dict, _ in return dict }
 
     let manager: SessionManager
     let configuration: APIConfiguration

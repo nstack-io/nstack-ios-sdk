@@ -401,7 +401,7 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { $0.0["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+    public func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         connectionManager.fetchContent(id) { (response) in
             self.handle(response, unwrapper, key: key, completion: completion)
         }
@@ -414,7 +414,7 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { $0.0["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+    public func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         connectionManager.fetchContent(slug) { (response) in
             self.handle(response, unwrapper, key: key, completion: completion)
         }

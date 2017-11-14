@@ -135,7 +135,7 @@ class NStackTests: XCTestCase {
     
     func testContentResponseWrongUnwrapper() {
         let exp = expectation(description: "Content recieved")
-        NStack.sharedInstance.getContentResponse(60, { $0.0["noDataHere"]}) { (response, error) in
+        NStack.sharedInstance.getContentResponse(60, { (dict, _) -> Any? in dict["wrongUnwrapper"]}) { (response, error) in
             if let error = error as? NStackError.Manager {
                 switch error {
                 case .parsing(let reason):
