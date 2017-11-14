@@ -55,7 +55,8 @@ protocol ValidationRepository {
 // MARK: - Content -
 
 protocol ContentRepository {
-    func fetchContentWithId(_ id: Int, completion:  @escaping Completion<Any>)
+    func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
+    func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
 }
 
 // MARK: - Versions -

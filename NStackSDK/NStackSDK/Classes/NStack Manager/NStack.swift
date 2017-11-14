@@ -8,6 +8,8 @@
 
 import Foundation
 import Cashier
+import Serpent
+import Alamofire
 
 public class NStack {
 
@@ -391,31 +393,51 @@ public extension NStack {
 // MARK: - Content -
 
 public extension NStack {
-    public func getContentResponseForId(_ id: Int, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
-        connectionManager.fetchContentWithId(id) { (response) in
-            switch response.result {
-            case .success(let JSONdata):
-                completion(JSONdata, nil)
-            case let .failure(error):
-                completion(nil,error)
-            }
+    
+    /// Get content response for id made on NStack web console
+    ///
+    /// - Parameters
+    ///     id: The integer id of the required content response
+    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
+    ///     key: Optional string if only one property or object is required, default is nil
+    ///     completion: Completion block with the response as a any object if successful or error if not
+    public func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { $0.0["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+        connectionManager.fetchContent(id) { (response) in
+            self.handle(response, unwrapper, key: key, completion: completion)
         }
     }
     
-    public func getValueForId(_ id: Int, andKey key:String, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
-        connectionManager.fetchContentWithId(id) { (response) in
-            switch response.result {
-            case .success(let JSONdata):
-                guard let dictionary = JSONdata as? NSDictionary,
-                    let data = dictionary.object(forKey: "data") as? NSDictionary,
-                    let value = data.object(forKey: key) else {
-                       completion(nil, NSError())
-                        return
-                }
-                completion(value, nil)
-            case let .failure(error):
-                completion(nil,error)
+    /// Get content response for slug made on NStack web console
+    ///
+    /// - Parameters
+    ///     slug: The string slug of the required content response
+    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
+    ///     key: Optional string if only one property or object is required, default is nil
+    ///     completion: Completion block with the response as a any object if successful or error if not
+    public func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { $0.0["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+        connectionManager.fetchContent(slug) { (response) in
+            self.handle(response, unwrapper, key: key, completion: completion)
+        }
+    }
+    
+    private func handle(_ response: DataResponse<Any>, _ unwrapper: Parser.Unwrapper, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+        switch response.result {
+        case .success(let data):
+            guard let sourceDictionary = data as? NSDictionary, let unwrappedAny = unwrapper(sourceDictionary, Any.self) else {
+                completion(nil, NStackError.Manager.parsing(reason: "No data found using the default or specified unwrapper"))
+                return
             }
+            if let key = key {
+                if let unwrappedDict = unwrappedAny as? NSDictionary, let value = unwrappedDict.object(forKey: key) {
+                    completion(value, nil)
+                } else {
+                    completion(nil, NStackError.Manager.parsing(reason: "No data found for specified key"))
+                }
+            } else {
+                completion(unwrappedAny, nil)
+            }
+        case let .failure(error):
+            completion(nil,error)
         }
     }
 }

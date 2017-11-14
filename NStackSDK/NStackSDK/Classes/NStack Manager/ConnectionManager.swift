@@ -230,9 +230,17 @@ extension ConnectionManager: ValidationRepository {
 // MARK: - Content -
 
 extension ConnectionManager: ContentRepository {
-    func fetchContentWithId(_ id: Int, completion: @escaping Completion<Any>) {
+    func fetchContent(_ id: Int, completion: @escaping Completion<Any>) {
         manager
             .request(baseURL + "content/responses/\(id)", headers: defaultHeaders)
+            .validate()
+            .responseJSON(completionHandler: completion)
+    }
+    
+    func fetchContent(_ slug: String, completion: @escaping Completion<Any>) {
+        manager
+            .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
+            .validate()
             .responseJSON(completionHandler: completion)
     }
 }
