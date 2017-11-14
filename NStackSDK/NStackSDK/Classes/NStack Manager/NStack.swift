@@ -263,7 +263,7 @@ public extension NStack {
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateContinents(completion: ((_ countries: [Continent], _ error: Error?) -> ())? = nil) {
+    public func updateContinents(completion: ((_ continents: [Continent], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchContinents { (response) in
             switch response.result {
             case .success(let data):
