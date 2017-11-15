@@ -105,7 +105,7 @@ public class TranslationManager {
     ///   - keyPath: The key that string should be found on.
     
     public func translationString(keyPath: String) -> String? {
-        guard !keyPath.characters.isEmpty else {
+        guard !keyPath.isEmpty else {
             return nil
         }
         

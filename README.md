@@ -92,6 +92,39 @@ Alerts to remind the user to rate the application.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
+### Geography
+
+NStack supports a list of geographical features. You can get and store list of countries, continents, langunages and timezones of the world, getting timezone for (lat, lng) coordinate and getting geographical information based on the requestee's ip address. For example:
+~~~~swift
+NStack.sharedInstance.timezone(lat: 12.0, lng: 55.0) { (timezone, error) in
+    if let timezone = timezone {
+        print("(12.0,55.0) is in timezone \(timezone.name)")
+    }
+}
+~~~~
+
+### Content responses
+
+If you want to make a quick read API you can use NStacks Content Response feature. If you created a content response in the NStack web console fetch the data in the app as:
+~~~~swift
+NStack.sharedInstance.getContentResponse(60) { (response, error) in
+    if let _ = response {
+        //You have the content response
+    }
+}
+~~~~
+
+### Validation
+
+NStack makes it possible to validate the syntax and domain of an email, just use:
+~~~~swift
+NStack.sharedInstance.validateEmail("tech@nodes.dk") { (valid, error) in
+    if valid {
+        //Email syntax and domain is valid
+    }
+}
+~~~~
+
 ## 👥 Credits
 Made with ❤️ at [Nodes](http://nodesagency.com).
 

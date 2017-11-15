@@ -38,7 +38,25 @@ protocol TranslationsRepository {
 // MARK: - Geography -
 
 protocol GeographyRepository {
-    func fetchCountries(completion:  @escaping Completion<[Country]>)
+    func fetchContinents(completion: @escaping Completion<[Continent]>)
+    func fetchCountries(completion: @escaping Completion<[Country]>)
+    func fetchLanguages(completion: @escaping Completion<[Language]>)
+    func fetchTimeZones(completion: @escaping Completion<[Timezone]>)
+    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>)
+    func fetchIPDetails(completion: @escaping Completion<IPAddress>)
+}
+
+// MARK: - Validation -
+
+protocol ValidationRepository {
+    func validateEmail(_ email: String, completion:  @escaping Completion<Validation>)
+}
+
+// MARK: - Content -
+
+protocol ContentRepository {
+    func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
+    func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
 }
 
 // MARK: - Versions -
