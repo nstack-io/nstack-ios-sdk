@@ -88,11 +88,11 @@ public class AlertManager {
     }
 
     public var requestReview: () -> Void = {
-        
-        if #available(iOS 10.3, *) {
-            StoreReviewManager.requestReview()
-        }
-        
+        #if os(iOS)
+            if #available(iOSApplicationExtension 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }
+        #endif
     }
     
     // MARK: - Lifecyle -
