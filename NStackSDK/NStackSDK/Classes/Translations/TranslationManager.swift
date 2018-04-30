@@ -378,7 +378,6 @@ public class TranslationManager {
                     logger.logError("Failed to get NSDictionary from fallback JSON file.")
                     continue
                 }
-                
                 return dictionary
             } catch {
                 logger.logError("Error loading translations JSON file: " +
@@ -423,7 +422,7 @@ public class TranslationManager {
             logger.logError("Failed to get language from all meta NSDictionary. \(meta)")
             return nil
         }
-        
+
         return Language(dictionary: language)
     }
     
@@ -445,13 +444,6 @@ public class TranslationManager {
             }
         }
 
-        // Take preferred language from backend
-        if let currentLanguage = currentLanguage,
-            let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
-            logger.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
-            return languageDictionary
-        }
-        
         let languages = repository.fetchPreferredLanguages()
         logger.logVerbose("Finding language for matching preferred languages: \(languages).")
         
@@ -476,6 +468,13 @@ public class TranslationManager {
             }
         }
         
+        // Take preferred language from backend
+        if let currentLanguage = currentLanguage,
+            let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
+            logger.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
+            return languageDictionary
+        }
+
         logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first ?? "None")")
         languageDictionary = dictionary.allValues.first as? NSDictionary
         

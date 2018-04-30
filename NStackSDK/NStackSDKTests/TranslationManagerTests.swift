@@ -147,7 +147,7 @@ class TranslationManagerTests: XCTestCase {
     
     func testTranslationForKeySuccess() {
         repositoryMock.preferredLanguages = [mockLanguage.locale]
-        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Success")
+        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
     }
     
     func testTranslationForEmptyKey() {
