@@ -26,6 +26,7 @@ public struct Configuration {
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
+    public var translationsUrlOverride: String?
 
     // Used for tests
     internal var versionOverride: String?
@@ -47,17 +48,20 @@ public struct Configuration {
     public init(appId: String,
                 restAPIKey: String,
                 translationsClass: Translatable.Type? = nil,
-                flatTranslations: Bool = false) {
+                flatTranslations: Bool = false,
+                translationsUrlOverride: String? = nil) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
+        self.translationsUrlOverride = translationsUrlOverride
     }
 
     public init(plistName: String, translationsClass: Translatable.Type? = nil) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
+        var translationsUrlOverride: String?
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
@@ -72,6 +76,7 @@ public struct Configuration {
                 appId = keyDict["APPLICATION_ID"] as? String
                 restAPIKey = keyDict["REST_API_KEY"] as? String
                 flatString = keyDict["FLAT"] as? String
+                translationsUrlOverride = keyDict["TRANSLATIONS_URL"] as? String
                 break
             }
         }
@@ -82,6 +87,7 @@ public struct Configuration {
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
+        self.translationsUrlOverride = translationsUrlOverride
 
         if let flat = flatString, flat == "1" {
             self.flat = true
