@@ -82,9 +82,12 @@ public class NStack {
         VersionUtilities.versionOverride = configuration.versionOverride
 
         // Setup the connection manager
-        let apiConfiguration = APIConfiguration(appId: configuration.appId,
-                                                restAPIKey: configuration.restAPIKey,
-                                                isFlat: configuration.flat)
+        let apiConfiguration = APIConfiguration(
+            appId: configuration.appId,
+            restAPIKey: configuration.restAPIKey,
+            isFlat: configuration.flat,
+            translationsUrlOverride: configuration.translationsUrlOverride
+        )
         connectionManager = ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary
