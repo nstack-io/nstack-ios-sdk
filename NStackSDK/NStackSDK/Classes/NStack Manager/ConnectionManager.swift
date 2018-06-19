@@ -74,7 +74,7 @@ extension ConnectionManager: TranslationsRepository {
             "last_updated"      : ConnectionManager.lastUpdatedString
         ]
 
-        let url = baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
+        let url = configuration.translationsUrlOverride ?? baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
 
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
