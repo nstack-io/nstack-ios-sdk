@@ -10,8 +10,6 @@ jobs:
     macos:
       xcode: "9.4.1"
 
-   working_directory: ~/NStacksSDK
-
     steps:
       - checkout
 
