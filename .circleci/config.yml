@@ -2,6 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
 #
+
+### NStackSDK config file ###
 version: 2
 jobs:
   build:
@@ -13,15 +15,14 @@ jobs:
     steps:
       - checkout
 
-      # Install CocoaPods
-      # - run:
-      #     name: Install CocoaPods
-      #     command: pod install
+      - run:
+          name: Install Carthage
+          command: carthage bootstrap --no-use-binaries
 
       # Build the app and run tests
       - run:
           name: Build and run tests
-          command: fastlane scan
+          command: fastlane scan --project "NStackSDK/NStackSDK.xcodeproj"
           environment:
             SCAN_DEVICE: iPhone 6
             SCAN_SCHEME: NStackSDK
