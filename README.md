@@ -2,7 +2,9 @@
   <img src="NStack_Logo.png?raw=true" alt="NStack"/>
 </p>
 
-[![Travis](https://img.shields.io/travis/nodes-ios/NStackSDK.svg)](https://travis-ci.org/nodes-ios/NStackSDK) 
+[![Travis](https://img.shields.io/travis/nodes-ios/NStackSDK.svg)](https://travis-ci.org/nodes-ios/NStackSDK
+)
+[![CircleCI](https://circleci.com/gh/nodes-ios/NStackSDK.svg?style=shield)](https://circleci.com/gh/nodes-ios/NStackSDK) 
 [![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/NStackSDK.svg)](https://codecov.io/github/nodes-ios/NStackSDK)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS%20|%20macOS%20|%20tvOS%20|%20watchOS-lightgrey.svg) 
