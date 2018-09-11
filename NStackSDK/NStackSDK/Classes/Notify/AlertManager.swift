@@ -99,7 +99,7 @@ public class AlertManager {
 
     init(repository: VersionsRepository) {
         self.repository = repository
-        self.alertWindow.windowLevel = UIWindowLevelAlert + 1
+        self.alertWindow.windowLevel = UIWindow.Level.alert + 1
         self.alertWindow.rootViewController = UIViewController()
     }
 

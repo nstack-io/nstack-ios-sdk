@@ -48,7 +48,7 @@ public class NStack {
     public typealias LaunchOptionsKeyType = String
     internal var avoidUpdateList: [LaunchOptionsKeyType] = []
     #else
-    public typealias LaunchOptionsKeyType = UIApplicationLaunchOptionsKey
+    public typealias LaunchOptionsKeyType = UIApplication.LaunchOptionsKey
     internal var avoidUpdateList: [LaunchOptionsKeyType] = [.location]
     #endif
 

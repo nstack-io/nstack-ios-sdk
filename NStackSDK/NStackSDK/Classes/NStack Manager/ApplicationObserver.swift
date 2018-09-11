@@ -37,7 +37,7 @@ class ApplicationObserver {
         #elseif os(watchOS)
             let name = NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification")
         #else
-            let name = NSNotification.Name.UIApplicationDidBecomeActive
+            let name = UIApplication.didBecomeActiveNotification
         #endif
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
