@@ -6,20 +6,8 @@
 //  Copyright © 2017 Nodes ApS. All rights reserved.
 //
 
-import Serpent
+import Foundation
 
-struct Validation {
-    var ok = false
-}
-
-extension Validation: Serializable {
-    init(dictionary: NSDictionary?) {
-        ok <== (self, dictionary, "ok")
-    }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "ok") <== ok
-        return dict
-    }
+struct Validation: Codable {
+    let ok: Bool
 }

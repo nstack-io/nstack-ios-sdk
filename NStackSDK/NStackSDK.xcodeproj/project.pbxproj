@@ -472,6 +472,7 @@
 		304C42801BA0743D00AE3D6F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				01D4EDE81D5DF17800E7E94C /* Configuration.swift */,
 				82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */,
 				82CB554A1C8DEAC200389D2B /* LanguageData.swift */,
 				304C42811BA0745500AE3D6F /* AppOpenData.swift */,
@@ -481,7 +482,6 @@
 				304E07411BBA922300AFE13D /* Language.swift */,
 				839497BE1DC21DBF007FE281 /* Country.swift */,
 				839497C01DC21ED2007FE281 /* Timezone.swift */,
-				01D4EDE81D5DF17800E7E94C /* Configuration.swift */,
 				01814A2B1D6209F40053E804 /* TranslationsResponse.swift */,
 				33E222ED1FA8C5280013CCC3 /* Validation.swift */,
 				33E223021FA9F4EA0013CCC3 /* IPAddress.swift */,
