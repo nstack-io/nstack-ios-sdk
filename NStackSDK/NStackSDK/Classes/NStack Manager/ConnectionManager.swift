@@ -230,6 +230,36 @@ extension ConnectionManager: ValidationRepository {
 // MARK: - Content -
 
 extension ConnectionManager: ContentRepository {
+    
+    struct DataWrapper<T: Codable>: Swift.Codable {
+        var data: T
+    }
+    
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) {
+      
+        manager
+            .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
+            .validate()
+            .responseData { (response) in
+                switch response.result {
+                case .success(let jsonData):
+                    
+                    do {
+                       
+                        let decoder = JSONDecoder()
+                        let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
+                        
+                        completion(.success(wrapper.data))
+                    } catch let err {
+                         completion(.failure(err))
+                    }
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+        }
+    }
+    
     func fetchContent(_ id: Int, completion: @escaping Completion<Any>) {
         manager
             .request(baseURL + "content/responses/\(id)", headers: defaultHeaders)

@@ -423,6 +423,10 @@ public extension NStack {
         }
     }
     
+    public func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) {
+        connectionManager.fetchStaticResponse(atSlug: slug, completion: completion)
+    }
+    
     private func handle(_ response: DataResponse<Any>, _ unwrapper: Parser.Unwrapper, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         switch response.result {
         case .success(let data):

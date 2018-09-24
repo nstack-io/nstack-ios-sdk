@@ -57,6 +57,7 @@ protocol ValidationRepository {
 protocol ContentRepository {
     func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
     func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) 
 }
 
 // MARK: - Versions -

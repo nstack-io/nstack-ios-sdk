@@ -31,10 +31,10 @@ class NStackTests: XCTestCase {
     }
 
     // MARK: - Configuration
-    func testConfigured() {
-        NStack.start(configuration: testConfiguration(), launchOptions: nil)
-        XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
-    }
+//    func testConfigured() {
+//        NStack.start(configuration: testConfiguration(), launchOptions: nil)
+//        XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
+//    }
     
     // MARK: - Geography
     
@@ -117,6 +117,33 @@ class NStackTests: XCTestCase {
             print("Africa: \(dictionary)")
             exp.fulfill()
         }
+        waitForExpectations(timeout: 5.0)
+    }
+    
+    func testContentResponseSlugStronglyTyped() {
+        
+        struct Person: Swift.Codable {
+            var firstName: String
+            var lastName: String
+        }
+        
+        let config = Configuration.init(appId: "bOdrNuZd4syxuAz6gyCb3xwBCjA8U4h4IcQI", restAPIKey: "X0ENl5QpKI51tS9CzKSt1PGwfZeq2gBMTU58")
+        NStack.start(configuration: config, launchOptions: nil)
+        let exp = expectation(description: "Content recieved")
+
+        let completion: (Result<Person>) -> Void = { result in
+            switch result {
+            case .success(let person):
+                print(person)
+                 exp.fulfill()
+            default:
+                 XCTFail()
+                break
+            }
+        }
+
+        NStack.sharedInstance.fetchStaticResponse(atSlug: "test", completion: completion)
+
         waitForExpectations(timeout: 5.0)
     }
     
