@@ -11,6 +11,7 @@ import Alamofire
 import Serpent
 import Cashier
 
+
 // FIXME: Figure out how to do accept language header properly
 final class ConnectionManager {
     let baseURL = "https://nstack.io/api/v1/"
@@ -234,7 +235,7 @@ extension ConnectionManager: ContentRepository {
         var data: T
     }
     
-    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) {
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
       
         manager
             .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
@@ -247,8 +248,7 @@ extension ConnectionManager: ContentRepository {
                        
                         let decoder = JSONDecoder()
                         let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
-                        
-                        completion(.success(wrapper.data))
+                        completion(NStack.Result.success(data: wrapper.data))
                     } catch let err {
                          completion(.failure(err))
                     }
@@ -276,7 +276,7 @@ extension ConnectionManager: ContentRepository {
 
 // MARK: - Collections -
 extension ConnectionManager: ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
+    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
         manager
             .request(baseURL + "content/collections/\(id)", headers: defaultHeaders)
             .validate()
@@ -288,7 +288,7 @@ extension ConnectionManager: ColletionRepository {
                         let decoder = JSONDecoder()
                         let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
                         
-                        completion(.success(wrapper.data))
+                        completion(NStack.Result.success(data: wrapper.data))
                     } catch let err {
                         completion(.failure(err))
                     }

@@ -57,13 +57,13 @@ protocol ValidationRepository {
 protocol ContentRepository {
     func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
     func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
-    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) 
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) 
 }
 
 // MARK: - Collection -
 
 protocol ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void))
+    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void))
 }
 
 // MARK: - Versions -

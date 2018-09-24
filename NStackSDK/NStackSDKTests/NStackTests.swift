@@ -130,7 +130,7 @@ class NStackTests: XCTestCase {
         
         let exp = expectation(description: "Content received")
 
-        let completion: (Result<Person>) -> Void = { result in
+        let completion: (NStack.Result<Person>) -> Void = { result in
             switch result {
             case .success(let person):
                 print(person)
@@ -155,7 +155,7 @@ class NStackTests: XCTestCase {
         
         let exp = expectation(description: "Content received")
         
-        let completion: (Result<[Person]>) -> Void = { result in
+        let completion: (NStack.Result<[Person]>) -> Void = { result in
             switch result {
             case .success(let person):
                 print(person)
@@ -259,7 +259,7 @@ class NStackTests: XCTestCase {
             let name: String
         }
         let exp = expectation(description: "Collection received")
-        let completion: (Result<Country>) -> Void = { result in
+        let completion: (NStack.Result<Country>) -> Void = { result in
             switch result {
             case .success(let country):
                 print(country)
