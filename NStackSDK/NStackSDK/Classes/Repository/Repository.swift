@@ -60,6 +60,12 @@ protocol ContentRepository {
     func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((Result<T>) -> Void)) 
 }
 
+// MARK: - Collection -
+
+protocol ColletionRepository {
+    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void))
+}
+
 // MARK: - Versions -
 
 protocol VersionsRepository {

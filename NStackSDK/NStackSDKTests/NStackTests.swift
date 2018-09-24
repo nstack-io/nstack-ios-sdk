@@ -24,6 +24,7 @@ class NStackTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        NStack.start(configuration: testConfiguration(), launchOptions: nil)
     }
     
     override func tearDown() {
@@ -249,6 +250,28 @@ class NStackTests: XCTestCase {
                 XCTFail()
             }
         }
+        waitForExpectations(timeout: 5.0)
+    }
+    
+    func testCollectionValid() {
+        
+        struct Country: Swift.Codable {
+            let name: String
+        }
+        let exp = expectation(description: "Collection received")
+        let completion: (Result<Country>) -> Void = { result in
+            switch result {
+            case .success(let country):
+                print(country)
+                exp.fulfill()
+            default:
+                XCTFail()
+                break
+            }
+        }
+
+        NStack.sharedInstance.fetchCollectionResponse(for: 24, completion: completion)
+            
         waitForExpectations(timeout: 5.0)
     }
 }

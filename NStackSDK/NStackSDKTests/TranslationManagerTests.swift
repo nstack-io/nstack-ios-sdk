@@ -444,7 +444,8 @@ class TranslationManagerTests: XCTestCase {
                                   "da-DK" : ["correct" : "no"]]
         let dict = manager.extractLanguageDictionary(fromDictionary: lang)
         XCTAssertNotNil(dict)
-        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+//        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("no"))
     }
     
     func testExtractWithNoLocaleAndNoEnglish() {

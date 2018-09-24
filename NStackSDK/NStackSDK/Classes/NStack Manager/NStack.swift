@@ -449,3 +449,17 @@ public extension NStack {
     }
 }
 
+// MARK: - Collections -
+public extension NStack {
+    /// Get collection content for id made on NStack web console
+    ///
+    /// - Parameters
+    ///     id: The integer id of the required collection
+    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
+    ///     key: Optional string if only one property or object is required, default is nil
+    ///     completion: Completion block with the response as a any object if successful or error if not
+    public func fetchCollectionResponse<T:Swift.Codable>(for id: Int, completion: @escaping ((Result<T>) -> Void)) {
+        connectionManager.fetchCollection(id, completion: completion)
+    }
+}
+
