@@ -11,8 +11,8 @@ import Alamofire
 import Serpent
 import Cashier
 
-// FIXME: Figure out how to do accept language header properly
 
+// FIXME: Figure out how to do accept language header properly
 final class ConnectionManager {
     let baseURL = "https://nstack.io/api/v1/"
     let defaultUnwrapper: Parser.Unwrapper = { dict, _ in dict["data"] }
@@ -74,7 +74,7 @@ extension ConnectionManager: TranslationsRepository {
             "last_updated"      : ConnectionManager.lastUpdatedString
         ]
 
-        let url = baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
+        let url = configuration.translationsUrlOverride ?? baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
 
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
@@ -230,6 +230,35 @@ extension ConnectionManager: ValidationRepository {
 // MARK: - Content -
 
 extension ConnectionManager: ContentRepository {
+    
+    struct DataWrapper<T: Codable>: Swift.Codable {
+        var data: T
+    }
+    
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
+      
+        manager
+            .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
+            .validate()
+            .responseData { (response) in
+                switch response.result {
+                case .success(let jsonData):
+                    
+                    do {
+                       
+                        let decoder = JSONDecoder()
+                        let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
+                        completion(NStack.Result.success(data: wrapper.data))
+                    } catch let err {
+                         completion(.failure(err))
+                    }
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+        }
+    }
+    
     func fetchContent(_ id: Int, completion: @escaping Completion<Any>) {
         manager
             .request(baseURL + "content/responses/\(id)", headers: defaultHeaders)
@@ -242,6 +271,32 @@ extension ConnectionManager: ContentRepository {
             .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
             .validate()
             .responseJSON(completionHandler: completion)
+    }
+}
+
+// MARK: - Collections -
+extension ConnectionManager: ColletionRepository {
+    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
+        manager
+            .request(baseURL + "content/collections/\(id)", headers: defaultHeaders)
+            .validate()
+            .responseData { (response) in
+                switch response.result {
+                case .success(let jsonData):
+                    do {
+                        
+                        let decoder = JSONDecoder()
+                        let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
+                        
+                        completion(NStack.Result.success(data: wrapper.data))
+                    } catch let err {
+                        completion(.failure(err))
+                    }
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+        }
     }
 }
 

@@ -12,6 +12,11 @@ import Serpent
 import Alamofire
 
 public class NStack {
+    
+    public enum Result<T> {
+        case success(data: T)
+        case failure(Error)
+    }
 
     /// The singleton object which should be used to interact with NStack API.
     public static let sharedInstance = NStack()
@@ -82,9 +87,12 @@ public class NStack {
         VersionUtilities.versionOverride = configuration.versionOverride
 
         // Setup the connection manager
-        let apiConfiguration = APIConfiguration(appId: configuration.appId,
-                                                restAPIKey: configuration.restAPIKey,
-                                                isFlat: configuration.flat)
+        let apiConfiguration = APIConfiguration(
+            appId: configuration.appId,
+            restAPIKey: configuration.restAPIKey,
+            isFlat: configuration.flat,
+            translationsUrlOverride: configuration.translationsUrlOverride
+        )
         connectionManager = ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary
@@ -420,6 +428,10 @@ public extension NStack {
         }
     }
     
+    public func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
+        connectionManager.fetchStaticResponse(atSlug: slug, completion: completion)
+    }
+    
     private func handle(_ response: DataResponse<Any>, _ unwrapper: Parser.Unwrapper, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         switch response.result {
         case .success(let data):
@@ -439,6 +451,20 @@ public extension NStack {
         case let .failure(error):
             completion(nil,error)
         }
+    }
+}
+
+// MARK: - Collections -
+public extension NStack {
+    /// Get collection content for id made on NStack web console
+    ///
+    /// - Parameters
+    ///     id: The integer id of the required collection
+    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
+    ///     key: Optional string if only one property or object is required, default is nil
+    ///     completion: Completion block with the response as a any object if successful or error if not
+    public func fetchCollectionResponse<T:Swift.Codable>(for id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
+        connectionManager.fetchCollection(id, completion: completion)
     }
 }
 

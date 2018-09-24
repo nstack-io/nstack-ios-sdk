@@ -24,6 +24,7 @@ class NStackTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        NStack.start(configuration: testConfiguration(), launchOptions: nil)
     }
     
     override func tearDown() {
@@ -120,6 +121,57 @@ class NStackTests: XCTestCase {
         waitForExpectations(timeout: 5.0)
     }
     
+    func testContentResponseObjectSlugStronglyTyped() {
+        
+        struct Person: Swift.Codable {
+            var firstName: String
+            var lastName: String
+        }
+        
+        let exp = expectation(description: "Content received")
+
+        let completion: (NStack.Result<Person>) -> Void = { result in
+            switch result {
+            case .success(let person):
+                print(person)
+                 exp.fulfill()
+            default:
+                 XCTFail()
+                break
+            }
+        }
+
+        NStack.sharedInstance.fetchStaticResponse(atSlug: "testObject", completion: completion)
+
+        waitForExpectations(timeout: 5.0)
+    }
+    
+    func testContentResponseArraySlugStronglyTyped() {
+        
+        struct Person: Swift.Codable {
+            var firstName: String
+            var lastName: String
+        }
+        
+        let exp = expectation(description: "Content received")
+        
+        let completion: (NStack.Result<[Person]>) -> Void = { result in
+            switch result {
+            case .success(let person):
+                print(person)
+                exp.fulfill()
+                
+            default:
+                XCTFail()
+                break
+            }
+        }
+        
+        NStack.sharedInstance.fetchStaticResponse(atSlug: "testarray", completion: completion)
+        
+        waitForExpectations(timeout: 5.0)
+    }
+    
     func testContentResponseExtended() {
         let exp = expectation(description: "Content recieved")
         NStack.sharedInstance.getContentResponse(60, key: "name") { (response, error) in
@@ -198,6 +250,28 @@ class NStackTests: XCTestCase {
                 XCTFail()
             }
         }
+        waitForExpectations(timeout: 5.0)
+    }
+    
+    func testCollectionValid() {
+        
+        struct Country: Swift.Codable {
+            let name: String
+        }
+        let exp = expectation(description: "Collection received")
+        let completion: (NStack.Result<Country>) -> Void = { result in
+            switch result {
+            case .success(let country):
+                print(country)
+                exp.fulfill()
+            default:
+                XCTFail()
+                break
+            }
+        }
+
+        NStack.sharedInstance.fetchCollectionResponse(for: 24, completion: completion)
+            
         waitForExpectations(timeout: 5.0)
     }
 }
