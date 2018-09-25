@@ -57,6 +57,23 @@ public class NStack {
     internal var observer: ApplicationObserver?
     internal var logger: LoggerType = ConsoleLogger()
 
+    // FOX
+//    public private(set) var timeZones: [Timezone]? {
+//        didSet {
+//            guard let timeZones = timeZones else {
+//                // Delete from disk
+//
+//                return
+//            }
+//
+//            // Write to disk
+//            let encoder = JSONEncoder()
+//            encoder.keyEncodingStrategy = .convertToSnakeCase
+//            let data = try? encoder.encode(timeZones)
+//            try? data?.write(to: <#T##URL#>, options: [.atomic])
+//        }
+//    }
+    
     // MARK: - Start NStack -
 
     fileprivate init() {}
@@ -162,22 +179,8 @@ public class NStack {
 
         connectionManager.postAppOpen(completion: { response in
             switch response.result {
-            case .success(let JSONdata):
-                guard let dictionary = JSONdata as? NSDictionary else {
-                    self.logger.log("Failure: couldn't parse response. Response data: \(JSONdata)",
-                        level: .error)
-                    completion?(.updateFailed(reason: "Couldn't parse response dictionary."))
-                    return
-                }
-
-                let wrapper = AppOpenResponse(dictionary: dictionary)
-
-
-                defer {
-                    completion?(nil)
-                }
-
-                guard let appOpenResponseData = wrapper.data else { return }
+            case .success(let appOpenResponse):
+                guard let appOpenResponseData = appOpenResponse.data else { return }
 
                 // Update translations
 //                if let translations = appOpenResponseData.translate, translations.count > 0 {

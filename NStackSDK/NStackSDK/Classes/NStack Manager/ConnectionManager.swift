@@ -24,7 +24,7 @@ protocol WrapperModelType: Codable {
 }
 
 extension DataRequest {
-    func responseCodable<T: Codable>(completion: @escaping (DataResponse<T>) -> Void) {
+    func responseCodable<T: Codable>(completionHandler: @escaping (DataResponse<T>) -> Void) {
         validate().responseData { response in
             let dataResponse: DataResponse<T>
             
@@ -53,12 +53,12 @@ extension DataRequest {
                                             result: .failure(error))
             }
             
-            completion(dataResponse)
+            completionHandler(dataResponse)
         }
     }
     
     
-    func responseCodable<M: WrapperModelType>(completion: @escaping (DataResponse<M.ModelType>) -> Void, wrapperType: M.Type) {
+    func responseCodable<M: WrapperModelType>(completionHandler: @escaping (DataResponse<M.ModelType>) -> Void, wrapperType: M.Type) {
         validate().responseData { response in
             let dataResponse: DataResponse<M.ModelType>
             
@@ -87,7 +87,7 @@ extension DataRequest {
                                         result: .failure(error))
             }
             
-            completion(dataResponse)
+            completionHandler(dataResponse)
         }
     }
 }
@@ -120,7 +120,7 @@ final class ConnectionManager {
 extension ConnectionManager: AppOpenRepository {
     func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion,
                      currentVersion: String = VersionUtilities.currentAppVersion,
-                     acceptLanguage: String? = nil, completion: @escaping Completion<Any>) {
+                     acceptLanguage: String? = nil, completion: @escaping Completion<AppOpenResponse>) {
         var params: [String : Any] = [
             "version"           : currentVersion,
             "guid"              : Configuration.guid,
@@ -142,7 +142,7 @@ extension ConnectionManager: AppOpenRepository {
 
         manager
             .request(url, method: .post, parameters: params, headers: headers)
-            .responseJSON(completionHandler: completion)
+            .responseCodable(completionHandler: completion)
     }
 }
 
@@ -178,7 +178,7 @@ extension ConnectionManager: TranslationsRepository {
 
         manager
             .request(url, method: .get, parameters: params, headers: headers)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
 
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
@@ -190,7 +190,7 @@ extension ConnectionManager: TranslationsRepository {
 
         manager
             .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
 
     func fetchPreferredLanguages() -> [String] {
@@ -216,7 +216,7 @@ extension ConnectionManager: UpdatesRepository {
         let url = baseURL + "notify/updates"
         manager
             .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
 }
 
@@ -263,37 +263,37 @@ extension ConnectionManager: GeographyRepository {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
         manager
             .request(baseURL + "geographic/continents", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
     
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
         manager
             .request(baseURL + "geographic/languages", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
     
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
         manager
             .request(baseURL + "geographic/time_zones", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
     
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         manager
             .request(baseURL + "geographic/time_zones/by_lat_lng?lat_lng=\(String(lat)),\(String(lng))", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
     
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
         manager
             .request(baseURL + "geographic/ip-address", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
     
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
         manager
             .request(baseURL + "geographic/countries", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
 }
 
@@ -303,7 +303,7 @@ extension ConnectionManager: ValidationRepository {
     func validateEmail(_ email: String, completion:  @escaping Completion<Validation>) {
         manager
             .request(baseURL + "validator/email?email=\(email)", headers: defaultHeaders)
-            .responseCodable(completion: completion, wrapperType: DataModel.self)
+            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
     }
 }
 

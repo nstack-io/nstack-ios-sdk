@@ -138,6 +138,10 @@
 		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
+		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
+		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
+		C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
+		C0D852D1215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -295,6 +299,7 @@
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
+		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreReviewManager.swift; sourceTree = "<group>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,6 +424,7 @@
 				01A334471E4E825E003CE9BA /* Constants.swift */,
 				01A334481E4E825E003CE9BA /* Extensions.swift */,
 				01A334491E4E825E003CE9BA /* UIApplication+SafeExtensions.swift */,
+				C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */,
 			);
 			name = Other;
 			path = Classes/Other;
@@ -1005,6 +1011,7 @@
 				01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */,
 				01A334801E4F1B43003CE9BA /* Update.swift in Sources */,
 				01A334931E4F1B59003CE9BA /* LogLevel.swift in Sources */,
+				C0D852D1215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */,
 				01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */,
 				01A3348F1E4F1B55003CE9BA /* Translatable.swift in Sources */,
@@ -1046,6 +1053,7 @@
 				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
 				01A3344A1E4E825E003CE9BA /* Constants.swift in Sources */,
 				01A3344D1E4E825E003CE9BA /* Extensions.swift in Sources */,
+				C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				33E2230B1FA9F5010013CCC3 /* Continent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1096,6 +1104,7 @@
 				E3689C0B1D9EBA54004620D6 /* NStackError.swift in Sources */,
 				E3689C0C1D9EBA54004620D6 /* AlertManager.swift in Sources */,
 				E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */,
+				C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				E3689C0E1D9EBA54004620D6 /* TranslationManager.swift in Sources */,
 				E3689C0F1D9EBA54004620D6 /* Translatable.swift in Sources */,
 				01A3344B1E4E825E003CE9BA /* Constants.swift in Sources */,
@@ -1146,6 +1155,7 @@
 				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
 				E3B654B01E0056F300FC9380 /* ApplicationObserver.swift in Sources */,
 				E3B654B11E0056F300FC9380 /* NStackError.swift in Sources */,
+				C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */,
 				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
 				E3B654B41E0056F300FC9380 /* Translatable.swift in Sources */,

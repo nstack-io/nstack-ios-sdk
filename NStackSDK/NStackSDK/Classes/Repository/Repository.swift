@@ -14,8 +14,10 @@ typealias Completion<T> = ((DataResponse<T>) -> Void)
 // MARK: - App Open -
 
 protocol AppOpenRepository {
-    func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?,
-                     completion: @escaping Completion<Any>)
+    func postAppOpen(oldVersion: String,
+                     currentVersion: String,
+                     acceptLanguage: String?,
+                     completion: @escaping Completion<AppOpenResponse>)
 }
 
 // MARK: - Updates -
