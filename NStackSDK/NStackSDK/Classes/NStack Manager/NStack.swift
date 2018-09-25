@@ -7,17 +7,15 @@
 //
 
 import Foundation
-import Cashier
-import Serpent
-import Alamofire
+
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 public class NStack {
     
-    public enum Result<T> {
-        case success(data: T)
-        case failure(Error)
-    }
-
     /// The singleton object which should be used to interact with NStack API.
     public static let sharedInstance = NStack()
 
@@ -25,7 +23,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslationManager?
+    public fileprivate(set) var translationsManager: TranslationManagerType?
 
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
@@ -127,24 +125,6 @@ public class NStack {
             })
         }
 
-        // Setup translations
-        if let translationsClass = configuration.translationsClass {
-            translationsManager = TranslationManager(translationsType: translationsClass,
-                                                     repository: connectionManager,
-                                                     logger: ConsoleLogger())
-
-            // Delete translations if new version
-            if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
-                                          greaterThanVersion: VersionUtilities.previousAppVersion) {
-                translationsManager?.clearTranslations(includingPersisted: true)
-            }
-
-            // Set callback 
-            translationsManager?.languageChangedAction = {
-                self.languageChangedHandler?()
-            }
-        }
-
         #if os(iOS) || os(tvOS)
         // Setup alert manager
         alertManager = AlertManager(repository: connectionManager)
@@ -156,6 +136,24 @@ public class NStack {
             !configuration.updateOptions.contains(.never) {
             update()
         }
+    }
+    
+    func setupTranslations<T: Translatable>(type: T) {
+        // Setup translations
+        let manager = TranslationManager(type: type, repository: connectionManager, logger: ConsoleLogger())
+        
+        // Delete translations if new version
+        if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
+                                      greaterThanVersion: VersionUtilities.previousAppVersion) {
+            manager.clearTranslations(includingPersisted: true)
+        }
+        
+        // Set callback
+        manager.languageChangedAction = {
+            self.languageChangedHandler?()
+        }
+        
+        translationsManager = manager
     }
 
     /// Fetches the latest data from the NStack server and updates accordingly.
@@ -177,8 +175,8 @@ public class NStack {
 
         // FIXME: Refactor
 
-        connectionManager.postAppOpen(completion: { response in
-            switch response.result {
+        connectionManager.postAppOpen(completion: { result in
+            switch result {
             case .success(let appOpenResponse):
                 guard let appOpenResponseData = appOpenResponse.data else { return }
 
@@ -208,7 +206,8 @@ public class NStack {
                 self.connectionManager.setLastUpdated()
 
             case let .failure(error):
-                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
+                // FIXME: Fix logging
+//                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
@@ -227,15 +226,8 @@ public extension NStack {
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
-    public func ipDetails(completion: @escaping ((_ ipDetails: IPAddress?, _ error: Error?) -> ())) {
-        connectionManager.fetchIPDetails { (response) in
-            switch response.result {
-            case .success(let data):
-                completion(data, nil)
-            case .failure(let error):
-                completion(nil, error)
-            }
-        }
+    public func ipDetails(completion: @escaping Completion<IPAddress>) {
+        connectionManager.fetchIPDetails(completion: completion)
     }
     
     // MARK: - Countries
@@ -243,29 +235,24 @@ public extension NStack {
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateCountries(completion: ((_ countries: [Country], _ error: Error?) -> ())? = nil) {
-        connectionManager.fetchCountries { (response) in
-            switch response.result {
-            case .success(let data):
-                self.countries = data
-                completion?(data, nil)
-            case .failure(let error):
-                completion?([], error)
-            }
-        }
+    public func updateCountries(completion: @escaping Completion<[Country]>) {
+        connectionManager.fetchCountries(completion: completion)
     }
     
     /// Locally stored list of countries
     public private(set) var countries: [Country]? {
         get {
-            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
+            // FIXME: Load from disk on load
+            return nil
+//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
         }
         set {
-            guard let newValue = newValue else {
-                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.countries, purgeMemoryCache: true)
-                return
-            }
-            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
+            // FIXME: Save to disk or delete
+//            guard let newValue = newValue else {
+//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.countries, purgeMemoryCache: true)
+//                return
+//            }
+//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
         }
     }
     
@@ -274,29 +261,24 @@ public extension NStack {
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateContinents(completion: ((_ continents: [Continent], _ error: Error?) -> ())? = nil) {
-        connectionManager.fetchContinents { (response) in
-            switch response.result {
-            case .success(let data):
-                self.continents = data
-                completion?(data, nil)
-            case .failure(let error):
-                completion?([], error)
-            }
-        }
+    public func updateContinents(completion: @escaping Completion<[Continent]>) {
+        connectionManager.fetchContinents(completion: completion)
     }
     
     /// Locally stored list of continents
     public private(set) var continents: [Continent]? {
         get {
-            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
+            // FIXME: Load from disk on start
+//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
+            return nil
         }
         set {
-            guard let newValue = newValue else {
-                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.continents, purgeMemoryCache: true)
-                return
-            }
-            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
+            // FIXME: Save/delete to disk
+//            guard let newValue = newValue else {
+//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.continents, purgeMemoryCache: true)
+//                return
+//            }
+//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
         }
     }
     
@@ -305,29 +287,24 @@ public extension NStack {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateLanguages(completion: ((_ countries: [Language], _ error: Error?) -> ())? = nil) {
-        connectionManager.fetchLanguages { (response) in
-            switch response.result {
-            case .success(let data):
-                self.languages = data
-                completion?(data, nil)
-            case .failure(let error):
-                completion?([], error)
-            }
-        }
+    public func updateLanguages(completion: @escaping Completion<[Language]>) {
+        connectionManager.fetchLanguages(completion: completion)
     }
     
     /// Locally stored list of languages
     public private(set) var languages: [Language]? {
         get {
-            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
+            // FIXME: Load from disk on start
+            //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
+            return nil
         }
         set {
-            guard let newValue = newValue else {
-                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languanges, purgeMemoryCache: true)
-                return
-            }
-            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
+            // FIXME: Save/delete to disk
+//            guard let newValue = newValue else {
+//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languanges, purgeMemoryCache: true)
+//                return
+//            }
+//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
         }
     }
     
@@ -337,8 +314,8 @@ public extension NStack {
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
     public func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
-        connectionManager.fetchTimeZones { (response) in
-            switch response.result {
+        connectionManager.fetchTimeZones { (result) in
+            switch result {
             case .success(let data):
                 self.timezones = data
                 completion?(data, nil)
@@ -351,14 +328,17 @@ public extension NStack {
     /// Locally stored list of timezones
     public private(set) var timezones: [Timezone]? {
         get {
-            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
+            // FIXME: Load from disk on start
+//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
+            return nil
         }
         set {
-            guard let newValue = newValue else {
-                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.timezones, purgeMemoryCache: true)
-                return
-            }
-            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
+            // FIXME: Save/delete to disk
+//            guard let newValue = newValue else {
+//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.timezones, purgeMemoryCache: true)
+//                return
+//            }
+//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
         }
     }
     
@@ -368,15 +348,8 @@ public extension NStack {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    public func timezone(lat: Double, lng: Double, completion: @escaping ((_ timezone: Timezone?, _ error: Error?) -> ())) {
-        connectionManager.fetchTimeZone(lat: lat, lng: lng) { (response) in
-            switch response.result {
-            case .success(let data):
-                completion(data, nil)
-            case .failure(let error):
-                completion(nil, error)
-            }
-        }
+    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+        connectionManager.fetchTimeZone(lat: lat, lng: lng, completion: completion)
     }
 }
 
@@ -390,8 +363,8 @@ public extension NStack {
     ///     email: A string to be validated as a email
     ///     completion: Completion block when the API call has finished.
     public func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
-        connectionManager.validateEmail(email) { (response) in
-            switch response.result {
+        connectionManager.validateEmail(email) { (result) in
+            switch result {
             case .success(let data):
                 completion(data.ok, nil)
             case .failure(let error):
@@ -404,56 +377,15 @@ public extension NStack {
 // MARK: - Content -
 
 public extension NStack {
-    
-    /// Get content response for id made on NStack web console
-    ///
-    /// - Parameters
-    ///     id: The integer id of the required content response
-    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
-    ///     key: Optional string if only one property or object is required, default is nil
-    ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
-        connectionManager.fetchContent(id) { (response) in
-            self.handle(response, unwrapper, key: key, completion: completion)
-        }
-    }
-    
     /// Get content response for slug made on NStack web console
     ///
     /// - Parameters
     ///     slug: The string slug of the required content response
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
-    ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
-        connectionManager.fetchContent(slug) { (response) in
-            self.handle(response, unwrapper, key: key, completion: completion)
-        }
-    }
-    
-    public func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
-        connectionManager.fetchStaticResponse(atSlug: slug, completion: completion)
-    }
-    
-    private func handle(_ response: DataResponse<Any>, _ unwrapper: Parser.Unwrapper, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
-        switch response.result {
-        case .success(let data):
-            guard let sourceDictionary = data as? NSDictionary, let unwrappedAny = unwrapper(sourceDictionary, Any.self) else {
-                completion(nil, NStackError.Manager.parsing(reason: "No data found using the default or specified unwrapper"))
-                return
-            }
-            if let key = key {
-                if let unwrappedDict = unwrappedAny as? NSDictionary, let value = unwrappedDict.object(forKey: key) {
-                    completion(value, nil)
-                } else {
-                    completion(nil, NStackError.Manager.parsing(reason: "No data found for specified key"))
-                }
-            } else {
-                completion(unwrappedAny, nil)
-            }
-        case let .failure(error):
-            completion(nil,error)
-        }
+    public func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
+                                               completion: @escaping Completion<T>) {
+        connectionManager.fetchStaticResponse(slug, completion: completion)
     }
 }
 
@@ -466,7 +398,7 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func fetchCollectionResponse<T:Swift.Codable>(for id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
+    public func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
         connectionManager.fetchCollection(id, completion: completion)
     }
 }

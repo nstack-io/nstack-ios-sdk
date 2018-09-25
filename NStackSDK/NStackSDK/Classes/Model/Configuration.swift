@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Serpent
 
 public struct UpdateOptions: OptionSet {
     public let rawValue: Int

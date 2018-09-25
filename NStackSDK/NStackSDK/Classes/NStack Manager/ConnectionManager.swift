@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Alamofire
-import Serpent
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -23,83 +21,11 @@ protocol WrapperModelType: Codable {
     var model: ModelType { get }
 }
 
-extension DataRequest {
-    func responseCodable<T: Codable>(completionHandler: @escaping (DataResponse<T>) -> Void) {
-        validate().responseData { response in
-            let dataResponse: DataResponse<T>
-            
-            switch response.result {
-            case .success(let data):
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                
-                do {
-                    let decodedData = try decoder.decode(T.self, from: data)
-                    dataResponse = DataResponse(request: self.request,
-                                                response: self.response,
-                                                data: data,
-                                                result: .success(decodedData))
-                } catch {
-                    dataResponse = DataResponse(request: self.request,
-                                                response: self.response,
-                                                data: data,
-                                                result: .failure(error))
-                }
-                
-            case .failure(let error):
-                dataResponse = DataResponse(request: self.request,
-                                            response: self.response,
-                                            data: nil,
-                                            result: .failure(error))
-            }
-            
-            completionHandler(dataResponse)
-        }
-    }
-    
-    
-    func responseCodable<M: WrapperModelType>(completionHandler: @escaping (DataResponse<M.ModelType>) -> Void, wrapperType: M.Type) {
-        validate().responseData { response in
-            let dataResponse: DataResponse<M.ModelType>
-            
-            switch response.result {
-            case .success(let data):
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                
-                do {
-                    let parentData = try decoder.decode(wrapperType, from: data)
-                    dataResponse = DataResponse(request: self.request,
-                                                response: self.response,
-                                                data: data,
-                                                result: .success(parentData.model))
-                } catch {
-                    dataResponse = DataResponse(request: self.request,
-                                            response: self.response,
-                                            data: data,
-                                            result: .failure(error))
-                }
-                
-            case .failure(let error):
-                dataResponse = DataResponse(request: self.request,
-                                        response: self.response,
-                                        data: nil,
-                                        result: .failure(error))
-            }
-            
-            completionHandler(dataResponse)
-        }
-    }
-}
-
 // FIXME: Figure out how to do accept language header properly
 final class ConnectionManager {
-    let baseURL = "https://nstack.io/api/v1/"
-    let defaultUnwrapper: Parser.Unwrapper = { dict, _ in dict["data"] }
-    let passthroughUnwrapper: Parser.Unwrapper = { dict, _ in return dict }
-
-    let manager: SessionManager
-    let configuration: APIConfiguration
+    private let baseURL = "https://nstack.io/api/v1/"
+    private let session: URLSession
+    private let configuration: APIConfiguration
 
     var defaultHeaders: [String : String] {
         return [
@@ -109,10 +35,10 @@ final class ConnectionManager {
     }
 
     init(configuration: APIConfiguration) {
-        let sessionConfiguration = SessionManager.default.session.configuration
+        let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = 20.0
 
-        self.manager = SessionManager(configuration: sessionConfiguration)
+        self.session = URLSession(configuration: sessionConfiguration)
         self.configuration = configuration
     }
 }
@@ -140,9 +66,8 @@ extension ConnectionManager: AppOpenRepository {
 
         let url = baseURL + "open" + (configuration.isFlat ? "?flat=true" : "")
 
-        manager
-            .request(url, method: .post, parameters: params, headers: headers)
-            .responseCodable(completionHandler: completion)
+        let request = session.request(url, method: .post, parameters: params, headers: headers)
+        session.startDataTask(with: request, completionHandler: completion)
     }
 }
 
@@ -159,9 +84,8 @@ extension ConnectionManager: TranslationsRepository {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        manager
-            .request(url, method: .get, parameters:params, headers: headers)
-            .responseSerializable(completion, unwrapper: passthroughUnwrapper)
+        let request = session.request(url, parameters: params, headers: headers)
+        session.startDataTask(with: request, completionHandler: completion)
     }
 
     func fetchCurrentLanguage(acceptLanguage: String,
@@ -176,21 +100,16 @@ extension ConnectionManager: TranslationsRepository {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        manager
-            .request(url, method: .get, parameters: params, headers: headers)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let request = session.request(url, parameters: params, headers: headers)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
-        let params: [String : Any] = [
-            "guid"              : Configuration.guid,
-        ]
-
+        let params: [String : Any] = ["guid" : Configuration.guid]
         let url = baseURL + "translate/mobile/languages"
 
-        manager
-            .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let request = session.request(url, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 
     func fetchPreferredLanguages() -> [String] {
@@ -214,9 +133,9 @@ extension ConnectionManager: UpdatesRepository {
             ]
 
         let url = baseURL + "notify/updates"
-        manager
-            .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        
+        let request = session.request(url, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
 
@@ -230,7 +149,10 @@ extension ConnectionManager: VersionsRepository {
         ]
 
         let url = baseURL + "notify/updates/views"
-        manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
+        
+        // FIXME: Refactor
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.dataTask(with: request).resume()
     }
 
     func markMessageAsRead(_ id: String) {
@@ -240,7 +162,8 @@ extension ConnectionManager: VersionsRepository {
         ]
 
         let url = baseURL + "notify/messages/views"
-        manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.dataTask(with: request).resume()
     }
 
     #if os(iOS) || os(tvOS)
@@ -252,7 +175,8 @@ extension ConnectionManager: VersionsRepository {
         ]
 
         let url = baseURL + "notify/rate_reminder/views"
-        manager.request(url, method: .post, parameters:params, headers: defaultHeaders)
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.dataTask(with: request).resume()
     }
     #endif
 }
@@ -261,39 +185,40 @@ extension ConnectionManager: VersionsRepository {
 
 extension ConnectionManager: GeographyRepository {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
-        manager
-            .request(baseURL + "geographic/continents", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/continents"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
-        manager
-            .request(baseURL + "geographic/languages", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/languages"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
-        manager
-            .request(baseURL + "geographic/time_zones", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/time_zones"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
-        manager
-            .request(baseURL + "geographic/time_zones/by_lat_lng?lat_lng=\(String(lat)),\(String(lng))", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/time_zones/by_lat_lng"
+        let parameters: [String: Any] = ["lat_lng" : "\(String(lat)),\(String(lng))"]
+        let request = session.request(url, parameters: parameters, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
-        manager
-            .request(baseURL + "geographic/ip-address", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/ip-address"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
-        manager
-            .request(baseURL + "geographic/countries", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let url = baseURL + "geographic/countries"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
 
@@ -301,82 +226,29 @@ extension ConnectionManager: GeographyRepository {
 
 extension ConnectionManager: ValidationRepository {
     func validateEmail(_ email: String, completion:  @escaping Completion<Validation>) {
-        manager
-            .request(baseURL + "validator/email?email=\(email)", headers: defaultHeaders)
-            .responseCodable(completionHandler: completion, wrapperType: DataModel.self)
+        let parameters: [String: Any] = ["email" : email]
+        let url = baseURL + "validator/email"
+        let request = session.request(url, parameters: parameters, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
 
 // MARK: - Content -
 
 extension ConnectionManager: ContentRepository {
-    
-    struct DataWrapper<T: Codable>: Swift.Codable {
-        var data: T
-    }
-    
-    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
-      
-        manager
-            .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
-            .validate()
-            .responseData { (response) in
-                switch response.result {
-                case .success(let jsonData):
-                    
-                    do {
-                       
-                        let decoder = JSONDecoder()
-                        let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
-                        completion(NStack.Result.success(data: wrapper.data))
-                    } catch let err {
-                         completion(.failure(err))
-                    }
-                    
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-        }
-    }
-    
-    func fetchContent(_ id: Int, completion: @escaping Completion<Any>) {
-        manager
-            .request(baseURL + "content/responses/\(id)", headers: defaultHeaders)
-            .validate()
-            .responseJSON(completionHandler: completion)
-    }
-    
-    func fetchContent(_ slug: String, completion: @escaping Completion<Any>) {
-        manager
-            .request(baseURL + "content/responses/\(slug)", headers: defaultHeaders)
-            .validate()
-            .responseJSON(completionHandler: completion)
+    func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>) {
+        let url = baseURL + "content/responses/\(slug)"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
 
 // MARK: - Collections -
 extension ConnectionManager: ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
-        manager
-            .request(baseURL + "content/collections/\(id)", headers: defaultHeaders)
-            .validate()
-            .responseData { (response) in
-                switch response.result {
-                case .success(let jsonData):
-                    do {
-                        
-                        let decoder = JSONDecoder()
-                        let wrapper: DataWrapper<T> = try decoder.decode(DataWrapper<T>.self, from: jsonData)
-                        
-                        completion(NStack.Result.success(data: wrapper.data))
-                    } catch let err {
-                        completion(.failure(err))
-                    }
-                    
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-        }
+    func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
+        let url = baseURL + "content/collections/\(id)"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
 
@@ -387,9 +259,10 @@ extension ConnectionManager: ColletionRepository {
 extension ConnectionManager {
 
     static var lastUpdatedString: String {
-        let cache = Constants.persistentStore
+        //let cache = Constants.persistentStore
 
         // FIXME: Handle language change
+        // FIXME: Fix this
 //        let previousAcceptLanguage = cache.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
 //        let currentAcceptLanguage  = TranslationManager.acceptLanguage()
 //
@@ -398,12 +271,14 @@ extension ConnectionManager {
 //            setLastUpdated(Date.distantPast)
 //        }
 
-        let key = Constants.CacheKeys.lastUpdatedDate
-        let date = cache.object(forKey: key) as? Date ?? Date.distantPast
-        return date.stringRepresentation()
+//        let key = Constants.CacheKeys.lastUpdatedDate
+//        let date = cache.object(forKey: key) as? Date ?? Date.distantPast
+//        return date.stringRepresentation()
+        return ""
     }
 
     func setLastUpdated(toDate date: Date = Date()) {
-        Constants.persistentStore.setObject(date, forKey: Constants.CacheKeys.lastUpdatedDate)
+        // FIXME: Implement this
+//        Constants.persistentStore.setObject(date, forKey: Constants.CacheKeys.lastUpdatedDate)
     }
 }

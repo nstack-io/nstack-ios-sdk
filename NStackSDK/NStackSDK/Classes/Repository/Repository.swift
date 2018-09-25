@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import Alamofire
 
-typealias Completion<T> = ((DataResponse<T>) -> Void)
+public typealias Completion<T> = ((Result<T>) -> Void)
 
 // MARK: - App Open -
 
@@ -29,7 +28,7 @@ protocol UpdatesRepository {
 
 // MARK: - Translations -
 
-protocol TranslationsRepository {
+public protocol TranslationsRepository {
     func fetchTranslations(acceptLanguage: String, completion: @escaping Completion<TranslationsResponse>)
     func fetchCurrentLanguage(acceptLanguage: String, completion: @escaping Completion<Language>)
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>)
@@ -57,15 +56,13 @@ protocol ValidationRepository {
 // MARK: - Content -
 
 protocol ContentRepository {
-    func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
-    func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
-    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) 
+    func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>)
 }
 
 // MARK: - Collection -
 
 protocol ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void))
+    func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void))
 }
 
 // MARK: - Versions -

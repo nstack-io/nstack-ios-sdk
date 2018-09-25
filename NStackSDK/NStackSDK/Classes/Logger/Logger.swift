@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoggerType: class {
+public protocol LoggerType: class {
     var logLevel: LogLevel { get set }
     var customName: String? { get set }
     var detailedOutput: Bool { get set }

@@ -14,12 +14,15 @@ enum VersionUtilities {
 
     static var previousAppVersion: String {
         get {
-            let savedVersion = Constants.persistentStore.object(forKey: Constants.CacheKeys.previousVersion) as? String
-            return savedVersion ?? currentAppVersion
+            // FIXME: Use userdeafults
+//            let savedVersion = Constants.persistentStore.object(forKey: Constants.CacheKeys.previousVersion) as? String
+//            return savedVersion ?? currentAppVersion
+            return currentAppVersion
         }
 
         set {
-            Constants.persistentStore.setObject(newValue, forKey: Constants.CacheKeys.previousVersion)
+            // FIXME: Use userdeafults
+//            Constants.persistentStore.setObject(newValue, forKey: Constants.CacheKeys.previousVersion)
         }
     }
 

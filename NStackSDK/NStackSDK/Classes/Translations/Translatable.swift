@@ -7,6 +7,5 @@
 //
 
 import Foundation
-import Serpent
 
-public protocol Translatable: Serializable {}
+public protocol Translatable: Codable {}
