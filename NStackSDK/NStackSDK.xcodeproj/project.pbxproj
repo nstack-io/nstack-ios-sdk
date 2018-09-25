@@ -397,7 +397,6 @@
 		01503A2A1DF1DD0E00B521CF /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */,
 				01503A2D1DF1DD2500B521CF /* Repository.swift */,
 				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 			);
@@ -473,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				01D4EDE81D5DF17800E7E94C /* Configuration.swift */,
+				01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */,
 				82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */,
 				82CB554A1C8DEAC200389D2B /* LanguageData.swift */,
 				304C42811BA0745500AE3D6F /* AppOpenData.swift */,

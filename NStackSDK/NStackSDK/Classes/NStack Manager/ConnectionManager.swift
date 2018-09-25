@@ -9,8 +9,88 @@
 import Foundation
 import Alamofire
 import Serpent
-import Cashier
 
+struct DataModel<T: Codable>: WrapperModelType {
+    let model: T
+    
+    enum CodingKeys: String, CodingKey {
+        case model = "data"
+    }
+}
+
+protocol WrapperModelType: Codable {
+    associatedtype ModelType: Codable
+    var model: ModelType { get }
+}
+
+extension DataRequest {
+    func responseCodable<T: Codable>(completion: @escaping (DataResponse<T>) -> Void) {
+        validate().responseData { response in
+            let dataResponse: DataResponse<T>
+            
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                do {
+                    let decodedData = try decoder.decode(T.self, from: data)
+                    dataResponse = DataResponse(request: self.request,
+                                                response: self.response,
+                                                data: data,
+                                                result: .success(decodedData))
+                } catch {
+                    dataResponse = DataResponse(request: self.request,
+                                                response: self.response,
+                                                data: data,
+                                                result: .failure(error))
+                }
+                
+            case .failure(let error):
+                dataResponse = DataResponse(request: self.request,
+                                            response: self.response,
+                                            data: nil,
+                                            result: .failure(error))
+            }
+            
+            completion(dataResponse)
+        }
+    }
+    
+    
+    func responseCodable<M: WrapperModelType>(completion: @escaping (DataResponse<M.ModelType>) -> Void, wrapperType: M.Type) {
+        validate().responseData { response in
+            let dataResponse: DataResponse<M.ModelType>
+            
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                do {
+                    let parentData = try decoder.decode(wrapperType, from: data)
+                    dataResponse = DataResponse(request: self.request,
+                                                response: self.response,
+                                                data: data,
+                                                result: .success(parentData.model))
+                } catch {
+                    dataResponse = DataResponse(request: self.request,
+                                            response: self.response,
+                                            data: data,
+                                            result: .failure(error))
+                }
+                
+            case .failure(let error):
+                dataResponse = DataResponse(request: self.request,
+                                        response: self.response,
+                                        data: nil,
+                                        result: .failure(error))
+            }
+            
+            completion(dataResponse)
+        }
+    }
+}
 
 // FIXME: Figure out how to do accept language header properly
 final class ConnectionManager {
@@ -98,7 +178,7 @@ extension ConnectionManager: TranslationsRepository {
 
         manager
             .request(url, method: .get, parameters: params, headers: headers)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
 
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
@@ -110,7 +190,7 @@ extension ConnectionManager: TranslationsRepository {
 
         manager
             .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
 
     func fetchPreferredLanguages() -> [String] {
@@ -136,7 +216,7 @@ extension ConnectionManager: UpdatesRepository {
         let url = baseURL + "notify/updates"
         manager
             .request(url, method: .get, parameters:params, headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
 }
 
@@ -183,37 +263,37 @@ extension ConnectionManager: GeographyRepository {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
         manager
             .request(baseURL + "geographic/continents", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
     
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
         manager
             .request(baseURL + "geographic/languages", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
     
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
         manager
             .request(baseURL + "geographic/time_zones", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
     
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         manager
             .request(baseURL + "geographic/time_zones/by_lat_lng?lat_lng=\(String(lat)),\(String(lng))", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
     
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
         manager
             .request(baseURL + "geographic/ip-address", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
     
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
         manager
             .request(baseURL + "geographic/countries", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
 }
 
@@ -223,7 +303,7 @@ extension ConnectionManager: ValidationRepository {
     func validateEmail(_ email: String, completion:  @escaping Completion<Validation>) {
         manager
             .request(baseURL + "validator/email?email=\(email)", headers: defaultHeaders)
-            .responseSerializable(completion, unwrapper: defaultUnwrapper)
+            .responseCodable(completion: completion, wrapperType: DataModel.self)
     }
 }
 
