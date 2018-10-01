@@ -278,7 +278,7 @@ extension ConnectionManager: ContentRepository {
 extension ConnectionManager: ColletionRepository {
     func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void)) {
         manager
-            .request(baseURL + "content/collections/\(id)", headers: defaultHeaders)
+            .request(baseURL + "content/collections/\(id)?limit=250", headers: defaultHeaders)
             .validate()
             .responseData { (response) in
                 switch response.result {
