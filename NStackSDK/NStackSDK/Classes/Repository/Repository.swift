@@ -63,7 +63,7 @@ protocol ContentRepository {
 // MARK: - Collection -
 
 protocol ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, completion: @escaping ((NStack.Result<T>) -> Void))
+    func fetchCollection<T: Swift.Codable>(_ id: Int, maxNumberOfEntries: Int, completion: @escaping ((NStack.Result<T>) -> Void))
 }
 
 // MARK: - Versions -
