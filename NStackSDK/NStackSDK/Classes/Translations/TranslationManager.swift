@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol TranslationManagerType: class {
-    init(type: Translatable.Type,
+    init(/*type: Translatable.Type,*/
          repository: TranslationsRepository,
          fileManager: FileManager,
          logger: LoggerType?)
@@ -20,13 +20,13 @@ public protocol TranslationManagerType: class {
 /// Usually, direct interaction with the `Translations Manager` shouldn't be neccessary, since
 /// it is setup automatically by the NStack manager, and the translations are accessible by the
 /// global 'tr' variable defined in the auto-generated translations Swift file.
-public class TranslationManager: TranslationManagerType {
+public class TranslationManager<T: Translatable>: TranslationManagerType {
     
     /// Repository that provides translations.
     let repository: TranslationsRepository
     
     /// The translations object type.
-    let translationsType: Translatable.Type
+//    let translationsType: Translatable.Type
     
     let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -98,11 +98,10 @@ public class TranslationManager: TranslationManagerType {
     ///
     /// - Parameters:
     ///   - repository: Repository that can provide translations.
-    required public init(type: Translatable.Type,
-                         repository: TranslationsRepository,
+    required public init(repository: TranslationsRepository,
                          fileManager: FileManager = .default,
                          logger: LoggerType?) {
-        self.translationsType = type
+//        self.translationsType = type
         self.repository = repository
         self.fileManager = fileManager
         
@@ -324,7 +323,7 @@ public class TranslationManager: TranslationManagerType {
         persistedTranslations = object
         
         // Reload the translations
-        loadTranslations(translationsType)
+        loadTranslations(T.self)
     }
     
     /// Returns the saved dictionary representation of the translations.

@@ -38,7 +38,8 @@ public class NStack {
     public var logLevel: LogLevel = .error {
         didSet {
             logger.logLevel = logLevel
-            translationsManager?.logger.logLevel = logLevel
+            // FIXME: Fix logger in translations
+            //translationsManager?.logger.logLevel = logLevel
         }
     }
 
@@ -138,9 +139,9 @@ public class NStack {
         }
     }
     
-    func setupTranslations<T: Translatable>(type: T) {
+    func setupTranslations<T: Translatable>(type: T.Type) {
         // Setup translations
-        let manager = TranslationManager(type: type, repository: connectionManager, logger: ConsoleLogger())
+        let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
         
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
@@ -213,7 +214,8 @@ public class NStack {
         })
 
         // Update translations if needed
-        translationsManager?.updateTranslations()
+        // FIXME: Fix updating translations
+        // translationsManager?.updateTranslations()
     }
 }
 
