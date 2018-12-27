@@ -445,16 +445,23 @@ public class TranslationManager {
         }
 
         let languages = repository.fetchPreferredLanguages()
-        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
         
-        // Find matching language and region
-        for lan in languages {
-            // Try matching on both language and region
-            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
-                logger.logVerbose("Found matching language for language with region: " + lan)
-                return dictionary
-            }
-        }
+        // This is removed as it causes bugs when you don't have an exact locale match to your
+        // phone's language, but do match a secondary language. For example, if your phone is
+        // set to en-US, and have da-DK as a backup language, and NStack offers en-GB or da-DK,
+        // this will match to Danish instead of English. Eventually this should be refactored to support
+        // region-specific translations, but that is very much an edge case.
+        
+//        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
+//
+//        // Find matching language and region
+//        for lan in languages {
+//            // Try matching on both language and region
+//            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
+//                logger.logVerbose("Found matching language for language with region: " + lan)
+//                return dictionary
+//            }
+//        }
         
         let shortLanguages = languages.map({ $0.substring(to: 2) })
         logger.logVerbose("Finding language for matching preferred  short languages: \(languages).")
