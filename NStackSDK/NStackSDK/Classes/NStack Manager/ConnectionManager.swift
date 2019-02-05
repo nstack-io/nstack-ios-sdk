@@ -120,6 +120,10 @@ extension ConnectionManager: TranslationsRepository {
     func fetchBundles() -> [Bundle] {
         return Bundle.allBundles
     }
+    
+    func fetchCurrentPhoneLanguage() -> String? {
+        return Locale.current.languageCode
+    }
 }
 
 extension ConnectionManager: UpdatesRepository {
