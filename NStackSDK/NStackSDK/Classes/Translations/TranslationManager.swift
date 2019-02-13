@@ -432,6 +432,7 @@ public class TranslationManager {
     /// - Returns: A translations set as a dictionary.
     func extractLanguageDictionary(fromDictionary dictionary: NSDictionary) -> NSDictionary {
         logger.logVerbose("Extracting language dictionary.")
+        
         var languageDictionary: NSDictionary? = nil
         
         // First try overriden language
@@ -461,9 +462,9 @@ public class TranslationManager {
         // this will match to Danish instead of English. Eventually this should be refactored to support
         // region-specific translations, but that is very much an edge case.
         
-//        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
-//
-//        // Find matching language and region
+        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
+
+        // Find matching language and region
 //        for lan in languages {
 //            // Try matching on both language and region
 //            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {

@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import Serpent
 import Cashier
+import UIKit
 
 
 // FIXME: Figure out how to do accept language header properly
@@ -25,6 +26,7 @@ final class ConnectionManager {
         return [
             "X-Application-id"  : configuration.appId,
             "X-Rest-Api-Key"    : configuration.restAPIKey,
+            "N-Meta"            : "\(UIDevice.current.systemVersion);\(UIDevice.current.model)"
         ]
     }
 
