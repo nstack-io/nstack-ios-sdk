@@ -86,7 +86,7 @@ extension URLSession {
                     // FIXME: Fix this
                     throw NSError(domain: "", code: 10, userInfo: nil)
                 }
-                handler(.success(data: model))
+                handler(Result.success(model))
                 
             } catch {
                 handler(.failure(error))
@@ -102,7 +102,7 @@ extension URLSession {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
                 let decoded = try decoder.decode(T.self, from: data)
-                handler(.success(data: decoded))
+                handler(Result.success(decoded))
             } catch {
                 handler(.failure(error))
             }
@@ -118,7 +118,7 @@ extension URLSession {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
                 let parentData = try decoder.decode(wrapperType, from: data)
-                handler(.success(data: parentData.model))
+                handler(Result.success(parentData.model))
             } catch {
                 handler(.failure(error))
             }
