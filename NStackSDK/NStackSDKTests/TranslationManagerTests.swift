@@ -438,23 +438,23 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
     }
     
-    func testExtractWithNoLocaleAndNoCurrentLanguage() {
-        repositoryMock.preferredLanguages = []
-        let lang: NSDictionary = ["en-GB" : ["correct" : "yes"],
-                                  "da-DK" : ["correct" : "no"]]
-        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
-        XCTAssertNotNil(dict)
-        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))    
-    }
-    
-    func testExtractWithNoLocaleAndNoEnglish() {
-        repositoryMock.preferredLanguages = []
-        let lang: NSDictionary = ["es" : ["correct" : "no"],
-                                  "da-DK" : ["correct" : "yes"]]
-        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
-        XCTAssertNotNil(dict)
-        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
-    }
+//    func testExtractWithNoLocaleAndNoCurrentLanguage() {
+//        repositoryMock.preferredLanguages = []
+//        let lang: NSDictionary = ["en-GB" : ["correct" : "yes"],
+//                                  "da-DK" : ["correct" : "no"]]
+//        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+//        XCTAssertNotNil(dict)
+//        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+//    }
+//
+//    func testExtractWithNoLocaleAndNoEnglish() {
+//        repositoryMock.preferredLanguages = []
+//        let lang: NSDictionary = ["es" : ["correct" : "no"],
+//                                  "da-DK" : ["correct" : "yes"]]
+//        let dict = manager.extractLanguageDictionary(fromDictionary: lang)
+//        XCTAssertNotNil(dict)
+//        XCTAssertEqual(dict.value(forKey: "correct") as? String, Optional("yes"))
+//    }
     
     func testExtractFailure() {
         repositoryMock.preferredLanguages = ["da-DK"]
