@@ -432,6 +432,7 @@ public class TranslationManager {
     /// - Returns: A translations set as a dictionary.
     func extractLanguageDictionary(fromDictionary dictionary: NSDictionary) -> NSDictionary {
         logger.logVerbose("Extracting language dictionary.")
+        
         var languageDictionary: NSDictionary? = nil
         
         // First try overriden language
@@ -444,7 +445,16 @@ public class TranslationManager {
             }
         }
 
-        let languages = repository.fetchPreferredLanguages()
+        // This is removed so that only the device's current language is used. This is a request
+        // from the consultant teams and matches what Android does. NStack will determine the best
+        // language for the user.
+        
+        //let languages = repository.fetchPreferredLanguages()
+        guard let language = repository.fetchCurrentPhoneLanguage() else {
+            logger.logError("Error loading translations. No language available.")
+            return [:]
+        }
+        let languages = [language]
         
         // This is removed as it causes bugs when you don't have an exact locale match to your
         // phone's language, but do match a secondary language. For example, if your phone is
@@ -452,9 +462,9 @@ public class TranslationManager {
         // this will match to Danish instead of English. Eventually this should be refactored to support
         // region-specific translations, but that is very much an edge case.
         
-//        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
-//
-//        // Find matching language and region
+        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
+
+        // Find matching language and region
 //        for lan in languages {
 //            // Try matching on both language and region
 //            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
@@ -469,9 +479,9 @@ public class TranslationManager {
         // Find matching language only
         for lanShort in shortLanguages {
             // Match just on language
-            if let dictinoary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
+            if let dictionary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
                 logger.logVerbose("Found matching language for short language code: " + lanShort)
-                return dictinoary
+                return dictionary
             }
         }
         

@@ -2,10 +2,10 @@
   <img src="NStack_Logo.png?raw=true" alt="NStack"/>
 </p>
 
-[![CircleCI](https://circleci.com/gh/nodes-ios/NStackSDK.svg?style=shield)](https://circleci.com/gh/nodes-ios/NStackSDK) 
+[![CircleCI](https://circleci.com/gh/nodes-ios/NStackSDK.svg?style=shield)](https://circleci.com/gh/nodes-ios/NStackSDK)
 [![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/NStackSDK.svg)](https://codecov.io/github/nodes-ios/NStackSDK)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Plaform](https://img.shields.io/badge/platform-iOS%20|%20macOS%20|%20tvOS%20|%20watchOS-lightgrey.svg) 
+![Plaform](https://img.shields.io/badge/platform-iOS%20|%20macOS%20|%20tvOS%20|%20watchOS-lightgrey.svg)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/NStackSDK/blob/master/LICENSE)
 
 NStackSDK is the companion software development kit to the [NStack](https://nstack.io) backend.
@@ -23,6 +23,10 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ### Carthage
 ~~~
+
+# Swift 5
+github "nodes-ios/NStackSDK" ~> 2.1
+
 # Swift 3
 github "nodes-ios/NStackSDK" ~> 2.0
 
@@ -58,7 +62,7 @@ You should have a file called NStack.plist in your application bundle. It needs 
 ## Features
 
 ### Translations
-To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example: 
+To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example:
 ~~~~swift
 @IBOutlet weak var forgotPasswordButton: UIButton! {
     didSet {

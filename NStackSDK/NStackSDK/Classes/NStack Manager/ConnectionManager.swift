@@ -11,6 +11,20 @@ import Alamofire
 import Serpent
 import Cashier
 
+#if canImport(UIKit)
+import UIKit
+#if os(watchOS)
+let deviceString = "Watch"
+#else
+let deviceString = "\(UIDevice.current.systemVersion);\(UIDevice.current.model)"
+#endif
+#elseif canImport(AppKit)
+import AppKit
+let deviceString = "Mac"
+#else
+let deviceString = ""
+#endif
+
 
 // FIXME: Figure out how to do accept language header properly
 final class ConnectionManager {
@@ -25,6 +39,7 @@ final class ConnectionManager {
         return [
             "X-Application-id"  : configuration.appId,
             "X-Rest-Api-Key"    : configuration.restAPIKey,
+            "N-Meta"            : deviceString
         ]
     }
 
@@ -119,6 +134,10 @@ extension ConnectionManager: TranslationsRepository {
 
     func fetchBundles() -> [Bundle] {
         return Bundle.allBundles
+    }
+    
+    func fetchCurrentPhoneLanguage() -> String? {
+        return Locale.current.languageCode
     }
 }
 
