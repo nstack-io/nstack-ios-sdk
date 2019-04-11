@@ -25,9 +25,9 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 ~~~
 
 # Swift 5
-github "nodes-ios/NStackSDK" ~> 2.1
+github "nodes-ios/NStackSDK" ~> 3.0
 
-# Swift 3
+# Swift 3-4
 github "nodes-ios/NStackSDK" ~> 2.0
 
 # Swift 2.3
