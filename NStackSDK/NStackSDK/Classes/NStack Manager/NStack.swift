@@ -12,6 +12,11 @@ import Serpent
 import Alamofire
 
 public class NStack {
+    
+    public enum Result<T> {
+        case success(data: T)
+        case failure(Error)
+    }
 
     /// The singleton object which should be used to interact with NStack API.
     public static let sharedInstance = NStack()
@@ -43,7 +48,7 @@ public class NStack {
     public typealias LaunchOptionsKeyType = String
     internal var avoidUpdateList: [LaunchOptionsKeyType] = []
     #else
-    public typealias LaunchOptionsKeyType = UIApplicationLaunchOptionsKey
+    public typealias LaunchOptionsKeyType = UIApplication.LaunchOptionsKey
     internal var avoidUpdateList: [LaunchOptionsKeyType] = [.location]
     #endif
 
@@ -219,7 +224,7 @@ public extension NStack {
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
-    public func ipDetails(completion: @escaping ((_ ipDetails: IPAddress?, _ error: Error?) -> ())) {
+    func ipDetails(completion: @escaping ((_ ipDetails: IPAddress?, _ error: Error?) -> ())) {
         connectionManager.fetchIPDetails { (response) in
             switch response.result {
             case .success(let data):
@@ -235,7 +240,7 @@ public extension NStack {
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateCountries(completion: ((_ countries: [Country], _ error: Error?) -> ())? = nil) {
+    func updateCountries(completion: ((_ countries: [Country], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchCountries { (response) in
             switch response.result {
             case .success(let data):
@@ -248,7 +253,7 @@ public extension NStack {
     }
     
     /// Locally stored list of countries
-    public private(set) var countries: [Country]? {
+    private(set) var countries: [Country]? {
         get {
             return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
         }
@@ -266,7 +271,7 @@ public extension NStack {
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateContinents(completion: ((_ continents: [Continent], _ error: Error?) -> ())? = nil) {
+    func updateContinents(completion: ((_ continents: [Continent], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchContinents { (response) in
             switch response.result {
             case .success(let data):
@@ -279,7 +284,7 @@ public extension NStack {
     }
     
     /// Locally stored list of continents
-    public private(set) var continents: [Continent]? {
+    private(set) var continents: [Continent]? {
         get {
             return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
         }
@@ -297,7 +302,7 @@ public extension NStack {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateLanguages(completion: ((_ countries: [Language], _ error: Error?) -> ())? = nil) {
+    func updateLanguages(completion: ((_ countries: [Language], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchLanguages { (response) in
             switch response.result {
             case .success(let data):
@@ -310,7 +315,7 @@ public extension NStack {
     }
     
     /// Locally stored list of languages
-    public private(set) var languages: [Language]? {
+    private(set) var languages: [Language]? {
         get {
             return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
         }
@@ -328,7 +333,7 @@ public extension NStack {
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
+    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchTimeZones { (response) in
             switch response.result {
             case .success(let data):
@@ -341,7 +346,7 @@ public extension NStack {
     }
     
     /// Locally stored list of timezones
-    public private(set) var timezones: [Timezone]? {
+    private(set) var timezones: [Timezone]? {
         get {
             return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
         }
@@ -360,7 +365,7 @@ public extension NStack {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    public func timezone(lat: Double, lng: Double, completion: @escaping ((_ timezone: Timezone?, _ error: Error?) -> ())) {
+    func timezone(lat: Double, lng: Double, completion: @escaping ((_ timezone: Timezone?, _ error: Error?) -> ())) {
         connectionManager.fetchTimeZone(lat: lat, lng: lng) { (response) in
             switch response.result {
             case .success(let data):
@@ -381,7 +386,7 @@ public extension NStack {
     /// - Parameters
     ///     email: A string to be validated as a email
     ///     completion: Completion block when the API call has finished.
-    public func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
+    func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
         connectionManager.validateEmail(email) { (response) in
             switch response.result {
             case .success(let data):
@@ -404,7 +409,7 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+    func getContentResponse(_ id: Int, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         connectionManager.fetchContent(id) { (response) in
             self.handle(response, unwrapper, key: key, completion: completion)
         }
@@ -417,10 +422,14 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
+    func getContentResponse(_ slug: String, _ unwrapper: @escaping Parser.Unwrapper = { dict, _ in dict["data"] }, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
         connectionManager.fetchContent(slug) { (response) in
             self.handle(response, unwrapper, key: key, completion: completion)
         }
+    }
+    
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) {
+        connectionManager.fetchStaticResponse(atSlug: slug, completion: completion)
     }
     
     private func handle(_ response: DataResponse<Any>, _ unwrapper: Parser.Unwrapper, key: String? = nil, completion: @escaping ((_ response: Any?, _ error: Error?) -> ())) {
@@ -442,6 +451,20 @@ public extension NStack {
         case let .failure(error):
             completion(nil,error)
         }
+    }
+}
+
+// MARK: - Collections -
+public extension NStack {
+    /// Get collection content for id made on NStack web console
+    ///
+    /// - Parameters
+    ///     id: The integer id of the required collection
+    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
+    ///     key: Optional string if only one property or object is required, default is nil
+    ///     completion: Completion block with the response as a any object if successful or error if not
+    func fetchCollectionResponse<T:Swift.Codable>(for id: Int, maxNumberOfEntries: Int = 250, completion: @escaping ((NStack.Result<T>) -> Void)) {
+        connectionManager.fetchCollection(id, maxNumberOfEntries: maxNumberOfEntries, completion: completion)
     }
 }
 

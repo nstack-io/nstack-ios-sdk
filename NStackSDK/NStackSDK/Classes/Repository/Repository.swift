@@ -33,6 +33,7 @@ protocol TranslationsRepository {
     func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>)
     func fetchPreferredLanguages() -> [String]
     func fetchBundles() -> [Bundle]
+    func fetchCurrentPhoneLanguage() -> String?
 }
 
 // MARK: - Geography -
@@ -57,6 +58,13 @@ protocol ValidationRepository {
 protocol ContentRepository {
     func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
     func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
+    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) 
+}
+
+// MARK: - Collection -
+
+protocol ColletionRepository {
+    func fetchCollection<T: Swift.Codable>(_ id: Int, maxNumberOfEntries: Int, completion: @escaping ((NStack.Result<T>) -> Void))
 }
 
 // MARK: - Versions -

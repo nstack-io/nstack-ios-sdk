@@ -1,0 +1,20 @@
+PODS:
+  - Nimble (8.0.1)
+  - Quick (2.0.0)
+
+DEPENDENCIES:
+  - Nimble
+  - Quick
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
+
+SPEC CHECKSUMS:
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  Quick: ce1276c7c27ba2da3cb2fd0cde053c3648b3b22d
+
+PODFILE CHECKSUM: 94fe8a990ae7ac738ea13d57c2719ecf0129b4a7
+
+COCOAPODS: 1.7.0.beta.2

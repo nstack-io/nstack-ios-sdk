@@ -11,6 +11,7 @@ import Alamofire
 @testable import NStackSDK
 
 class TranslationsRepositoryMock: TranslationsRepository {
+   
     var translationsResponse: TranslationsResponse?
     var availableLanguages: [Language]?
     var currentLanguage: Language?
@@ -44,5 +45,9 @@ class TranslationsRepositoryMock: TranslationsRepository {
 
     func fetchBundles() -> [Bundle] {
         return customBundles ?? Bundle.allBundles
+    }
+    
+    func fetchCurrentPhoneLanguage() -> String? {
+        return preferredLanguages.first
     }
 }
