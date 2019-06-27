@@ -228,7 +228,7 @@ public extension NStack {
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
-    public func ipDetails(completion: @escaping Completion<IPAddress>) {
+    func ipDetails(completion: @escaping Completion<IPAddress>) {
         connectionManager.fetchIPDetails(completion: completion)
     }
     
@@ -237,12 +237,12 @@ public extension NStack {
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateCountries(completion: @escaping Completion<[Country]>) {
+    func updateCountries(completion: @escaping Completion<[Country]>) {
         connectionManager.fetchCountries(completion: completion)
     }
     
     /// Locally stored list of countries
-    public private(set) var countries: [Country]? {
+    private(set) var countries: [Country]? {
         get {
             // FIXME: Load from disk on load
             return nil
@@ -263,12 +263,12 @@ public extension NStack {
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateContinents(completion: @escaping Completion<[Continent]>) {
+    func updateContinents(completion: @escaping Completion<[Continent]>) {
         connectionManager.fetchContinents(completion: completion)
     }
     
     /// Locally stored list of continents
-    public private(set) var continents: [Continent]? {
+    private(set) var continents: [Continent]? {
         get {
             // FIXME: Load from disk on start
 //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
@@ -289,12 +289,12 @@ public extension NStack {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateLanguages(completion: @escaping Completion<[Language]>) {
+    func updateLanguages(completion: @escaping Completion<[Language]>) {
         connectionManager.fetchLanguages(completion: completion)
     }
     
     /// Locally stored list of languages
-    public private(set) var languages: [Language]? {
+    private(set) var languages: [Language]? {
         get {
             // FIXME: Load from disk on start
             //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
@@ -315,7 +315,7 @@ public extension NStack {
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
+    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
         connectionManager.fetchTimeZones { (result) in
             switch result {
             case .success(let data):
@@ -328,7 +328,7 @@ public extension NStack {
     }
     
     /// Locally stored list of timezones
-    public private(set) var timezones: [Timezone]? {
+    private(set) var timezones: [Timezone]? {
         get {
             // FIXME: Load from disk on start
 //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
@@ -350,7 +350,7 @@ public extension NStack {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+    func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         connectionManager.fetchTimeZone(lat: lat, lng: lng, completion: completion)
     }
 }
@@ -364,7 +364,7 @@ public extension NStack {
     /// - Parameters
     ///     email: A string to be validated as a email
     ///     completion: Completion block when the API call has finished.
-    public func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
+    func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
         connectionManager.validateEmail(email) { (result) in
             switch result {
             case .success(let data):
@@ -385,7 +385,7 @@ public extension NStack {
     ///     slug: The string slug of the required content response
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
+    func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
                                                completion: @escaping Completion<T>) {
         connectionManager.fetchStaticResponse(slug, completion: completion)
     }
@@ -400,7 +400,7 @@ public extension NStack {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    public func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
+    func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
         connectionManager.fetchCollection(id, completion: completion)
     }
 }

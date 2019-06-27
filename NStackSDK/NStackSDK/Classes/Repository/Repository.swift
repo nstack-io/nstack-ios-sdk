@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias Result<T> = Swift.Result<T, Error>
+
 public typealias Completion<T> = ((Result<T>) -> Void)
 
 // MARK: - App Open -
