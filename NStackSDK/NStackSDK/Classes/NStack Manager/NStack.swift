@@ -25,6 +25,15 @@ public class NStack {
 
     /// The manager responsible for fetching, updating and persisting translations.
     public fileprivate(set) var translationsManager: TranslatableManagerType?
+    
+    /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
+    public fileprivate(set) var geographyManager: GeographyManager?
+    
+    /// The manager responsible for validation
+    public fileprivate(set) var validationManager: ValidationManager?
+    
+    /// The manager responsible for getting custom content and collections availble
+    public fileprivate(set) var contentManager: ContentManager?
 
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
@@ -33,7 +42,7 @@ public class NStack {
 
     /// This gets called when the phone language has changed while app is running.
     /// At this point, translations have been updated, if there was an internet connection.
-    public var languageChangedHandler: (() -> Void)?
+    public var languageChangedHandler: ((Locale?) -> Void)?
 
     /// Description
     public var logLevel: LogLevel = .error {
@@ -127,6 +136,10 @@ public class NStack {
             })
         }
 
+        geographyManager = GeographyManager(repository: connectionManager)
+        validationManager = ValidationManager(repository: connectionManager)
+        contentManager = ContentManager(repository: connectionManager)
+        
         #if os(iOS) || os(tvOS)
         // Setup alert manager
         alertManager = AlertManager(repository: connectionManager)
@@ -161,10 +174,7 @@ public class NStack {
         }
         
         // Set callback
-//        manager.languageChangedAction = {
-//            self.languageChangedHandler?()
-//        }
-        
+        manager.delegate = self
         translationsManager = manager
     }
 
@@ -196,6 +206,9 @@ public class NStack {
 //                if let translations = appOpenResponseData.translate, translations.count > 0 {
 //                    self.translationsManager?.set(translationsDictionary: translations)
 //                }
+                #warning("TODO")
+                //figure out how to give translation manager these updated localization configs
+                //appOpenResponseData.localize
 
                 #if os(iOS) || os(tvOS)
 
@@ -223,196 +236,12 @@ public class NStack {
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
-
-        // Update translations if needed
-        // FIXME: Fix updating translations
-        // translationsManager?.updateTranslations()
     }
 }
 
-// MARK: - Geography -
-
-public extension NStack {
-    
-    // MARK: - IPAddress
-    
-    /// Retrieve details based on the requestee's ip address
-    ///
-    /// - Parameter completion: Completion block when the API call has finished.
-    func ipDetails(completion: @escaping Completion<IPAddress>) {
-        connectionManager.fetchIPDetails(completion: completion)
-    }
-    
-    // MARK: - Countries
-    
-    /// Updates the list of countries stored by NStack.
-    ///
-    /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateCountries(completion: @escaping Completion<[Country]>) {
-        connectionManager.fetchCountries(completion: completion)
-    }
-    
-    /// Locally stored list of countries
-    private(set) var countries: [Country]? {
-        get {
-            // FIXME: Load from disk on load
-            return nil
-//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
-        }
-        set {
-            // FIXME: Save to disk or delete
-//            guard let newValue = newValue else {
-//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.countries, purgeMemoryCache: true)
-//                return
-//            }
-//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
-        }
-    }
-    
-    // MARK: - Continents
-    
-    /// Updates the list of continents stored by NStack.
-    ///
-    /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateContinents(completion: @escaping Completion<[Continent]>) {
-        connectionManager.fetchContinents(completion: completion)
-    }
-    
-    /// Locally stored list of continents
-    private(set) var continents: [Continent]? {
-        get {
-            // FIXME: Load from disk on start
-//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-//            guard let newValue = newValue else {
-//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.continents, purgeMemoryCache: true)
-//                return
-//            }
-//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
-        }
-    }
-    
-    // MARK: - Languages
-    
-    /// Updates the list of languages stored by NStack.
-    ///
-    /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateLanguages(completion: @escaping Completion<[Language]>) {
-        connectionManager.fetchLanguages(completion: completion)
-    }
-    
-    /// Locally stored list of languages
-    private(set) var languages: [Language]? {
-        get {
-            // FIXME: Load from disk on start
-            //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-//            guard let newValue = newValue else {
-//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languanges, purgeMemoryCache: true)
-//                return
-//            }
-//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
-        }
-    }
-    
-    // MARK: - Timezones
-    
-    /// Updates the list of timezones stored by NStack.
-    ///
-    /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
-        connectionManager.fetchTimeZones { (result) in
-            switch result {
-            case .success(let data):
-                self.timezones = data
-                completion?(data, nil)
-            case .failure(let error):
-                completion?([], error)
-            }
-        }
-    }
-    
-    /// Locally stored list of timezones
-    private(set) var timezones: [Timezone]? {
-        get {
-            // FIXME: Load from disk on start
-//            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-//            guard let newValue = newValue else {
-//                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.timezones, purgeMemoryCache: true)
-//                return
-//            }
-//            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
-        }
-    }
-    
-    /// Get timezone for latitude and longitude
-    ///
-    /// - Parameters
-    ///     lat: A double representing the latitude
-    ///     lgn: A double representing the longitude
-    ///     completion: Completion block when the API call has finished.
-    func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
-        connectionManager.fetchTimeZone(lat: lat, lng: lng, completion: completion)
-    }
-}
-
-// MARK: - Validation -
-
-public extension NStack {
-    
-    /// Validate an email.
-    ///
-    /// - Parameters
-    ///     email: A string to be validated as a email
-    ///     completion: Completion block when the API call has finished.
-    func validateEmail(_ email:String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> ())) {
-        connectionManager.validateEmail(email) { (result) in
-            switch result {
-            case .success(let data):
-                completion(data.ok, nil)
-            case .failure(let error):
-                completion(false,error)
-            }
-        }
-    }
-}
-
-// MARK: - Content -
-
-public extension NStack {
-    /// Get content response for slug made on NStack web console
-    ///
-    /// - Parameters
-    ///     slug: The string slug of the required content response
-    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
-    ///     completion: Completion block with the response as a any object if successful or error if not
-    func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
-                                               completion: @escaping Completion<T>) {
-        connectionManager.fetchStaticResponse(slug, completion: completion)
-    }
-}
-
-// MARK: - Collections -
-public extension NStack {
-    /// Get collection content for id made on NStack web console
-    ///
-    /// - Parameters
-    ///     id: The integer id of the required collection
-    ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
-    ///     key: Optional string if only one property or object is required, default is nil
-    ///     completion: Completion block with the response as a any object if successful or error if not
-    func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
-        connectionManager.fetchCollection(id, completion: completion)
+extension NStack: TranslatableManagerDelegate {
+    public func translationManager(languageUpdated: LanguageModel?) {
+        self.languageChangedHandler?(languageUpdated?.locale)
     }
 }
 
