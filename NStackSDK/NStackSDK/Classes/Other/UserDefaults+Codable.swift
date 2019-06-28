@@ -19,11 +19,9 @@ extension UserDefaults {
         guard let data = object(forKey: key) as? Data else {
             return nil
         }
-        
         guard let model: T = try? JSONDecoder().decode(T.self, from: data) else {
             return nil
         }
-        
         return model
     }
 }

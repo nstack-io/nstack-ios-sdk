@@ -9,20 +9,14 @@
 import Foundation
 
 enum VersionUtilities {
-    
     internal static var versionOverride: String?
 
     static var previousAppVersion: String {
         get {
-            // FIXME: Use userdeafults
-//            let savedVersion = Constants.persistentStore.object(forKey: Constants.CacheKeys.previousVersion) as? String
-//            return savedVersion ?? currentAppVersion
-            return currentAppVersion
+            return UserDefaults.standard.string(forKey: Constants.CacheKeys.previousVersion) ?? currentAppVersion
         }
-
         set {
-            // FIXME: Use userdeafults
-//            Constants.persistentStore.setObject(newValue, forKey: Constants.CacheKeys.previousVersion)
+            UserDefaults.standard.set(newValue, forKey: Constants.CacheKeys.previousVersion)
         }
     }
 
@@ -30,7 +24,7 @@ enum VersionUtilities {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
     
-    static func isVersion(_ versionA:String, greaterThanVersion versionB:String) -> Bool {
+    static func isVersion(_ versionA: String, greaterThanVersion versionB: String) -> Bool {
         
         var versionAArray = versionA.components(separatedBy: ".")
         var versionBArray = versionB.components(separatedBy: ".")
@@ -38,11 +32,10 @@ enum VersionUtilities {
         
         versionAArray = normalizedValuesFromArray(versionAArray, maxValues: maxCharCount)
         versionBArray = normalizedValuesFromArray(versionBArray, maxValues: maxCharCount)
-        
-        for i in 0..<maxCharCount {
-            if  versionAArray[i] > versionBArray[i] {
+        for val in 0..<maxCharCount {
+            if  versionAArray[val] > versionBArray[val] {
                 return true
-            } else if versionAArray[i] < versionBArray[i] {
+            } else if versionAArray[val] < versionBArray[val] {
                 return false
             }
         }

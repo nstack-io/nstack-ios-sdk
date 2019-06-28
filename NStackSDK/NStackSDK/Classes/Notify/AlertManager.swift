@@ -14,9 +14,9 @@ import StoreKit
 public class AlertManager {
 
     public enum RateReminderResult: String {
-        case Rate = "yes"
-        case Later = "later"
-        case Never = "no"
+        case rate = "yes"
+        case later = "later"
+        case never = "no"
     }
 
     public enum AlertType {
@@ -121,19 +121,19 @@ public class AlertManager {
         let alertType: AlertType
 
         switch version.state {
-        case .Force:
+        case .force:
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: nil,
                                               appStoreButtonText: version.translations.positiveBtn,
                                               completion: appStoreCompletion)
-        case .Remind:
+        case .remind:
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: version.translations.negativeBtn,
                                               appStoreButtonText: version.translations.positiveBtn,
                                               completion: appStoreCompletion)
-        case .Disabled:
+        case .disabled:
             return
         }
 

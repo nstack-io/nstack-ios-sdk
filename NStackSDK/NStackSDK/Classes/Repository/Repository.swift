@@ -28,7 +28,6 @@ protocol UpdatesRepository {
                       completion: @escaping Completion<Update>)
 }
 
-
 // MARK: - Geography -
 
 protocol GeographyRepository {

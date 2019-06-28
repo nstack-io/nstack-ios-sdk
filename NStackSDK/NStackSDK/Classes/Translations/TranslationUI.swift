@@ -12,7 +12,7 @@ import Serpent
 import Alamofire
 
 internal func translationString(keyPath: String) -> String? {
-	if keyPath.characters.count == 0 {
+	if keyPath.characters.isEmpty {
 		return nil;
 	}
 	

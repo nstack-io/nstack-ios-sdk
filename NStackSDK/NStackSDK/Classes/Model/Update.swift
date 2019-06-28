@@ -9,9 +9,9 @@
 import Foundation
 
 enum UpdateState: String, Codable {
-    case Disabled    = "no"
-    case Remind      = "yes"
-    case Force       = "force"
+    case disabled    = "no"
+    case remind      = "yes"
+    case force       = "force"
 }
 
 struct Update: Codable {

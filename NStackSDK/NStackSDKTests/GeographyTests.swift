@@ -27,11 +27,11 @@ class GeographyTests: XCTestCase {
 			if let error = error {
 				XCTFail("Countries API call failed: \(error)")
 			}
-			else if apiCountries.count == 0 {
+			else if apiCountries.isEmpty {
 				XCTFail("Countries API result is empty")
 			}
 			else {				
-				if NStack.countries?.count == 0 {
+				if NStack.countries?.isEmpty {
 					XCTFail("Countries property didn't store data properly")
 				}
 				expectation.fulfill()

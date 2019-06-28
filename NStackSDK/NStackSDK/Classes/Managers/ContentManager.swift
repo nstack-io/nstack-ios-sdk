@@ -9,17 +9,13 @@
 import Foundation
 
 public class ContentManager {
-    
-    //MARK: - Properites
+    // MARK: - Properites
     internal var repository: ConnectionManager
-    
-    //MARK: - Init
+    // MARK: - Init
     init(repository: ConnectionManager) {
         self.repository = repository
     }
-    
     // MARK: - Content -
-    
     /// Get content response for slug made on NStack web console
     ///
     /// - Parameters
@@ -30,9 +26,7 @@ public class ContentManager {
                                         completion: @escaping Completion<T>) {
         repository.fetchStaticResponse(slug, completion: completion)
     }
-    
     // MARK: - Collections -
-    
     /// Get collection content for id made on NStack web console
     ///
     /// - Parameters
