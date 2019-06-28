@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TranslationManager
 
 public struct UpdateOptions: OptionSet {
     public let rawValue: Int

@@ -4,6 +4,7 @@ platform :ios, '10.3'
 def test_pods
   pod 'Quick'
   pod 'Nimble'
+  pod 'SwiftLint'
 end
 
 # Pods for NStackSDK iOS

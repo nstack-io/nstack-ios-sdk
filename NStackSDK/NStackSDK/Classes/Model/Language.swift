@@ -7,16 +7,20 @@
 //
 
 import Foundation
+import TranslationManager
 
-public struct Language: Codable {
+public struct Language: LanguageModel {
+    public var locale: Locale {
+        return Locale(identifier: acceptLanguage)
+    }
+    
     public let id: Int
     public let name: String
-    public let locale: String
     public let direction: String
     public let acceptLanguage: String
     
     enum CodingKeys: String, CodingKey {
-        case id, name, locale, direction
-        case acceptLanguage = "Accept-Language"
+        case id, name, direction
+        case acceptLanguage = "locale"
     }
 }
