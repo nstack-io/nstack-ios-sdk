@@ -28,15 +28,6 @@ protocol UpdatesRepository {
                       completion: @escaping Completion<Update>)
 }
 
-// MARK: - Translations -
-
-public protocol TranslationsRepository {
-    func fetchTranslations(acceptLanguage: String, completion: @escaping Completion<TranslationsResponse>)
-    func fetchCurrentLanguage(acceptLanguage: String, completion: @escaping Completion<Language>)
-    func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>)
-    func fetchPreferredLanguages() -> [String]
-    func fetchBundles() -> [Bundle]
-}
 
 // MARK: - Geography -
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TranslationManager
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -71,55 +72,71 @@ extension ConnectionManager: AppOpenRepository {
     }
 }
 
-extension ConnectionManager: TranslationsRepository {
-    func fetchTranslations(acceptLanguage: String,
-                           completion: @escaping Completion<TranslationsResponse>) {
-        let params: [String : Any] = [
-            "guid"              : Configuration.guid,
-            "last_updated"      : ConnectionManager.lastUpdatedString
-        ]
-
-        let url = configuration.translationsUrlOverride ?? baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
-
-        var headers = defaultHeaders
-        headers["Accept-Language"] = acceptLanguage
-
-        let request = session.request(url, parameters: params, headers: headers)
-        session.startDataTask(with: request, completionHandler: completion)
-    }
-
-    func fetchCurrentLanguage(acceptLanguage: String,
-                              completion:  @escaping Completion<Language>) {
-        let params: [String : Any] = [
-            "guid"              : Configuration.guid,
-            "last_updated"      : ConnectionManager.lastUpdatedString
-        ]
-
-        let url = baseURL + "translate/mobile/languages/best_fit?show_inactive_languages=true"
-
-        var headers = defaultHeaders
-        headers["Accept-Language"] = acceptLanguage
-
-        let request = session.request(url, parameters: params, headers: headers)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
-    }
-
-    func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
-        let params: [String : Any] = ["guid" : Configuration.guid]
-        let url = baseURL + "translate/mobile/languages"
-
-        let request = session.request(url, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
-    }
-
-    func fetchPreferredLanguages() -> [String] {
-        return Locale.preferredLanguages
-    }
-
-    func fetchBundles() -> [Bundle] {
-        return Bundle.allBundles
-    }
-}
+//extension ConnectionManager: TranslationRepository {
+//    func getTranslations(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<Language>>) -> Void) {
+//        <#code#>
+//    }
+//    
+//
+//    
+//
+//    func getLocalizationConfig(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[LocalizationModel]>) -> Void) {
+//        
+//        
+//    }
+//
+//    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {
+//        
+//    }
+//    
+//    func fetchTranslations(acceptLanguage: String,
+//                           completion: @escaping Completion<TranslationsResponse>) {
+//        let params: [String : Any] = [
+//            "guid"              : Configuration.guid,
+//            "last_updated"      : ConnectionManager.lastUpdatedString
+//        ]
+//
+//        let url = configuration.translationsUrlOverride ?? baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
+//
+//        var headers = defaultHeaders
+//        headers["Accept-Language"] = acceptLanguage
+//
+//        let request = session.request(url, parameters: params, headers: headers)
+//        session.startDataTask(with: request, completionHandler: completion)
+//    }
+//
+//    func fetchCurrentLanguage(acceptLanguage: String,
+//                              completion:  @escaping Completion<Language>) {
+//        let params: [String : Any] = [
+//            "guid"              : Configuration.guid,
+//            "last_updated"      : ConnectionManager.lastUpdatedString
+//        ]
+//
+//        let url = baseURL + "translate/mobile/languages/best_fit?show_inactive_languages=true"
+//
+//        var headers = defaultHeaders
+//        headers["Accept-Language"] = acceptLanguage
+//
+//        let request = session.request(url, parameters: params, headers: headers)
+//        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+//    }
+//
+//    func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
+//        let params: [String : Any] = ["guid" : Configuration.guid]
+//        let url = baseURL + "translate/mobile/languages"
+//
+//        let request = session.request(url, parameters: params, headers: defaultHeaders)
+//        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+//    }
+//
+//    func fetchPreferredLanguages() -> [String] {
+//        return Locale.preferredLanguages
+//    }
+//
+//    func fetchBundles() -> [Bundle] {
+//        return Bundle.allBundles
+//    }
+//}
 
 extension ConnectionManager: UpdatesRepository {
     func fetchUpdates(oldVersion: String = VersionUtilities.previousAppVersion,

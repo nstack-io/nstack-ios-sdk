@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TranslationManager
 
 #if os(macOS)
 import AppKit
@@ -23,7 +24,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslationManagerType?
+    public fileprivate(set) var translationsManager: TranslatableManagerType?
 
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
@@ -69,7 +70,7 @@ public class NStack {
 //            let encoder = JSONEncoder()
 //            encoder.keyEncodingStrategy = .convertToSnakeCase
 //            let data = try? encoder.encode(timeZones)
-//            try? data?.write(to: <#T##URL#>, options: [.atomic])
+//            try? data?.write(to: , options: [.atomic])
 //        }
 //    }
     
@@ -140,19 +141,29 @@ public class NStack {
     }
     
     func setupTranslations<T: Translatable>(type: T.Type) {
+        
+        typealias L = Language
+        typealias C = Localization
+        
         // Setup translations
-        let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
+        let manager = TranslatableManager<T, L, C>(repository: connectionManager as! TranslationRepository)
+        //let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
         
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
                                       greaterThanVersion: VersionUtilities.previousAppVersion) {
-            manager.clearTranslations(includingPersisted: true)
+            do {
+                try manager.clearTranslations(includingPersisted: true)
+            }
+            catch {
+                #warning("Handle catch here")
+            }
         }
         
         // Set callback
-        manager.languageChangedAction = {
-            self.languageChangedHandler?()
-        }
+//        manager.languageChangedAction = {
+//            self.languageChangedHandler?()
+//        }
         
         translationsManager = manager
     }

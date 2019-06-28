@@ -8,6 +8,7 @@
 
 import Foundation
 
+/*
 public protocol TranslationManagerType: class {
     init(/*type: Translatable.Type,*/
          repository: TranslationsRepository,
@@ -553,3 +554,4 @@ public class TranslationManager<T: Translatable>: TranslationManagerType {
         return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
     }
 }
+*/
