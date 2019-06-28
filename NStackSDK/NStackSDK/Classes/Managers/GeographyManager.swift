@@ -10,23 +10,22 @@ import Foundation
 
 public class GeographyManager {
     
-    //MARK: - Properites
+    // MARK: - Properites
     internal var repository: ConnectionManager
 
-    //MARK: - Init
+    // MARK: - Init
     init(repository: ConnectionManager) {
         self.repository = repository
     }
     
     // MARK: - IPAddress
-    
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
     func ipDetails(completion: @escaping Completion<IPAddress>) {
         repository.fetchIPDetails(completion: completion)
     }
-    
+
     // MARK: - Countries
     
     /// Updates the list of countries stored by NStack.
@@ -54,7 +53,6 @@ public class GeographyManager {
     }
     
     // MARK: - Continents
-    
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
@@ -80,7 +78,6 @@ public class GeographyManager {
     }
     
     // MARK: - Languages
-    
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
@@ -106,11 +103,10 @@ public class GeographyManager {
     }
     
     // MARK: - Timezones
-    
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> ())? = nil) {
+    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
         repository.fetchTimeZones { (result) in
             switch result {
             case .success(let data):
@@ -138,7 +134,7 @@ public class GeographyManager {
             //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
         }
     }
-    
+
     /// Get timezone for latitude and longitude
     ///
     /// - Parameters

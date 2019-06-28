@@ -14,7 +14,7 @@ extension UserDefaults {
             set(data, forKey: key)
         }
     }
-    
+
     func model<T: Codable>(forKey key: String) -> T? {
         guard let data = object(forKey: key) as? Data else {
             return nil

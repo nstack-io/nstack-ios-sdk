@@ -236,6 +236,12 @@ public class NStack {
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
+        
+        // Update translations if needed
+        // FIXME: Fix updating translations. should use response of app open, not call update here
+        translationsManager?.updateTranslations({ (error) in
+            //TODO
+        })
     }
 }
 

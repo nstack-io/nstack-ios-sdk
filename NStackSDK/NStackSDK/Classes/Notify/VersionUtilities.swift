@@ -23,13 +23,12 @@ enum VersionUtilities {
     static var currentAppVersion: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
-    
+
     static func isVersion(_ versionA: String, greaterThanVersion versionB: String) -> Bool {
-        
         var versionAArray = versionA.components(separatedBy: ".")
         var versionBArray = versionB.components(separatedBy: ".")
         let maxCharCount = max(versionAArray.count, versionBArray.count)
-        
+
         versionAArray = normalizedValuesFromArray(versionAArray, maxValues: maxCharCount)
         versionBArray = normalizedValuesFromArray(versionBArray, maxValues: maxCharCount)
         for val in 0..<maxCharCount {
