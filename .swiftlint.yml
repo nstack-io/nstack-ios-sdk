@@ -1,7 +1,6 @@
 opt_in_rules: # some rules are only opt-in
   - control_statement
   - empty_count
-  - trailing_newline
   - colon
   - comma
   - todo
