@@ -13,13 +13,16 @@ public struct LocalizationConfig: LocalizationModel {
     public var lastUpdatedAt = Date()
     public var shouldUpdate: Bool = false
     public var localeIdentifier: String
+    public var url: String
 
     public init(lastUpdatedAt: Date = Date(),
                 localeIdentifier: String,
-                shouldUpdate: Bool = false
+                shouldUpdate: Bool = false,
+                url: String
                 ) {
         self.lastUpdatedAt = lastUpdatedAt
         self.localeIdentifier = localeIdentifier
         self.shouldUpdate = shouldUpdate
+        self.url = url
     }
 }

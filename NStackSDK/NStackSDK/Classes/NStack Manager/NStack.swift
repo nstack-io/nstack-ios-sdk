@@ -24,7 +24,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslatableManagerType?
+    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
     
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
@@ -61,11 +61,10 @@ public class NStack {
     internal var avoidUpdateList: [LaunchOptionsKeyType] = [.location]
     #endif
 
-    internal var connectionManager: ConnectionManager!
+    internal var repository: Repository!
     internal fileprivate(set) var configured = false
     internal var observer: ApplicationObserver?
     internal var logger: LoggerType = ConsoleLogger()
-
     // FOX
 //    public private(set) var timeZones: [Timezone]? {
 //        didSet {
@@ -82,7 +81,6 @@ public class NStack {
 //            try? data?.write(to: , options: [.atomic])
 //        }
 //    }
-    
     // MARK: - Start NStack -
 
     fileprivate init() {}
@@ -119,7 +117,7 @@ public class NStack {
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride
         )
-        connectionManager = ConnectionManager(configuration: apiConfiguration)
+        repository = ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary
         if configuration.updateOptions.contains(.onDidBecomeActive) {
@@ -136,14 +134,17 @@ public class NStack {
             })
         }
 
-        geographyManager = GeographyManager(repository: connectionManager)
-        validationManager = ValidationManager(repository: connectionManager)
-        contentManager = ContentManager(repository: connectionManager)
+        geographyManager = GeographyManager(repository: repository)
+        validationManager = ValidationManager(repository: repository)
+        contentManager = ContentManager(repository: repository)
         
         #if os(iOS) || os(tvOS)
         // Setup alert manager
-        alertManager = AlertManager(repository: connectionManager)
+        alertManager = AlertManager(repository: repository)
         #endif
+
+        //sets up translation manager
+        setupTranslations()
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
         if configuration.updateOptions.contains(.onStart) &&
@@ -153,13 +154,11 @@ public class NStack {
         }
     }
     
-    func setupTranslations<T: Translatable>(type: T.Type) {
-        
-        typealias L = Language
-        typealias C = Localization
-        
+    func setupTranslations() {
         // Setup translations
-        let manager = TranslatableManager<T, L, C>(repository: connectionManager as! TranslationRepository)
+        let manager = TranslatableManager<Localizable, Language, Localization>(repository: repository,
+                                                   contextRepository: repository,
+                                                   updateMode: .manual)
         //let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
         
         // Delete translations if new version
@@ -196,19 +195,25 @@ public class NStack {
         }
 
         // FIXME: Refactor
-
-        connectionManager.postAppOpen(completion: { result in
+        let acceptLanguageProvider = AcceptLanguageProvider(repository: repository)
+        let header = acceptLanguageProvider.createHeaderString()
+        repository.postAppOpen(oldVersion: VersionUtilities.previousAppVersion,
+                               currentVersion: VersionUtilities.currentAppVersion,
+                               acceptLanguage: header,
+                               completion: { result in
             switch result {
             case .success(let appOpenResponse):
                 guard let appOpenResponseData = appOpenResponse.data else { return }
 
                 // Update translations
-//                if let translations = appOpenResponseData.translate, translations.count > 0 {
-//                    self.translationsManager?.set(translationsDictionary: translations)
-//                }
-                #warning("TODO")
-                //figure out how to give translation manager these updated localization configs
-                //appOpenResponseData.localize
+                if let localizations = appOpenResponseData.localize {
+                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
+                                                                       acceptHeaderUsed: "TODO",
+                                                                       completion: { (_) in
+                        //if error, try to update translations in Translations Manager
+                        self.translationsManager?.updateTranslations()
+                    })
+                }
 
                 #if os(iOS) || os(tvOS)
 
@@ -228,19 +233,11 @@ public class NStack {
                 }
                 #endif
 
-                self.connectionManager.setLastUpdated()
-
             case let .failure(error):
                 // FIXME: Fix logging
 //                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
-        })
-        
-        // Update translations if needed
-        // FIXME: Fix updating translations. should use response of app open, not call update here
-        translationsManager?.updateTranslations({ (error) in
-            //TODO
         })
     }
 }

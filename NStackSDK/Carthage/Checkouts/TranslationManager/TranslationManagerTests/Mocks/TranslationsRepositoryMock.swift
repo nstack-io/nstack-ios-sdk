@@ -27,13 +27,21 @@ class TranslationsRepositoryMock<L: LanguageModel>: TranslationRepository {
         completion(result)
     }
 
-    func getTranslations(localization: LocalizationModel,
-                         acceptLanguage: String,
-                         completion: @escaping (Result<TranslationResponse<Language>>) -> Void) {
-
+    func getTranslations<L>(localization: LocalizationModel,
+                            acceptLanguage: String,
+                            completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
         let error = NSError(domain: "", code: 0, userInfo: nil) as Error
         let result: Result = translationsResponse != nil ? .success(translationsResponse!) : .failure(error)
-        completion(result)
+        completion(result as! Result<TranslationResponse<L>>)
+    }
+
+    func getTranslations<L>(localization: LocalizationModel,
+                            acceptLanguage: String,
+                            completion: @escaping (Result<L>) -> Void) where L: LanguageModel {
+        let error = NSError(domain: "", code: 0, userInfo: nil) as Error
+        //let result: Result = translationsResponse != nil ? .success(translationsResponse!) : .failure(error)
+        let result: Result = .success(currentLanguage!)
+        completion(result as! Result<L>)
     }
 
     func getAvailableLanguages<L: LanguageModel>(completion:  @escaping (Result<[L]>) -> Void) {
@@ -41,12 +49,15 @@ class TranslationsRepositoryMock<L: LanguageModel>: TranslationRepository {
 //        let result: Result = availableLanguages != nil ? .success(availableLanguages!) : .failure(error)
 //        completion(result)
     }
+}
+
+extension TranslationsRepositoryMock: LocalizationContextRepository {
 
     func fetchPreferredLanguages() -> [String] {
         return preferredLanguages
     }
 
-    func fetchBundles() -> [Bundle] {
+    func getLocalizationBundles() -> [Bundle] {
         return customBundles ?? Bundle.allBundles
     }
 

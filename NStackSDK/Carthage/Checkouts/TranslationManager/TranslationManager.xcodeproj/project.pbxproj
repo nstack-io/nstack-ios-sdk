@@ -18,10 +18,12 @@
 		23A4296E22BA37C800D09EA1 /* LocalizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A4296D22BA37C800D09EA1 /* LocalizationModel.swift */; };
 		23A4297022BA44B000D09EA1 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A4296F22BA44B000D09EA1 /* LocalizationConfig.swift */; };
 		6D6EF3DE2C52A97D9E0493BF /* Pods_TranslationManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC5EAB06726B4ABE9FD4C97 /* Pods_TranslationManagerTests.framework */; };
+		B4020B9C22C5171C007EC5DD /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4020B9B22C5171C007EC5DD /* Store.swift */; };
+		B4020BA022C517B7007EC5DD /* AcceptLanguageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4020B9F22C517B7007EC5DD /* AcceptLanguageProvider.swift */; };
 		B4E63B2922BD2CC7003A1245 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E63B2822BD2CC7003A1245 /* Localization.swift */; };
 		C00F5EE22178FAE600066823 /* TranslatableManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00F5EE12178FAE600066823 /* TranslatableManagerDelegate.swift */; };
 		C01D69D12178904400A1B354 /* TranslationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69D02178904400A1B354 /* TranslationManagerTests.swift */; };
-		C01D69D82178912300A1B354 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69D72178912300A1B354 /* Translatable.swift */; };
+		C01D69D82178912300A1B354 /* LocalizableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69D72178912300A1B354 /* LocalizableModel.swift */; };
 		C01D69DA2178913A00A1B354 /* TranslatableManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69D92178913A00A1B354 /* TranslatableManagerType.swift */; };
 		C01D69DC2178916B00A1B354 /* TranslationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69DB2178916B00A1B354 /* TranslationRepository.swift */; };
 		C01D69E1217891DF00A1B354 /* TranslationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01D69E0217891DF00A1B354 /* TranslationResponse.swift */; };
@@ -69,10 +71,12 @@
 		B4020B9122C3C82F007EC5DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4020B9222C3C851007EC5DD /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B4020B9422C3C851007EC5DD /* TranslationManager.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = TranslationManager.podspec; sourceTree = "<group>"; };
+		B4020B9B22C5171C007EC5DD /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		B4020B9F22C517B7007EC5DD /* AcceptLanguageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptLanguageProvider.swift; sourceTree = "<group>"; };
 		B4E63B2822BD2CC7003A1245 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		C00F5EE12178FAE600066823 /* TranslatableManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatableManagerDelegate.swift; sourceTree = "<group>"; };
 		C01D69D02178904400A1B354 /* TranslationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManagerTests.swift; sourceTree = "<group>"; };
-		C01D69D72178912300A1B354 /* Translatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
+		C01D69D72178912300A1B354 /* LocalizableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableModel.swift; sourceTree = "<group>"; };
 		C01D69D92178913A00A1B354 /* TranslatableManagerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatableManagerType.swift; sourceTree = "<group>"; };
 		C01D69DB2178916B00A1B354 /* TranslationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationRepository.swift; sourceTree = "<group>"; };
 		C01D69E0217891DF00A1B354 /* TranslationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationResponse.swift; sourceTree = "<group>"; };
@@ -207,12 +211,13 @@
 		C01D69D5217890EC00A1B354 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				C01D69D72178912300A1B354 /* Translatable.swift */,
-				C01D69E42178925900A1B354 /* LanguageModel.swift */,
+				C01D69D72178912300A1B354 /* LocalizableModel.swift */,
 				23A4296D22BA37C800D09EA1 /* LocalizationModel.swift */,
+				C01D69E42178925900A1B354 /* LanguageModel.swift */,
 				C01D69DB2178916B00A1B354 /* TranslationRepository.swift */,
 				C01D69D92178913A00A1B354 /* TranslatableManagerType.swift */,
 				C00F5EE12178FAE600066823 /* TranslatableManagerDelegate.swift */,
+				B4020B9B22C5171C007EC5DD /* Store.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				C01D69EA217894DE00A1B354 /* TranslatableManager.swift */,
+				B4020B9F22C517B7007EC5DD /* AcceptLanguageProvider.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -455,13 +461,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C01D69D82178912300A1B354 /* Translatable.swift in Sources */,
+				C01D69D82178912300A1B354 /* LocalizableModel.swift in Sources */,
 				C0537375219C0A170022368E /* PersistedTranslationType.swift in Sources */,
 				C01D69E1217891DF00A1B354 /* TranslationResponse.swift in Sources */,
 				C00F5EE22178FAE600066823 /* TranslatableManagerDelegate.swift in Sources */,
 				C01D69E52178925900A1B354 /* LanguageModel.swift in Sources */,
 				2376952E22C0D4AD00D40DC1 /* Platform.swift in Sources */,
 				C01D69DC2178916B00A1B354 /* TranslationRepository.swift in Sources */,
+				B4020B9C22C5171C007EC5DD /* Store.swift in Sources */,
+				B4020BA022C517B7007EC5DD /* AcceptLanguageProvider.swift in Sources */,
 				C01D69ED217894FC00A1B354 /* TranslationError.swift in Sources */,
 				C04AFBF72179E16E002CB099 /* ApplicationStateObserverType.swift in Sources */,
 				C01D69EF2178955100A1B354 /* UserDefaults+Codable.swift in Sources */,

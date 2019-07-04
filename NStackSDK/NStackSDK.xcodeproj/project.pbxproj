@@ -106,6 +106,7 @@
 		23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		238D644A22C518FE002406FA /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644922C518FE002406FA /* TranslationManager.framework */; };
+		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		2DDAC7512F7DC94F3382176C /* Pods_NStackSDK_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313EA78AC0449925458336C5 /* Pods_NStackSDK_tvOSTests.framework */; };
@@ -292,6 +293,7 @@
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		238D644722C518B3002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
+		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
 		2729E8481B9ED06600286B12 /* TranslationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		2729E84A1B9ED47400286B12 /* Translatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				017E871F1DF61A32009E9792 /* TranslationsRepositoryMock.swift */,
 				01FC66781DFAD905001682AA /* BundleMock.swift */,
 				01FC66761DFAD52C001682AA /* FileManagerMock.swift */,
+				23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -1252,6 +1255,7 @@
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
+				23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */,
 				23442E6222C6281000F196EE /* GeographyManager.swift in Sources */,
 				304E07421BBA922300AFE13D /* Language.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,

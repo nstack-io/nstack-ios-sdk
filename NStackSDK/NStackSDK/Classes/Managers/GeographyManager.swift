@@ -11,10 +11,10 @@ import Foundation
 public class GeographyManager {
     
     // MARK: - Properites
-    internal var repository: ConnectionManager
+    internal var repository: GeographyRepository
 
     // MARK: - Init
-    init(repository: ConnectionManager) {
+    init(repository: GeographyRepository) {
         self.repository = repository
     }
     

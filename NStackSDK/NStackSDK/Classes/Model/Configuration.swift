@@ -22,7 +22,7 @@ public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
-    public let translationsClass: Translatable.Type?
+    public let translationsClass: LocalizableModel.Type?
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
@@ -47,7 +47,7 @@ public struct Configuration {
 
     public init(appId: String,
                 restAPIKey: String,
-                translationsClass: Translatable.Type? = nil,
+                translationsClass: LocalizableModel.Type? = nil,
                 flatTranslations: Bool = false,
                 translationsUrlOverride: String? = nil) {
         self.appId = appId
@@ -57,7 +57,7 @@ public struct Configuration {
         self.translationsUrlOverride = translationsUrlOverride
     }
 
-    public init(plistName: String, translationsClass: Translatable.Type? = nil) {
+    public init(plistName: String, translationsClass: LocalizableModel.Type? = nil) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?

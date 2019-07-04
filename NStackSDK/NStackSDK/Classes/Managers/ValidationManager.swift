@@ -10,9 +10,9 @@ import Foundation
 
 public class ValidationManager {
     // MARK: - Properites
-    internal var repository: ConnectionManager
+    internal var repository: ValidationRepository
     // MARK: - Init
-    init(repository: ConnectionManager) {
+    init(repository: ValidationRepository) {
         self.repository = repository
     }
     /// Validate an email.

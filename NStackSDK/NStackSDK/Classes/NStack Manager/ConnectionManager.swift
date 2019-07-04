@@ -23,8 +23,9 @@ protocol WrapperModelType: Codable {
 }
 
 // FIXME: Figure out how to do accept language header properly
-final class ConnectionManager {
-    private let baseURL = "https://nstack.io/api/v1/"
+final class ConnectionManager: Repository {
+    private let baseURLv1 = "https://nstack.io/api/v1/"
+    private let baseURLv2 = "https://nstack.io/api/v2/"
     private let session: URLSession
     private let configuration: APIConfiguration
 
@@ -44,7 +45,8 @@ final class ConnectionManager {
     }
 }
 
-extension ConnectionManager: AppOpenRepository {
+// MARK : - AppOpenRepository
+extension ConnectionManager {
     func postAppOpen(oldVersion: String = VersionUtilities.previousAppVersion,
                      currentVersion: String = VersionUtilities.currentAppVersion,
                      acceptLanguage: String? = nil, completion: @escaping Completion<AppOpenResponse>) {
@@ -65,29 +67,64 @@ extension ConnectionManager: AppOpenRepository {
             headers["Accept-Language"] = acceptLanguage
         }
 
-        let url = baseURL + "open" + (configuration.isFlat ? "?flat=true" : "")
+        let url = baseURLv2 + "open" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
         session.startDataTask(with: request, completionHandler: completion)
     }
 }
+// MARK : - TranslationRepository
+extension ConnectionManager {
+    func getLocalizationConfig(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[LocalizationModel]>) -> Void) {
 
-//extension ConnectionManager: TranslationRepository {
-//    func getTranslations(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<Language>>) -> Void) {
-//        <#code#>
-//    }
-//    
-//
-//    
-//
-//    func getLocalizationConfig(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[LocalizationModel]>) -> Void) {
-//        
-//        
-//    }
-//
-//    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {
-//        
-//    }
+        var params: [String : Any] = [
+            "guid"              : Configuration.guid,
+            "platform"          : "ios",
+            "last_updated"      : ConnectionManager.lastUpdatedString
+        ]
+
+        var headers = defaultHeaders
+        headers["Accept-Language"] = acceptLanguage
+
+        let url = baseURLv2 + "localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
+
+        let request = session.request(url, method: .get, parameters: params, headers: headers)
+//        let localizationCompletion: ((Result<[Localization]>) -> Void) = { (response) in
+//            completion(response)
+//        }
+        session.startDataTask(with: request, completionHandler: completion)
+
+
+//        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
+//        let local = Localization(id: 1, url: "dsfsd", lastUpdatedAt: "hgjhg", shouldUpdate: true, language: lang)
+//        completion(.success([local]))
+    }
+
+    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L : LanguageModel {
+//        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
+//        let response = TranslationResponse(translations: [
+//            "default": ["successKey": "SuccessUpdated"],
+//            "otherSection": ["anotherKey": "HeresAValue"]
+//            ], meta: TranslationMeta(language: lang))
+//        completion(.success(response as! TranslationResponse<L>))
+        var params: [String : Any] = [
+            "guid"              : Configuration.guid,
+            "platform"          : "ios"
+        ]
+        var headers = defaultHeaders
+        headers["Accept-Language"] = acceptLanguage
+
+        let url = localization.url
+        let request = session.request(url, method: .get, parameters: params, headers: headers)
+        session.startDataTask(with: request, completionHandler: completion)
+
+    }
+
+    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {
+        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
+        completion(.success([lang] as! [L]))
+    }
+}
 //    
 //    func fetchTranslations(acceptLanguage: String,
 //                           completion: @escaping Completion<TranslationsResponse>) {
@@ -137,8 +174,23 @@ extension ConnectionManager: AppOpenRepository {
 //        return Bundle.allBundles
 //    }
 //}
+// MARK : - LocalizationContextRepository
+extension ConnectionManager {
+    func fetchPreferredLanguages() -> [String] {
+        return Locale.preferredLanguages
+    }
 
-extension ConnectionManager: UpdatesRepository {
+    func getLocalizationBundles() -> [Bundle] {
+        return Bundle.allBundles
+    }
+
+    func fetchCurrentPhoneLanguage() -> String? {
+        return nil
+    }
+}
+
+// MARK : - UpdatesRepository
+extension ConnectionManager {
     func fetchUpdates(oldVersion: String = VersionUtilities.previousAppVersion,
                       currentVersion: String = VersionUtilities.currentAppVersion,
                       completion: @escaping Completion<Update>) {
@@ -149,14 +201,14 @@ extension ConnectionManager: UpdatesRepository {
             "old_version"       : oldVersion,
             ]
 
-        let url = baseURL + "notify/updates"
+        let url = baseURLv1 + "notify/updates"
         
         let request = session.request(url, parameters: params, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
-
-extension ConnectionManager: VersionsRepository {
+// MARK : - VersionsRepository
+extension ConnectionManager {
     func markWhatsNewAsSeen(_ id: Int) {
         let params: [String : Any] = [
             "guid"              : Configuration.guid,
@@ -165,7 +217,7 @@ extension ConnectionManager: VersionsRepository {
             "answer"            : "no",
         ]
 
-        let url = baseURL + "notify/updates/views"
+        let url = baseURLv1 + "notify/updates/views"
         
         // FIXME: Refactor
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
@@ -178,7 +230,7 @@ extension ConnectionManager: VersionsRepository {
             "message_id"        : id
         ]
 
-        let url = baseURL + "notify/messages/views"
+        let url = baseURLv1 + "notify/messages/views"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
         session.dataTask(with: request).resume()
     }
@@ -191,79 +243,72 @@ extension ConnectionManager: VersionsRepository {
             "answer"            : answer.rawValue
         ]
 
-        let url = baseURL + "notify/rate_reminder/views"
+        let url = baseURLv1 + "notify/rate_reminder/views"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
         session.dataTask(with: request).resume()
     }
     #endif
 }
-
-// MARK: - Geography -
-
-extension ConnectionManager: GeographyRepository {
+// MARK : - GeographyRepository
+extension ConnectionManager {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
-        let url = baseURL + "geographic/continents"
+        let url = baseURLv1 + "geographic/continents"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
-        let url = baseURL + "geographic/languages"
+        let url = baseURLv1 + "geographic/languages"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
-        let url = baseURL + "geographic/time_zones"
+        let url = baseURLv1 + "geographic/time_zones"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
-        let url = baseURL + "geographic/time_zones/by_lat_lng"
+        let url = baseURLv1 + "geographic/time_zones/by_lat_lng"
         let parameters: [String: Any] = ["lat_lng" : "\(String(lat)),\(String(lng))"]
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
-        let url = baseURL + "geographic/ip-address"
+        let url = baseURLv1 + "geographic/ip-address"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
-        let url = baseURL + "geographic/countries"
+        let url = baseURLv1 + "geographic/countries"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
-
-// MARK: - Validation -
-
-extension ConnectionManager: ValidationRepository {
+// MARK : - ValidationRepository
+extension ConnectionManager {
     func validateEmail(_ email: String, completion:  @escaping Completion<Validation>) {
         let parameters: [String: Any] = ["email" : email]
-        let url = baseURL + "validator/email"
+        let url = baseURLv1 + "validator/email"
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
-
-// MARK: - Content -
-
-extension ConnectionManager: ContentRepository {
+// MARK : - ContentRepository
+extension ConnectionManager {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>) {
-        let url = baseURL + "content/responses/\(slug)"
+        let url = baseURLv1 + "content/responses/\(slug)"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
-
-// MARK: - Collections -
-extension ConnectionManager: ColletionRepository {
+// MARK : - ColletionRepository
+extension ConnectionManager {
     func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
-        let url = baseURL + "content/collections/\(id)"
+        let url = baseURLv1 + "content/collections/\(id)"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }

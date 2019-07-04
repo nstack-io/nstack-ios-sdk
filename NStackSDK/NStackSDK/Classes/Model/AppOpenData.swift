@@ -18,6 +18,6 @@ struct AppOpenData: Codable {
     let localize: [Localization]?
     let platform: String
 
-    let createdAt: Date
-    let lastUpdated: Date
+    let createdAt: String
+    let lastUpdated: String
 }

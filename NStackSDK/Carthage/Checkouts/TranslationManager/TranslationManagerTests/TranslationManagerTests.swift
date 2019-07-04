@@ -32,11 +32,11 @@ class TranslationManagerTests: XCTestCase {
     }
 
     var mockLocalizationConfigWithUpdate: LocalizationConfig {
-        return LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "da-DK", shouldUpdate: true)
+        return LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "da-DK", shouldUpdate: true, url: "")
     }
 
     var mockLocalizationConfigWithoutUpdate: LocalizationConfig {
-        return LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "fr-FR", shouldUpdate: false)
+        return LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "fr-FR", shouldUpdate: false, url: "")
     }
 
 //    // MARK: - Test Case Lifecycle -
@@ -47,7 +47,7 @@ class TranslationManagerTests: XCTestCase {
 
         repositoryMock = TranslationsRepositoryMock()
         fileManagerMock = FileManagerMock()
-        manager = TranslatableManager.init(repository: repositoryMock)
+        manager = TranslatableManager.init(repository: repositoryMock, contextRepository: repositoryMock)
         manager.languageOverride = nil
         manager.bestFitLanguage = nil
         manager.fallbackLocale = nil
@@ -100,7 +100,7 @@ class TranslationManagerTests: XCTestCase {
             XCTAssertEqual(self.manager.translatableObjectDictonary.count, countBefore)
         }
     }
-    
+
     func testLastUpdatedDateIsSet() {
         let dateAtStartOfTest = Date()
         XCTAssertNil(manager.lastUpdatedDate)
@@ -174,7 +174,7 @@ class TranslationManagerTests: XCTestCase {
         //current language should be Danish
         XCTAssertEqual(manager.bestFitLanguage?.acceptLanguage, "da-DK")
 
-        repositoryMock.availableLocalizations = [LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "en-GB", shouldUpdate: true)]
+        repositoryMock.availableLocalizations = [LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: "en-GB", shouldUpdate: true, url:  "")]
         repositoryMock.translationsResponse = TranslationResponse(translations: [
             "default": ["successKey": "SuccessUpdated"],
             "otherSection": ["anotherKey": "HeresAValue"]
@@ -244,7 +244,10 @@ class TranslationManagerTests: XCTestCase {
         manager.updateTranslations()
 
         do {
-            let str = try manager.translation(for: "default.successKey")
+            guard let str = try manager.translation(for: "default.successKey") else {
+                XCTFail("String doesnt exist")
+                return
+            }
             XCTAssertEqual(str, "DanishSuccessUpdated")
         } catch {
             XCTFail(error.localizedDescription)
@@ -270,7 +273,10 @@ class TranslationManagerTests: XCTestCase {
 
     func testFallbackToDefaultLocale() {
         do {
-            let str = try manager.translation(for: "other.otherKey")
+            guard let str = try manager.translation(for: "other.otherKey") else {
+                XCTFail("String doesnt exist")
+                return
+            }
             XCTAssertEqual(str, "FallbackValue")
         } catch {
             XCTFail(error.localizedDescription)
@@ -281,14 +287,6 @@ class TranslationManagerTests: XCTestCase {
         manager.bestFitLanguage = nil
         let locale = Locale(identifier: "da-DK")
         XCTAssertNotNil(locale)
-
-        do {
-            try manager.clearTranslations(includingPersisted: true)
-            let str = try manager.translation(for: "other.otherKey")
-            XCTAssertEqual(str, "FallbackValue")
-        } catch {
-            XCTFail(error.localizedDescription)
-        }
 
         manager.fallbackLocale = locale
         do {
@@ -318,7 +316,10 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertNil(manager.bestFitLanguage)
 
         do {
-            let str = try manager.translation(for: "other.otherKey")
+            guard let str = try manager.translation(for: "other.otherKey") else {
+                XCTFail("String doesnt exist")
+                return
+            }
             XCTAssertEqual(str, "FallbackValue") //sets to default language as fallback is not found
         } catch {
             XCTFail("Failed to get translation for key")
@@ -357,21 +358,21 @@ class TranslationManagerTests: XCTestCase {
     func testAcceptLanguage() {
         // Test simple language
         repositoryMock.preferredLanguages = ["en"]
-        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0")
+        XCTAssertEqual(manager.acceptLanguageProvider.createHeaderString(languageOverride: nil), "en;q=1.0")
 
         // Test two languages with locale
         repositoryMock.preferredLanguages = ["da-DK", "en-GB"]
-        XCTAssertEqual(manager.acceptLanguage, "da-DK;q=1.0,en-GB;q=0.9")
+        XCTAssertEqual(manager.acceptLanguageProvider.createHeaderString(languageOverride: nil), "da-DK;q=1.0,en-GB;q=0.9")
 
         // Test max lang limit
         repositoryMock.preferredLanguages = ["da-DK", "en-GB", "en", "cs-CZ", "sk-SK", "no-NO"]
-        XCTAssertEqual(manager.acceptLanguage,
+        XCTAssertEqual(manager.acceptLanguageProvider.createHeaderString(languageOverride: nil),
                        "da-DK;q=1.0,en-GB;q=0.9,en;q=0.8,cs-CZ;q=0.7,sk-SK;q=0.6",
                        "There should be maximum 5 accept languages.")
 
         // Test fallback
         repositoryMock.preferredLanguages = []
-        XCTAssertEqual(manager.acceptLanguage, "en;q=1.0",
+        XCTAssertEqual(manager.acceptLanguageProvider.createHeaderString(languageOverride: nil), "en;q=1.0",
                        "If no accept language there should be fallback to english.")
     }
 
@@ -392,8 +393,15 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertEqual(manager.updateMode, UpdateMode.automatic)
         XCTAssertNil(manager.lastAcceptHeader, "Last accept header should be nil at start.")
 
-        manager.languageOverride = Locale(identifier: "ja-JP")
-        XCTAssertEqual(manager.lastAcceptHeader, "ja-JP")
+        manager.languageOverride = Language(id: 1, name: "Japanese",
+                                            direction: "LRM", acceptLanguage: "ja-JP",
+                                            isDefault: true, isBestFit: true)
+
+        guard let acceptHeader = manager.lastAcceptHeader else {
+            XCTFail("accept header should be present at this point")
+            return
+        }
+        XCTAssertTrue(acceptHeader.hasPrefix("ja-JP"))
     }
 
     func testRemovingLanguageOverride() {
@@ -402,8 +410,14 @@ class TranslationManagerTests: XCTestCase {
         XCTAssertEqual(manager.updateMode, UpdateMode.automatic)
         XCTAssertNil(manager.lastAcceptHeader, "Last accept header should be nil at start.")
 
-        manager.languageOverride = Locale(identifier: "ja-JP")
-        XCTAssertEqual(manager.lastAcceptHeader, "ja-JP")
+        manager.languageOverride = Language(id: 1, name: "Japanese",
+                                            direction: "LRM", acceptLanguage: "ja-JP",
+                                            isDefault: true, isBestFit: true)
+        guard let acceptHeader = manager.lastAcceptHeader else {
+            XCTFail("accept header should be present at this point")
+            return
+        }
+        XCTAssertTrue(acceptHeader.hasPrefix("ja-JP"))
 
         manager.lastAcceptHeader = nil
         XCTAssertEqual(manager.updateMode, UpdateMode.automatic)

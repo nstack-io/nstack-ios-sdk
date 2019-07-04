@@ -7,5 +7,10 @@
 //
 
 import Foundation
+import TranslationManager
 
-//public protocol Translatable: Codable {}
+public struct Localizable: LocalizableModel {
+    public subscript(key: String) -> LocalizableSection? {
+        return nil
+    }
+}

@@ -10,9 +10,9 @@ import Foundation
 
 public class ContentManager {
     // MARK: - Properites
-    internal var repository: ConnectionManager
+    internal var repository: ContentRepository & ColletionRepository
     // MARK: - Init
-    init(repository: ConnectionManager) {
+    init(repository: ContentRepository & ColletionRepository) {
         self.repository = repository
     }
     // MARK: - Content -

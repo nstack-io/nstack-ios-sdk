@@ -7,10 +7,22 @@
 //
 
 import Foundation
+import TranslationManager
 
 public typealias Result<T> = Swift.Result<T, Error>
 
 public typealias Completion<T> = ((Result<T>) -> Void)
+
+typealias Repository =
+    AppOpenRepository &
+    UpdatesRepository &
+    GeographyRepository &
+    ValidationRepository &
+    ContentRepository &
+    ColletionRepository &
+    VersionsRepository &
+    TranslationRepository &
+    LocalizationContextRepository
 
 // MARK: - App Open -
 

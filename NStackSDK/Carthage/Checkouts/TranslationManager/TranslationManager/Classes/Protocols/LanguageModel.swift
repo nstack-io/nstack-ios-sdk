@@ -10,4 +10,6 @@ import Foundation
 
 public protocol LanguageModel: Codable {
     var locale: Locale { get }
+    var isDefault: Bool { get }
+    var isBestFit: Bool { get }
 }

@@ -13,14 +13,15 @@ public struct Language: LanguageModel {
     public var locale: Locale {
         return Locale(identifier: acceptLanguage)
     }
-    
     public let id: Int
     public let name: String
     public let direction: String
     public let acceptLanguage: String
+    public let isDefault: Bool
+    public let isBestFit: Bool
     
     enum CodingKeys: String, CodingKey {
-        case id, name, direction
+        case id, name, direction, isDefault, isBestFit
         case acceptLanguage = "locale"
     }
 }

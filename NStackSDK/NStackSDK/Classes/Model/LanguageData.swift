@@ -9,5 +9,5 @@
 import Foundation
 
 struct LanguageData: Codable {
-    let language: Language?
+    let acceptLanguage: String?
 }

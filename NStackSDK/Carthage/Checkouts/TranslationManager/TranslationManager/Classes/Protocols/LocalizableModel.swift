@@ -1,5 +1,5 @@
 //
-//  Translatable.swift
+//  LocalizableModel.swift
 //  TranslationManager
 //
 //  Created by Dominik Hadl on 18/10/2018.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-public protocol Translatable: Codable {
-    subscript(key: String) -> TranslatableSection? { get }
+public protocol LocalizableModel: Codable {
+    subscript(key: String) -> LocalizableSection? { get }
 }
 
-public protocol TranslatableSection: Codable {
+public protocol LocalizableSection: Codable {
     subscript(key: String) -> String? { get }
 }

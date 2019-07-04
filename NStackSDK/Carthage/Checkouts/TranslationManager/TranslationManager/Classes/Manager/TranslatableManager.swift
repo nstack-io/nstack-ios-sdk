@@ -12,10 +12,9 @@ import Foundation
 // swiftlint:disable file_length
 
 /// The TranslatableManager handles everything related to translations.
-public class TranslatableManager<T: Translatable, L: LanguageModel, C: LocalizationModel>: TranslatableManagerType {
+public class TranslatableManager<T: LocalizableModel, L: LanguageModel, C: LocalizationModel>/*: TranslatableManagerType*/ {
 
     // MARK: - Properties -
-    // MARK: Public
 
     /// The update mode used to determine how translations should update.
     public var updateMode: UpdateMode
@@ -39,7 +38,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     }()
 
     /// In memory cache of the current best fit language object.
-    public internal(set) var bestFitLanguage: Language? {
+    public internal(set) var bestFitLanguage: L? {
         get {
             return userDefaults.codable(forKey: Constants.Keys.currentBestFitLanguage)
         }
@@ -53,7 +52,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     }
 
     /// In memory cache of the set default language object.
-    public internal(set) var defaultLanguage: Language? {
+    public internal(set) var defaultLanguage: L? {
         get {
             return userDefaults.codable(forKey: Constants.Keys.defaultLanguage)
         }
@@ -69,47 +68,16 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     /// Internal handler closure for language change.
     public weak var delegate: TranslatableManagerDelegate?
 
-    /// Returns a string containing the current locale's preferred languages in a prioritized
-    /// manner to be used in a accept-language header. If no preferred language available,
-    /// fallback language is returned (English). Format example:
-    ///
-    /// "da;q=1.0,en-gb;q=0.8,en;q=0.7"
-    ///
-    /// - Returns: An accept language header string.
-    public var acceptLanguage: String {
-        var components: [String] = []
-
-        // If we should have language override, then append custom language code
-        if let languageOverride = languageOverride {
-            components.append(languageOverride.identifier + ";q=1.0")
-        }
-
-        // Get all languages and calculate lowest quality
-        var languages = repository.fetchPreferredLanguages()
-
-        // Append fallback language if we don't have any provided
-        if components.isEmpty && languages.isEmpty {
-            languages.append("en")
-        }
-
-        let startValue = 1.0 - (0.1 * Double(components.count))
-        let endValue = startValue - (0.1 * Double(languages.count))
-
-        // Goes through max quality to the lowest (or 0.5, whichever is higher) by 0.1 decrease
-        // and appends a component with the language code and quality, like this:
-        // en-gb;q=1.0
-        for quality in stride(from: startValue, to: max(endValue, 0.5), by: -0.1) {
-            components.append("\(languages.removeFirst());q=\(quality)")
-        }
-
-        // Joins all components together to get "da;q=1.0,en-gb;q=0.8" string
-        return components.joined(separator: ",")
-    }
+    /// Responsible for providing the accept language header string.
+    internal let acceptLanguageProvider: AcceptLanguageProviderType
 
     // MARK: Private
 
     /// Repository that provides translations.
     fileprivate let repository: TranslationRepository
+
+    /// Repository that context for localization, like preferred languages or bundles.
+    fileprivate let contextRepository: LocalizationContextRepository
 
     /// File manager handling persisting new translation data.
     fileprivate let fileManager: FileManager
@@ -123,7 +91,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     }()
 
     /// In memory cache of translations objects mapped with their locale id.
-    internal var translatableObjectDictonary: [String: Translatable] = [:]
+    internal var translatableObjectDictonary: [String: LocalizableModel] = [:]
 
     /// The previous date the localizations were updated
     internal var lastUpdatedDate: Date? {
@@ -162,13 +130,12 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         }
     }
 
-    /// This locale will be used instead of the phones' language when it is not `nil`. Remember
-    /// to call `updateTranslations()` after changing the value.
-    /// Otherwise, the effect will not be seen.
-    public var languageOverride: Locale? {
+    /// This locale will be used instead of the phones' language when it is not `nil`.
+    /// Remember to call `updateTranslations()` after changing the value, otherwise the
+    /// effect will not be seen.
+    public var languageOverride: L? {
         get {
-            guard let id = userDefaults.string(forKey: Constants.Keys.languageOverride) else { return nil }
-            return Locale(identifier: id)
+            return userDefaults.codable(forKey: Constants.Keys.languageOverride)
         }
         set {
             guard let newValue = newValue else {
@@ -181,9 +148,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
                 }
                 return
             }
-            // Last accept header set to: \(newValue).
-            let id = newValue.identifier
-            userDefaults.set(id, forKey: Constants.Keys.languageOverride)
+            userDefaults.setCodable(newValue, forKey: Constants.Keys.languageOverride)
 
             //if update mode is automatic update translations, to get new best fit language
             if updateMode == .automatic {
@@ -227,14 +192,17 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     ///   - fallbackLocale: The locale used when there is no current language set.
     ///     This should be a locale that has fallback translations in the bundle. Defaults to english
     required public init(repository: TranslationRepository,
+                         contextRepository: LocalizationContextRepository,
                          updateMode: UpdateMode = .automatic,
                          fileManager: FileManager = .default,
                          userDefaults: UserDefaults = .standard) {
         // Set the properties
         self.updateMode = updateMode
         self.repository = repository
+        self.contextRepository = contextRepository
         self.fileManager = fileManager
         self.userDefaults = userDefaults
+        self.acceptLanguageProvider = AcceptLanguageProvider(repository: contextRepository)
 
         // Start observing state changes
         stateObserver.startObserving()
@@ -277,7 +245,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         let key = keys[1]
 
         //first try best fit language, this is returned from backend
-        if let currentLangCode = bestFitLanguage?.acceptLanguage {
+        if let currentLangCode = bestFitLanguage?.locale.languageCode {
             //we have a current language
             // Try to load if we don't have any translations
             if translatableObjectDictonary[currentLangCode] == nil {
@@ -291,7 +259,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         }
 
         //if not, try override locale, if we have this but not best fit its because update translations failed
-        if let override = languageOverride?.identifier {
+        if let override = languageOverride?.locale.identifier {
             //we have a current language
             // Try to load if we don't have any translations
             if translatableObjectDictonary[override] == nil {
@@ -305,7 +273,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         }
 
         //no override, try to see if any preferred languages are available
-        for lang in repository.fetchPreferredLanguages() {
+        for lang in contextRepository.fetchPreferredLanguages() {
 
             if translatableObjectDictonary[lang] == nil {
                 do {
@@ -332,7 +300,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         }
 
         //try default language set, from backend/JSON Configs
-        if let defaultLanguage = defaultLanguage?.acceptLanguage {
+        if let defaultLanguage = defaultLanguage?.locale.identifier {
             //we have a current language
             // Try to load if we don't have any translations
             if translatableObjectDictonary[defaultLanguage] == nil {
@@ -358,7 +326,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     public func parseFallbackJSONTranslations(_ completion: ((_ error: Error?) -> Void)? = nil) {
 
         var allJsonURLS: [URL] = []
-        for bundle in repository.fetchBundles() {
+        for bundle in contextRepository.getLocalizationBundles() {
             if let jsonURLS = bundle.urls(forResourcesWithExtension: ".json", subdirectory: nil) {
                 allJsonURLS.append(contentsOf: jsonURLS)
             }
@@ -374,7 +342,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         for url in translationsURLs {
             do {
                 let data = try Data(contentsOf: url)
-                let translationsData = try decoder.decode(TranslationResponse<Language>.self, from: data)
+                let translationsData = try decoder.decode(TranslationResponse<L>.self, from: data)
                 self.handleTranslationsResponse(translationsData: translationsData,
                                                 completion: completion)
             } catch {
@@ -391,35 +359,43 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     public func updateTranslations(_ completion: ((_ error: Error?) -> Void)? = nil) {
 
         //check if we've got an override, if not, use default accept language
-        let languageAcceptHeader = languageOverride?.identifier ?? acceptLanguage
+        let languageAcceptHeader = acceptLanguageProvider.createHeaderString(languageOverride: languageOverride)
         repository.getLocalizationConfig(acceptLanguage: languageAcceptHeader,
                                          lastUpdated: lastUpdatedDate)
         { (response: Result<[LocalizationModel]>) in
             switch response {
             case .success(let configs):
-                self.lastUpdatedDate = Date()
-
-                //if accept header has changed, update it
-                if self.lastAcceptHeader != languageAcceptHeader {
-                    //update what the last accept header was that was used
-                    self.lastAcceptHeader = languageAcceptHeader
-                }
-
-                do {
-                    try self.saveLocalizations(localizations: configs)
-                } catch {
-                    completion?(error)
-                    return
-                }
-
-                let localizationsThatRequireUpdate = configs.filter({ $0.shouldUpdate == true })
-                for localization in localizationsThatRequireUpdate {
-                    self.updateLocaleTranslations(localization, completion: completion)
-                }
+                self.handleLocalizationModels(localizations: configs,
+                                         acceptHeaderUsed: languageAcceptHeader,
+                                         completion: completion)
             case .failure(let error):
                 //error fetching configs
                 completion?(error)
             }
+        }
+    }
+
+    public func handleLocalizationModels(localizations: [LocalizationModel],
+                                         acceptHeaderUsed: String?,
+                                         completion: ((_ error: Error?) -> Void)? = nil) {
+        self.lastUpdatedDate = Date()
+
+        //if accept header has changed, update it
+        if self.lastAcceptHeader != acceptHeaderUsed {
+            //update what the last accept header was that was used
+            self.lastAcceptHeader = acceptHeaderUsed
+        }
+
+        do {
+            try self.saveLocalizations(localizations: localizations)
+        } catch {
+            completion?(error)
+            return
+        }
+
+        let localizationsThatRequireUpdate = localizations.filter({ $0.shouldUpdate == true })
+        for localization in localizationsThatRequireUpdate {
+            self.updateLocaleTranslations(localization, completion: completion)
         }
     }
 
@@ -430,32 +406,33 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     ///                         object is nil to determine whether the operation was a succes.
     func updateLocaleTranslations(_ localization: LocalizationModel, completion: ((_ error: Error?) -> Void)? = nil) {
         //check if we've got an override, if not, use default accept language
-        let languageAcceptHeader = languageOverride?.identifier ?? acceptLanguage
-
+        let acceptLanguage = acceptLanguageProvider.createHeaderString(languageOverride: languageOverride)
         repository.getTranslations(localization: localization,
-                                   acceptLanguage: languageAcceptHeader) { (result: Result<TranslationResponse<Language>>) in
+                                   acceptLanguage: acceptLanguage)
+        { (result: Result<TranslationResponse<L>>) in
 
-                                    switch result {
-                                    case .success(let translationsData):
-                                        // New translations downloaded
-                                        self.handleTranslationsResponse(translationsData: translationsData,
-                                                                   completion: completion)
+            switch result {
+            case .success(let translationsData):
+                // New translations downloaded
+                self.handleTranslationsResponse(translationsData: translationsData,
+                                                completion: completion)
 
-                                    case .failure(let error):
-                                        // Error downloading translations data
-                                        completion?(error)
+            case .failure(let error):
+                // Error downloading translations data
+                completion?(error)
 
-                                    }
             }
+        }
     }
 
-    func handleTranslationsResponse(translationsData: TranslationResponse<Language>, completion: ((_ error: Error?) -> Void)? = nil) {
+    func handleTranslationsResponse(translationsData: TranslationResponse<L>,
+                                    completion: ((_ error: Error?) -> Void)? = nil) {
         //cache current best fit language
         if let lang = translationsData.meta?.language {
 
             //if language is best fit
             if lang.isBestFit {
-                if self.bestFitLanguage?.acceptLanguage != lang.acceptLanguage {
+                if self.bestFitLanguage?.locale.languageCode != lang.locale.languageCode {
                     // Running language changed action, if best fit language is now different
                     self.delegate?.translationManager(languageUpdated: self.bestFitLanguage)
                 }
@@ -473,8 +450,6 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
             completion?(error)
             return
         }
-
-        completion?(nil)
     }
 
     /// Gets the languages for which translations are available.
@@ -485,25 +460,13 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         repository.getAvailableLanguages(completion: completion)
     }
 
-    /// Useful for setting language override, fx. if you want to choose language in the settings of your app.
-    ///
-    /// - Parameter language: The language you would like to use.
-    /// - Throws: A `TranslationError` error if clearing translations fails.
-    public func set<L>(languageOverride language: L?) throws where L: LanguageModel {
-        if let newValue = language {
-            userDefaults.setCodable(newValue, forKey: Constants.Keys.languageOverride)
-        } else {
-            userDefaults.removeObject(forKey: Constants.Keys.languageOverride)
-        }
-    }
-
     // MARK: Translations
 
     /// The parsed translations object is cached in memory, but persisted as a dictionary.
     /// If a persisted version cannot be found, the fallback json file in the bundle will be used.
     ///
     /// - Returns: A translations object.
-    public func translations<T: Translatable>(localeId: String) throws -> T? {
+    public func translations<T: LocalizableModel>(localeId: String) throws -> T? {
         // Check object in memory
         if let cachedObject = translatableObjectDictonary[localeId] as? T {
             return cachedObject
@@ -530,7 +493,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     }
 
     /// Loads and initializes the translations object from either persisted or fallback dictionary.
-    func createTranslatableObject<T>(_ localeId: String, type: T.Type) throws where T: Translatable {
+    func createTranslatableObject<T>(_ localeId: String, type: T.Type) throws where T: LocalizableModel {
         let translations: TranslationResponse<Language>
         var shouldUnwrapTranslation = false
 
@@ -567,7 +530,10 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
         }
         var configModels: [LocalizationConfig] = []
         for localize in localizations {
-            let config = LocalizationConfig(lastUpdatedAt: Date(), localeIdentifier: localize.localeIdentifier, shouldUpdate: localize.shouldUpdate)
+            let config = LocalizationConfig(lastUpdatedAt: Date(),
+                                            localeIdentifier: localize.localeIdentifier,
+                                            shouldUpdate: localize.shouldUpdate,
+                                            url: localize.url)
             configModels.append(config)
         }
 
@@ -660,7 +626,7 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
     /// - Returns: A dictionary representation of the selected local translations set.
     internal func fallbackTranslations(localeId: String) throws -> TranslationResponse<Language> {
         // Iterate through bundle until we find the translations file
-        for bundle in repository.fetchBundles() {
+        for bundle in contextRepository.getLocalizationBundles() {
             // Check if bundle contains translations file, otheriwse continue with next bundle
             guard let filePath = bundle.path(forResource: "Translations_\(localeId)", ofType: "json") else {
                 continue
@@ -713,11 +679,12 @@ public class TranslatableManager<T: Translatable, L: LanguageModel, C: Localizat
 
         // First try overriden language
         if let languageOverride = languageOverride,
-            let dictionary = translationsMatching(localeId: languageOverride.identifier, inDictionary: dictionary) {
+            let dictionary = translationsMatching(localeId: languageOverride.locale.identifier,
+                                                  inDictionary: dictionary) {
             return dictionary
         }
 
-        let languages = repository.fetchPreferredLanguages()
+        let languages = contextRepository.fetchPreferredLanguages()
         // Finding language for matching preferred languages
 
         // Find matching language and region

@@ -9,7 +9,7 @@
 import Foundation
 import TranslationManager
 
-struct Localization: Translatable {
+struct Localization: LocalizableModel {
     var defaultSection: DefaultSection = DefaultSection()
     var other: Other = Other()
 
@@ -26,7 +26,7 @@ struct Localization: Translatable {
         case defaultSection = "default"
     }
 
-    public subscript(key: String) -> TranslatableSection? {
+    public subscript(key: String) -> LocalizableSection? {
         switch key {
         case CodingKeys.other.stringValue: return other
         case CodingKeys.defaultSection.stringValue: return defaultSection
@@ -34,7 +34,7 @@ struct Localization: Translatable {
         }
     }
 
-    struct DefaultSection: TranslatableSection {
+    struct DefaultSection: LocalizableSection {
         var successKey: String = ""
 
         init() { }
@@ -52,7 +52,7 @@ struct Localization: Translatable {
         }
     }
 
-    struct Other: TranslatableSection {
+    struct Other: LocalizableSection {
         var otherKey: String = ""
 
         init() { }
