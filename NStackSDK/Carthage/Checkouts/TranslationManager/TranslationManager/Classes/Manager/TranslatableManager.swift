@@ -245,7 +245,7 @@ public class TranslatableManager<T: LocalizableModel, L: LanguageModel, C: Local
         let key = keys[1]
 
         //first try best fit language, this is returned from backend
-        if let currentLangCode = bestFitLanguage?.locale.languageCode {
+        if let currentLangCode = bestFitLanguage?.locale.identifier {
             //we have a current language
             // Try to load if we don't have any translations
             if translatableObjectDictonary[currentLangCode] == nil {
@@ -254,6 +254,8 @@ public class TranslatableManager<T: LocalizableModel, L: LanguageModel, C: Local
                 } catch {} //continue
             }
             if let translations = translatableObjectDictonary[currentLangCode] {
+                //TODO: REMOVE, for testing
+                print(translations)
                 return translations[section]?[key]
             }
         }
@@ -362,7 +364,7 @@ public class TranslatableManager<T: LocalizableModel, L: LanguageModel, C: Local
         let languageAcceptHeader = acceptLanguageProvider.createHeaderString(languageOverride: languageOverride)
         repository.getLocalizationConfig(acceptLanguage: languageAcceptHeader,
                                          lastUpdated: lastUpdatedDate)
-        { (response: Result<[LocalizationModel]>) in
+        { (response: Result<[C]>) in
             switch response {
             case .success(let configs):
                 self.handleLocalizationModels(localizations: configs,

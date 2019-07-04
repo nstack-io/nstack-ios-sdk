@@ -24,6 +24,7 @@ protocol WrapperModelType: Codable {
 
 // FIXME: Figure out how to do accept language header properly
 final class ConnectionManager: Repository {
+
     private let baseURLv1 = "https://nstack.io/api/v1/"
     private let baseURLv2 = "https://nstack.io/api/v2/"
     private let session: URLSession
@@ -75,8 +76,7 @@ extension ConnectionManager {
 }
 // MARK : - TranslationRepository
 extension ConnectionManager {
-    func getLocalizationConfig(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[LocalizationModel]>) -> Void) {
-
+    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C : LocalizationModel {
         var params: [String : Any] = [
             "guid"              : Configuration.guid,
             "platform"          : "ios",
@@ -89,24 +89,13 @@ extension ConnectionManager {
         let url = baseURLv2 + "localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-//        let localizationCompletion: ((Result<[Localization]>) -> Void) = { (response) in
-//            completion(response)
-//        }
-        session.startDataTask(with: request, completionHandler: completion)
-
-
-//        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
-//        let local = Localization(id: 1, url: "dsfsd", lastUpdatedAt: "hgjhg", shouldUpdate: true, language: lang)
-//        completion(.success([local]))
+        let localizationCompletion: (Result<[Localization]>) -> Void = { (response) in
+            completion(response as! Result<[C]>)
+        }
+        session.startDataTask(with: request, completionHandler: localizationCompletion)
     }
 
     func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L : LanguageModel {
-//        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
-//        let response = TranslationResponse(translations: [
-//            "default": ["successKey": "SuccessUpdated"],
-//            "otherSection": ["anotherKey": "HeresAValue"]
-//            ], meta: TranslationMeta(language: lang))
-//        completion(.success(response as! TranslationResponse<L>))
         var params: [String : Any] = [
             "guid"              : Configuration.guid,
             "platform"          : "ios"
@@ -116,8 +105,10 @@ extension ConnectionManager {
 
         let url = localization.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        session.startDataTask(with: request, completionHandler: completion)
-
+        let languageCompletion: (Result<TranslationResponse<Language>>) -> Void = { (response) in
+            completion(response as! Result<TranslationResponse<L>>)
+        }
+        session.startDataTask(with: request, completionHandler: languageCompletion)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {

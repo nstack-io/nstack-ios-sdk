@@ -17,6 +17,7 @@ let testConfiguration: () -> Configuration = {
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
+    conf.useMock = true
     return conf
 }
 
@@ -25,9 +26,6 @@ class NStackTests: XCTestCase {
     override func setUp() {
         super.setUp()
         NStack.start(configuration: testConfiguration(), launchOptions: nil)
-
-        let mockRepository = MockConnectionManager()
-        NStack.sharedInstance.repository = mockRepository
     }
 
     override func tearDown() {
@@ -42,6 +40,21 @@ class NStackTests: XCTestCase {
     func testUpdateAppOpen() {
         NStack.sharedInstance.update()
         XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+    }
+
+    //This doesnt work because I cant figure out what model to give the TranslationManager to confirm to the LocalizableModel protocol
+    func testGetTranslation() {
+        NStack.sharedInstance.update()
+        do {
+            guard let result = try NStack.sharedInstance.translationsManager?.translation(for: "default.successKey") else {
+                XCTFail()
+                return
+            }
+            XCTAssertEqual(result, "SuccessUpdated")
+        }
+        catch {
+            XCTFail()
+        }
     }
 
 //    // MARK: - Geography

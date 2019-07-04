@@ -12,19 +12,19 @@ import Foundation
 class TranslationsRepositoryMock<L: LanguageModel>: TranslationRepository {
 
     var translationsResponse: TranslationResponse<Language>?
-    var availableLocalizations: [LocalizationModel]?
+    var availableLocalizations: [LocalizationConfig]?
     var availableLanguages: [L]?
     var currentLanguage: Language?
-    var currentLocalization: LocalizationModel?
+    var currentLocalization: LocalizationConfig?
     var preferredLanguages = ["en"]
     var customBundles: [Bundle]?
 
-    func getLocalizationConfig(acceptLanguage: String,
+    func getLocalizationConfig<C>(acceptLanguage: String,
                                lastUpdated: Date?,
-                               completion: @escaping (Result<[LocalizationModel]>) -> Void) {
+                               completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
         let error = NSError(domain: "", code: 100, userInfo: nil) as Error
         let result: Result = availableLocalizations != nil ? .success(availableLocalizations!) : .failure(error)
-        completion(result)
+        completion(result as! Result<[C]>)
     }
 
     func getTranslations<L>(localization: LocalizationModel,

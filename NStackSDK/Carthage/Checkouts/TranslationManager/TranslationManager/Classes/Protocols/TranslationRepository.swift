@@ -11,9 +11,9 @@ import Foundation
 public typealias Result<T> = Swift.Result<T, Error>
 
 public protocol TranslationRepository {
-    func getLocalizationConfig(acceptLanguage: String,
+    func getLocalizationConfig<C>(acceptLanguage: String,
                                lastUpdated: Date?,
-                               completion: @escaping (Result<[LocalizationModel]>) -> Void)
+                               completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel
     func getTranslations<L>(localization: LocalizationModel,
                             acceptLanguage: String,
                             completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel

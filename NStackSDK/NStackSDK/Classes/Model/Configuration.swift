@@ -26,6 +26,7 @@ public struct Configuration {
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
+    public var useMock = false
     public var translationsUrlOverride: String?
 
     // Used for tests

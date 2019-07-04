@@ -10,6 +10,7 @@ import Foundation
 import TranslationManager
 
 class MockConnectionManager: Repository {
+
     func fetchPreferredLanguages() -> [String] {
         return []
     }
@@ -22,12 +23,20 @@ class MockConnectionManager: Repository {
         return nil
     }
 
-    func getLocalizationConfig(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[LocalizationModel]>) -> Void) {
+    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C : LocalizationModel {
 
     }
 
     func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L : LanguageModel {
+        let translationsResponse: TranslationResponse<Language>? = TranslationResponse(translations: [
+            "default": ["successKey": "SuccessUpdated"],
+            "otherSection": ["anotherKey": "HeresAValue"]
+            ], meta: TranslationMeta(language: Language(id: 1, name: "English",
+                                                        direction: "LRM", acceptLanguage: "en-GB",
+                                                        isDefault: true, isBestFit: true)))
 
+        let result: Result = .success(translationsResponse!)
+        completion(result as! Result<TranslationResponse<L>>)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {

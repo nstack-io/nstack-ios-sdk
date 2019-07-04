@@ -117,7 +117,7 @@ public class NStack {
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride
         )
-        repository = ConnectionManager(configuration: apiConfiguration)
+        repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary
         if configuration.updateOptions.contains(.onDidBecomeActive) {
@@ -208,7 +208,7 @@ public class NStack {
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
-                                                                       acceptHeaderUsed: "TODO",
+                                                                       acceptHeaderUsed: header,
                                                                        completion: { (_) in
                         //if error, try to update translations in Translations Manager
                         self.translationsManager?.updateTranslations()
