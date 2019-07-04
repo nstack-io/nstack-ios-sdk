@@ -105,8 +105,8 @@
 		23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
-		238D644A22C518FE002406FA /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644922C518FE002406FA /* TranslationManager.framework */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
+		23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644722C518B3002406FA /* TranslationManager.framework */; };
 		2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E8481B9ED06600286B12 /* TranslationManager.swift */; };
 		2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729E84A1B9ED47400286B12 /* Translatable.swift */; };
 		2DDAC7512F7DC94F3382176C /* Pods_NStackSDK_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313EA78AC0449925458336C5 /* Pods_NStackSDK_tvOSTests.framework */; };
@@ -358,9 +358,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
-				238D644A22C518FE002406FA /* TranslationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,7 +1029,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/TranslationManager.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/TranslationManager.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -1625,7 +1625,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1653,7 +1653,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
