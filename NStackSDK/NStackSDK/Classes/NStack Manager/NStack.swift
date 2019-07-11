@@ -216,20 +216,20 @@ public class NStack {
                 }
 
                 #if os(iOS) || os(tvOS)
-
-                if !self.alertManager.alreadyShowingAlert {
-
-                    if let newVersion = appOpenResponseData.update?.newerVersion {
-                        self.alertManager.showUpdateAlert(newVersion: newVersion)
-                    } else if let changelog = appOpenResponseData.update?.newInThisVersion {
-                        self.alertManager.showWhatsNewAlert(changelog)
-                    } else if let message = appOpenResponseData.message {
-                        self.alertManager.showMessage(message)
-                    } else if let rateReminder = appOpenResponseData.rateReminder {
-                        self.alertManager.showRateReminder(rateReminder)
+                DispatchQueue.main.async {
+                    if !self.alertManager.alreadyShowingAlert {
+                        if let newVersion = appOpenResponseData.update?.newerVersion {
+                            self.alertManager.showUpdateAlert(newVersion: newVersion)
+                        } else if let changelog = appOpenResponseData.update?.newInThisVersion {
+                            self.alertManager.showWhatsNewAlert(changelog)
+                        } else if let message = appOpenResponseData.message {
+                            self.alertManager.showMessage(message)
+                        } else if let rateReminder = appOpenResponseData.rateReminder {
+                            self.alertManager.showRateReminder(rateReminder)
+                        }
+                        
+                        VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                     }
-
-                    VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                 }
                 #endif
 
