@@ -9,7 +9,7 @@
 import Foundation
 
 struct AppOpenData: Codable {
-    let count: Int
+    let count: Int?
 
     let message: Message?
     let update: Update?
@@ -19,5 +19,5 @@ struct AppOpenData: Codable {
     let platform: String
 
     let createdAt: String
-    let lastUpdated: String
+    let lastUpdated: String?
 }

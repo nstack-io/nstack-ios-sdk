@@ -87,7 +87,7 @@ class MockConnectionManager: Repository {
 
     }
 
-    func markMessageAsRead(_ id: String) {
+    func markMessageAsRead(_ id: Int) {
 
     }
 

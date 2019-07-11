@@ -73,7 +73,7 @@ protocol ColletionRepository {
 
 protocol VersionsRepository {
     func markWhatsNewAsSeen(_ id: Int)
-    func markMessageAsRead(_ id: String)
+    func markMessageAsRead(_ id: Int)
 
     #if os(iOS) || os(tvOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)

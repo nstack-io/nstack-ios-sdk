@@ -9,7 +9,7 @@
 import Foundation
 
 internal struct Message: Codable {
-    let id: String
+    let id: Int
     let message: String
     let showSetting: String
 }

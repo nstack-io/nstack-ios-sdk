@@ -9,7 +9,6 @@
 import Foundation
 
 struct RateReminder: Codable {
-    var id: Int
     var title: String
     var body: String
     var yesButtonTitle: String
@@ -18,7 +17,7 @@ struct RateReminder: Codable {
     var link: URL?
     
     enum CodingKeys: String, CodingKey {
-        case id, title, body, link
+        case title, body, link
         case yesButtonTitle = "yesBtn"
         case laterButtonTitle = "laterBtn"
         case noButtonTitle = "noBtn"

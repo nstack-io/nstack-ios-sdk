@@ -216,7 +216,7 @@ extension ConnectionManager {
         session.dataTask(with: request).resume()
     }
 
-    func markMessageAsRead(_ id: String) {
+    func markMessageAsRead(_ id: Int) {
         let params: [String : Any] = [
             "guid"              : Configuration.guid,
             "message_id"        : id
