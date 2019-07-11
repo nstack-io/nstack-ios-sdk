@@ -9,23 +9,25 @@
 import Foundation
 
 extension URLSession {
-    
-    // FIXME: Implement properly
+ 
     func request(_ urlString: String,
                  method: HTTPMethod = .get,
                  parameters: [String: Any]? = nil,
-                 headers: [String: Any]? = nil) -> URLRequest {
-        let url: URL
+                 headers: [String: String]? = nil) -> URLRequest {
         
+        let url: URL
+        var request: URLRequest
         if method == .get {
             url = URL(string: urlString + "?" + generateQueryString(from: parameters))!
+            request = URLRequest(url: url)
         } else {
             url = URL(string: urlString)!
+            request = URLRequest(url: url)
+            request.httpBody = generateQueryString(from: parameters).data(using: .utf8)
         }
         
-        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        
+        request.allHTTPHeaderFields = headers
         return request
     }
     
