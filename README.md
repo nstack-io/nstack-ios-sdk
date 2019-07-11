@@ -12,7 +12,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## What is NStack?
 
-> TODO: Describe NStack
+See the [NStack documentation](https://nstack-io.github.io/documentation/index.html) for more information about NStack
 
 ## 📝 Requirements
 
@@ -80,7 +80,9 @@ You should have a file called NStack.plist in your application bundle. It needs 
 
 ## Features
 
-### Translations
+For an overview of what features are available and what they do check out the [feature overview](https://nstack-io.github.io/documentation/features.html) in the documentation.
+
+### Localization
 To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example:
 ~~~~swift
 @IBOutlet weak var forgotPasswordButton: UIButton! {
@@ -91,27 +93,30 @@ To use nstack for translations, you need to install the [nstack translations gen
 ~~~~
 
 
-### Updates
+### Version control
 
-> TODO: Docs
-
-Shows alerts if there is a new app update available.
+Version control informs the user when a new version is available and what new changes are available.
+You don't have to do anything to use the version control feature, just include the NStack sdk in your project.
+To enable it create a new version on the NStack website.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup version control.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
 ### Messages
 
-> TODO: Docs
-
-Ability to show custom messages to users, for example warning them about server outage.
+Messages shows the user a custom message when the app is launched, for example warning them about a server outage.
+You don't have to do anything to use the messages feature, just include the NStack sdk in your project.
+To show the users a message create one on the NStack website.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup messages.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
 ### Rate Reminder
 
-> TODO: Docs
-
-Alerts to remind the user to rate the application.
+Rate reminder shows the user Apple's build in rate reminder after the user has launched the app a certain amount of times.
+You don't have to do anything to use the rate reminder feature, just include the NStack sdk in your project.
+To enable the rate reminder configure it on the NStack website.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup rate reminders.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
