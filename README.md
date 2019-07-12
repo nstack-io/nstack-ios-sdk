@@ -12,7 +12,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## What is NStack?
 
-> TODO: Describe NStack
+See the [NStack documentation](https://nstack-io.github.io/documentation/index.html) for more information about NStack
 
 ## 📝 Requirements
 
@@ -80,7 +80,9 @@ You should have a file called NStack.plist in your application bundle. It needs 
 
 ## Features
 
-### Translations
+For an overview of what features are available and what they do check out the [feature overview](https://nstack-io.github.io/documentation/features.html) in the documentation.
+
+### Localization
 To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example:
 ~~~~swift
 @IBOutlet weak var forgotPasswordButton: UIButton! {
@@ -90,28 +92,82 @@ To use nstack for translations, you need to install the [nstack translations gen
 }
 ~~~~
 
+### Responses
+Responses allow you to define and update JSON files on the NStack web console and retrieve them using the NStack sdk or using a normal get request.
+~~~~swift
+NStack.sharedInstance.getContentResponse(id) { (data, error) in
+  guard error == nil else {
+    print("Error fetching response with id: \(id)")
+    return
+  }
+            
+  // Use data
+}
+~~~~
 
-### Updates
+### Collections
+Collections is a more structured version of Responses and can be used as an alternative to an simple read API.
+See the [feature overview](https://nstack-io.github.io/documentation/features.html) for a more detailed explaination.
 
-> TODO: Docs
+~~~~swift
+let completion: (NStack.Result<Product>) -> Void = { result in
+  switch result {
+  case .success(let data):
+    print("Fetching collection successful")
+    print(data)
+  case .failure(let error):
+    print("Error fetching collection: \(error)")
+  }
+}
+        
+NStack.sharedInstance.fetchCollectionResponse(for: id, completion: completion)
+~~~~
 
-Shows alerts if there is a new app update available.
+### Files
+With files you can retrieve files defined on the NStack web console using a normal get request.
+The files functionality has not been implemented in the sdk.
+
+~~~~swift
+if let url = URL(string: url) {
+  URLSession.shared.downloadTask(with: url) { (localURL, urlResponse, error) in
+    guard error == nil else {
+        print("Error fetching file with url: \(url)")
+        print(error)
+        return
+    }
+
+    if let localURL = localURL {
+        print("Local URL: \(localURL)")
+        // Use the localURL to modify, use your newly downloaded file
+    }
+  }.resume()
+}
+~~~~
+
+### Version control
+
+Version control informs the user when a new version is available and what new changes are available.
+You don't have to do anything to use the version control feature, just include the NStack sdk in your project.
+To enable it create a new version on the NStack web console.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup version control.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
 ### Messages
 
-> TODO: Docs
-
-Ability to show custom messages to users, for example warning them about server outage.
+Messages shows the user a custom message when the app is launched, for example warning them about a server outage.
+You don't have to do anything to use the messages feature, just include the NStack sdk in your project.
+To show the users a message create one on the NStack web console.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup messages.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
 ### Rate Reminder
 
-> TODO: Docs
-
-Alerts to remind the user to rate the application.
+Rate reminder shows the user Apple's build in rate reminder after the user has launched the app a certain amount of times.
+You don't have to do anything to use the rate reminder feature, just include the NStack sdk in your project.
+To enable the rate reminder configure it on the NStack web console.
+Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup rate reminders.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
@@ -122,17 +178,6 @@ NStack supports a list of geographical features. You can get and store list of c
 NStack.sharedInstance.timezone(lat: 12.0, lng: 55.0) { (timezone, error) in
     if let timezone = timezone {
         print("(12.0,55.0) is in timezone \(timezone.name)")
-    }
-}
-~~~~
-
-### Content responses
-
-If you want to make a quick read API you can use NStacks Content Response feature. If you created a content response in the NStack web console fetch the data in the app as:
-~~~~swift
-NStack.sharedInstance.getContentResponse(60) { (response, error) in
-    if let _ = response {
-        //You have the content response
     }
 }
 ~~~~
