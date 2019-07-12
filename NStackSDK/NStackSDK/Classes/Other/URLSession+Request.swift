@@ -9,12 +9,12 @@
 import Foundation
 
 extension URLSession {
- 
+
     func request(_ urlString: String,
                  method: HTTPMethod = .get,
                  parameters: [String: Any]? = nil,
                  headers: [String: String]? = nil) -> URLRequest {
-        
+
         let url: URL
         var request: URLRequest
         if method == .get {
@@ -25,19 +25,19 @@ extension URLSession {
             request = URLRequest(url: url)
             request.httpBody = generateQueryString(from: parameters).data(using: .utf8)
         }
-        
+
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
         return request
     }
-    
+
     func dataTask<T>(with request: URLRequest,
                      completionHandler: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
         let handler = dataHandler(completionHandler)
         let task = dataTask(with: request, completionHandler: handler)
         return task
     }
-    
+
     @discardableResult
     func startDataTask<T>(with request: URLRequest,
                           completionHandler: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
@@ -45,14 +45,14 @@ extension URLSession {
         task.resume()
         return task
     }
-    
+
     func dataTask<T: Codable>(with request: URLRequest,
                               completionHandler: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
         let handler = dataHandler(completionHandler)
         let task = dataTask(with: request, completionHandler: handler)
         return task
     }
-    
+
     @discardableResult
     func startDataTask<T: Codable>(with request: URLRequest,
                               completionHandler: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
@@ -60,7 +60,7 @@ extension URLSession {
         task.resume()
         return task
     }
-    
+
     func dataTask<T: WrapperModelType>(with request: URLRequest,
                                        wrapperType: T.Type,
                                        completionHandler: @escaping (Result<T.ModelType>) -> Void) -> URLSessionDataTask {
@@ -68,7 +68,7 @@ extension URLSession {
         let task = dataTask(with: request, completionHandler: handler)
         return task
     }
-    
+
     @discardableResult
     func startDataTask<T: WrapperModelType>(with request: URLRequest,
                                             wrapperType: T.Type,
@@ -77,32 +77,32 @@ extension URLSession {
         task.resume()
         return task
     }
-    
+
     private func dataHandler<T>(_ handler: @escaping (Result<T>) -> Void) -> ((Data?, URLResponse?, Error?) -> Void) {
         return { data, response, error in
             do {
                 let data = try self.validate(data, response, error)
                 let decoded = try JSONSerialization.jsonObject(with: data, options: [])
-                
+
                 guard let model = decoded as? T else {
                     // FIXME: Fix this
                     throw NSError(domain: "", code: 10, userInfo: nil)
                 }
                 handler(Result.success(model))
-                
+
             } catch {
                 handler(.failure(error))
             }
         }
     }
-    
+
     private func dataHandler<T: Codable>(_ handler: @escaping (Result<T>) -> Void) -> ((Data?, URLResponse?, Error?) -> Void) {
         return { data, response, error in
             do {
                 let data = try self.validate(data, response, error)
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                
+
                 let decoded = try decoder.decode(T.self, from: data)
                 handler(Result.success(decoded))
             } catch {
@@ -110,7 +110,7 @@ extension URLSession {
             }
         }
     }
-    
+
     private func dataHandler<T: WrapperModelType>(_ handler: @escaping (Result<T.ModelType>) -> Void,
                                                   wrapperType: T.Type) -> ((Data?, URLResponse?, Error?) -> Void) {
         return { data, response, error in
@@ -118,7 +118,7 @@ extension URLSession {
                 let data = try self.validate(data, response, error)
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                
+
                 let parentData = try decoder.decode(wrapperType, from: data)
                 handler(Result.success(parentData.model))
             } catch {
@@ -132,24 +132,23 @@ extension URLSession {
         guard let response = response as? HTTPURLResponse else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
-        
-        
+
         switch HTTPStatusCode(rawValue: response.statusCode)! {
         case .ok: // Success
             guard let data = data else {
                 throw NSError(domain: "", code: 0, userInfo: nil)
             }
-            
+
             return data
-            
+
         default:
             let error = NSError(domain: "", code: 0, userInfo: nil)
             throw error
         }
     }
-    
+
     // MARK: - Helper function
-    
+
     private func generateQueryString(from parameters: [String: Any?]?) -> String {
         guard let parameters = parameters else { return "" }
         var queryString = ""
@@ -161,7 +160,7 @@ extension URLSession {
         if queryString.last != nil { queryString.removeLast() }
         //plus was turning into white space when turned into data
         queryString = queryString.replacingOccurrences(of: "+", with: "%2B")
-        
+
         return queryString
     }
 }

@@ -15,7 +15,7 @@ struct RateReminder: Codable {
     var laterButtonTitle: String
     var noButtonTitle: String
     var link: URL?
-    
+
     enum CodingKeys: String, CodingKey {
         case title, body, link
         case yesButtonTitle = "yesBtn"

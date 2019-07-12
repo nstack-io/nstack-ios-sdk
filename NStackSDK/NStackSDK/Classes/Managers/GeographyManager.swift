@@ -9,7 +9,7 @@
 import Foundation
 
 public class GeographyManager {
-    
+
     // MARK: - Properites
     internal var repository: GeographyRepository
 
@@ -17,7 +17,7 @@ public class GeographyManager {
     init(repository: GeographyRepository) {
         self.repository = repository
     }
-    
+
     // MARK: - IPAddress
     /// Retrieve details based on the requestee's ip address
     ///
@@ -27,14 +27,14 @@ public class GeographyManager {
     }
 
     // MARK: - Countries
-    
+
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
     func updateCountries(completion: @escaping Completion<[Country]>) {
         repository.fetchCountries(completion: completion)
     }
-    
+
     /// Locally stored list of countries
     private(set) var countries: [Country]? {
         get {
@@ -51,7 +51,7 @@ public class GeographyManager {
             //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
         }
     }
-    
+
     // MARK: - Continents
     /// Updates the list of continents stored by NStack.
     ///
@@ -59,7 +59,7 @@ public class GeographyManager {
     func updateContinents(completion: @escaping Completion<[Continent]>) {
         repository.fetchContinents(completion: completion)
     }
-    
+
     /// Locally stored list of continents
     private(set) var continents: [Continent]? {
         get {
@@ -76,7 +76,7 @@ public class GeographyManager {
             //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
         }
     }
-    
+
     // MARK: - Languages
     /// Updates the list of languages stored by NStack.
     ///
@@ -84,7 +84,7 @@ public class GeographyManager {
     func updateLanguages(completion: @escaping Completion<[Language]>) {
         repository.fetchLanguages(completion: completion)
     }
-    
+
     /// Locally stored list of languages
     private(set) var languages: [Language]? {
         get {
@@ -101,7 +101,7 @@ public class GeographyManager {
             //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
         }
     }
-    
+
     // MARK: - Timezones
     /// Updates the list of timezones stored by NStack.
     ///
@@ -117,7 +117,7 @@ public class GeographyManager {
             }
         }
     }
-    
+
     /// Locally stored list of timezones
     private(set) var timezones: [Timezone]? {
         get {

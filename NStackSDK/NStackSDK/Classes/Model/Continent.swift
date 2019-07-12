@@ -13,7 +13,7 @@ public struct Continent: Codable {
     let name: String
     let code: String
     let imageUrl: URL?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, code
         case imageUrl = "image"

@@ -13,7 +13,7 @@ enum HTTPStatusCode: Int {
     case `continue` = 100
     case switchingProtocols
     case processing
-    
+
     // 200 Success
     case ok = 200
     case created
@@ -25,7 +25,7 @@ enum HTTPStatusCode: Int {
     case multiStatus
     case alreadyReported
     case iMUsed = 226
-    
+
     // 300 Redirection
     case multipleChoices = 300
     case movedPermanently
@@ -36,7 +36,7 @@ enum HTTPStatusCode: Int {
     case switchProxy
     case temporaryRedirect
     case permanentRedirect
-    
+
     // 400 Client Error
     case badRequest = 400
     case unauthorized
@@ -66,7 +66,7 @@ enum HTTPStatusCode: Int {
     case tooManyRequests
     case requestHeaderFieldsTooLarge = 431
     case unavailableForLegalReasons = 451
-    
+
     // 500 Server Error
     case internalServerError = 500
     case notImplemented

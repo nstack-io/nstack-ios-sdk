@@ -25,7 +25,7 @@ public struct Country: Codable {
 	public let image: URL?
 	public let imagePath2: URL?
     public let capitalTimeZone: Timezone
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, code, codeIso, native, phone, continent
         case capital, capitalLat, capitalLng, currency, currencyName

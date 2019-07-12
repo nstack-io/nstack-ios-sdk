@@ -16,7 +16,7 @@ import UIKit
 #endif
 
 public class NStack {
-    
+
     /// The singleton object which should be used to interact with NStack API.
     public static let sharedInstance = NStack()
 
@@ -25,13 +25,13 @@ public class NStack {
 
     /// The manager responsible for fetching, updating and persisting translations.
     public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
-    
+
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
-    
+
     /// The manager responsible for validation
     public fileprivate(set) var validationManager: ValidationManager?
-    
+
     /// The manager responsible for getting custom content and collections availble
     public fileprivate(set) var contentManager: ContentManager?
 
@@ -137,7 +137,7 @@ public class NStack {
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
         contentManager = ContentManager(repository: repository)
-        
+
         #if os(iOS) || os(tvOS)
         // Setup alert manager
         alertManager = AlertManager(repository: repository)
@@ -153,25 +153,24 @@ public class NStack {
             update()
         }
     }
-    
+
     func setupTranslations() {
         // Setup translations
         let manager = TranslatableManager<Localizable, Language, Localization>(repository: repository,
                                                    contextRepository: repository,
                                                    updateMode: .manual)
         //let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
-        
+
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
                                       greaterThanVersion: VersionUtilities.previousAppVersion) {
             do {
                 try manager.clearTranslations(includingPersisted: true)
-            }
-            catch {
+            } catch {
                 #warning("Handle catch here")
             }
         }
-        
+
         // Set callback
         manager.delegate = self
         translationsManager = manager
@@ -227,7 +226,7 @@ public class NStack {
                         } else if let rateReminder = appOpenResponseData.rateReminder {
                             self.alertManager.showRateReminder(rateReminder)
                         }
-                        
+
                         VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                     }
                 }
@@ -247,4 +246,3 @@ extension NStack: TranslatableManagerDelegate {
         self.languageChangedHandler?(languageUpdated?.locale)
     }
 }
-

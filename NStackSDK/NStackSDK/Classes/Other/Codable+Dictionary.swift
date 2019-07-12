@@ -10,13 +10,13 @@ import Foundation
 
 public struct JSONCodingKeys: CodingKey {
     public var stringValue: String
-    
+
     public init(stringValue: String) {
         self.stringValue = stringValue
     }
-    
+
     public var intValue: Int?
-    
+
     public init?(intValue: Int) {
         self.init(stringValue: "\(intValue)")
         self.intValue = intValue
@@ -24,20 +24,20 @@ public struct JSONCodingKeys: CodingKey {
 }
 
 public extension KeyedDecodingContainer {
-    
+
     func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> Dictionary<String, Any> {
         let container = try self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         return try container.decode(type)
     }
-    
+
     func decode(_ type: Array<Any>.Type, forKey key: K) throws -> Array<Any> {
         var container = try self.nestedUnkeyedContainer(forKey: key)
         return try container.decode(type)
     }
-    
+
     func decode(_ type: Dictionary<String, Any>.Type) throws -> Dictionary<String, Any> {
         var dictionary = Dictionary<String, Any>()
-        
+
         for key in allKeys {
             if let boolValue = try? decode(Bool.self, forKey: key) {
                 dictionary[key.stringValue] = boolValue
@@ -55,7 +55,7 @@ public extension KeyedDecodingContainer {
         }
         return dictionary
     }
-    
+
     func decodeIfPresent(_ type: Dictionary<String, Any>.Type,
                                 forKey key: K) throws -> Dictionary<String, Any>? {
         return try? decode(type, forKey: key)
@@ -63,7 +63,7 @@ public extension KeyedDecodingContainer {
 }
 
 public extension UnkeyedDecodingContainer {
-    
+
     mutating func decode(_ type: Array<Any>.Type) throws -> Array<Any> {
         var array: [Any] = []
         while isAtEnd == false {
@@ -81,7 +81,7 @@ public extension UnkeyedDecodingContainer {
         }
         return array
     }
-    
+
     mutating func decode(_ type: Dictionary<String, Any>.Type) throws -> Dictionary<String, Any> {
         let nestedContainer = try self.nestedContainer(keyedBy: JSONCodingKeys.self)
         return try nestedContainer.decode(type)
@@ -121,7 +121,7 @@ public extension KeyedEncodingContainerProtocol {
             try container.encode(value!)
         }
     }
-    
+
     mutating func encode(_ value: Array<Any>?, forKey key: Key) throws {
         if value != nil {
             var container = self.nestedUnkeyedContainer(forKey: key)
@@ -154,7 +154,7 @@ public extension UnkeyedEncodingContainer {
             }
         })
     }
-    
+
     mutating func encode(_ value: Dictionary<String, Any>) throws {
         var nestedContainer = self.nestedContainer(keyedBy: JSONCodingKeys.self)
         try nestedContainer.encode(value)

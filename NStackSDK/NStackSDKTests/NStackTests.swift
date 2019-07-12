@@ -6,7 +6,6 @@
 //  Copyright © 2015 Nodes. All rights reserved.
 //
 
-
 import XCTest
 //import Serpent
 //import Alamofire

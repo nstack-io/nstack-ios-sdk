@@ -70,7 +70,7 @@ public struct Configuration {
 
                 let object = NSDictionary(contentsOf: fileURL)
 
-                guard let keyDict = object as? [String : AnyObject] else {
+                guard let keyDict = object as? [String: AnyObject] else {
                     fatalError("Can't parse file \(fileName).plist")
                 }
 

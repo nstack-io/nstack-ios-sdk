@@ -10,13 +10,13 @@ import Foundation
 import TranslationManager
 
 public struct Localization: LocalizationModel {
-    
+
     public var id: Int
     public var url: String
     public var lastUpdatedAt: String
     public var shouldUpdate: Bool
     public var language: Language
-    
+
     public var localeIdentifier: String {
         return language.acceptLanguage
     }

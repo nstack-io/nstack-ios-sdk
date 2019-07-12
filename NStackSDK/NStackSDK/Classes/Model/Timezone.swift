@@ -14,7 +14,7 @@ public struct Timezone: Codable {
 	public var abbreviation: String
     public var offsetSec: Int
     public var label: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, offsetSec, label
         case abbreviation = "abbr"

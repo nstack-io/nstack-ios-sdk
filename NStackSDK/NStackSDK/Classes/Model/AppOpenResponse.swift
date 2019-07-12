@@ -13,7 +13,7 @@ import Foundation
 struct AppOpenResponse: Codable {
     let data: AppOpenData?
     let languageData: LanguageData?
-    
+
     enum CodingKeys: String, CodingKey {
         case data, languageData = "meta"
     }

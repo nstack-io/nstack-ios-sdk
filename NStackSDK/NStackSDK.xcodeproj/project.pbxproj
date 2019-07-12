@@ -1062,7 +1062,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -e ${SRCROOT}/../Pods/SwiftLint/swiftlint ]; then\n    ${SRCROOT}/../Pods/SwiftLint/swiftlint --config \"${SRCROOT}/../.swiftlint.yml\"\nfi\n";
+			shellScript = "if [ -e ${SRCROOT}/../Pods/SwiftLint/swiftlint ]; then\n    ${SRCROOT}/../Pods/SwiftLint/swiftlint autocorrect --config \"${SRCROOT}/../.swiftlint.yml\"\n    ${SRCROOT}/../Pods/SwiftLint/swiftlint --config \"${SRCROOT}/../.swiftlint.yml\"\nfi\n";
 		};
 		431618CF16991DF83871D6FF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

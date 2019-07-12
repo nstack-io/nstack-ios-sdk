@@ -16,7 +16,7 @@ public struct RequestFactory {
         self.baseUrl = baseUrl
         self.route = route
     }
-    
+
     public var path: String {
         switch self.route {
         case .identifyCustomer: return baseUrl + "/track/v2/projects/\(projectToken)/customers"
@@ -83,7 +83,7 @@ extension RequestFactory {
         return { (data, response, error) in
             self.process(response, data: data, error: error, resultAction: { (result) in
                 switch result {
-                case .success(_):
+                case .success:
                     DispatchQueue.main.async {
                         completion(.success)
                     }
