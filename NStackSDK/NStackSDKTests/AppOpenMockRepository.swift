@@ -23,11 +23,11 @@ class MockConnectionManager: Repository {
         return nil
     }
 
-    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C : LocalizationModel {
+    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
 
     }
 
-    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L : LanguageModel {
+    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
         let translationsResponse: TranslationResponse<Language>? = TranslationResponse(translations: [
             "default": ["successKey": "SuccessUpdated"],
             "otherSection": ["anotherKey": "HeresAValue"]
@@ -39,7 +39,7 @@ class MockConnectionManager: Repository {
         completion(result as! Result<TranslationResponse<L>>)
     }
 
-    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L : LanguageModel {
+    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
 
     }
 
@@ -75,11 +75,11 @@ class MockConnectionManager: Repository {
 
     }
 
-    func fetchStaticResponse<T>(_ slug: String, completion: @escaping ((Result<T>) -> Void)) where T : Decodable, T : Encodable {
+    func fetchStaticResponse<T>(_ slug: String, completion: @escaping ((Result<T>) -> Void)) where T: Decodable, T: Encodable {
 
     }
 
-    func fetchCollection<T>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) where T : Decodable, T : Encodable {
+    func fetchCollection<T>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) where T: Decodable, T: Encodable {
 
     }
 
@@ -104,12 +104,11 @@ extension MockConnectionManager {
                                update: nil,
                                rateReminder: nil,
                                localize: [
-        Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang),
-        Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)],
+                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang),
+                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)],
                                platform: "ios",
                                createdAt: "2019-06-21T14:10:29+00:00",
                                lastUpdated: "2019-06-21T14:10:29+00:00")
-
 
         let response = AppOpenResponse(data: data, languageData: LanguageData(acceptLanguage: "da-DK"))
         completion(.success(response))
