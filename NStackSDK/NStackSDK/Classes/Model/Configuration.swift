@@ -30,11 +30,16 @@ public struct Configuration {
     public var translationsUrlOverride: String?
     public var environments: [String: String]
 
-    public var currentEnvironment: String? {
-        guard let bundleid = Bundle.main.bundleIdentifier else { return nil }
-        return environments.first(where: { (_, value) -> Bool in
-            value == bundleid
-        })?.key
+    public var currentEnvironment: String {
+        guard
+            let bundleid = Bundle.main.bundleIdentifier,
+            let env = environments.first(where: { (_, value) -> Bool in
+                value == bundleid
+            })?.key
+        else {
+            fatalError("No environment found for bundle id in NStack.plist")
+        }
+        return env
     }
 
     // Used for tests
