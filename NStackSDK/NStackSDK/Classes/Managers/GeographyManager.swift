@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TranslationManager
 
 public class GeographyManager {
 

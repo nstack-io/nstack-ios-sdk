@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import TranslationManager
 
 public struct TranslationsResponse: Codable {
     let translations: [String: Any]
