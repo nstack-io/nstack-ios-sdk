@@ -9,27 +9,25 @@
 import Foundation
 import UIKit
 
-enum NMeta {
-    static var current: String {
-        // FIXME: Figure out environment
-        return userAgentString(environment: .production)
+struct NMeta {
+    private var environment: String
+    init(environment: String?) {
+        self.environment = environment ?? "production"
+    }
+
+    public var current: String {
+        return userAgentString(environment: environment)
     }
 }
 
-public enum AppEnvironment: String {
-    case development = "development"
-    case staging = "staging"
-    case production = "production"
-}
-
-private func userAgentString(environment: AppEnvironment) -> String {
+private func userAgentString(environment: String) -> String {
 
     var appendString = "ios;"
 
-    appendString += "\(environment.rawValue);"
+    appendString += "\(environment);"
     appendString += "\(Bundle.main.releaseVersionNumber ?? "");"
     appendString += "\(UIDevice.current.systemVersion);"
-    appendString += "\(UIDevice().modelName)"
+    appendString += "\(UIDevice.current.modelName)"
 
     return appendString
 }

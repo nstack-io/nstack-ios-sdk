@@ -28,6 +28,14 @@ public struct Configuration {
     public var flat = false
     public var useMock = false
     public var translationsUrlOverride: String?
+    public var environments: [String: String]
+
+    public var currentEnvironment: String? {
+        guard let bundleid = Bundle.main.bundleIdentifier else { return nil }
+        return environments.first(where: { (_, value) -> Bool in
+            value == bundleid
+        })?.key
+    }
 
     // Used for tests
     internal var versionOverride: String?
@@ -50,12 +58,14 @@ public struct Configuration {
                 restAPIKey: String,
                 translationsClass: LocalizableModel.Type? = nil,
                 flatTranslations: Bool = false,
-                translationsUrlOverride: String? = nil) {
+                translationsUrlOverride: String? = nil,
+                environments: [String: String]) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
         self.translationsUrlOverride = translationsUrlOverride
+        self.environments = environments
     }
 
     public init(plistName: String, translationsClass: LocalizableModel.Type? = nil) {
@@ -63,6 +73,7 @@ public struct Configuration {
         var restAPIKey: String?
         var flatString: String?
         var translationsUrlOverride: String?
+        var environments: [String: String]?
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
@@ -78,17 +89,20 @@ public struct Configuration {
                 restAPIKey = keyDict["REST_API_KEY"] as? String
                 flatString = keyDict["FLAT"] as? String
                 translationsUrlOverride = keyDict["TRANSLATIONS_URL"] as? String
+                environments = keyDict["ENVIRONMENT_BUNDLE_IDS"] as? [String: String]
                 break
             }
         }
 
         guard let finalAppId = appId else { fatalError("Couldn't initialize appId") }
         guard let finalRestAPIKey = restAPIKey else { fatalError("Couldn't initialize REST API key") }
+        guard let finalEnvironments = environments else { fatalError("Couldn't initialize ENVIRONMENT_BUNDLE_IDS") }
 
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
         self.translationsUrlOverride = translationsUrlOverride
+        self.environments = finalEnvironments
 
         if let flat = flatString, flat == "1" {
             self.flat = true
