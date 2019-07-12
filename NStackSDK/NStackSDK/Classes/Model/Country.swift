@@ -6,65 +6,30 @@
 //  Copyright © 2016 Nodes ApS. All rights reserved.
 //
 
-import Serpent
+import Foundation
 
-public struct Country {
-	public var id = 0
-	public var name = ""
-	public var code = ""
-	public var codeIso = ""
-	public var native = ""
-	public var phone = 0
-	public var continent = ""
-	public var capital = ""
-	public var capitalLat = 0.0
-	public var capitalLng = 0.0
-	public var currency = ""
-	public var currencyName = ""
-	public var languages = ""
-	public var image: URL?
-	public var imagePath2: URL? //<- image_path_2
-	public var capitalTimeZone = Timezone()
-}
+public struct Country: Codable {
+    public let id: Int
+	public let name: String
+	public let code: String
+	public let codeIso: String
+	public let native: String
+    public let phone: Int
+	public let continent: String
+	public let capital: String
+    public let capitalLat: Double
+	public let capitalLng: Double
+	public let currency: String
+	public let currencyName: String
+	public let languages: String
+	public let image: URL?
+	public let imagePath2: URL?
+    public let capitalTimeZone: Timezone
 
-extension Country: Serializable {
-    public init(dictionary: NSDictionary?) {
-        id              <== (self, dictionary, "id")
-        name            <== (self, dictionary, "name")
-        code            <== (self, dictionary, "code")
-        codeIso         <== (self, dictionary, "code_iso")
-        native          <== (self, dictionary, "native")
-        phone           <== (self, dictionary, "phone")
-        continent       <== (self, dictionary, "continent")
-        capital         <== (self, dictionary, "capital")
-        capitalLat      <== (self, dictionary, "capital_lat")
-        capitalLng      <== (self, dictionary, "capital_lng")
-        currency        <== (self, dictionary, "currency")
-        currencyName    <== (self, dictionary, "currency_name")
-        languages       <== (self, dictionary, "languages")
-        image           <== (self, dictionary, "image")
-        imagePath2      <== (self, dictionary, "image_path_2")
-        capitalTimeZone <== (self, dictionary, "capital_time_zone")
-    }
-
-    public func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "id")                <== id
-        (dict, "name")              <== name
-        (dict, "code")              <== code
-        (dict, "code_iso")          <== codeIso
-        (dict, "native")            <== native
-        (dict, "phone")             <== phone
-        (dict, "continent")         <== continent
-        (dict, "capital")           <== capital
-        (dict, "capital_lat")       <== capitalLat
-        (dict, "capital_lng")       <== capitalLng
-        (dict, "currency")          <== currency
-        (dict, "currency_name")     <== currencyName
-        (dict, "languages")         <== languages
-        (dict, "image")             <== image
-        (dict, "image_path_2")      <== imagePath2
-        (dict, "capital_time_zone") <== capitalTimeZone
-        return dict
+    enum CodingKeys: String, CodingKey {
+        case id, name, code, codeIso, native, phone, continent
+        case capital, capitalLat, capitalLng, currency, currencyName
+        case languages, image, capitalTimeZone
+        case imagePath2 = "image_path_2"
     }
 }

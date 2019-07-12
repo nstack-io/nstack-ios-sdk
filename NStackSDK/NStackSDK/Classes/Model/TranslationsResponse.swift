@@ -7,23 +7,39 @@
 //
 
 import Foundation
-import Serpent
+import TranslationManager
 
-struct TranslationsResponse {
-    var translations: NSDictionary? // <-data
-    var languageData: LanguageData? // <-meta
-}
+public struct TranslationsResponse: Codable {
+    let translations: [String: Any]
+    let language: Language?
 
-extension TranslationsResponse: Serializable {
-    init(dictionary: NSDictionary?) {
-        translations <== (self, dictionary, "data")
-        languageData <== (self, dictionary, "meta")
+    enum CodingKeys: String, CodingKey {
+        case translations = "data"
+        case languageData = "meta"
     }
 
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "data") <== translations
-        (dict, "meta") <== languageData
-        return dict
+    enum LanguageCodingKeys: String, CodingKey {
+        case language
+    }
+
+    init() {
+        self.translations = [:]
+        self.language = nil
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        translations = try values.decodeIfPresent([String: Any].self, forKey: .translations) ?? [:]
+
+        let languageData = try values.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
+        language = try languageData.decodeIfPresent(Language.self, forKey: .language)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(translations, forKey: .translations)
+
+        var languageData = container.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
+        try languageData.encode(language, forKey: .language)
     }
 }

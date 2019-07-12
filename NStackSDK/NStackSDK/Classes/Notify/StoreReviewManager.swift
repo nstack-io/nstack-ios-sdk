@@ -9,9 +9,7 @@
 import Foundation
 import StoreKit
 
-
 class StoreReviewManager {
-    
     static func requestReview() {
         if #available(iOSApplicationExtension 10.3, *) {
             SKStoreReviewController.requestReview()

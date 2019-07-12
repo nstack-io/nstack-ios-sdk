@@ -25,6 +25,7 @@ public enum LogLevel: Int {
 }
 
 extension LogLevel: Comparable {
+    // swiftlint:disable:next all
     static public func <(lhs: LogLevel, rhs: LogLevel) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }

@@ -7,116 +7,51 @@
 //
 
 import Foundation
-import Serpent
 
-enum UpdateState: String {
-    case Disabled    = "no"
-    case Remind      = "yes"
-    case Force       = "force"
+enum UpdateState: String, Codable {
+    case disabled    = "no"
+    case remind      = "yes"
+    case force       = "force"
 }
 
-struct Update {
-    var newInThisVersion:Changelog?
-    var newerVersion:Version?
-    
-    struct UpdateTranslations {
-        var title       = ""
-        var message     = ""
-        var positiveBtn = ""
-        var negativeBtn = ""
-    }
-    
-    struct Update {
-        var newInThisVersion:Changelog? //<-new_in_version
-        var newerVersion:Version?
-    }
-    
-    struct Changelog {
-        var state = false
-        var lastId = 0
-        var version = ""
-        var translate:UpdateTranslations?
-    }
-    
-    struct Version {
-        var state = UpdateState.Disabled
-        var lastId = 0
-        var version = ""
-        var translations = UpdateTranslations() //<-translate
-        var link:URL?
-        
+struct Update: Codable {
+    let newInThisVersion: Changelog?
+    let newerVersion: Version?
 
+    struct UpdateTranslations: Codable {
+        let title: String
+        let message: String
+        let positiveBtn: String
+        let negativeBtn: String
     }
-}
 
-//Boilerplate code:
+    struct Update: Codable {
+        let newInThisVersion: Changelog?
+        let newerVersion: Version?
 
-extension Update: Serializable {
-    init(dictionary: NSDictionary?) {
-        newInThisVersion <== (self, dictionary, "new_in_version")
-        newerVersion     <== (self, dictionary, "newer_version")
+        enum CodingKeys: String, CodingKey {
+            case newInThisVersion = "new_in_version"
+            case newerVersion
+        }
     }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "new_in_version") <== newInThisVersion
-        (dict, "newer_version")  <== newerVersion
-        return dict
-    }
-}
 
-extension Update.UpdateTranslations: Serializable {
-    init(dictionary: NSDictionary?) {
-        title       <== (self, dictionary, "title")
-        message     <== (self, dictionary, "message")
-        positiveBtn <== (self, dictionary, "positiveBtn")
-        negativeBtn <== (self, dictionary, "negativeBtn")
+    struct Changelog: Codable {
+        let state: Bool
+        let lastId: Int
+        let version: String
+        let translate: UpdateTranslations?
     }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "title")        <== title
-        (dict, "message")      <== message
-        (dict, "positiveBtn") <== positiveBtn
-        (dict, "negativeBtn") <== negativeBtn
-        return dict
-    }
-}
 
-extension Update.Changelog: Serializable {
-    init(dictionary: NSDictionary?) {
-        state     <== (self, dictionary, "state")
-        lastId    <== (self, dictionary, "last_id")
-        version   <== (self, dictionary, "version")
-        translate <== (self, dictionary, "translate")
-    }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "state")     <== state
-        (dict, "last_id")   <== lastId
-        (dict, "version")   <== version
-        (dict, "translate") <== translate
-        return dict
-    }
-}
+    struct Version: Codable {
+        let state: UpdateState
+        let lastId: Int
+        let version: String
+        let translations: UpdateTranslations
+        let link: URL?
 
-extension Update.Version: Serializable {
-    init(dictionary: NSDictionary?) {
-        state        <== (self, dictionary, "state")
-        lastId       <== (self, dictionary, "last_id")
-        version      <== (self, dictionary, "version")
-        translations <== (self, dictionary, "translate")
-        link         <== (self, dictionary, "link")
-    }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "state")     <== state
-        (dict, "last_id")   <== lastId
-        (dict, "version")   <== version
-        (dict, "translate") <== translations
-        (dict, "link")      <== link
-        return dict
+        enum CodingKeys: String, CodingKey {
+            case state, lastId, version, link
+            case translations = "translate"
+        }
     }
 }

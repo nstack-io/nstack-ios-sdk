@@ -5,32 +5,47 @@
 //  Created by Chris Combs on 08/09/15.
 //  Copyright © 2015 Nodes. All rights reserved.
 //
+
 import Foundation
-import Serpent
-import Cashier
-import Alamofire
+
+/*
+public protocol TranslationManagerType: class {
+    init(/*type: Translatable.Type,*/
+         repository: TranslationsRepository,
+         fileManager: FileManager,
+         logger: LoggerType?)
+}
 
 /// The Translations Manager handles everything related to translations.
 ///
 /// Usually, direct interaction with the `Translations Manager` shouldn't be neccessary, since
 /// it is setup automatically by the NStack manager, and the translations are accessible by the
 /// global 'tr' variable defined in the auto-generated translations Swift file.
-public class TranslationManager {
+public class TranslationManager<T: Translatable>: TranslationManagerType {
     
     /// Repository that provides translations.
     let repository: TranslationsRepository
     
     /// The translations object type.
-    let translationsType: Translatable.Type
+//    let translationsType: Translatable.Type
     
-    /// Persistent store to use to store information.
-    let store: NOPersistentStore
+    let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+    
+    let encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
+    }()
     
     /// File manager handling persisting new translation data.
     let fileManager: FileManager
     
     /// Logger used to log valuable information.
-    let logger: LoggerType
+    let logger: LoggerType?
     
     /// In memory cache of the translations object.
     var translationsObject: Translatable?
@@ -44,33 +59,33 @@ public class TranslationManager {
     /// The previous accept header string that was used.
     var lastAcceptHeader: String? {
         get {
-            return store.object(forKey: Constants.CacheKeys.prevAcceptedLanguage) as? String
+            return UserDefaults.standard.string(forKey: "prevAcceptedLanguage")
         }
         set {
             guard let newValue = newValue else {
-                logger.logVerbose("Last accept header deleted.")
-                store.deleteObject(forKey: Constants.CacheKeys.prevAcceptedLanguage)
+                // logger?.logVerbose("Last accept header deleted.")
+                UserDefaults.standard.removeObject(forKey: "prevAcceptedLanguage")
                 return
             }
-            logger.logVerbose("Last accept header set to: \(newValue).")
-            store.setObject(newValue, forKey: Constants.CacheKeys.prevAcceptedLanguage)
+            // logger?.logVerbose("Last accept header set to: \(newValue).")
+            UserDefaults.standard.set(newValue, forKey: "prevAcceptedLanguage")
         }
     }
     
     /// This language will be used instead of the phones' language when it is not `nil`. Remember
     /// to call `updateTranslations()` after changing the value.
     /// Otherwise, the effect will not be seen.
-    public var languageOverride: Language? {
+    var languageOverride: Language? {
         get {
-            return store.serializableForKey(Constants.CacheKeys.languageOverride)
+            return UserDefaults.standard.model(forKey: "languageOverride")
         }
         set {
             if let newValue = newValue {
-                logger.logVerbose("Override language set to: \(newValue.locale)")
-                store.setSerializable(newValue, forKey: Constants.CacheKeys.languageOverride)
+                // logger?.logVerbose("Override language set to: \(newValue.locale)")
+                UserDefaults.standard.set(newValue, forKey: "languageOverride")
             } else {
-                logger.logVerbose("Override language deleted.")
-                store.deleteSerializableForKey(Constants.CacheKeys.languageOverride)
+                // logger?.logVerbose("Override language deleted.")
+                UserDefaults.standard.removeObject(forKey: "languageOverride")
             }
             clearTranslations()
         }
@@ -83,40 +98,35 @@ public class TranslationManager {
     /// circumstances, it should not be neccessary to invoke it directly.
     ///
     /// - Parameters:
-    ///   - translationsType: The type of the translations object that should be used.
     ///   - repository: Repository that can provide translations.
-    internal init(translationsType: Translatable.Type,
-                  repository: TranslationsRepository,
-                  logger: LoggerType,
-                  store: NOPersistentStore = Constants.persistentStore,
-                  fileManager: FileManager = .default) {
-        self.translationsType = translationsType
+    required public init(repository: TranslationsRepository,
+                         fileManager: FileManager = .default,
+                         logger: LoggerType?) {
+//        self.translationsType = type
         self.repository = repository
-        self.store = store
         self.fileManager = fileManager
         
         self.logger = logger
-        self.logger.customName = "-Translations"
+        self.logger?.customName = "-Translations"
     }
 
     ///Find a translation for a key.
     ///
     /// - Parameters:
     ///   - keyPath: The key that string should be found on.
-    
-    public func translationString(keyPath: String) -> String? {
-        guard !keyPath.isEmpty else {
-            return nil
-        }
-        
-        // Try to load if we don't have any translations
-        if translationsObject == nil {
-            loadTranslations()
-        }
-        
-        let dictionary = translationsObject?.encodableRepresentation() as? NSDictionary
-        return dictionary?.value(forKeyPath: keyPath) as? String
-    }
+//    public func translationString(keyPath: String) -> String? {
+//        guard !keyPath.isEmpty else {
+//            return nil
+//        }
+//
+//        // Try to load if we don't have any translations
+//        if translationsObject == nil {
+//            loadTranslations()
+//        }
+//
+//        let dictionary = translationsObject?.encodableRepresentation() as? NSDictionary
+//        return dictionary?.value(forKeyPath: keyPath) as? String
+//    }
 
     // MARK: - Update & Fetch -
     
@@ -128,15 +138,15 @@ public class TranslationManager {
     /// - Parameter completion: Called when translation fetching has finished. Check if the error
     ///                         object is nil to determine whether the operation was a succes.
     public func updateTranslations(_ completion: ((_ error: NStackError.Translations?) -> Void)? = nil) {
-        logger.logVerbose("Starting translations update asynchronously.")
-        repository.fetchTranslations(acceptLanguage: acceptLanguage) { response in
-            switch response.result {
+        logger?.logVerbose("Starting translations update asynchronously.")
+        repository.fetchTranslations(acceptLanguage: acceptLanguage) { result in
+            switch result {
             case .success(let translationsData):
-                self.logger.logVerbose("New translations downloaded.")
+                self.logger?.logVerbose("New translations downloaded.")
                 
                 var languageChanged = false
                 if self.lastAcceptHeader != self.acceptLanguage {
-                    self.logger.logVerbose("Language changed from last time, clearing first.")
+                    self.logger?.logVerbose("Language changed from last time, clearing first.")
                     self.clearTranslations(includingPersisted: true)
                     languageChanged = true
                 }
@@ -147,15 +157,16 @@ public class TranslationManager {
                 completion?(nil)
                 
                 if languageChanged {
-                    self.logger.logVerbose("Running language changed action.")
+                    self.logger?.logVerbose("Running language changed action.")
                     self.languageChangedAction?()
                 }
                 
             case .failure(let error):
-                self.logger.logError("Error downloading translations data.\n",
-                                     "Response: ", response.response ?? "No response", "\n",
-                                     "Data: ", response.data ?? "No data", "\n",
-                                     "Error: ", error.localizedDescription)
+                // FIXME: Fix log
+//                self.logger?.logError("Error downloading translations data.\n",
+//                                     "Response: ", response.response ?? "No response", "\n",
+//                                     "Data: ", response.data ?? "No data", "\n",
+//                                     "Error: ", error.localizedDescription)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         }
@@ -164,16 +175,16 @@ public class TranslationManager {
     /// Gets the languages for which translations are available.
     ///
     /// - Parameter completion: An Alamofire DataResponse object containing the array or languages on success.
-    public func fetchAvailableLanguages(_ completion: @escaping (Alamofire.DataResponse<[Language]>) -> Void) {
-        logger.logVerbose("Fetching available language asynchronously.")
+    public func fetchAvailableLanguages(_ completion: @escaping (Result<[Language]>) -> Void) {
+        logger?.logVerbose("Fetching available language asynchronously.")
         repository.fetchAvailableLanguages(completion: completion)
     }
     
     /// Gets the language which is currently used for translations, based on the accept header.
     ///
     /// - Parameter completion: An Alamofire DataResponse object containing the language on success.
-    public func fetchCurrentLanguage(_ completion: @escaping (Alamofire.DataResponse<Language>) -> Void) {
-        logger.logVerbose("Fetching current language asynchronously.")
+    public func fetchCurrentLanguage(_ completion: @escaping (Result<Language>) -> Void) {
+        logger?.logVerbose("Fetching current language asynchronously.")
         repository.fetchCurrentLanguage(acceptLanguage: acceptLanguage, completion: completion)
     }
     
@@ -225,7 +236,7 @@ public class TranslationManager {
     public func translations<T: Translatable>() -> T {
         // Clear translations if language changed
         if lastAcceptHeader != acceptLanguage {
-            logger.logVerbose("Language changed from last time, clearing translations.")
+            logger?.logVerbose("Language changed from last time, clearing translations.")
             lastAcceptHeader = acceptLanguage
             clearTranslations()
         }
@@ -236,7 +247,7 @@ public class TranslationManager {
         }
         
         // Load persisted or fallback translations
-        loadTranslations()
+        loadTranslations(T.self)
         
         // Now we must have correct translations, so return it
         return translationsObject as! T
@@ -247,7 +258,7 @@ public class TranslationManager {
     /// - Parameter includingPersisted: If set to `true`, local persisted translation
     ///                                 file will be deleted.
     public func clearTranslations(includingPersisted: Bool = false) {
-        logger.logVerbose("In memory translations cleared.")
+        logger?.logVerbose("In memory translations cleared.")
         translationsObject = nil
         
         if includingPersisted {
@@ -256,17 +267,35 @@ public class TranslationManager {
     }
     
     /// Loads and initializes the translations object from either persisted or fallback dictionary.
-    func loadTranslations() {
-        logger.logVerbose("Loading translations.")
+    func loadTranslations<T>(_ type: T.Type) where T: Translatable {
+        logger?.logVerbose("Loading translations.")
 
-        let dictionary = translationsDictionary
-
+//        let dictionary = translationsDictionary
+//
+//        // Set our language
+//        currentLanguage = languageOverride ?? processLanguage(dictionary)
+//
+//        // Figure out and set translations
+//        let parsed = processAllTranslations(dictionary)
+//        let translations = translationsType.init(dictionary: parsed)
+//        translationsObject = translations
+        
         // Set our language
-        currentLanguage = languageOverride ?? processLanguage(dictionary)
-
+        currentLanguage = languageOverride ?? translationsDictionary.language
+        
         // Figure out and set translations
-        let parsed = processAllTranslations(dictionary)
-        let translations = translationsType.init(dictionary: parsed)
+        guard let parsed = processAllTranslations(translationsDictionary),
+            let data = try? JSONSerialization.data(withJSONObject: parsed, options: []) else {
+                // logger?.log error couldn't get translations
+                translationsObject = nil
+                return
+        }
+        
+        guard let translations = try? decoder.decode(T.self, from: data) else {
+            // logger?.log error couldn't decode translations
+            return
+        }
+        
         translationsObject = translations
     }
     
@@ -276,32 +305,49 @@ public class TranslationManager {
     ///
     /// - Parameter translations: The new translations.
     func set(response: TranslationsResponse?) {
-        guard let dictionary = response?.encodableRepresentation() as? NSDictionary else {
-            logger.logError("Failed to create dicitonary from translations API response.")
+//        guard let dictionary = response?.encodableRepresentation() as? NSDictionary else {
+//            logger?.logError("Failed to create dicitonary from translations API response.")
+//            return
+//        }
+//
+//        // Persist the object
+//        persistedTranslations = dictionary
+//
+//        // Reload the translations
+//        _ = loadTranslations()
+        guard let object = response else {
+            // logger?.logError()
             return
         }
         
         // Persist the object
-        persistedTranslations = dictionary
+        persistedTranslations = object
         
         // Reload the translations
-        _ = loadTranslations()
+        loadTranslations(T.self)
     }
     
     /// Returns the saved dictionary representation of the translations.
-    var translationsDictionary: NSDictionary {
+    var translationsDictionary: TranslationsResponse {
         return persistedTranslations ?? fallbackTranslations
     }
     
     /// Translations that were downloaded and persisted on disk.
-    var persistedTranslations: NSDictionary? {
+    var persistedTranslations: TranslationsResponse? {
         get {
-            logger.logVerbose("Getting persisted traslations.")
-            guard let url = translationsFileUrl else {
-                logger.logWarning("No persisted translations available, returing nil.")
+            logger?.logVerbose("Getting persisted traslations.")
+            guard let url = translationsFileUrl,
+                let data = try? Data(contentsOf: url) else {
+                logger?.logWarning("No persisted translations available, returing nil.")
                 return nil
             }
-            return NSDictionary(contentsOf: url)
+            
+            guard let object = try? decoder.decode(TranslationsResponse.self, from: data) else {
+                // logger?.logError("Invalid data saved.")
+                return nil
+            }
+            
+            return object
         }
         set {
             guard let translationsFileUrl = translationsFileUrl else {
@@ -311,36 +357,44 @@ public class TranslationManager {
             // Delete if new value is nil
             guard let newValue = newValue else {
                 guard fileManager.fileExists(atPath: translationsFileUrl.path) else {
-                    logger.logVerbose("No persisted translation file stored, aborting.")
+                    logger?.logVerbose("No persisted translation file stored, aborting.")
                     return
                 }
                 
                 do {
-                    logger.logVerbose("Deleting persisted translations file.")
+                    logger?.logVerbose("Deleting persisted translations file.")
                     try fileManager.removeItem(at: translationsFileUrl)
                 } catch {
-                    logger.logError("Failed to delete persisted translatons." +
+                    logger?.logError("Failed to delete persisted translatons." +
                         error.localizedDescription)
                 }
                 return
             }
             
-            // Save to disk
-            var url = translationsFileUrl
-            guard newValue.write(to: url, atomically: true) else {
-                logger.logError("Failed to persist translations to disk.")
+            guard let data = try? encoder.encode(newValue) else {
+                // Failed at encoding
+                // logger?.log something
                 return
             }
-            logger.logVerbose("Translations persisted to disk.")
+            
+            // Save to disk
+            var url = translationsFileUrl
+            do {
+                try data.write(to: url, options: [.atomic])
+            } catch {
+                logger?.logError("Failed to persist translations to disk: \(error.localizedDescription)")
+                return
+            }
+            logger?.logVerbose("Translations persisted to disk.")
             
             // Exclude from backup
             do {
-                logger.logVerbose("Excluding persisted translations from backup.")
+                logger?.logVerbose("Excluding persisted translations from backup.")
                 var resourceValues = URLResourceValues()
                 resourceValues.isExcludedFromBackup = true
                 try url.setResourceValues(resourceValues)
             } catch {
-                logger.log("Failed to exclude translations from backup. \(error.localizedDescription)",
+                logger?.log("Failed to exclude translations from backup. \(error.localizedDescription)",
                     level: .warning)
             }
         }
@@ -351,10 +405,10 @@ public class TranslationManager {
     /// and the right one is chosen based on the current locale.
     ///
     /// - Returns: A dictionary representation of the selected local translations set.
-    var fallbackTranslations: NSDictionary {
+    var fallbackTranslations: TranslationsResponse {
         for bundle in repository.fetchBundles() {
             guard let filePath = bundle.path(forResource: "Translations", ofType: "json") else {
-                logger.logWarning("Bundle did not contain Translations.json file: " +
+                logger?.logWarning("Bundle did not contain Translations.json file: " +
                     "\(bundle.bundleIdentifier ?? "N/A").")
                 continue
             }
@@ -363,30 +417,25 @@ public class TranslationManager {
             let data: Data
             
             do {
-                logger.logVerbose("Loading fallback translations file at: \(filePath)")
+                logger?.logVerbose("Loading fallback translations file at: \(filePath)")
                 data = try Data(contentsOf: fileUrl)
             } catch {
-                logger.logError("Failed to get data from fallback translations file: " +
+                logger?.logError("Failed to get data from fallback translations file: " +
                     error.localizedDescription)
                 continue
             }
             
             do {
-                logger.logVerbose("Converting loaded file to JSON object.")
-                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
-                guard let dictionary = json as? NSDictionary else {
-                    logger.logError("Failed to get NSDictionary from fallback JSON file.")
-                    continue
-                }
-                return dictionary
+                logger?.logVerbose("Converting loaded file to JSON object.")
+                return try decoder.decode(TranslationsResponse.self, from: data)
             } catch {
-                logger.logError("Error loading translations JSON file: " +
+                logger?.logError("Error loading translations JSON file: " +
                     error.localizedDescription)
             }
         }
         
-        logger.logError("Failed to load fallback translations, file non-existent.")
-        return [:]
+        logger?.logError("Failed to load fallback translations, file non-existent.")
+        return TranslationsResponse()
     }
     
     // MARK: - Parsing -
@@ -396,48 +445,27 @@ public class TranslationManager {
     ///
     /// - Parameter dictionary: Dictionary containing all translations under the `data` key.
     /// - Returns: Returns extracted language dictioanry for current accept language.
-    func processAllTranslations(_ dictionary: NSDictionary) -> NSDictionary? {
-        logger.logVerbose("Processing translations dictionary.")
-        guard let translations = dictionary.value(forKey: "data") as? NSDictionary else {
-            logger.logError("Failed to get data from all translations NSDictionary. \(dictionary)")
+    func processAllTranslations(_ object: TranslationsResponse) -> [String: Any]? {
+        logger?.logVerbose("Processing translations dictionary.")
+        guard !object.translations.isEmpty else {
+            logger?.logError("Failed to get data from all translations NSDictionary. \(object)")
             return nil
         }
         
-        return extractLanguageDictionary(fromDictionary: translations)
-    }
-    
-    /// Unwraps and extracts last language dictionary out of the meta containing
-    /// all translations.
-    ///
-    /// - Parameter dictionary: Dictionary containing all translations under the `meta` key.
-    /// - Returns: Returns extracted language for last language.
-    func processLanguage(_ dictionary: NSDictionary) -> Language? {
-        logger.logVerbose("Processing language dictionary.")
-        guard let meta = dictionary.value(forKey: "meta") as? NSDictionary else {
-            logger.logError("Failed to get meta from all translations NSDictionary. \(dictionary)")
-            return nil
-        }
-        
-        guard let language = meta.value(forKey: "language") as? NSDictionary else {
-            logger.logError("Failed to get language from all meta NSDictionary. \(meta)")
-            return nil
-        }
-
-        return Language(dictionary: language)
+        return extractLanguageDictionary(fromDictionary: object.translations)
     }
     
     /// Uses the device's current locale to select the appropriate translations set.
     ///
     /// - Parameter json: A dictionary containing translation sets by language code key.
     /// - Returns: A translations set as a dictionary.
-    func extractLanguageDictionary(fromDictionary dictionary: NSDictionary) -> NSDictionary {
-        logger.logVerbose("Extracting language dictionary.")
-        
-        var languageDictionary: NSDictionary? = nil
+    func extractLanguageDictionary(fromDictionary dictionary: [String: Any]) -> [String: Any] {
+        logger?.logVerbose("Extracting language dictionary.")
+        var languageDictionary: [String: Any]? = nil
         
         // First try overriden language
         if let languageOverride = languageOverride {
-            logger.logVerbose("Language override enabled, trying it first.")
+            logger?.logVerbose("Language override enabled, trying it first.")
             languageDictionary = translationsMatching(language: languageOverride,
                                                       inDictionary: dictionary)
             if let languageDictionary = languageDictionary {
@@ -445,61 +473,45 @@ public class TranslationManager {
             }
         }
 
-        // This is removed so that only the device's current language is used. This is a request
-        // from the consultant teams and matches what Android does. NStack will determine the best
-        // language for the user.
+        let languages = repository.fetchPreferredLanguages()
+        logger?.logVerbose("Finding language for matching preferred languages: \(languages).")
         
-        //let languages = repository.fetchPreferredLanguages()
-        guard let language = repository.fetchCurrentPhoneLanguage() else {
-            logger.logError("Error loading translations. No language available.")
-            return [:]
-        }
-        let languages = [language]
-        
-        // This is removed as it causes bugs when you don't have an exact locale match to your
-        // phone's language, but do match a secondary language. For example, if your phone is
-        // set to en-US, and have da-DK as a backup language, and NStack offers en-GB or da-DK,
-        // this will match to Danish instead of English. Eventually this should be refactored to support
-        // region-specific translations, but that is very much an edge case.
-        
-        logger.logVerbose("Finding language for matching preferred languages: \(languages).")
-
         // Find matching language and region
-//        for lan in languages {
-//            // Try matching on both language and region
-//            if let dictionary = dictionary.value(forKey: lan) as? NSDictionary {
-//                logger.logVerbose("Found matching language for language with region: " + lan)
-//                return dictionary
-//            }
-//        }
+        for lan in languages {
+            // Try matching on both language and region
+            if let dictionary = dictionary[lan] as? [String: Any] {
+                logger?.logVerbose("Found matching language for language with region: " + lan)
+                return dictionary
+            }
+        }
         
         let shortLanguages = languages.map({ $0.substring(to: 2) })
-        logger.logVerbose("Finding language for matching preferred  short languages: \(languages).")
+        logger?.logVerbose("Finding language for matching preferred  short languages: \(languages).")
         
         // Find matching language only
         for lanShort in shortLanguages {
             // Match just on language
-            if let dictionary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
-                logger.logVerbose("Found matching language for short language code: " + lanShort)
-                return dictionary
+            if let dictinoary = translationsMatching(locale: lanShort, inDictionary: dictionary) {
+                logger?.logVerbose("Found matching language for short language code: " + lanShort)
+                return dictinoary
             }
         }
         
         // Take preferred language from backend
         if let currentLanguage = currentLanguage,
             let languageDictionary = translationsMatching(locale: currentLanguage.locale, inDictionary: dictionary) {
-            logger.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
+            logger?.logVerbose("Finding translations for language recommended by API: \(currentLanguage.locale).")
             return languageDictionary
         }
 
-        logger.logWarning("Falling back to first language in dictionary: \(dictionary.allKeys.first ?? "None")")
-        languageDictionary = dictionary.allValues.first as? NSDictionary
+        logger?.logWarning("Falling back to first language in dictionary: \(dictionary.keys.first ?? "None")")
+        languageDictionary = dictionary.values.first as? [String: Any]
         
         if let languageDictionary = languageDictionary {
             return languageDictionary
         }
         
-        logger.logError("Error loading translations. No translations available.")
+        logger?.logError("Error loading translations. No translations available.")
         return [:]
     }
     
@@ -509,7 +521,7 @@ public class TranslationManager {
     ///   - language: The desired language. If `nil`, first language will be used.
     ///   - json: The dictionary containing translations for all languages.
     /// - Returns: Translations dictionary for the given language.
-    func translationsMatching(language: Language, inDictionary dictionary: NSDictionary) -> NSDictionary? {
+    func translationsMatching(language: Language, inDictionary dictionary: [String: Any]) -> [String: Any]? {
         return translationsMatching(locale: language.locale, inDictionary: dictionary)
     }
     
@@ -519,16 +531,16 @@ public class TranslationManager {
     ///   - locale: A language code of the desired language.
     ///   - json: The dictionary containing translations for all languages.
     /// - Returns: Translations dictionary for the given language.
-    func translationsMatching(locale: String, inDictionary dictionary: NSDictionary) -> NSDictionary? {
+    func translationsMatching(locale: String, inDictionary dictionary: [String: Any]) -> [String: Any]? {
         // If we have perfect match on language and region
-        if let dictionary = dictionary.value(forKey: locale) as? NSDictionary {
+        if let dictionary = dictionary[locale] as? [String: Any] {
             return dictionary
         }
         
         // Try shortening keys in dictionary
-        for case let key as String in dictionary.allKeys {
+        for key in dictionary.keys {
             if key.substring(to: 2) == locale {
-                return dictionary.value(forKey: key) as? NSDictionary
+                return dictionary[key] as? [String: Any]
             }
         }
         
@@ -542,3 +554,4 @@ public class TranslationManager {
         return fileManager.documentsDirectory?.appendingPathComponent("Translations.nstack")
     }
 }
+*/

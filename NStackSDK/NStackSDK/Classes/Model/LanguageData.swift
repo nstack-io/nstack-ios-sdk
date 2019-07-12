@@ -7,20 +7,7 @@
 //
 
 import Foundation
-import Serpent
 
-struct LanguageData {
-    var language: Language?
-}
-
-extension LanguageData: Serializable {
-    init(dictionary: NSDictionary?) {
-        language <== (self, dictionary, "language")
-    }
-    
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "language") <== language
-        return dict
-    }
+struct LanguageData: Codable {
+    let acceptLanguage: String?
 }

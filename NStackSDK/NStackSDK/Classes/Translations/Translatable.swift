@@ -7,6 +7,10 @@
 //
 
 import Foundation
-import Serpent
+import TranslationManager
 
-public protocol Translatable: Serializable {}
+public struct Localizable: LocalizableModel {
+    public subscript(key: String) -> LocalizableSection? {
+        return nil
+    }
+}
