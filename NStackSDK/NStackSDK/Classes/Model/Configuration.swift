@@ -37,7 +37,8 @@ public struct Configuration {
                 value == bundleid
             })?.key
         else {
-            fatalError("No environment found for bundle id in NStack.plist")
+            assertionFailure("No environment found for bundle id in NStack.plist")
+            return "production"
         }
         return env
     }
