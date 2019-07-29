@@ -148,6 +148,14 @@
 		83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4522D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4622D75B36006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
+		8C9BA2DD22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
+		8C9BA2DE22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
+		8C9BA2DF22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
+		8C9BA2E022EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
+		8C9BA2E422EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
+		8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
+		8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
+		8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		9F19B242F21C0C601C1452D6 /* Pods_NStackSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */; };
 		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
@@ -324,6 +332,8 @@
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		83E20E4222D756CD006D5BEF /* N-Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "N-Meta.swift"; sourceTree = "<group>"; };
+		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
 		8D4D8B340C27AC4744DE2E32 /* Pods-NStackSDK-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2BB912CEEC4DBB51EB052 /* Pods-NStackSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -571,6 +581,7 @@
 		30A3D8491B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXGroup;
 			children = (
+				8C9BA2DB22EEFFD80057BAEF /* Operators */,
 				304C42801BA0743D00AE3D6F /* Models */,
 				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
@@ -605,6 +616,7 @@
 				30B2E8301B9DD6A10064DB21 /* NStack.swift */,
 				30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */,
 				0184A2C41D60BF6B00E63E01 /* NStackError.swift */,
+				8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */,
 			);
 			name = "NStack Manager";
 			path = "Classes/NStack Manager";
@@ -630,6 +642,14 @@
 			);
 			name = Translations;
 			path = Classes/Translations;
+			sourceTree = "<group>";
+		};
+		8C9BA2DB22EEFFD80057BAEF /* Operators */ = {
+			isa = PBXGroup;
+			children = (
+				8C9BA2DC22EEFFF00057BAEF /* Operator.swift */,
+			);
+			path = Operators;
 			sourceTree = "<group>";
 		};
 		8F2CB36383CCA56005C82695 /* Pods */ = {
@@ -1219,6 +1239,7 @@
 				01A334831E4F1B43003CE9BA /* Country.swift in Sources */,
 				01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */,
 				01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */,
+				8C9BA2E022EEFFF00057BAEF /* Operator.swift in Sources */,
 				01A334801E4F1B43003CE9BA /* Update.swift in Sources */,
 				01A334931E4F1B59003CE9BA /* LogLevel.swift in Sources */,
 				C0D852D1215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
@@ -1227,6 +1248,7 @@
 				01A3348F1E4F1B55003CE9BA /* Translatable.swift in Sources */,
 				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
+				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
 			);
@@ -1249,6 +1271,7 @@
 				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
 				01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */,
 				33E223031FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
+				8C9BA2E422EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				C0D852E3215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
 				C0D852F2215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
@@ -1256,6 +1279,7 @@
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */,
+				8C9BA2DD22EEFFF00057BAEF /* Operator.swift in Sources */,
 				23442E6222C6281000F196EE /* GeographyManager.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
 				C0D852E8215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
@@ -1329,6 +1353,7 @@
 				01F4C6C81DFF72F00050D0F1 /* LogLevel.swift in Sources */,
 				E3689C0A1D9EBA54004620D6 /* ConnectionManager.swift in Sources */,
 				E3689C0B1D9EBA54004620D6 /* NStackError.swift in Sources */,
+				8C9BA2DE22EEFFF00057BAEF /* Operator.swift in Sources */,
 				E3689C0C1D9EBA54004620D6 /* AlertManager.swift in Sources */,
 				E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */,
 				C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
@@ -1337,6 +1362,7 @@
 				01A3344B1E4E825E003CE9BA /* Constants.swift in Sources */,
 				01A3344E1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
+				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				C0D852E4215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E2230D1FA9F5010013CCC3 /* Continent.swift in Sources */,
 			);
@@ -1380,6 +1406,7 @@
 				C0D852EA215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */,
 				E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */,
+				8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */,
 				23442E6422C6281000F196EE /* GeographyManager.swift in Sources */,
 				23442E5D22C627FD00F196EE /* Localization.swift in Sources */,
@@ -1401,6 +1428,7 @@
 				01A3344C1E4E825E003CE9BA /* Constants.swift in Sources */,
 				01A3344F1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				83E20E4522D75B35006D5BEF /* N-Meta.swift in Sources */,
+				8C9BA2DF22EEFFF00057BAEF /* Operator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

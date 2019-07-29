@@ -24,8 +24,10 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
-
+//    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
+    public fileprivate(set) var translationsManager: LocalizationWrapper?
+    
+    
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
 
@@ -174,7 +176,8 @@ public class NStack {
 
         // Set callback
         manager.delegate = self
-        translationsManager = manager
+//        translationsManager = manager
+        translationsManager = LocalizationWrapper(translationsManager: manager)
     }
 
     /// Fetches the latest data from the NStack server and updates accordingly.
@@ -207,12 +210,20 @@ public class NStack {
 
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
-                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
+//                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
+//                                                                       acceptHeaderUsed: header,
+//                                                                       completion: { (_) in
+//                        //if error, try to update translations in Translations Manager
+//                        self.translationsManager?.updateTranslations()
+//                    })
+                    //TODO: Improve this...pretty it aint!
+                    self.translationsManager?.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in
-                        //if error, try to update translations in Translations Manager
-                        self.translationsManager?.updateTranslations()
+                                                                        //if error, try to update translations in Translations Manager
+                                                                        self.translationsManager?.translationsManager?.updateTranslations()
                     })
+
                 }
 
                 #if os(iOS) || os(tvOS)
