@@ -306,6 +306,34 @@ extension ConnectionManager {
     }
 }
 
+// MARK: - ProposalsRepository
+extension ConnectionManager {
+    func storeProposal(section: String, key: String, value: String, locale: Locale, completion: @escaping Completion<Proposal>) {
+        let params: [String: Any] = [
+            "section": section,
+            "key": key,
+            "value": value,
+            "platform": "mobile",
+            "guid": Configuration.guid,
+            "locale": locale.description.replacingOccurrences(of: "_", with: "-")
+        ]
+        
+        var headers = defaultHeaders
+        headers["N-Meta"] = configuration.nmeta.current
+        
+        let url = baseURLv2 + "content/localize/proposals"
+        
+        let request = session.request(url, method: .post, parameters: params, headers: headers)
+        session.startDataTask(with: request, completionHandler: completion)
+    }
+    
+    func fetchProposals(completion: @escaping Completion<[Proposal]>) {
+        let url = baseURLv1 + "content/localize/proposals"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+}
+
 // MARK: - Utility Functions -
 
 // FIXME: Refactor

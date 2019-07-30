@@ -22,7 +22,8 @@ typealias Repository =
     ColletionRepository &
     VersionsRepository &
     TranslationRepository &
-    LocalizationContextRepository
+    LocalizationContextRepository &
+    ProposalsRepository
 
 // MARK: - App Open -
 
@@ -78,4 +79,11 @@ protocol VersionsRepository {
     #if os(iOS) || os(tvOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)
     #endif
+}
+
+// MARK: - Proposals
+
+protocol ProposalsRepository {
+    func storeProposal(section: String, key: String, value: String, locale: Locale, completion: @escaping Completion<Proposal>)
+    func fetchProposals(completion: @escaping Completion<[Proposal]>)
 }

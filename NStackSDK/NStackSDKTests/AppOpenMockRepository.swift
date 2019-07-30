@@ -94,6 +94,14 @@ class MockConnectionManager: Repository {
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
 
     }
+    
+    func storeProposal(section: String, key: String, value: String, locale: Locale, completion: @escaping Completion<Proposal>) {
+        
+    }
+    
+    func fetchProposals(completion: @escaping Completion<[Proposal]>) {
+        
+    }
 }
 
 extension MockConnectionManager {

@@ -148,6 +148,10 @@
 		83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4522D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4622D75B36006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
+		8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
+		8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
+		8C80D0F922F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
+		8C80D0FA22F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C9BA2DD22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
 		8C9BA2DE22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
 		8C9BA2DF22EEFFF00057BAEF /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2DC22EEFFF00057BAEF /* Operator.swift */; };
@@ -337,6 +341,7 @@
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		83E20E4222D756CD006D5BEF /* N-Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "N-Meta.swift"; sourceTree = "<group>"; };
+		8C80D0F622F066AC00165F5D /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
 		8D4D8B340C27AC4744DE2E32 /* Pods-NStackSDK-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -549,6 +554,7 @@
 				33E2230A1FA9F5010013CCC3 /* Continent.swift */,
 				C0D852D7215A373F0090B7C5 /* Routes.swift */,
 				C0D852DC215A3A730090B7C5 /* Repository */,
+				8C80D0F622F066AC00165F5D /* Proposal.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1266,6 +1272,7 @@
 				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
+				8C80D0FA22F066AC00165F5D /* Proposal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1321,7 @@
 				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
 				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
+				8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
 				01A3344A1E4E825E003CE9BA /* Constants.swift in Sources */,
@@ -1385,6 +1393,7 @@
 				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				C0D852E4215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E2230D1FA9F5010013CCC3 /* Continent.swift in Sources */,
+				8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1411,6 +1420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3B654A11E0056F300FC9380 /* AppOpenResponse.swift in Sources */,
+				8C80D0F922F066AC00165F5D /* Proposal.swift in Sources */,
 				E3B654A21E0056F300FC9380 /* LanguageData.swift in Sources */,
 				E3B654A31E0056F300FC9380 /* AppOpenData.swift in Sources */,
 				E3B654A41E0056F300FC9380 /* Message.swift in Sources */,
