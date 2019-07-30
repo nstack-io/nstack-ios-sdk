@@ -25,7 +25,7 @@ public class NStack {
 
     /// The manager responsible for fetching, updating and persisting translations.
 //    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
-    public fileprivate(set) var translationsManager: LocalizationWrapper?
+    public fileprivate(set) var translationsManager: LocalizationWrappable?
     
     
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
@@ -162,7 +162,6 @@ public class NStack {
         let manager = TranslatableManager<Localizable, Language, Localization>(repository: repository,
                                                    contextRepository: repository,
                                                    updateMode: .manual)
-        //let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
 
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
@@ -216,12 +215,11 @@ public class NStack {
 //                        //if error, try to update translations in Translations Manager
 //                        self.translationsManager?.updateTranslations()
 //                    })
-                    //TODO: Improve this...pretty it aint!
-                    self.translationsManager?.translationsManager?.handleLocalizationModels(localizations: localizations,
+                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in
                                                                         //if error, try to update translations in Translations Manager
-                                                                        self.translationsManager?.translationsManager?.updateTranslations()
+                                                                        self.translationsManager?.updateTranslations()
                     })
 
                 }
