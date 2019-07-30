@@ -49,14 +49,12 @@ public struct Configuration {
     fileprivate static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
 
     internal static var guid: String {
-        let savedUUID = UserDefaults.standard.object(forKey: UUIDKey)
-        if let UUID = savedUUID as? String {
+        if let UUID = UserDefaults.standard.string(forKey: UUIDKey) {
             return UUID
         }
 
         let newUUID = UUID().uuidString
-        UserDefaults.standard.set(newUUID, forKey: UUIDKey)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.setValue(newUUID, forKey: UUIDKey)
         return newUUID
     }
 
