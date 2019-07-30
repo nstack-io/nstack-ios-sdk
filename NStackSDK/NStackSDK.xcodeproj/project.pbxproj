@@ -157,6 +157,11 @@
 		8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		9F19B242F21C0C601C1452D6 /* Pods_NStackSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */; };
+		A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13E722F059FA002A7682 /* UIWindow+ShakeDetection.swift */; };
+		A83A13EA22F05A3A002A7682 /* UILabel+NstackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13E922F05A3A002A7682 /* UILabel+NstackLocalizable.swift */; };
+		A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EB22F05A59002A7682 /* UIButton+NStackLocalizable.swift */; };
+		A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13ED22F05A7D002A7682 /* UITextField+NStackLocalizable.swift */; };
+		A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */; };
 		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
@@ -338,6 +343,11 @@
 		9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2BB912CEEC4DBB51EB052 /* Pods-NStackSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F737BF3D0B267967FC4A9FB /* Pods_NStackSDK_macOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDK_macOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A83A13E722F059FA002A7682 /* UIWindow+ShakeDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+ShakeDetection.swift"; sourceTree = "<group>"; };
+		A83A13E922F05A3A002A7682 /* UILabel+NstackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+NstackLocalizable.swift"; sourceTree = "<group>"; };
+		A83A13EB22F05A59002A7682 /* UIButton+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+NStackLocalizable.swift"; sourceTree = "<group>"; };
+		A83A13ED22F05A7D002A7682 /* UITextField+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NStackLocalizable.swift"; sourceTree = "<group>"; };
+		A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+NStackLocalizable.swift"; sourceTree = "<group>"; };
 		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		C0D852D2215A371F0090B7C5 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C0D852D7215A373F0090B7C5 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
@@ -454,6 +464,11 @@
 				C0D852E2215A42EE0090B7C5 /* URLSession+Request.swift */,
 				C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */,
 				83E20E4222D756CD006D5BEF /* N-Meta.swift */,
+				A83A13E722F059FA002A7682 /* UIWindow+ShakeDetection.swift */,
+				A83A13E922F05A3A002A7682 /* UILabel+NstackLocalizable.swift */,
+				A83A13EB22F05A59002A7682 /* UIButton+NStackLocalizable.swift */,
+				A83A13ED22F05A7D002A7682 /* UITextField+NStackLocalizable.swift */,
+				A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */,
 			);
 			name = Other;
 			path = Classes/Other;
@@ -1260,6 +1275,7 @@
 			files = (
 				82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */,
 				23442E6622C6281000F196EE /* ContentManager.swift in Sources */,
+				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
 				2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
@@ -1275,13 +1291,17 @@
 				C0D852E3215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				01D4EDE91D5DF17800E7E94C /* Configuration.swift in Sources */,
 				C0D852F2215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
+				A83A13EA22F05A3A002A7682 /* UILabel+NstackLocalizable.swift in Sources */,
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
+				A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
+				A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */,
 				23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */,
 				8C9BA2DD22EEFFF00057BAEF /* Operator.swift in Sources */,
 				23442E6222C6281000F196EE /* GeographyManager.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
+				A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */,
 				C0D852E8215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */,
 				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,

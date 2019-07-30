@@ -10,10 +10,14 @@ import Foundation
 import TranslationManager
 
 @objc
-public protocol NStackLocalizable {
+public protocol NStackLocalizable where Self: UIView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
     func setLocalizedValue(_ localizedValue: String)
+    var translatableValue: String? { get set }
+    var backgroundViewToColor: UIView? { get }
+    var originalBackgroundColor: UIColor? { get set }
+    var originalIsUserInteractionEnabled: Bool { get set }
 }
 
 public protocol LocalizationWrappable {
