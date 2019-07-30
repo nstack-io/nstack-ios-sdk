@@ -13,11 +13,42 @@ import TranslationManager
 public protocol NStackLocalizable where Self: UIView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
+    func localize(for key: String)
     func setLocalizedValue(_ localizedValue: String)
     var translatableValue: String? { get set }
     var backgroundViewToColor: UIView? { get }
     var originalBackgroundColor: UIColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
+}
+
+extension UILabel: NStackLocalizable {
+    @objc public func localize(for key: String) {
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    }
+
+    @objc public func setLocalizedValue(_ localizedValue: String) {
+        text = localizedValue
+    }
+}
+
+extension UITextView: NStackLocalizable {
+    @objc public func localize(for key: String) {
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    }
+
+    @objc public func setLocalizedValue(_ localizedValue: String) {
+        text = localizedValue
+    }
+}
+
+extension UITextField: NStackLocalizable {
+    @objc public func localize(for key: String) {
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    }
+    
+    @objc public func setLocalizedValue(_ localizedValue: String) {
+        text = localizedValue
+    }
 }
 
 public protocol LocalizationWrappable {
