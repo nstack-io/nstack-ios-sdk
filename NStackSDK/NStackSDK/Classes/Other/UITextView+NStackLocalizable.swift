@@ -14,8 +14,12 @@ extension UITextView: NStackLocalizable {
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
     
-    public func setLocalizedValue(_ localizedValue: String) {
-        
+    @objc public func localize(for key: String) {
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    }
+    
+    @objc public func setLocalizedValue(_ localizedValue: String) {
+        text = localizedValue
     }
     
     public var translatableValue: String? {
