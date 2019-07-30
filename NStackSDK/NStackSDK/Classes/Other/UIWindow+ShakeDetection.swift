@@ -20,23 +20,13 @@ extension UIWindow {
         if motion == .motionShake {
             
             if ShakeDetection.isEditing {
-                // Revert to original state
-                for item in ShakeDetection.translatableSubviews {
-                    item.backgroundViewToColor?.backgroundColor = item.originalBackgroundColor
-                    item.isUserInteractionEnabled = item.originalIsUserInteractionEnabled
-                    if let lastGesture = item.gestureRecognizers?.last {
-                        item.removeGestureRecognizer(lastGesture)
-                    }
-                }
-                ShakeDetection.translatableSubviews = []
-                ShakeDetection.isEditing = false
+                revertAndReset()
                 return
             }
             
             if let topController = visibleViewController() {
                 
-                // TODO: Observe for viewWillDisappear and remove highlighting -> revertItems(including: tapGesture)
-                
+                // TODO: Observe for viewWillDisappear and remove highlighting -> revertAndReset()
                 
                 // Find views that are 'NStackLocalizable'
                 for subview in topController.view.subviews {
@@ -59,9 +49,7 @@ extension UIWindow {
                         // Add gesture recognizer
                         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
                         item.addGestureRecognizer(tapGesture)
-                        if !item.isUserInteractionEnabled {
-                            item.isUserInteractionEnabled = true
-                        }
+                        item.isUserInteractionEnabled = true
                         
                         if let view = item.backgroundViewToColor {
                             view.backgroundColor = .yellow
@@ -74,11 +62,46 @@ extension UIWindow {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        print("View tapped!! Open view from here")
+        
+        if
+            let visibleViewController = visibleViewController(),
+            let item = sender?.view as? NStackLocalizable
+        {
+            
+            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
+
+            let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                let textField = alertController.textFields![0] as UITextField
+                item.translatableValue = textField.text
+                // Get text here, and send to API
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+                (action : UIAlertAction!) -> Void in })
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Add proposal here"
+            }
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            visibleViewController.present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
-    private func revertItems(including tapGesture: UITapGestureRecognizer) {
-        
+    private func revertAndReset() {
+        // Revert to original state
+        for item in ShakeDetection.translatableSubviews {
+            item.backgroundViewToColor?.backgroundColor = item.originalBackgroundColor
+            item.isUserInteractionEnabled = item.originalIsUserInteractionEnabled
+            if let lastGesture = item.gestureRecognizers?.last {
+                item.removeGestureRecognizer(lastGesture)
+            }
+        }
+        ShakeDetection.translatableSubviews = []
+        ShakeDetection.isEditing = false
     }
     
     func visibleViewController() -> UIViewController? {
