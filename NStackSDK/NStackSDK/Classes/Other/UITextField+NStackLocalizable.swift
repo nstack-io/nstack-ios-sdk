@@ -13,6 +13,8 @@ extension UITextField: NStackLocalizable {
     
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
+    private static var _section = [String:String]()
+    private static var _key = [String:String]()
     
     @objc public func localize(for key: String) {
         NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
@@ -28,6 +30,28 @@ extension UITextField: NStackLocalizable {
         }
         set {
             text = newValue
+        }
+    }
+    
+    public var section: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UITextField._section[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UITextField._section[tmpAddress] = newValue
+        }
+    }
+    
+    public var key: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UITextField._key[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UITextField._key[tmpAddress] = newValue
         }
     }
     

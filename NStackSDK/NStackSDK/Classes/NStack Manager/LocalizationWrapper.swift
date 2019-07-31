@@ -19,6 +19,8 @@ public protocol NStackLocalizable where Self: UIView {
     var backgroundViewToColor: UIView? { get }
     var originalBackgroundColor: UIColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
+    var section: String { get set }
+    var key: String { get set }
 }
 
 public protocol LocalizationWrappable {
@@ -35,7 +37,7 @@ public class LocalizationWrapper {
     let originallyTranslatedComponents: NSMapTable<NSString, NStackLocalizable>
     var proposedTranslations: [String: String]
     
-    public init(translationsManager: TranslatableManager<Localizable, Language, Localization>) {
+    init(translationsManager: TranslatableManager<Localizable, Language, Localization>) {
         self.translationsManager = translationsManager
         self.originallyTranslatedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
         self.proposedTranslations = [String: String]()
@@ -60,14 +62,21 @@ extension LocalizationWrapper: LocalizationWrappable {
      As a default, fetch a value from the `translationsManager` and use that on the `component`. If
      a proposed value exists, use that instead.
      */
-    public func localize(component: NStackLocalizable, for key: String) {
+    public func localize(component: NStackLocalizable, for sectionAndKey: String) {
+        // Save the section and key for the given component
+        let seperated = sectionAndKey.split(separator: ".")
+        if seperated.count == 2 {
+            component.section = "\(seperated[0])"
+            component.key = "\(seperated[1])"
+        }
+        
         //Has the user proposed a translation earlier in this session?
-        if let proposedTranslation = proposedTranslations[key] {
+        if let proposedTranslation = proposedTranslations[sectionAndKey] {
             component.setLocalizedValue(proposedTranslation)
         } else {
             do {
-                if let localizedValue = try translationsManager?.translation(for: key) {
-                    originallyTranslatedComponents.setObject(component, forKey: key as NSString)
+                if let localizedValue = try translationsManager?.translation(for: sectionAndKey) {
+					originallyTranslatedComponents.setObject(component, forKey: key as NSString)
                     component.setLocalizedValue(localizedValue)
                 }
             } catch {
@@ -80,8 +89,8 @@ extension LocalizationWrapper: LocalizationWrappable {
     /**
      stores proposed text value locally.
      
-     *Note:* this method does not call the NStack API for saving of the proposal so do that first and then
-     come back here to store the proposal
+     *Note:* this method does not call the NStack API for saving of the proposal - we do that first and then
+     come back here to store the proposal locally
      
      - Parameter value: proposed value
      - Parameter key: NStack key/identifier
