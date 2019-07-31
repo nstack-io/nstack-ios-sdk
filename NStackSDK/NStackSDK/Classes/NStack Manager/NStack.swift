@@ -24,9 +24,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-//    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
     public fileprivate(set) var translationsManager: LocalizationWrappable?
-    
     
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
@@ -248,6 +246,28 @@ public class NStack {
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
+    }
+    
+    /// Sends the proposal to NStack
+    ///
+    /// - Parameters:
+    ///   - section: The section where the key belongs
+    ///   - key: The actual key for the text
+    ///   - value: The new value for the key
+    ///   - locale: The locale it should affect
+    func storeProposal(section: String, key: String, value: String) {
+        #warning("Change this to the currently used locale")
+        let locale = "da-DK"
+        
+        // Check when getting section, if it's sending "defaultSection" instead of "default". The correct should be "default"
+        repository.storeProposal(section: section, key: key, value: value, locale: locale) { (result) in
+            switch result {
+            case .success(let response):
+                self.translationsManager?.storeProposal(response.value, for: response.key)
+            case .failure(let error):
+                self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
+            }
+        }
     }
 }
 

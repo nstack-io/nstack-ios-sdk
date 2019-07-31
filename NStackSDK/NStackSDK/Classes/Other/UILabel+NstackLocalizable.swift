@@ -13,7 +13,8 @@ extension UILabel: NStackLocalizable {
     
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
-    
+    private static var _section = [String:String]()
+    private static var _key = [String:String]()
     
     @objc public func localize(for key: String) {
         NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
@@ -29,6 +30,28 @@ extension UILabel: NStackLocalizable {
         }
         set {
             text = newValue
+        }
+    }
+    
+    public var section: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UILabel._section[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UILabel._section[tmpAddress] = newValue
+        }
+    }
+    
+    public var key: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UILabel._key[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UILabel._key[tmpAddress] = newValue
         }
     }
     

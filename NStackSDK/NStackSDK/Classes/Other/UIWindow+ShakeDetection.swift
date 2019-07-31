@@ -26,7 +26,7 @@ extension UIWindow {
             
             if let topController = visibleViewController() {
                 
-                // TODO: Observe for viewWillDisappear and remove highlighting -> revertAndReset()
+                // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
                 
                 // Find views that are 'NStackLocalizable'
                 for subview in topController.view.subviews {
@@ -72,8 +72,10 @@ extension UIWindow {
 
             let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { alert -> Void in
                 let textField = alertController.textFields![0] as UITextField
+                // Set proposal to label
                 item.translatableValue = textField.text
-                // Get text here, and send to API
+                // Send proposal to API
+                NStack.sharedInstance.storeProposal(section: item.section, key: item.key, value: textField.text ?? "")
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {

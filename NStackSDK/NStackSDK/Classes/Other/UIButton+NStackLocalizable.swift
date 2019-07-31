@@ -13,6 +13,8 @@ extension UIButton: NStackLocalizable {
     
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
+    private static var _section = [String:String]()
+    private static var _key = [String:String]()
     
     @objc public func localize(for key: String) {
         NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
@@ -28,6 +30,28 @@ extension UIButton: NStackLocalizable {
         }
         set {
             titleLabel?.text = newValue
+        }
+    }
+    
+    public var section: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UIButton._section[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UIButton._section[tmpAddress] = newValue
+        }
+    }
+    
+    public var key: String {
+        get {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            return UIButton._key[tmpAddress] ?? ""
+        }
+        set {
+            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+            UIButton._key[tmpAddress] = newValue
         }
     }
     

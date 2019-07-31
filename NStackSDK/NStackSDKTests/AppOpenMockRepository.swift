@@ -95,7 +95,7 @@ class MockConnectionManager: Repository {
 
     }
     
-    func storeProposal(section: String, key: String, value: String, locale: Locale, completion: @escaping Completion<Proposal>) {
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
         
     }
     
