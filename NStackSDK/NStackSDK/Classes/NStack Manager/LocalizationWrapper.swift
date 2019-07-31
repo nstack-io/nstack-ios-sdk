@@ -76,7 +76,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         } else {
             do {
                 if let localizedValue = try translationsManager?.translation(for: sectionAndKey) {
-					originallyTranslatedComponents.setObject(component, forKey: key as NSString)
+					originallyTranslatedComponents.setObject(component, forKey: sectionAndKey as NSString)
                     component.setLocalizedValue(localizedValue)
                 }
             } catch {
