@@ -308,17 +308,18 @@ extension ConnectionManager {
 
 // MARK: - ProposalsRepository
 extension ConnectionManager {
-    func storeProposal(section: String, key: String, value: String, locale: Locale, completion: @escaping Completion<Proposal>) {
-        let params: [String: Any] = [
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
+        let params: [String: String] = [
             "section": section,
             "key": key,
             "value": value,
             "platform": "mobile",
             "guid": Configuration.guid,
-            "locale": locale.description.replacingOccurrences(of: "_", with: "-")
+            "locale": locale
         ]
         
         var headers = defaultHeaders
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         headers["N-Meta"] = configuration.nmeta.current
         
         let url = baseURLv2 + "content/localize/proposals"
