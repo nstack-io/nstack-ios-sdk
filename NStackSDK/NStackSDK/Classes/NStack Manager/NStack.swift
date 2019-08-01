@@ -257,7 +257,7 @@ public class NStack {
     ///   - locale: The locale it should affect
     func storeProposal(section: String, key: String, value: String) {
         #warning("Change this to the currently used locale")
-        let locale = "da-DK".replacingOccurrences(of: "_", with: "-")
+        let locale = "da-DK" // .replacingOccurrences(of: "_", with: "-")
         
         // Check when getting section, if it's sending "defaultSection" instead of "default". The correct should be "default"
         repository.storeProposal(section: section, key: key, value: value, locale: locale) { (result) in

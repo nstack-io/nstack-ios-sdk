@@ -78,7 +78,7 @@ extension ConnectionManager {
 // MARK: - TranslationRepository
 extension ConnectionManager {
     func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
             "last_updated": ConnectionManager.lastUpdatedString
@@ -97,7 +97,7 @@ extension ConnectionManager {
     }
 
     func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios"
         ]
