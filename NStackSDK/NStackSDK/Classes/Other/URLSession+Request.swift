@@ -105,7 +105,7 @@ extension URLSession {
 
                 let decoded = try decoder.decode(T.self, from: data)
                 handler(Result.success(decoded))
-            } catch {
+            } catch let error {
                 handler(.failure(error))
             }
         }
@@ -142,7 +142,7 @@ extension URLSession {
 //        }
 
         switch HTTPStatusCode(rawValue: response.statusCode)! {
-        case .ok: // Success
+        case .ok, .created: // Success
             guard let data = data else {
                 throw NSError(domain: "", code: 0, userInfo: nil)
             }

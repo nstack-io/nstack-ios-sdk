@@ -308,7 +308,7 @@ extension ConnectionManager {
 
 // MARK: - ProposalsRepository
 extension ConnectionManager {
-    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<ProposalResponse>) {
         let params: [String: String] = [
             "section": section,
             "key": key,

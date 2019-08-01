@@ -260,10 +260,10 @@ public class NStack {
         let locale = "da-DK" // .replacingOccurrences(of: "_", with: "-")
         
         // Check when getting section, if it's sending "defaultSection" instead of "default". The correct should be "default"
-        repository.storeProposal(section: section, key: key, value: value, locale: locale) { (result) in
+        repository.storeProposal(section: "default", key: "keyys", value: value, locale: locale) { (result) in
             switch result {
             case .success(let response):
-                self.translationsManager?.storeProposal(response.value, for: response.key)
+                self.translationsManager?.storeProposal(response.data.value, for: response.data.key)
             case .failure(let error):
                 self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
             }

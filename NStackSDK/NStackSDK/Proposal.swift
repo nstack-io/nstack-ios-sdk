@@ -9,10 +9,14 @@
 import Foundation
 
 public struct Proposal: Codable {
-    let id: Int
-    let applicationId: Int
-    let section: String
-    let key: String
-    let value: String
-    let locale: String //make extension which exposes an actual Locale
+    
+    let id, applicationId: Int
+    let key, section, locale, value: String //make extension which exposes an actual Locale
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case applicationId = "applicationId"
+        case key, section, locale, value
+    }
+
 }
