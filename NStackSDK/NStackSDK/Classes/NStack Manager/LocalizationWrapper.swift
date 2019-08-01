@@ -63,12 +63,7 @@ extension LocalizationWrapper: LocalizationWrappable {
      a proposed value exists, use that instead.
      */
     public func localize(component: NStackLocalizable, for sectionAndKey: String) {
-        // Save the section and key for the given component
-        let seperated = sectionAndKey.split(separator: ".")
-        if seperated.count == 2 {
-            component.section = "\(seperated[0])"
-            component.key = "\(seperated[1])"
-        }
+        add(sectionAndKey, to: component)
         
         //Has the user proposed a translation earlier in this session?
         if let proposedTranslation = proposedTranslations[sectionAndKey] {
@@ -99,5 +94,16 @@ extension LocalizationWrapper: LocalizationWrappable {
         originallyTranslatedComponents.removeObject(forKey: key as NSString)
         //And store
         proposedTranslations[key] = value
+    }
+    
+    /// Adds the section and the key to the givent component
+    ///
+    /// - Parameters:
+    ///   - sectionAndKey: "someSection.someKey"
+    ///   - component: A NStackLocalizable component
+    private func add(_ sectionAndKey: String, to component: NStackLocalizable) {
+        guard let tuple = SectionKeyHelper().split(sectionAndKey) else { return }
+        component.section = tuple.section
+        component.key = tuple.key
     }
 }

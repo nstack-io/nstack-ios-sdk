@@ -315,11 +315,12 @@ extension ConnectionManager {
             "value": value,
             "platform": "mobile",
             "guid": Configuration.guid,
-            "locale": locale.replacingOccurrences(of: "_", with: "-")
+            "locale": locale
         ]
         
         var headers = defaultHeaders
         headers["Content-Type"] = "application/x-www-form-urlencoded"
+        headers["N-Meta"] = configuration.nmeta.current
         
         let url = baseURLv2 + "content/localize/proposals"
         
