@@ -35,9 +35,11 @@ extension UIWindow {
         
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
+            appendTranslatableSubviews(for: topController)
             
+            if !ShakeDetection.translatableSubviews.isEmpty {
+                ShakeDetection.isEditing = true
             
-                
                 // Handle the editable items
                 for item in ShakeDetection.translatableSubviews {
                     // Save original states
@@ -49,6 +51,8 @@ extension UIWindow {
                     item.addGestureRecognizer(tapGesture)
                     item.isUserInteractionEnabled = true
                     
+                    if let view = item.backgroundViewToColor {
+                        view.backgroundColor = .yellow
                     }
                 }
             }
@@ -63,13 +67,11 @@ extension UIWindow {
             
                 guard
                     let translatableItem = currentView as? NStackLocalizable,
-                    let section = translatableItem.section,
-                    let key = translatableItem.key
+                    let identifier = translatableItem.translationIdentifier
                 else {
                     return nil
                 }
-            
-                return translationsManager.containsComponent(for: section, key: key) ? translatableItem : nil
+                return translationsManager.containsComponent(for: identifier) ? translatableItem : nil
             })
             .compactMap({ return $0})
     }
