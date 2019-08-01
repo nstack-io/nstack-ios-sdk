@@ -259,8 +259,10 @@ public class NStack {
         guard let language = translationsManager?.bestFitLanguage else { return }
         let locale = language.acceptLanguage
         
-        // Check when getting section, if it's sending "defaultSection" instead of "default". The correct should be "default"
-        repository.storeProposal(section: "default", key: "keyys", value: value, locale: locale) { (result) in
+        repository.storeProposal(section: section == "defaultSection" ? "default" : section,
+                                 key: key,
+                                 value: value,
+                                 locale: locale) { (result) in
             switch result {
             case .success(let response):
                 self.translationsManager?.storeProposal(response.data.value, for: response.data.key)
