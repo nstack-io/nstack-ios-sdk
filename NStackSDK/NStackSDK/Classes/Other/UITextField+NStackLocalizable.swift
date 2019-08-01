@@ -13,11 +13,11 @@ extension UITextField: NStackLocalizable {
     
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
-    private static var _section = [String:String]()
-    private static var _key = [String:String]()
+    private static var _translationIdentifier = [String:TranslationIdentifier]()
     
-    @objc public func localize(for key: String) {
-        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    @objc public func localize(for stringIdentifier: String) {
+        guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: identifier)
     }
     
     @objc public func setLocalizedValue(_ localizedValue: String) {
@@ -33,25 +33,14 @@ extension UITextField: NStackLocalizable {
         }
     }
     
-    public var section: String? {
+    public var translationIdentifier: TranslationIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextField._section[tmpAddress]
+            return UITextField._translationIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UITextField._section[tmpAddress] = newValue
-        }
-    }
-    
-    public var key: String? {
-        get {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextField._key[tmpAddress]
-        }
-        set {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UITextField._key[tmpAddress] = newValue
+            UITextField._translationIdentifier[tmpAddress] = newValue
         }
     }
     

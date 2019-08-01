@@ -168,6 +168,7 @@
 		A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */; };
 		A83A140922F2CB5C002A7682 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		A864BBEA22F2DE4F00CC2BFF /* ProposalResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBE922F2DE4F00CC2BFF /* ProposalResponse.swift */; };
+		A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
 		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
@@ -357,6 +358,7 @@
 		A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+NStackLocalizable.swift"; sourceTree = "<group>"; };
 		A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionKeyHelper.swift; sourceTree = "<group>"; };
 		A864BBE922F2DE4F00CC2BFF /* ProposalResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResponse.swift; sourceTree = "<group>"; };
+		A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationIdentifier.swift; sourceTree = "<group>"; };
 		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		C0D852D2215A371F0090B7C5 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C0D852D7215A373F0090B7C5 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				C0D852DC215A3A730090B7C5 /* Repository */,
 				A864BBE922F2DE4F00CC2BFF /* ProposalResponse.swift */,
 				8C80D0F622F066AC00165F5D /* Proposal.swift */,
+				A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1309,6 +1312,7 @@
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
+				A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */,
 				23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */,

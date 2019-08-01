@@ -255,17 +255,19 @@ public class NStack {
     ///   - key: The actual key for the text
     ///   - value: The new value for the key
     ///   - locale: The locale it should affect
-    func storeProposal(section: String, key: String, value: String) {
+    func storeProposal(for identifier: TranslationIdentifier, with value: String) {
         guard let language = translationsManager?.bestFitLanguage else { return }
         let locale = language.acceptLanguage
         
-        repository.storeProposal(section: section == "defaultSection" ? "default" : section,
-                                 key: key,
+        repository.storeProposal(section: identifier.section,
+                                 key: identifier.key,
                                  value: value,
                                  locale: locale) { (result) in
             switch result {
             case .success(let response):
-                self.translationsManager?.storeProposal(response.data.value, for: response.data.key)
+                guard let identifier = SectionKeyHelper.transform(SectionKeyHelper.combine(section: response.data.section,
+                                                                                           key: response.data.key)) else { return }
+                self.translationsManager?.storeProposal(response.data.value, for: identifier)
             case .failure(let error):
                 self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
             }

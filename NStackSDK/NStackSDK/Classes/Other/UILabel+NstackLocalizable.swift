@@ -13,11 +13,11 @@ extension UILabel: NStackLocalizable {
     
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String:Bool]()
-    private static var _section = [String:String]()
-    private static var _key = [String:String]()
+    private static var _translationIdentifier = [String:TranslationIdentifier]()
     
-    @objc public func localize(for key: String) {
-        NStack.sharedInstance.translationsManager?.localize(component: self, for: key)
+    @objc public func localize(for stringIdentifier: String) {
+        guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
+        NStack.sharedInstance.translationsManager?.localize(component: self, for: identifier)
     }
     
     @objc public func setLocalizedValue(_ localizedValue: String) {
@@ -33,25 +33,14 @@ extension UILabel: NStackLocalizable {
         }
     }
     
-    public var section: String? {
+    public var translationIdentifier: TranslationIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UILabel._section[tmpAddress]
+            return UILabel._translationIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UILabel._section[tmpAddress] = newValue
-        }
-    }
-    
-    public var key: String? {
-        get {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UILabel._key[tmpAddress]
-        }
-        set {
-            let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UILabel._key[tmpAddress] = newValue
+            UILabel._translationIdentifier[tmpAddress] = newValue
         }
     }
     
