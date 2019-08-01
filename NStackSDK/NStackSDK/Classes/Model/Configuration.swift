@@ -113,3 +113,9 @@ public struct Configuration {
         }
     }
 }
+
+extension Configuration {
+    var isProduction: Bool {
+        return currentEnvironment.lowercased() == "production"
+    }
+}

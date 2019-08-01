@@ -17,59 +17,67 @@ extension UIWindow {
     }
     
     open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            
-            if ShakeDetection.isEditing {
-                revertAndReset()
-                return
+        if !NStack.sharedInstance.configuration.isProduction {
+            switch motion {
+            case .motionShake:
+                handleShake()
+            default:
+                break
             }
+        }
+    }
+
+    private func handleShake() {
+        if ShakeDetection.isEditing {
+            revertAndReset()
+            return
+        }
+        
+        if let topController = visibleViewController {
+            // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
             
-            if let topController = visibleViewController() {
+            
                 
-                // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
-                
-                // Find views that are 'NStackLocalizable'
-                for subview in topController.view.subviews {
-                    if
-                        let translatableItem = subview as? NStackLocalizable,
-                        let identifier = translatableItem.translationIdentifier
-                    {
-                        if let translationsManager = NStack.sharedInstance.translationsManager {
-                            if translationsManager.containsComponent(for: identifier) {
-                                ShakeDetection.translatableSubviews.append(translatableItem)
-                            }
-                        }
-                    }
-                }
-                
-                if !ShakeDetection.translatableSubviews.isEmpty {
-                    ShakeDetection.isEditing = true
+                // Handle the editable items
+                for item in ShakeDetection.translatableSubviews {
+                    // Save original states
+                    item.originalBackgroundColor = item.backgroundColor
+                    item.originalIsUserInteractionEnabled = item.isUserInteractionEnabled
                     
-                    // Handle the editable items
-                    for item in ShakeDetection.translatableSubviews {
-                        // Save original states
-                        item.originalBackgroundColor = item.backgroundColor
-                        item.originalIsUserInteractionEnabled = item.isUserInteractionEnabled
-                        
-                        // Add gesture recognizer
-                        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-                        item.addGestureRecognizer(tapGesture)
-                        item.isUserInteractionEnabled = true
-                        
-                        if let view = item.backgroundViewToColor {
-                            view.backgroundColor = .yellow
-                        }
+                    // Add gesture recognizer
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+                    item.addGestureRecognizer(tapGesture)
+                    item.isUserInteractionEnabled = true
+                    
                     }
                 }
-                
             }
         }
     }
     
-    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        
+    private func appendTranslatableSubviews(for viewController: UIViewController) {
+        // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
+        ShakeDetection.translatableSubviews = viewController.view.subviews
+            .map({ currentView in
+                guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
+            
+                guard
+                    let translatableItem = currentView as? NStackLocalizable,
+                    let section = translatableItem.section,
+                    let key = translatableItem.key
+                else {
+                    return nil
+                }
+            
+                return translationsManager.containsComponent(for: section, key: key) ? translatableItem : nil
+            })
+            .compactMap({ return $0})
+    }
+    
+    @objc
+    func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if
-            let visibleViewController = visibleViewController(),
+            let visibleViewController = visibleViewController,
             let item = sender?.view as? NStackLocalizable
         {
             
@@ -97,7 +105,6 @@ extension UIWindow {
             
             visibleViewController.present(alertController, animated: true, completion: nil)
         }
-        
     }
     
     private func revertAndReset() {
@@ -113,7 +120,7 @@ extension UIWindow {
         ShakeDetection.isEditing = false
     }
     
-    func visibleViewController() -> UIViewController? {
+    var visibleViewController: UIViewController? {
         if let rootViewController: UIViewController = self.rootViewController {
             return getVisibleViewControllerFrom(vc: rootViewController)
         }
@@ -123,12 +130,10 @@ extension UIWindow {
     func getVisibleViewControllerFrom(vc: UIViewController) -> UIViewController {
         if let navigationController = vc as? UINavigationController,
             let visibleController = navigationController.visibleViewController  {
-            return getVisibleViewControllerFrom( vc: visibleController )
-            
+            return getVisibleViewControllerFrom(vc: visibleController )
         } else if let tabBarController = vc as? UITabBarController,
             let selectedTabController = tabBarController.selectedViewController {
             return getVisibleViewControllerFrom(vc: selectedTabController )
-            
         } else {
             if let presentedViewController = vc.presentedViewController {
                 return getVisibleViewControllerFrom(vc: presentedViewController)
