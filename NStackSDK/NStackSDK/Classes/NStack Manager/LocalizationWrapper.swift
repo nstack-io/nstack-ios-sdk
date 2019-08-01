@@ -25,8 +25,8 @@ public protocol NStackLocalizable where Self: UIView {
 
 public protocol LocalizationWrappable {
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
-    func updateTranslations()
     func updateTranslations(_ completion: ((Error?) -> Void)?)
+    func updateTranslations()
     
     func localize(component: NStackLocalizable, for key: String)
     func storeProposal(_ value: String, for key: String)
@@ -51,9 +51,9 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
     
     public func updateTranslations() {
-        updateTranslations(nil)
+        translationsManager?.updateTranslations()
     }
-    
+        
     public func updateTranslations(_ completion: ((Error?) -> Void)? = nil) {
         translationsManager?.updateTranslations(completion)
     }
@@ -72,10 +72,12 @@ extension LocalizationWrapper: LocalizationWrappable {
             originallyTranslatedComponents.setObject(component, forKey: sectionAndKey as NSString)
             do {
                 if let localizedValue = try translationsManager?.translation(for: sectionAndKey) {
+					originallyTranslatedComponents.setObject(component, forKey: sectionAndKey as NSString)
                     component.setLocalizedValue(localizedValue)
                 }
             } catch {
-                component.setLocalizedValue("")
+                //in case we can't find a localized value, don't do anything. There is no need for us to
+                //`component.setLocalizedValue("")` for instance, lets just leave the component as is                
             }
         }
     }
