@@ -19,8 +19,8 @@ public protocol NStackLocalizable where Self: UIView {
     var backgroundViewToColor: UIView? { get }
     var originalBackgroundColor: UIColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
-    var section: String { get set }
-    var key: String { get set }
+    var section: String? { get set }
+    var key: String? { get set }
 }
 
 public protocol LocalizationWrappable {
@@ -30,6 +30,7 @@ public protocol LocalizationWrappable {
     func updateTranslations()
     
     func localize(component: NStackLocalizable, for key: String)
+    func containsComponent(for section: String, key: String) -> Bool
     func storeProposal(_ value: String, for key: String)
 }
 
@@ -104,13 +105,25 @@ extension LocalizationWrapper: LocalizationWrappable {
         proposedTranslations[key] = value
     }
     
+    /**
+     - Return `true` if `component` has been localized, `false` if it has not
+    */
+    public func containsComponent(for section: String, key: String) -> Bool {
+        let sectionAndKey = SectionKeyHelper.combine(section: section, key: key)
+        if originallyTranslatedComponents.object(forKey: sectionAndKey as NSString) != nil {
+            return true
+        } else {
+            return proposedTranslations[sectionAndKey] != nil
+        }
+    }
+    
     /// Adds the section and the key to the givent component
     ///
     /// - Parameters:
     ///   - sectionAndKey: "someSection.someKey"
     ///   - component: A NStackLocalizable component
     private func add(_ sectionAndKey: String, to component: NStackLocalizable) {
-        guard let tuple = SectionKeyHelper().split(sectionAndKey) else { return }
+        guard let tuple = SectionKeyHelper.split(sectionAndKey) else { return }
         component.section = tuple.section
         component.key = tuple.key
     }

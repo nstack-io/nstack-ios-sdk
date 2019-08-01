@@ -10,7 +10,7 @@ import Foundation
 
 struct SectionKeyHelper {
     
-    func split(_ sectionAndKey: String) -> (section: String, key: String)? {
+    static func split(_ sectionAndKey: String) -> (section: String, key: String)? {
         let seperated = sectionAndKey.split(separator: ".")
         if seperated.count == 2 {
             return ("\(seperated[0])","\(seperated[1])")
@@ -18,7 +18,7 @@ struct SectionKeyHelper {
         return nil
     }
     
-    func combine(section: String, key: String) -> String {
+    static func combine(section: String, key: String) -> String {
         return "\(section).\(key)"
     }
     

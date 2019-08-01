@@ -33,10 +33,10 @@ extension UITextField: NStackLocalizable {
         }
     }
     
-    public var section: String {
+    public var section: String? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextField._section[tmpAddress] ?? ""
+            return UITextField._section[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
@@ -44,10 +44,10 @@ extension UITextField: NStackLocalizable {
         }
     }
     
-    public var key: String {
+    public var key: String? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextField._key[tmpAddress] ?? ""
+            return UITextField._key[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))

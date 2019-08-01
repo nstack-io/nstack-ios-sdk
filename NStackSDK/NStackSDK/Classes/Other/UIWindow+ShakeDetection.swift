@@ -30,9 +30,15 @@ extension UIWindow {
                 
                 // Find views that are 'NStackLocalizable'
                 for subview in topController.view.subviews {
-                    if let translatableItem = subview as? NStackLocalizable {
-                        if translatableItem.translatableValue != nil {
-                            ShakeDetection.translatableSubviews.append(translatableItem)
+                    if
+                        let translatableItem = subview as? NStackLocalizable,
+                        let section = translatableItem.section,
+                        let key = translatableItem.key
+                    {
+                        if let translationsManager = NStack.sharedInstance.translationsManager {
+                            if translationsManager.containsComponent(for: section, key: key) {
+                                ShakeDetection.translatableSubviews.append(translatableItem)
+                            }
                         }
                     }
                 }
@@ -75,7 +81,12 @@ extension UIWindow {
                 // Set proposal to label
                 item.translatableValue = textField.text
                 // Send proposal to API
-                NStack.sharedInstance.storeProposal(section: item.section, key: item.key, value: textField.text ?? "")
+                if
+                    let section = item.section,
+                    let key = item.key
+                {
+                    NStack.sharedInstance.storeProposal(section: section, key: key, value: textField.text ?? "")
+                }
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
