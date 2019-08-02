@@ -329,7 +329,7 @@ extension ConnectionManager {
     }
     
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
-        let url = baseURLv1 + "content/localize/proposals"
+        let url = baseURLv2 + "content/localize/proposals"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
