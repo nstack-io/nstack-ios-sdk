@@ -17,6 +17,7 @@ Here is how that is intended working:
 6. the proposal is sent to the backend (see the section `API Calls` later) for saving
 7. furthermore the proposal is stored locally in the app for the current session
 8. if you decide to see all existing proposals, a list is presented, showing all proposals for the currently highlighted text
+9. when leaving editmode (by shaking the phone), a popup will appear from the bottom, telling you if there's any proposals for the given view. This popup should disappear automatically after some seconds
 
 ## Components
 For this to work we need the following
@@ -33,6 +34,7 @@ For this to work we need the following
     - to show a popover when tapping a editable text
     - to enter a proposal
     - to see a list of all proposals for the currently selected text
+    - to see a list of all proposals for the translatable subviews
   - Extensions to "NStack enabled" UI components allowing them to fetch and expose localized values
   - (optionally) some sort of syntactic sugar making it easier to use the new propose feature.
 
