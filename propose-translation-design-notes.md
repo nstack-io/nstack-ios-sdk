@@ -88,16 +88,40 @@ public protocol NStackLocalizable where Self: UIView {
 }
 ```
 
+#### To Localize a UI Component
 The idea is that all UI relevant components conform to `NStackLocalizable` and when they want to obtain a localized value, they call `localize` with the key they would like to obtain a localized value for.
 
 So for instance:
 
 `myLabel.localize(for: "default.yes")`
 
-The component calls the `localize` method of `LocalizationWrappable` asking for a value, and sending them selves as a reference.
+The component calls the `localize` method of `LocalizationWrappable` asking for a value, and sending themselves as a reference.
 
 The `LocalizationWrappable` can now determine whether to use a proposed value or delegate to the existing `TranslationManager`.
+
+Once a value has been found, the `LocalizationWrappable` calls `setLocalizedValue` on the `NStackLocalizable` component and the value is updated.
+
+#### To Store a Proposed Value
+To store a proposed value `LocalizationWrappable` must implement the `func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier)`.
+
+`TranslationIdentifier` is a wrapper class for a `section` and a `key`.
+
+#### Memory
+As we are storing references to `NStackLocalizable` items in `LocalizationWrappable` we need to ensure that these references are weak, in order to awoid memory leaks.
+
+For this, we rely on a `NSMapTable` [documented here](https://developer.apple.com/documentation/foundation/nsmaptable) and [described here](https://nshipster.com/nshashtable-and-nsmaptable/).
+
+#### Implementation
+All of the above is implemented by the `LocalizationWrapper` class.
 
 ### UI
 
 ### Extensions to UI Components
+As already mentioned, all UI components who wishes to support NStack proposals must implement the `NStackLocalizable` protocol.
+
+You can find implementations for:
+
+- `UILabel` (in: UILabel+NstackLocalizable)
+- `UIButton` (in: UIButton+NStackLocalizable)
+- `UITextField` (in: UITextField+NStackLocalizable)
+- `UITextView` (in: UITextView+NStackLocalizable)
