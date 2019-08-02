@@ -13,6 +13,7 @@ extension UIWindow {
     
     private struct ShakeDetection {
         static var isEditing = false
+        static var canDisplayBottomPopup = true
         static var translatableSubviews: [NStackLocalizable] = []
         static var flowSubviews: [UIView] = []
         static var currentItem: NStackLocalizable?
@@ -32,6 +33,7 @@ extension UIWindow {
     private func handleShake() {
         if ShakeDetection.isEditing {
             revertAndReset()
+            dismissFlow()
             return
         }
         
@@ -88,8 +90,8 @@ extension UIWindow {
         }
     }
     
+    // Revert to original state
     private func revertAndReset() {
-        // Revert to original state
         for item in ShakeDetection.translatableSubviews {
             item.backgroundViewToColor?.backgroundColor = item.originalBackgroundColor
             item.isUserInteractionEnabled = item.originalIsUserInteractionEnabled
@@ -99,6 +101,9 @@ extension UIWindow {
         }
         ShakeDetection.translatableSubviews = []
         ShakeDetection.isEditing = false
+        
+        
+        displayBottomPopup()
     }
     
     // MARK: - Helpers
@@ -127,10 +132,10 @@ extension UIWindow {
         }
     }
     
-    // MARK: - Flow
+    // MARK: - UI / Flow
     
+    // Displays the first view in the proposal flow
     private func startFlow(for item: NStackLocalizable, in viewController: UIViewController) {
-        
         ShakeDetection.currentItem = item
         
         // Dimm background
@@ -174,7 +179,6 @@ extension UIWindow {
         viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
         viewProposalsButton.bottomAnchor.constraint(equalTo: proposeButton.topAnchor).isActive = true
         viewProposalsButton.trailingAnchor.constraint(equalTo: proposalLaunchView.trailingAnchor, constant: -25).isActive = true
-        
     }
     
     @objc
@@ -184,8 +188,62 @@ extension UIWindow {
         }
     }
     
+    private func displayBottomPopup() {
+        if ShakeDetection.canDisplayBottomPopup {
+            ShakeDetection.canDisplayBottomPopup = false
+            if let viewController = visibleViewController {
+                let proposalBottomPopup = UIView(frame: CGRect(x: viewController.view.bounds.minX, y: viewController.view.bounds.maxY, width: viewController.view.bounds.width, height: 60))
+                self.addSubview(proposalBottomPopup)
+                proposalBottomPopup.backgroundColor = .gray
+                proposalBottomPopup.alpha = 0
+                
+                let label = UILabel()
+                proposalBottomPopup.addSubview(label)
+                label.text = "Open proposals"
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.centerYAnchor.constraint(equalTo: proposalBottomPopup.centerYAnchor).isActive = true
+                label.leadingAnchor.constraint(equalTo: proposalBottomPopup.leadingAnchor, constant: 20).isActive = true
+                
+                let viewProposalsButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+                proposalBottomPopup.addSubview(viewProposalsButton)
+                viewProposalsButton.setTitleColor(.blue, for: .normal)
+                viewProposalsButton.setTitle("Open", for: .normal)
+                viewProposalsButton.addTarget(self, action:#selector(viewAllTranslationProposalsClicked), for: .touchUpInside)
+                viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
+                viewProposalsButton.centerYAnchor.constraint(equalTo: proposalBottomPopup.centerYAnchor).isActive = true
+                viewProposalsButton.trailingAnchor.constraint(equalTo: proposalBottomPopup.trailingAnchor, constant: -20).isActive = true
+                
+                UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear],
+                               animations: {
+                                proposalBottomPopup.alpha = 1
+                                proposalBottomPopup.center.y -= proposalBottomPopup.bounds.height
+                                proposalBottomPopup.layoutIfNeeded()
+                }, completion: {(_ completed: Bool) -> Void in
+                    // dismiss after 5 seconds if no interaction
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+                        self.hideBottomPopup(proposalBottomPopup)
+                    })
+                })
+            }
+        }
+    }
+    
+    private func hideBottomPopup(_ popupView: UIView) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear],
+                       animations: {
+                        popupView.alpha = 0
+                        popupView.center.y += popupView.bounds.height
+                        popupView.layoutIfNeeded()
+                        
+        },  completion: {(_ completed: Bool) -> Void in
+            popupView.removeFromSuperview()
+            ShakeDetection.canDisplayBottomPopup = true
+        })
+    }
+    
     // MARK: Flow button actions
     
+    // Opens the alertview to enter a new translation proposal into
     @objc
     func proposeNewTranslationClicked() {
         if let visibleViewController = visibleViewController, let item = ShakeDetection.currentItem {
@@ -222,6 +280,7 @@ extension UIWindow {
         }
     }
     
+    // Opens the listview of all translations for the given key
     @objc
     func viewTranslationProposalsClicked() {
         if let visibleViewController = visibleViewController, let item = ShakeDetection.currentItem {
@@ -239,6 +298,36 @@ extension UIWindow {
                 let proposalNav = UINavigationController()
                 let proposalVC = ProposalViewController()
                 proposalVC.proposals = proposalsForItem
+                proposalNav.viewControllers = [proposalVC]
+                proposalNav.modalPresentationStyle = .overFullScreen
+                DispatchQueue.main.async {
+                    visibleViewController.present(proposalNav, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    // Opens the listview of all translations for all keys
+    @objc
+    func viewAllTranslationProposalsClicked() {
+        if let visibleViewController = visibleViewController {
+            NStack.sharedInstance.fetchProposals { (proposals) in
+                DispatchQueue.main.async {
+                    self.dismissFlow()
+                }
+                
+                guard let proposals = proposals else {
+                    #warning("present erormessage here")
+                    return
+                }
+                
+                // TODO: Split proposals up into arrays by section
+                let groupedProposals = 
+                
+                let proposalNav = UINavigationController()
+                let proposalVC = ProposalViewController()
+                proposalVC.listingAllProposals = true
+                proposalVC.proposalsGrouped = groupedProposals
                 proposalNav.viewControllers = [proposalVC]
                 proposalNav.modalPresentationStyle = .overFullScreen
                 DispatchQueue.main.async {
