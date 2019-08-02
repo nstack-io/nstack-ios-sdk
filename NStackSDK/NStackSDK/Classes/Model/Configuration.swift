@@ -38,8 +38,6 @@ public struct Configuration {
     public var flat = false
     public var useMock = false
     public var translationsUrlOverride: String?
-    public var environments: [String: String]
-
     public var currentEnvironment: NStackEnvironment
     
     // Used for tests
@@ -62,14 +60,12 @@ public struct Configuration {
                 translationsClass: LocalizableModel.Type? = nil,
                 flatTranslations: Bool = false,
                 translationsUrlOverride: String? = nil,
-                environments: [String: String],
                 environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
         self.translationsUrlOverride = translationsUrlOverride
-        self.environments = environments
         self.currentEnvironment = environment
     }
 
@@ -96,21 +92,17 @@ public struct Configuration {
                 restAPIKey = keyDict["REST_API_KEY"] as? String
                 flatString = keyDict["FLAT"] as? String
                 translationsUrlOverride = keyDict["TRANSLATIONS_URL"] as? String
-                environments = keyDict["ENVIRONMENT_BUNDLE_IDS"] as? [String: String]
                 break
             }
         }
 
         guard let finalAppId = appId else { fatalError("Couldn't initialize appId") }
         guard let finalRestAPIKey = restAPIKey else { fatalError("Couldn't initialize REST API key") }
-        guard let finalEnvironments = environments else { fatalError("Couldn't initialize ENVIRONMENT_BUNDLE_IDS") }
 
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
         self.translationsUrlOverride = translationsUrlOverride
-        self.environments = finalEnvironments
-
         if let flat = flatString, flat == "1" {
             self.flat = true
         }
