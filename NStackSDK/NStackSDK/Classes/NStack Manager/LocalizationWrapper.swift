@@ -30,7 +30,7 @@ public protocol LocalizationWrappable {
     
     func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
     func containsComponent(for identifier: TranslationIdentifier) -> Bool
-    func storeProposal(_ value: String, for identifier: TranslationIdentifier)
+    func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier)
 }
 
 public class LocalizationWrapper {
@@ -78,7 +78,7 @@ extension LocalizationWrapper: LocalizationWrappable {
             let bestFitLocale = translationsManager?.bestFitLanguage?.locale
         {
             //for this locale?
-            if proposedTranslation.language.locale == bestFitLocale {
+            if proposedTranslation.locale == bestFitLocale {
                 component.setLocalizedValue(proposedTranslation.value)
             } else {
                 //OK, not for this locale, then just use the original value
@@ -112,12 +112,11 @@ extension LocalizationWrapper: LocalizationWrappable {
      - Parameter value: proposed value
      - Parameter key: NStack key/identifier
     */
-    public func storeProposal(_ value: String, for identifier: TranslationIdentifier) {
-        guard let bestFitLanguage = translationsManager?.bestFitLanguage else { return }
+    public func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier) {
         //remove from originallyTranslatedComponents if it is already there (problably)
         originallyTranslatedComponents.removeObject(forKey: identifier)
         //And store
-        proposedTranslations[identifier] = LocalizationProposal(value: value, language: bestFitLanguage)
+        proposedTranslations[identifier] = LocalizationProposal(value: value, locale: locale)
     }
     
     /**

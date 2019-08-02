@@ -11,5 +11,5 @@ import TranslationManager
 
 struct LocalizationProposal {
     let value: String
-    let language: Language
+    let locale: Locale
 }
