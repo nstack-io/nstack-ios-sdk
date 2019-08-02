@@ -265,9 +265,12 @@ public class NStack {
                                  locale: locale) { (result) in
             switch result {
             case .success(let response):
-                guard let identifier = SectionKeyHelper.transform(SectionKeyHelper.combine(section: response.data.section,
-                                                                                           key: response.data.key)) else { return }
-                self.translationsManager?.storeProposal(response.data.value, for: identifier)
+                guard
+                    let identifier = SectionKeyHelper.transform(SectionKeyHelper.combine(section: response.section,
+                                                                                           key: response.key)),
+                    let locale = response.locale
+                else { return }
+                self.translationsManager?.storeProposal(response.value, locale: locale, for: identifier)
             case .failure(let error):
                 self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
             }

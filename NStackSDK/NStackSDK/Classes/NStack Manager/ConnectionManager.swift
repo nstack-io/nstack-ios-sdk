@@ -308,7 +308,7 @@ extension ConnectionManager {
 
 // MARK: - ProposalsRepository
 extension ConnectionManager {
-    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<ProposalResponse>) {
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
         let params: [String: String] = [
             "section": section,
             "key": key,
@@ -325,7 +325,7 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/proposals"
         
         let request = session.request(url, method: .post, parameters: params, headers: headers)
-        session.startDataTask(with: request, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
