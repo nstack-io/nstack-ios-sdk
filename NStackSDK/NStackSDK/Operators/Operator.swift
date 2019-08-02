@@ -17,6 +17,10 @@ infix operator <=>
  So label.text <=> tr.myvalue.myvalue = give me the string for "tr.myvalue.myvalue" for the current language
 */
 
-public func <=> (left: String, right: String) {
-    //TODO, implement this when we have the innard components working
+public func <=> (left: NStackLocalizable, right: String) {
+    left.localize(for: right)
+}
+
+public func <=> (left: NStackLocalizable, right: TranslationIdentifier) {
+    NStack.sharedInstance.translationsManager?.localize(component: left, for: right)
 }
