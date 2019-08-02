@@ -19,6 +19,16 @@ public struct UpdateOptions: OptionSet {
 }
 
 public struct Configuration {
+    
+    public enum NStackEnvironment: String {
+        case debug
+        case staging
+        case production
+        
+        var isProduction: Bool {
+            return self == .production
+        }
+    }
 
     public let appId: String
     public let restAPIKey: String
@@ -30,19 +40,8 @@ public struct Configuration {
     public var translationsUrlOverride: String?
     public var environments: [String: String]
 
-    public var currentEnvironment: String {
-        guard
-            let bundleid = Bundle.main.bundleIdentifier,
-            let env = environments.first(where: { (_, value) -> Bool in
-                value == bundleid
-            })?.key
-        else {
-            assertionFailure("No environment found for bundle id in NStack.plist")
-            return "production"
-        }
-        return env
-    }
-
+    public var currentEnvironment: NStackEnvironment
+    
     // Used for tests
     internal var versionOverride: String?
 
@@ -63,21 +62,25 @@ public struct Configuration {
                 translationsClass: LocalizableModel.Type? = nil,
                 flatTranslations: Bool = false,
                 translationsUrlOverride: String? = nil,
-                environments: [String: String]) {
+                environments: [String: String],
+                environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
         self.translationsUrlOverride = translationsUrlOverride
         self.environments = environments
+        self.currentEnvironment = environment
     }
 
-    public init(plistName: String, translationsClass: LocalizableModel.Type? = nil) {
+    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type? = nil) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
         var translationsUrlOverride: String?
         var environments: [String: String]?
+        
+        self.currentEnvironment = environment
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
@@ -116,7 +119,6 @@ public struct Configuration {
 
 extension Configuration {
     var isProduction: Bool {
-//        return currentEnvironment.lowercased() == "production"
-        return false
+        return currentEnvironment.isProduction
     }
 }
