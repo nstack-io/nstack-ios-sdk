@@ -24,6 +24,7 @@ public protocol NStackLocalizable where Self: UIView {
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
+    func translations<L: LocalizableModel>() throws -> L?
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateTranslations(_ completion: ((Error?) -> Void)?)
     func updateTranslations()
@@ -46,6 +47,9 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
+    public func translations<L: LocalizableModel>() throws -> L? {
+        return try translationsManager?.translations()
+    }
     
     public var bestFitLanguage: Language? {
         return translationsManager?.bestFitLanguage
