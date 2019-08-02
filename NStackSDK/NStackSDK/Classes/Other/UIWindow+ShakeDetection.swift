@@ -14,6 +14,7 @@ extension UIWindow {
     private struct ShakeDetection {
         static var isEditing = false
         static var translatableSubviews: [NStackLocalizable] = []
+        static var flowSubviews: [UIView] = []
     }
     
     open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -82,30 +83,7 @@ extension UIWindow {
             let visibleViewController = visibleViewController,
             let item = sender?.view as? NStackLocalizable
         {
-            
-            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
-
-            let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { alert -> Void in
-                let textField = alertController.textFields![0] as UITextField
-                // Set proposal to label
-                item.translatableValue = textField.text
-                // Send proposal to API
-                if let identifier = item.translationIdentifier {
-                    NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
-                }
-            })
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
-                (action : UIAlertAction!) -> Void in })
-            
-            alertController.addTextField { (textField : UITextField!) -> Void in
-                textField.placeholder = "Add proposal here"
-            }
-            
-            alertController.addAction(saveAction)
-            alertController.addAction(cancelAction)
-            
-            visibleViewController.present(alertController, animated: true, completion: nil)
+            startFlow(for: item, in: visibleViewController)
         }
     }
     
@@ -121,6 +99,8 @@ extension UIWindow {
         ShakeDetection.translatableSubviews = []
         ShakeDetection.isEditing = false
     }
+    
+    // MARK: - Helpers
     
     var visibleViewController: UIViewController? {
         if let rootViewController: UIViewController = self.rootViewController {
@@ -143,6 +123,67 @@ extension UIWindow {
             } else {
                 return vc
             }
+        }
+    }
+    
+    // MARK: - Flow
+    
+    private func startFlow(for item: NStackLocalizable, in viewController: UIViewController) {
+        
+        // Dimm background
+        let dimmedBackground = UIView(frame: self.bounds)
+        dimmedBackground.backgroundColor = UIColor(white: 0, alpha: 0.35)
+        ShakeDetection.flowSubviews.append(dimmedBackground)
+        self.addSubview(dimmedBackground)
+        
+        // Create main view
+        let screenSize: CGRect = UIScreen.main.bounds
+        let proposalLaunchView = UIView(frame: CGRect(x: screenSize.midX, y: screenSize.midY, width: screenSize.width - 50, height: screenSize.height / 4))
+        proposalLaunchView.frame.origin.x = viewController.view.bounds.midX - proposalLaunchView.bounds.midX
+        proposalLaunchView.frame.origin.y = viewController.view.bounds.midY - proposalLaunchView.bounds.midY
+        proposalLaunchView.backgroundColor = .white
+        
+//        let button:UIButton = UIButton(frame: CGRect(x: 100, y: 400, width: 100, height: 50))
+//        button.backgroundColor = .black
+//        button.setTitle("Button", for: .normal)
+//        button.addTarget(self, action:#selector(self.proposeNewTranslationClicked(for: item)), for: .touchUpInside)
+//        proposalLaunchView.addSubview(button)
+        
+        ShakeDetection.flowSubviews.append(proposalLaunchView)
+        dimmedBackground.addSubview(proposalLaunchView)
+    }
+    
+    private func closeFlow() {
+        // TODO: Remove all subviews matching ShakeDetection.flowSubviews
+    }
+    
+    // MARK: Flow button actions
+    
+    @objc func proposeNewTranslationClicked(for item: NStackLocalizable) {
+        if let visibleViewController = visibleViewController {
+            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
+            
+            let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                let textField = alertController.textFields![0] as UITextField
+                // Set proposal to label
+                item.translatableValue = textField.text
+                // Send proposal to API
+                if let identifier = item.translationIdentifier {
+                    NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
+                }
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+                (action : UIAlertAction!) -> Void in })
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Add proposal here"
+            }
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            visibleViewController.present(alertController, animated: true, completion: nil)
         }
     }
 }
