@@ -36,14 +36,13 @@ public protocol LocalizationWrappable {
 public class LocalizationWrapper {
     private(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
     let originallyTranslatedComponents: NSMapTable<TranslationIdentifier, NStackLocalizable>
-    var proposedTranslations: [TranslationIdentifier: String]
+    var proposedTranslations: [TranslationIdentifier: LocalizationProposal]
     
     init(translationsManager: TranslatableManager<Localizable, Language, Localization>) {
         self.translationsManager = translationsManager
         self.originallyTranslatedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
-        self.proposedTranslations = [TranslationIdentifier: String]()
+        self.proposedTranslations = [TranslationIdentifier: LocalizationProposal]()
     }
-    
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
@@ -66,27 +65,41 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
     
     /**
-     As a default, fetch a value from the `translationsManager` and use that on the `component`. If
-     a proposed value exists, use that instead.
+     Fetches a localized string value for the `identifier` and adds that to the `component`
+     
+     If a proposed value exists, use that, otherwise fetch a value from the `translationsManager`.
      */
     public func localize(component: NStackLocalizable, for identifier: TranslationIdentifier) {
-        add(identifier, to: component)
+        component.translationIdentifier = identifier
         
         //Has the user proposed a translation earlier in this session?
-        if let proposedTranslation = proposedTranslations[identifier] {
-            component.setLocalizedValue(proposedTranslation)
-        } else {
-            originallyTranslatedComponents.setObject(component, forKey: identifier)
-            do {
-                // TODO: Change translationsManager?.translation to take the identifier as parameter instead of the string.
-                if let localizedValue = try translationsManager?.translation(for: SectionKeyHelper.combine(section: identifier.section, key: identifier.key)) {
-					originallyTranslatedComponents.setObject(component, forKey: identifier)
-                    component.setLocalizedValue(localizedValue)
-                }
-            } catch {
-                //in case we can't find a localized value, don't do anything. There is no need for us to
-                //`component.setLocalizedValue("")` for instance, lets just leave the component as is                
+        if
+            let proposedTranslation = proposedTranslations[identifier],
+            let bestFitLocale = translationsManager?.bestFitLanguage?.locale
+        {
+            //for this locale?
+            if proposedTranslation.language.locale == bestFitLocale {
+                component.setLocalizedValue(proposedTranslation.value)
+            } else {
+                //OK, not for this locale, then just use the original value
+                localizeFromOriginallyTranslated(component: component, for: identifier)
             }
+        } else {
+            localizeFromOriginallyTranslated(component: component, for: identifier)
+        }
+    }
+    
+    private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: TranslationIdentifier) {
+        originallyTranslatedComponents.setObject(component, forKey: identifier)
+        do {
+            // TODO: Change translationsManager?.translation to take the identifier as parameter instead of the string.
+            if let localizedValue = try translationsManager?.translation(for: SectionKeyHelper.combine(section: identifier.section, key: identifier.key)) {
+                originallyTranslatedComponents.setObject(component, forKey: identifier)
+                component.setLocalizedValue(localizedValue)
+            }
+        } catch {
+            //in case we can't find a localized value, don't do anything. There is no need for us to
+            //`component.setLocalizedValue("")` for instance, lets just leave the component as is
         }
     }
     
@@ -100,10 +113,11 @@ extension LocalizationWrapper: LocalizationWrappable {
      - Parameter key: NStack key/identifier
     */
     public func storeProposal(_ value: String, for identifier: TranslationIdentifier) {
+        guard let bestFitLanguage = translationsManager?.bestFitLanguage else { return }
         //remove from originallyTranslatedComponents if it is already there (problably)
         originallyTranslatedComponents.removeObject(forKey: identifier)
         //And store
-        proposedTranslations[identifier] = value
+        proposedTranslations[identifier] = LocalizationProposal(value: value, language: bestFitLanguage)
     }
     
     /**
@@ -115,14 +129,5 @@ extension LocalizationWrapper: LocalizationWrappable {
         } else {
             return proposedTranslations[identifier] != nil
         }
-    }
-    
-    /// Adds the section and the key to the givent component
-    ///
-    /// - Parameters:
-    ///   - identifier: TranslationIdentifier-object containing section and key
-    ///   - component: A NStackLocalizable component
-    private func add(_ identifier: TranslationIdentifier, to component: NStackLocalizable) {
-        component.translationIdentifier = identifier
     }
 }
