@@ -193,6 +193,7 @@
 		C0D852F3215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */; };
 		C0D852F4215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */; };
 		C0D852F5215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */; };
+		C404B1ED22F47FB90047161D /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
 		CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -371,6 +372,7 @@
 		C0D852E7215A596D0090B7C5 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		C0D852EC215A5A010090B7C5 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Codable.swift"; sourceTree = "<group>"; };
+		C404B1EC22F47FB90047161D /* PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyWrapper.swift; sourceTree = "<group>"; };
 		CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreReviewManager.swift; sourceTree = "<group>"; };
 		E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NStackSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3689BEA1D9EB9EB004620D6 /* NStackSDK-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NStackSDK-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -684,6 +686,7 @@
 			isa = PBXGroup;
 			children = (
 				8C9BA2DC22EEFFF00057BAEF /* Operator.swift */,
+				C404B1EC22F47FB90047161D /* PropertyWrapper.swift */,
 			);
 			path = Operators;
 			sourceTree = "<group>";
@@ -1354,6 +1357,7 @@
 				A83A140922F2CB5C002A7682 /* SectionKeyHelper.swift in Sources */,
 				01A3344D1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
+				C404B1ED22F47FB90047161D /* PropertyWrapper.swift in Sources */,
 				A8ECFA3022F44E2D009D2175 /* ProposalViewController.swift in Sources */,
 				33E2230B1FA9F5010013CCC3 /* Continent.swift in Sources */,
 			);

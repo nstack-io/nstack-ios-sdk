@@ -116,7 +116,7 @@ public class NStack {
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride,
-            nmeta: NMeta(environment: configuration.currentEnvironment)
+            nmeta: NMeta(environment: configuration.currentEnvironment.rawValue)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
 

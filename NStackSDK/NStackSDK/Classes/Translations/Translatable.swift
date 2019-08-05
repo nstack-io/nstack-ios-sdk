@@ -10,6 +10,18 @@ import Foundation
 import TranslationManager
 
 public struct Localizable: LocalizableModel {
+    public subscript(key: String) -> LocalizableSection? {
+//        switch key {
+//        case CodingKeys.oneMoreSection.stringValue: return oneMoreSection
+//        case CodingKeys.otherSection.stringValue: return otherSection
+//        case CodingKeys.defaultSection.stringValue: return defaultSection
+//        default: return nil
+//        }
+        print("DEFAULT IMPL: ABOUT TO RETURN NIL FROM NStackSDK.Translatable")
+        return nil
+    }
+
+    /*
     public var oneMoreSection = OneMoreSection()
     public var otherSection = OtherSection()
     public var defaultSection = DefaultSection()
@@ -99,4 +111,5 @@ public struct Localizable: LocalizableModel {
             }
         }
     }
+     */
 }
