@@ -172,6 +172,7 @@
 		A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */; };
 		A83A140922F2CB5C002A7682 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		A8ECFA3022F44E2D009D2175 /* ProposalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */; };
 		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
@@ -363,6 +364,7 @@
 		A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+NStackLocalizable.swift"; sourceTree = "<group>"; };
 		A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionKeyHelper.swift; sourceTree = "<group>"; };
 		A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationIdentifier.swift; sourceTree = "<group>"; };
+		A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalViewController.swift; sourceTree = "<group>"; };
 		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		C0D852D2215A371F0090B7C5 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C0D852D7215A373F0090B7C5 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 		30A3D8491B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A8ECFA2D22F44DFF009D2175 /* Views */,
 				8C9BA2DB22EEFFD80057BAEF /* Operators */,
 				304C42801BA0743D00AE3D6F /* Models */,
 				01503A2A1DF1DD0E00B521CF /* Repository */,
@@ -700,6 +703,14 @@
 			);
 			name = Pods;
 			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		A8ECFA2D22F44DFF009D2175 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C0D852DC215A3A730090B7C5 /* Repository */ = {
@@ -1347,6 +1358,7 @@
 				01A3344D1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				C404B1ED22F47FB90047161D /* PropertyWrapper.swift in Sources */,
+				A8ECFA3022F44E2D009D2175 /* ProposalViewController.swift in Sources */,
 				33E2230B1FA9F5010013CCC3 /* Continent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

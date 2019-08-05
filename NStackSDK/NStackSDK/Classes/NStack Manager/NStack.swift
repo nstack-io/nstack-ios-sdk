@@ -276,6 +276,23 @@ public class NStack {
             }
         }
     }
+    
+    
+    /// Fetches all proposals returns as an array of Proposal
+    ///
+    /// - Parameter completion: returns an array of Proposal
+    func fetchProposals(completion: @escaping ([Proposal]?) -> Void) {
+        repository.fetchProposals { (result) in
+            switch result {
+            case .success(let response):
+                completion(response)
+            case .failure(let error):
+                completion(nil)
+                self.logger.logError("NStack failed getting all proposals: " + error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 extension NStack: TranslatableManagerDelegate {
