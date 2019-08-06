@@ -304,21 +304,22 @@ extension UIWindow {
                         return
                     }
                     
+                    // Present list vc
                     let proposalNav = UINavigationController()
-                    let proposalVC = ProposalViewController()
-                    
-                    if sender.tag == Sender.openAllProposals.rawValue {
-                        proposalVC.proposalsGrouped = Array(Dictionary(grouping: proposals, by: { $0.key }))
-                        proposalVC.listingAllProposals = true
-                    } else {
-                        if let item = ShakeDetection.currentItem {
-                            proposalVC.proposals = proposals.filter({$0.section == item.translationIdentifier?.section && $0.key == item.translationIdentifier?.key})
-                        }
-                    }
-                
-                    proposalNav.viewControllers = [proposalVC]
                     proposalNav.modalPresentationStyle = .overFullScreen
+                    let interactor = ProposalInteractor(nstack: NStack.sharedInstance)
                     
+                    let listingAllProposals = sender.tag == Sender.openAllProposals.rawValue
+                    
+                    let presenter = ProposalPresenter(interactor: interactor,
+                                                      proposals: proposals,
+                                                      listingAllProposals: listingAllProposals,
+                                                      currentItem: listingAllProposals ? nil : ShakeDetection.currentItem)
+                    
+                    let proposalVC = ProposalViewController()
+                    proposalVC.instantiate(with: presenter)
+                    proposalNav.viewControllers = [proposalVC]
+
                     visibleViewController.present(proposalNav, animated: true, completion: nil)
                 }
             }

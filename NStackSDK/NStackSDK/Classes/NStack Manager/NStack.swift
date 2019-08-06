@@ -293,6 +293,10 @@ public class NStack {
         }
     }
     
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Completion<[Proposal]>)) {
+        
+    }
+    
 }
 
 extension NStack: TranslatableManagerDelegate {

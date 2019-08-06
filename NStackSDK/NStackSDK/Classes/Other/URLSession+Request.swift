@@ -121,7 +121,7 @@ extension URLSession {
 
                 let parentData = try decoder.decode(wrapperType, from: data)
                 handler(Result.success(parentData.model))
-            } catch {
+            } catch let error {
                 handler(.failure(error))
             }
         }

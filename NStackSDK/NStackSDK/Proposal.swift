@@ -15,6 +15,7 @@ public struct Proposal: Codable {
     let section: String
     private let localeString: String
     let value: String
+    let canDelete: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,6 +24,7 @@ public struct Proposal: Codable {
         case section
         case localeString = "locale"
         case value
+        case canDelete = "canDelete"
     }
 }
 
@@ -30,4 +32,8 @@ extension Proposal {
     var locale: Locale? {
         return Locale(identifier: localeString)
     }
+}
+
+public struct ProposalDeletion: Codable {
+    let message: String?
 }

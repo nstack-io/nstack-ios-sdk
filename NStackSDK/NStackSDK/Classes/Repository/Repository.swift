@@ -86,4 +86,5 @@ protocol VersionsRepository {
 protocol ProposalsRepository {
     func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>)
     func fetchProposals(completion: @escaping Completion<[Proposal]>)
+    func deleteProposal(_ proposal: Proposal, completion: @escaping Completion<ProposalDeletion>)
 }

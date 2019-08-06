@@ -329,8 +329,14 @@ extension ConnectionManager {
     }
     
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
-        let url = baseURLv2 + "content/localize/proposals"
+        let url = baseURLv2 + "content/localize/proposals?guid=\(Configuration.guid)"
         let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+    
+    func deleteProposals(_ proposal: Proposal, completion: @escaping Completion<ProposalDeletion>) {
+        let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
+        let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
