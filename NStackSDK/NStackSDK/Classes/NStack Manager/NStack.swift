@@ -24,7 +24,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
+    public fileprivate(set) var translationsManager: TranslatableManager<Language, Localization>?
 
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
@@ -157,10 +157,10 @@ public class NStack {
 
     func setupTranslations() {
         // Setup translations
-        let manager = TranslatableManager<Localizable, Language, Localization>(repository: repository,
-                                                   contextRepository: repository,
-                                                   updateMode: .manual)
-        //let manager = TranslationManager<T>(repository: connectionManager, logger: ConsoleLogger())
+        let manager = TranslatableManager<Language, Localization>(repository: repository,
+                                                                  contextRepository: repository,
+                                                                  localizableModel: configuration.translationsClass,
+                                                                  updateMode: .manual)
 
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,

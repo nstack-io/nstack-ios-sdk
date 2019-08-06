@@ -117,55 +117,6 @@ extension ConnectionManager {
         completion(.success([lang] as! [L]))
     }
 }
-//    
-//    func fetchTranslations(acceptLanguage: String,
-//                           completion: @escaping Completion<TranslationsResponse>) {
-//        let params: [String : Any] = [
-//            "guid"              : Configuration.guid,
-//            "last_updated"      : ConnectionManager.lastUpdatedString
-//        ]
-//
-//        let url = configuration.translationsUrlOverride ?? baseURL + "translate/mobile/keys?all=true" + (configuration.isFlat ? "&flat=true" : "")
-//
-//        var headers = defaultHeaders
-//        headers["Accept-Language"] = acceptLanguage
-//
-//        let request = session.request(url, parameters: params, headers: headers)
-//        session.startDataTask(with: request, completionHandler: completion)
-//    }
-//
-//    func fetchCurrentLanguage(acceptLanguage: String,
-//                              completion:  @escaping Completion<Language>) {
-//        let params: [String : Any] = [
-//            "guid"              : Configuration.guid,
-//            "last_updated"      : ConnectionManager.lastUpdatedString
-//        ]
-//
-//        let url = baseURL + "translate/mobile/languages/best_fit?show_inactive_languages=true"
-//
-//        var headers = defaultHeaders
-//        headers["Accept-Language"] = acceptLanguage
-//
-//        let request = session.request(url, parameters: params, headers: headers)
-//        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
-//    }
-//
-//    func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>) {
-//        let params: [String : Any] = ["guid" : Configuration.guid]
-//        let url = baseURL + "translate/mobile/languages"
-//
-//        let request = session.request(url, parameters: params, headers: defaultHeaders)
-//        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
-//    }
-//
-//    func fetchPreferredLanguages() -> [String] {
-//        return Locale.preferredLanguages
-//    }
-//
-//    func fetchBundles() -> [Bundle] {
-//        return Bundle.allBundles
-//    }
-//}
 // MARK: - LocalizationContextRepository
 extension ConnectionManager {
     func fetchPreferredLanguages() -> [String] {
