@@ -102,6 +102,10 @@ class MockConnectionManager: Repository {
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
         
     }
+    
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
+        
+    }
 }
 
 extension MockConnectionManager {

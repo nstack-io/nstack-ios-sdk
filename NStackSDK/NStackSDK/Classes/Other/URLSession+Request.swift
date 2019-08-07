@@ -121,7 +121,7 @@ extension URLSession {
 
                 let parentData = try decoder.decode(wrapperType, from: data)
                 handler(Result.success(parentData.model))
-            } catch {
+            } catch let error {
                 handler(.failure(error))
             }
         }
@@ -133,13 +133,13 @@ extension URLSession {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-//        // Remove this print when done testing
-//        if
-//            let data = data,
-//            let response = String(data: data, encoding: .utf8)
-//        {
-//            print("\n \(response) \n")
-//        }
+        // Remove this print when done testing
+        if
+            let data = data,
+            let response = String(data: data, encoding: .utf8)
+        {
+            print("\n \(response) \n")
+        }
 
         switch HTTPStatusCode(rawValue: response.statusCode)! {
         case .ok, .created: // Success

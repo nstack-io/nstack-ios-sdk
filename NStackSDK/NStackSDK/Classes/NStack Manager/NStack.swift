@@ -293,6 +293,18 @@ public class NStack {
         }
     }
     
+    
+    /// Deletes a proposal
+    ///
+    /// - Parameters:
+    ///   - proposal: The proposal you want to delete
+    ///   - completion: Gives you either a ProposalDeletion-object including a message, or an Error
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
+        repository.deleteProposal(proposal) { (result) in
+            completion(result)
+        }
+    }
+    
 }
 
 extension NStack: TranslatableManagerDelegate {

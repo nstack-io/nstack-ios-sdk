@@ -165,6 +165,11 @@
 		8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		9F19B242F21C0C601C1452D6 /* Pods_NStackSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */; };
+		A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3D22F962210005580E /* ProposalProtocols.swift */; };
+		A829DC4022F962340005580E /* ProposalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3F22F962340005580E /* ProposalModel.swift */; };
+		A829DC4222F962430005580E /* ProposalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC4122F962430005580E /* ProposalPresenter.swift */; };
+		A829DC4422F962520005580E /* ProposalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC4322F962520005580E /* ProposalInteractor.swift */; };
+		A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC4622F973B30005580E /* UITableViewCell+ProposalCell.swift */; };
 		A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13E722F059FA002A7682 /* UIWindow+ShakeDetection.swift */; };
 		A83A13EA22F05A3A002A7682 /* UILabel+NstackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13E922F05A3A002A7682 /* UILabel+NstackLocalizable.swift */; };
 		A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EB22F05A59002A7682 /* UIButton+NStackLocalizable.swift */; };
@@ -357,6 +362,11 @@
 		9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2BB912CEEC4DBB51EB052 /* Pods-NStackSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F737BF3D0B267967FC4A9FB /* Pods_NStackSDK_macOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDK_macOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A829DC3D22F962210005580E /* ProposalProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalProtocols.swift; sourceTree = "<group>"; };
+		A829DC3F22F962340005580E /* ProposalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalModel.swift; sourceTree = "<group>"; };
+		A829DC4122F962430005580E /* ProposalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalPresenter.swift; sourceTree = "<group>"; };
+		A829DC4322F962520005580E /* ProposalInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalInteractor.swift; sourceTree = "<group>"; };
+		A829DC4622F973B30005580E /* UITableViewCell+ProposalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ProposalCell.swift"; sourceTree = "<group>"; };
 		A83A13E722F059FA002A7682 /* UIWindow+ShakeDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+ShakeDetection.swift"; sourceTree = "<group>"; };
 		A83A13E922F05A3A002A7682 /* UILabel+NstackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+NstackLocalizable.swift"; sourceTree = "<group>"; };
 		A83A13EB22F05A59002A7682 /* UIButton+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+NStackLocalizable.swift"; sourceTree = "<group>"; };
@@ -705,10 +715,23 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
-		A8ECFA2D22F44DFF009D2175 /* Views */ = {
+		A829DC3C22F961CA0005580E /* Proposals */ = {
 			isa = PBXGroup;
 			children = (
 				A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */,
+				A829DC3D22F962210005580E /* ProposalProtocols.swift */,
+				A829DC3F22F962340005580E /* ProposalModel.swift */,
+				A829DC4122F962430005580E /* ProposalPresenter.swift */,
+				A829DC4322F962520005580E /* ProposalInteractor.swift */,
+			);
+			path = Proposals;
+			sourceTree = "<group>";
+		};
+		A8ECFA2D22F44DFF009D2175 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A829DC3C22F961CA0005580E /* Proposals */,
+				A829DC4622F973B30005580E /* UITableViewCell+ProposalCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1312,6 +1335,7 @@
 				8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
 				2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */,
+				A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				23442E6A22C6281000F196EE /* ValidationManager.swift in Sources */,
@@ -1319,6 +1343,7 @@
 				23442E5B22C627FD00F196EE /* Localization.swift in Sources */,
 				01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
+				A829DC4422F962520005580E /* ProposalInteractor.swift in Sources */,
 				839497C11DC21ED2007FE281 /* Timezone.swift in Sources */,
 				01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */,
 				33E223031FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
@@ -1333,12 +1358,14 @@
 				A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */,
+				A829DC4222F962430005580E /* ProposalPresenter.swift in Sources */,
 				23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */,
 				8C9BA2DD22EEFFF00057BAEF /* Operator.swift in Sources */,
 				23442E6222C6281000F196EE /* GeographyManager.swift in Sources */,
 				304C42841BA0747300AE3D6F /* Update.swift in Sources */,
 				A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */,
 				C0D852E8215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
+				A829DC4022F962340005580E /* ProposalModel.swift in Sources */,
 				CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */,
 				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,
 				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
@@ -1348,6 +1375,7 @@
 				83E20E4322D756CD006D5BEF /* N-Meta.swift in Sources */,
 				30B0CAB11BD7C24E005463AA /* Message.swift in Sources */,
 				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
+				A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */,
 				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
 				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */,
