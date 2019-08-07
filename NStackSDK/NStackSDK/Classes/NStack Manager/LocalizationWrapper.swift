@@ -35,11 +35,11 @@ public protocol LocalizationWrappable {
 }
 
 public class LocalizationWrapper {
-    private(set) var translationsManager: TranslatableManager<Localizable, Language, Localization>?
+    private(set) var translationsManager: TranslatableManager<Language, Localization>?
     let originallyTranslatedComponents: NSMapTable<TranslationIdentifier, NStackLocalizable>
     var proposedTranslations: [TranslationIdentifier: LocalizationProposal]
     
-    init(translationsManager: TranslatableManager<Localizable, Language, Localization>) {
+    init(translationsManager: TranslatableManager<Language, Localization>) {
         self.translationsManager = translationsManager
         self.originallyTranslatedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
         self.proposedTranslations = [TranslationIdentifier: LocalizationProposal]()

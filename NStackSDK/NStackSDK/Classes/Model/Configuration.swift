@@ -32,7 +32,7 @@ public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
-    public let translationsClass: LocalizableModel.Type?
+    public let translationsClass: LocalizableModel.Type
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
@@ -57,7 +57,7 @@ public struct Configuration {
 
     public init(appId: String,
                 restAPIKey: String,
-                translationsClass: LocalizableModel.Type? = nil,
+                translationsClass: LocalizableModel.Type,
                 flatTranslations: Bool = false,
                 translationsUrlOverride: String? = nil,
                 environment: NStackEnvironment) {
@@ -69,12 +69,11 @@ public struct Configuration {
         self.currentEnvironment = environment
     }
 
-    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type? = nil) {
+    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
-        var translationsUrlOverride: String?
-        var environments: [String: String]?
+        var translationsUrlOverride: String?      
         
         self.currentEnvironment = environment
 
