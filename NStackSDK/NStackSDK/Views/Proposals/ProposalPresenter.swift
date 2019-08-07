@@ -32,8 +32,7 @@ class ProposalPresenter {
     
     private func setupList() {
         if listingAllProposals {
-            proposalsGrouped = Array(Dictionary(grouping: proposals, by: { $0.key }))
-            proposalsGrouped = proposalsGrouped.sorted { (item1, item2) -> Bool in
+            proposalsGrouped = Array(Dictionary(grouping: proposals, by: { $0.key })).sorted { (item1, item2) -> Bool in
                 item1.key < item2.key
             }
         } else {
