@@ -334,7 +334,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
-    func deleteProposals(_ proposal: Proposal, completion: @escaping Completion<ProposalDeletion>) {
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
         let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
         let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)

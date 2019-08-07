@@ -319,6 +319,9 @@ extension UIWindow {
                     let proposalVC = ProposalViewController()
                     proposalVC.instantiate(with: presenter)
                     proposalNav.viewControllers = [proposalVC]
+                    
+                    interactor.output = presenter
+                    presenter.output = proposalVC
 
                     visibleViewController.present(proposalNav, animated: true, completion: nil)
                 }

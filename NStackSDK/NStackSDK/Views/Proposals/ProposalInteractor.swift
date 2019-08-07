@@ -26,10 +26,10 @@ extension ProposalInteractor: ProposalInteractorInput {
     func perform(_ request: Proposals.Request.DeleteProposal) {
         nstack?.deleteProposal(request.proposal, completion: { (result) in
             switch result {
-            case .success(let success):
-                break
-            case .failure(let error):
-                break
+            case .success:
+                self.output?.present(Proposals.Response.ProposalDeleted(success: true))
+            case .failure:
+                self.output?.present(Proposals.Response.ProposalDeleted(success: false))
             }
         })
     }

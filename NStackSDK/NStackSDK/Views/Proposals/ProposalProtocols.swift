@@ -31,6 +31,7 @@ protocol ProposalPresenterInput {
     func numberOfRows(in section: Int) -> Int
     func configure(item: ProposalCellProtocol, in section: Int, for index: Int)
     func titleForHeader(in section: Int) -> String?
+    func canDeleteProposal(in section: Int, for index: Int) -> Bool
 }
 
 // PRESENTER -> VIEW

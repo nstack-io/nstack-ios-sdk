@@ -22,9 +22,9 @@ class ProposalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewCreated()
         setupTableView()
         addCloseButton()
+        presenter.viewCreated()
     }
     
     private func setupTableView() {
@@ -85,6 +85,13 @@ extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
         let deleteAction = setupAction(forRowAt: indexPath)
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfig
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if presenter.canDeleteProposal(in: indexPath.section, for: indexPath.row) {
+            return true
+        }
+        return false
     }
 }
 

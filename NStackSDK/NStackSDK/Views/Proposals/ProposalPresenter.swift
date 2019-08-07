@@ -38,11 +38,6 @@ class ProposalPresenter {
                 proposals = proposals.filter({$0.section == item.translationIdentifier?.section && $0.key == item.translationIdentifier?.key})
             }
         }
-
-        if proposals.isEmpty || proposalsGrouped.isEmpty {
-            output?.setupEmptyCaseLabel()
-        }
-
     }
 }
 
@@ -52,6 +47,11 @@ class ProposalPresenter {
 // MARK: - User Events -
 
 extension ProposalPresenter: ProposalPresenterInput {
+
+    func canDeleteProposal(in section: Int, for index: Int) -> Bool {
+        return listingAllProposals ? proposalsGrouped[section].value[index].canDelete : proposals[index].canDelete
+    }
+    
     var numberOfSections: Int {
         return listingAllProposals ? proposalsGrouped.count : 1
     }
@@ -61,8 +61,11 @@ extension ProposalPresenter: ProposalPresenterInput {
     }
     
     func configure(item: ProposalCellProtocol, in section: Int, for index: Int) {
-        let text = listingAllProposals ? proposalsGrouped[section].value[index].value : proposals[index].value
-        item.setTextLabel(with: text)
+        let proposal = listingAllProposals ? proposalsGrouped[section].value[index] : proposals[index]
+        if proposal.canDelete {
+            item.setTextColor(.blue)
+        }
+        item.setTextLabel(with: proposal.value)
     }
     
     func titleForHeader(in section: Int) -> String? {
@@ -71,6 +74,7 @@ extension ProposalPresenter: ProposalPresenterInput {
     
     func viewCreated() {
         setTitle()
+        checkIfEmpty()
     }
     
     func handle(_ action: Proposals.Action) {
@@ -82,10 +86,20 @@ extension ProposalPresenter: ProposalPresenterInput {
     }
     
     func setTitle() {
-        if let keyTitle = proposals.first?.key {
-            output?.setTitle("Proposals for \(keyTitle)")
+        if listingAllProposals {
+            output?.setTitle("All proposals")
         } else {
-            output?.setTitle("Proposals")
+            if let keyName = proposals.first?.key {
+                output?.setTitle("Proposals for \(keyName)")
+            } else {
+                output?.setTitle("Proposals")
+            }
+        }
+    }
+    
+    func checkIfEmpty() {
+        if (proposals.isEmpty && !listingAllProposals) || (proposalsGrouped.isEmpty && listingAllProposals) {
+            output?.setupEmptyCaseLabel()
         }
     }
 

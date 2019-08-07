@@ -29,7 +29,7 @@ extension Proposals.Request {
 
 extension Proposals.Response {
     struct ProposalDeleted {
-        let result: Completion<Any>
+        let success: Bool
     }
 }
 
