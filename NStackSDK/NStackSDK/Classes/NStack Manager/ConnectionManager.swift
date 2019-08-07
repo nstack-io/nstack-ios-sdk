@@ -268,23 +268,23 @@ extension ConnectionManager {
             "guid": Configuration.guid,
             "locale": locale
         ]
-        
+
         var headers = defaultHeaders
         headers["Content-Type"] = "application/x-www-form-urlencoded"
         headers["N-Meta"] = configuration.nmeta.current
-        
+
         let url = baseURLv2 + "content/localize/proposals"
-        
+
         let request = session.request(url, method: .post, parameters: params, headers: headers)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
-    
+
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
         let url = baseURLv2 + "content/localize/proposals?guid=\(Configuration.guid)"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
-    
+
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
         let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
         let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)

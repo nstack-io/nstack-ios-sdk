@@ -19,12 +19,12 @@ public struct UpdateOptions: OptionSet {
 }
 
 public struct Configuration {
-    
+
     public enum NStackEnvironment: String {
         case debug
         case staging
         case production
-        
+
         var isProduction: Bool {
             return self == .production
         }
@@ -39,7 +39,7 @@ public struct Configuration {
     public var useMock = false
     public var translationsUrlOverride: String?
     public var currentEnvironment: NStackEnvironment
-    
+
     // Used for tests
     internal var versionOverride: String?
 
@@ -73,8 +73,8 @@ public struct Configuration {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
-        var translationsUrlOverride: String?      
-        
+        var translationsUrlOverride: String?
+
         self.currentEnvironment = environment
 
         for bundle in Bundle.allBundles {
@@ -111,5 +111,14 @@ public struct Configuration {
 extension Configuration {
     var isProduction: Bool {
         return currentEnvironment.isProduction
+    }
+
+    var currentEnvironmentAPIString: String {
+        switch self.currentEnvironment {
+        case .debug:
+            return "development"
+        default:
+            return currentEnvironment.rawValue
+        }
     }
 }

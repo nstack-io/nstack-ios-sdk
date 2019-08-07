@@ -12,21 +12,21 @@ class ProposalViewController: UIViewController {
 
     // MARK: - Properties
     private var presenter: ProposalPresenterInput!
-    
+
     var tableView: UITableView?
-    
+
     // MARK: - Init
     public func instantiate(with presenter: ProposalPresenterInput) {
         self.presenter = presenter
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         addCloseButton()
         presenter.viewCreated()
     }
-    
+
     private func setupTableView() {
         tableView = UITableView(frame: self.view.bounds, style: .plain)
         if let tableView = tableView {
@@ -36,10 +36,10 @@ class ProposalViewController: UIViewController {
             tableView.separatorStyle = .none
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "proposalCell")
             view.addSubview(tableView)
-            
+
         }
     }
-    
+
     private func addCloseButton() {
         let closeButton = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         self.navigationItem.rightBarButtonItem  = closeButton
@@ -62,21 +62,21 @@ class ProposalViewController: UIViewController {
 }
 
 extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return presenter.numberOfSections
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRows(in: section)
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "proposalCell", for: indexPath)
         presenter.configure(item: cell, in: indexPath.section, for: indexPath.row)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return presenter.titleForHeader(in: section)
     }
@@ -86,7 +86,7 @@ extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfig
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if presenter.canDeleteProposal(in: indexPath.section, for: indexPath.row) {
             return true
@@ -97,11 +97,11 @@ extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
 
 // PRESENTER -> VIEW
 extension ProposalViewController: ProposalPresenterOutput {
-    
+
     func setTitle(_ titleString: String) {
         title = titleString
     }
-    
+
     func setupEmptyCaseLabel() {
         if let tableView = tableView {
             let emptyLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width - 40, height: tableView.bounds.size.height))
