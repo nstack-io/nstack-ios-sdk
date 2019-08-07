@@ -33,6 +33,9 @@ class ProposalPresenter {
     private func setupList() {
         if listingAllProposals {
             proposalsGrouped = Array(Dictionary(grouping: proposals, by: { $0.key }))
+            proposalsGrouped = proposalsGrouped.sorted { (item1, item2) -> Bool in
+                item1.key < item2.key
+            }
         } else {
             if let item = currentItem {
                 proposals = proposals.filter({$0.section == item.translationIdentifier?.section && $0.key == item.translationIdentifier?.key})
