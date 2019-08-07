@@ -24,8 +24,8 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: TranslatableManager<Language, Localization>?
-
+    public fileprivate(set) var translationsManager: LocalizationWrappable?
+    
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
 
@@ -116,7 +116,7 @@ public class NStack {
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride,
-            nmeta: NMeta(environment: configuration.currentEnvironment)
+            nmeta: NMeta(environment: configuration.currentEnvironment.rawValue)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
 
@@ -174,7 +174,8 @@ public class NStack {
 
         // Set callback
         manager.delegate = self
-        translationsManager = manager
+//        translationsManager = manager
+        translationsManager = LocalizationWrapper(translationsManager: manager)
     }
 
     /// Fetches the latest data from the NStack server and updates accordingly.
@@ -207,12 +208,19 @@ public class NStack {
 
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
+//                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
+//                                                                       acceptHeaderUsed: header,
+//                                                                       completion: { (_) in
+//                        //if error, try to update translations in Translations Manager
+//                        self.translationsManager?.updateTranslations()
+//                    })
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in
-                        //if error, try to update translations in Translations Manager
-                        self.translationsManager?.updateTranslations()
+                                                                        //if error, try to update translations in Translations Manager
+                                                                        self.translationsManager?.updateTranslations()
                     })
+
                 }
 
                 #if os(iOS) || os(tvOS)
@@ -240,6 +248,64 @@ public class NStack {
             }
         })
     }
+    
+    /// Sends the proposal to NStack
+    ///
+    /// - Parameters:
+    ///   - section: The section where the key belongs
+    ///   - key: The actual key for the text
+    ///   - value: The new value for the key
+    ///   - locale: The locale it should affect
+    func storeProposal(for identifier: TranslationIdentifier, with value: String) {
+        guard let language = translationsManager?.bestFitLanguage else { return }
+        let locale = language.acceptLanguage
+        
+        repository.storeProposal(section: identifier.section,
+                                 key: identifier.key,
+                                 value: value,
+                                 locale: locale) { (result) in
+            switch result {
+            case .success(let response):
+                guard
+                    let identifier = SectionKeyHelper.transform(SectionKeyHelper.combine(section: response.section,
+                                                                                           key: response.key)),
+                    let locale = response.locale
+                else { return }
+                self.translationsManager?.storeProposal(response.value, locale: locale, for: identifier)
+            case .failure(let error):
+                self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    /// Fetches all proposals returns as an array of Proposal
+    ///
+    /// - Parameter completion: returns an array of Proposal
+    func fetchProposals(completion: @escaping ([Proposal]?) -> Void) {
+        repository.fetchProposals { (result) in
+            switch result {
+            case .success(let response):
+                completion(response)
+            case .failure(let error):
+                completion(nil)
+                self.logger.logError("NStack failed getting all proposals: " + error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    /// Deletes a proposal
+    ///
+    /// - Parameters:
+    ///   - proposal: The proposal you want to delete
+    ///   - completion: Gives you either a ProposalDeletion-object including a message, or an Error
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
+        repository.deleteProposal(proposal) { (result) in
+            completion(result)
+        }
+    }
+    
 }
 
 extension NStack: TranslatableManagerDelegate {

@@ -78,7 +78,7 @@ extension ConnectionManager {
 // MARK: - TranslationRepository
 extension ConnectionManager {
     func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
             "last_updated": ConnectionManager.lastUpdatedString
@@ -97,7 +97,7 @@ extension ConnectionManager {
     }
 
     func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios"
         ]
@@ -253,6 +253,41 @@ extension ConnectionManager {
     func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
         let url = baseURLv1 + "content/collections/\(id)"
         let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+}
+
+// MARK: - ProposalsRepository
+extension ConnectionManager {
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
+        let params: [String: String] = [
+            "section": section,
+            "key": key,
+            "value": value,
+            "platform": "mobile",
+            "guid": Configuration.guid,
+            "locale": locale
+        ]
+        
+        var headers = defaultHeaders
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+        headers["N-Meta"] = configuration.nmeta.current
+        
+        let url = baseURLv2 + "content/localize/proposals"
+        
+        let request = session.request(url, method: .post, parameters: params, headers: headers)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+    
+    func fetchProposals(completion: @escaping Completion<[Proposal]>) {
+        let url = baseURLv2 + "content/localize/proposals?guid=\(Configuration.guid)"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+    
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
+        let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
+        let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
 }
