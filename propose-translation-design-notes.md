@@ -125,7 +125,7 @@ For this, we rely on a `NSMapTable` [documented here](https://developer.apple.co
 All of the above is implemented by the `LocalizationWrapper` class.
 
 ### UI
-When shaking the phone and tapping an item, a subview will be added to the `UIWindow`. This view (including others) is stored in an array, `ShakeDetection.flowSubviews`, which is cleared on every start of the flow. We use this array do know what view's to remove from thir superview when dismissing the flow.
+When shaking the phone and tapping an item, a subview will be added to the `UIWindow`. This view (including others) is stored in an array, `ShakeDetection.flowSubviews`, which is cleared after every dismissal. We use this array do know what view's to remove from thir superview when dismissing the flow.
 
 When opening a list of proposals, we present the `ProposalViewController` modally `.overFullScreen`. This ensures that we always get the modal shown without the possibility to nagigate away from the current view. Also we get around not calling the underneath view's `viewDidAppear` or `viewWillAppear` like this.
 The view is made with a presenter and an interactor as we know it from the VIPER arch, but without a coordinator, as we at the moment aren't routing anywhere.
