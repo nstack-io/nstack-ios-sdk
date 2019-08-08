@@ -195,6 +195,9 @@
 		C0D852F4215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */; };
 		C0D852F5215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852F1215A77AA0090B7C5 /* UserDefaults+Codable.swift */; };
 		C404B1ED22F47FB90047161D /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
+		C469F14E22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
+		C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
+		C469F15022FC3A66002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
 		CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -1277,6 +1280,7 @@
 				33E222F41FA8C5280013CCC3 /* Validation.swift in Sources */,
 				01A334961E4F1B5E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
 				01A334811E4F1B43003CE9BA /* RateReminder.swift in Sources */,
+				C469F15022FC3A66002F9FDF /* PropertyWrapper.swift in Sources */,
 				01A3348E1E4F1B50003CE9BA /* VersionUtilities.swift in Sources */,
 				01A3348C1E4F1B4B003CE9BA /* NStackError.swift in Sources */,
 				C0D852F5215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
@@ -1320,7 +1324,6 @@
 				23442E6622C6281000F196EE /* ContentManager.swift in Sources */,
 				8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
-				2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */,
 				A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
@@ -1363,7 +1366,6 @@
 				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
 				A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */,
 				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
-				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
@@ -1407,6 +1409,7 @@
 				33E222F01FA8C5280013CCC3 /* Validation.swift in Sources */,
 				E3689C021D9EBA54004620D6 /* Message.swift in Sources */,
 				E3689C031D9EBA54004620D6 /* Update.swift in Sources */,
+				C469F14E22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
 				01F4C6C71DFF72F00050D0F1 /* Logger.swift in Sources */,
 				01F4C6C51DFF72D50050D0F1 /* APIConfiguration.swift in Sources */,
 				C0D852F3215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
@@ -1486,6 +1489,7 @@
 				23442E6422C6281000F196EE /* GeographyManager.swift in Sources */,
 				23442E5D22C627FD00F196EE /* Localization.swift in Sources */,
 				E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */,
+				C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
 				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
 				E3B654B01E0056F300FC9380 /* ApplicationObserver.swift in Sources */,
 				C0D852E5215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
