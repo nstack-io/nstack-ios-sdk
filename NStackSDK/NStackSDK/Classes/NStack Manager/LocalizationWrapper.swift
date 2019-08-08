@@ -55,6 +55,10 @@ extension LocalizationWrapper: LocalizationWrappable {
         return translationsManager?.bestFitLanguage
     }
     
+    public var languageOverride: Language? {
+        get { return translationsManager?.languageOverride }
+        set { translationsManager?.languageOverride = newValue }
+    }
     
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
         translationsManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
