@@ -192,6 +192,7 @@ extension UIWindow {
         for flowSubview in ShakeDetection.flowSubviews {
             flowSubview.removeFromSuperview()
         }
+        ShakeDetection.flowSubviews.removeAll()
     }
 
     private func displayBottomPopup() {
@@ -306,8 +307,13 @@ extension UIWindow {
                     // Present list vc
                     let proposalNav = UINavigationController()
                     proposalNav.modalPresentationStyle = .overFullScreen
+<<<<<<< HEAD
                     let interactor = ProposalInteractor(nstack: NStack.sharedInstance)
 
+=======
+                    let interactor = ProposalInteractor(nstackSharedInstance: NStack.sharedInstance)
+                    
+>>>>>>> minor changes to the ui part
                     let listingAllProposals = sender.tag == Sender.openAllProposals.rawValue
 
                     let presenter = ProposalPresenter(interactor: interactor,
