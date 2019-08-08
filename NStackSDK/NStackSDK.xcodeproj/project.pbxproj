@@ -86,6 +86,7 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		2333D6E922FB31CE00EEBD1D /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2365B4DB22FB319E0022F36D /* TranslationManager.framework */; };
 		23442E5B22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E5C22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E5D22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
@@ -103,7 +104,6 @@
 		23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
-		23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644722C518B3002406FA /* TranslationManager.framework */; };
 		2DDAC7512F7DC94F3382176C /* Pods_NStackSDK_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313EA78AC0449925458336C5 /* Pods_NStackSDK_tvOSTests.framework */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
 		304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
@@ -258,6 +258,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2333D6EA22FB31D500EEBD1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C061C1F0217889E400449A14;
+			remoteInfo = TranslationManager;
+		};
+		2365B4DA22FB319E0022F36D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C061C1F1217889E400449A14;
+			remoteInfo = TranslationManager;
+		};
+		2365B4DC22FB319E0022F36D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C061C1FA217889E400449A14;
+			remoteInfo = TranslationManagerTests;
+		};
 		30A3D8531B9DB94100C2D15C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 30A3D83E1B9DB94100C2D15C /* Project object */;
@@ -313,6 +334,7 @@
 		23442E5F22C6281000F196EE /* GeographyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeographyManager.swift; path = Classes/Managers/GeographyManager.swift; sourceTree = "<group>"; };
 		23442E6022C6281000F196EE /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = Classes/Managers/ContentManager.swift; sourceTree = "<group>"; };
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
+		2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TranslationManager.xcodeproj; path = ../../TranslationManager/TranslationManager.xcodeproj; sourceTree = "<group>"; };
 		238D644722C518B3002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
@@ -396,7 +418,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */,
+				2333D6E922FB31CE00EEBD1D /* TranslationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
 			);
@@ -548,6 +570,15 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		2365B4D622FB319E0022F36D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2365B4DB22FB319E0022F36D /* TranslationManager.framework */,
+				2365B4DD22FB319E0022F36D /* TranslationManagerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		304C42801BA0743D00AE3D6F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +623,7 @@
 		30A3D83D1B9DB94100C2D15C = {
 			isa = PBXGroup;
 			children = (
+				2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */,
 				30A3D8491B9DB94100C2D15C /* NStackSDK */,
 				30A3D8551B9DB94100C2D15C /* NStackSDK Tests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
@@ -823,6 +855,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2333D6EB22FB31D500EEBD1D /* PBXTargetDependency */,
 			);
 			name = NStackSDK;
 			productName = NStack;
@@ -984,6 +1017,12 @@
 			mainGroup = 30A3D83D1B9DB94100C2D15C;
 			productRefGroup = 30A3D8481B9DB94100C2D15C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2365B4D622FB319E0022F36D /* Products */;
+					ProjectRef = 2365B4D522FB319E0022F36D /* TranslationManager.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				30A3D8461B9DB94100C2D15C /* NStackSDK */,
@@ -996,6 +1035,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2365B4DB22FB319E0022F36D /* TranslationManager.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TranslationManager.framework;
+			remoteRef = 2365B4DA22FB319E0022F36D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2365B4DD22FB319E0022F36D /* TranslationManagerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TranslationManagerTests.xctest;
+			remoteRef = 2365B4DC22FB319E0022F36D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		01A334721E4F1B2A003CE9BA /* Resources */ = {
@@ -1320,7 +1376,6 @@
 				23442E6622C6281000F196EE /* ContentManager.swift in Sources */,
 				8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
-				2729E84B1B9ED47400286B12 /* Translatable.swift in Sources */,
 				A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
@@ -1363,7 +1418,6 @@
 				839497BF1DC21DBF007FE281 /* Country.swift in Sources */,
 				A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */,
 				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
-				2729E8491B9ED06600286B12 /* TranslationManager.swift in Sources */,
 				8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
@@ -1527,6 +1581,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2333D6EB22FB31D500EEBD1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TranslationManager;
+			targetProxy = 2333D6EA22FB31D500EEBD1D /* PBXContainerItemProxy */;
+		};
 		30A3D8541B9DB94100C2D15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 30A3D8461B9DB94100C2D15C /* NStackSDK */;

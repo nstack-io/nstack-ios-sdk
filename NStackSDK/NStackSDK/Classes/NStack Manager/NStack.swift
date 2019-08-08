@@ -208,12 +208,6 @@ public class NStack {
 
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
-//                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
-//                                                                       acceptHeaderUsed: header,
-//                                                                       completion: { (_) in
-//                        //if error, try to update translations in Translations Manager
-//                        self.translationsManager?.updateTranslations()
-//                    })
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in
