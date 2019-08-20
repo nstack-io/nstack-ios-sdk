@@ -11,7 +11,7 @@ import Foundation
 public class TranslationIdentifier: NSObject {
     let section: String
     let key: String
-    
+
     init(section: String, key: String) {
         self.section = section
         self.key = key

@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 extension UITextField: NStackLocalizable {
-    
+
     private static var _backgroundColor = [String: UIColor?]()
-    private static var _userInteractionEnabled = [String:Bool]()
-    private static var _translationIdentifier = [String:TranslationIdentifier]()
-    
+    private static var _userInteractionEnabled = [String: Bool]()
+    private static var _translationIdentifier = [String: TranslationIdentifier]()
+
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
         NStack.sharedInstance.translationsManager?.localize(component: self, for: identifier)
     }
-    
+
     @objc public func setLocalizedValue(_ localizedValue: String) {
         text = localizedValue
     }
@@ -32,7 +32,7 @@ extension UITextField: NStackLocalizable {
             text = newValue
         }
     }
-    
+
     public var translationIdentifier: TranslationIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
@@ -43,7 +43,7 @@ extension UITextField: NStackLocalizable {
             UITextField._translationIdentifier[tmpAddress] = newValue
         }
     }
-    
+
     public var originalBackgroundColor: UIColor? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
@@ -54,7 +54,7 @@ extension UITextField: NStackLocalizable {
             UITextField._backgroundColor[tmpAddress] = newValue
         }
     }
-    
+
     public var originalIsUserInteractionEnabled: Bool {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
@@ -65,9 +65,9 @@ extension UITextField: NStackLocalizable {
             UITextField._userInteractionEnabled[tmpAddress] = newValue
         }
     }
-    
+
     public var backgroundViewToColor: UIView? {
         return self
     }
-    
+
 }

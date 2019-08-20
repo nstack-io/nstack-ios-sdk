@@ -16,7 +16,7 @@ public struct Proposal: Codable {
     private let localeString: String
     let value: String
     let canDelete: Bool = false
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case applicationId
