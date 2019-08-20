@@ -7,7 +7,12 @@
 //
 
 import Foundation
+#if os(iOS)
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#endif
+
 
 class MockConnectionManager: Repository {
 

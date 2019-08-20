@@ -7,12 +7,14 @@
 //
 
 import Foundation
-import TranslationManager
 
 #if os(macOS)
 import AppKit
-#else
+#elseif os(iOS)
 import UIKit
+import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
 #endif
 
 public class NStack {

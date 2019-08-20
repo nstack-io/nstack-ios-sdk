@@ -7,7 +7,12 @@
 //
 
 import Foundation
+#if os(iOS)
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#endif
+
 
 @objc
 public protocol NStackLocalizable where Self: UIView {
