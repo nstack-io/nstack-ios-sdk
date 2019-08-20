@@ -167,4 +167,13 @@ public class AlertManager {
         }
     }
 }
+#elseif os(watchOS)
+public class AlertManager {    
+    public enum RateReminderResult: String {
+        case rate = "yes"
+        case later = "later"
+        case never = "no"
+    }
+}
+
 #endif

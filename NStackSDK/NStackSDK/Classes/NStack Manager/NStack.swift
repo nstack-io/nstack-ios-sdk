@@ -8,13 +8,15 @@
 
 import Foundation
 
-#if os(macOS)
-import AppKit
-#elseif os(iOS)
+#if os(iOS)
 import UIKit
 import TranslationManager
 #elseif os(tvOS)
 import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import AppKit
 #endif
 
 public class NStack {

@@ -170,6 +170,7 @@
 		8CA9F22E230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		8CA9F22F230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
+		8CA9F25B230C037100CF8065 /* TranslationManager_watchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */; };
 		9F19B242F21C0C601C1452D6 /* Pods_NStackSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */; };
 		A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3D22F962210005580E /* ProposalProtocols.swift */; };
 		A829DC4022F962340005580E /* ProposalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3F22F962340005580E /* ProposalModel.swift */; };
@@ -359,6 +360,7 @@
 		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
 		8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_tvOS.framework; path = ../Carthage/Build/tvOS/TranslationManager_tvOS.framework; sourceTree = "<group>"; };
+		8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_watchOS.framework; path = ../Carthage/Build/watchOS/TranslationManager_watchOS.framework; sourceTree = "<group>"; };
 		8D4D8B340C27AC4744DE2E32 /* Pods-NStackSDK-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2BB912CEEC4DBB51EB052 /* Pods-NStackSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CA9F25B230C037100CF8065 /* TranslationManager_watchOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +593,7 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */,
 				8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */,
 				238D644722C518B3002406FA /* TranslationManager.framework */,
 				238D644922C518FE002406FA /* TranslationManager.framework */,
@@ -811,6 +815,7 @@
 				01A334701E4F1B2A003CE9BA /* Frameworks */,
 				01A334711E4F1B2A003CE9BA /* Headers */,
 				01A334721E4F1B2A003CE9BA /* Resources */,
+				8CA9F25C230C037C00CF8065 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -1223,6 +1228,25 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/../Carthage/Build/tvOS/TranslationManager_tvOS.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		8CA9F25C230C037C00CF8065 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/watchOS/TranslationManager_watchOS.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (

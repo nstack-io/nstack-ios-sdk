@@ -7,13 +7,20 @@
 //
 
 import Foundation
+
 #if os(iOS)
+import UIKit
 import TranslationManager
 #elseif os(tvOS)
 import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+
 #endif
 
 
+#if os(iOS) || os(tvOS)
 @objc
 public protocol NStackLocalizable where Self: UIView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
@@ -26,6 +33,21 @@ public protocol NStackLocalizable where Self: UIView {
     var originalIsUserInteractionEnabled: Bool { get set }
     var translationIdentifier: TranslationIdentifier? { get set }
 }
+#elseif os(watchOS)
+@objc
+public protocol NStackLocalizable where Self: WKInterfaceGroup {
+    //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
+    //later on we can make some sort of operator overload...or maybe a property wrapper
+    func localize(for stringIdentifier: String)
+    func setLocalizedValue(_ localizedValue: String)
+    var translatableValue: String? { get set }
+    var backgroundViewToColor: WKInterfaceGroup? { get }
+    var originalBackgroundColor: UIColor? { get set }
+    var originalIsUserInteractionEnabled: Bool { get set }
+    var translationIdentifier: TranslationIdentifier? { get set }
+}
+
+#endif
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
