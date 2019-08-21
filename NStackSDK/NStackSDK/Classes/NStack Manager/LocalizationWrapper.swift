@@ -16,38 +16,32 @@ import TranslationManager_tvOS
 #elseif os(watchOS)
 import TranslationManager_watchOS
 #elseif os(macOS)
-
+import TranslationManager_macOS
 #endif
-
 
 #if os(iOS) || os(tvOS)
-@objc
-public protocol NStackLocalizable where Self: UIView {
-    //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
-    //later on we can make some sort of operator overload...or maybe a property wrapper
-    func localize(for stringIdentifier: String)
-    func setLocalizedValue(_ localizedValue: String)
-    var translatableValue: String? { get set }
-    var backgroundViewToColor: UIView? { get }
-    var originalBackgroundColor: UIColor? { get set }
-    var originalIsUserInteractionEnabled: Bool { get set }
-    var translationIdentifier: TranslationIdentifier? { get set }
-}
+public typealias NStackLocalizableView = UIView
+public typealias NStackLocalizableBackgroundColor = UIColor
 #elseif os(watchOS)
+public typealias NStackLocalizableView = WKInterfaceGroup
+public typealias NStackLocalizableBackgroundColor = UIColor
+#elseif os(macOS)
+public typealias NStackLocalizableView = NSView
+public typealias NStackLocalizableBackgroundColor = NSColor
+#endif
+
 @objc
-public protocol NStackLocalizable where Self: WKInterfaceGroup {
+public protocol NStackLocalizable where Self: NStackLocalizableView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
     func localize(for stringIdentifier: String)
     func setLocalizedValue(_ localizedValue: String)
     var translatableValue: String? { get set }
-    var backgroundViewToColor: WKInterfaceGroup? { get }
-    var originalBackgroundColor: UIColor? { get set }
+    var backgroundViewToColor: NStackLocalizableView? { get }
+    var originalBackgroundColor: NStackLocalizableBackgroundColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
     var translationIdentifier: TranslationIdentifier? { get set }
 }
-
-#endif
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }

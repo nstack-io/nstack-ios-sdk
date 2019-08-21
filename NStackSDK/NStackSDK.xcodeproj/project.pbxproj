@@ -148,6 +148,7 @@
 		8C26C47322F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
 		8C26C47422F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
 		8C26C47522F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
+		8C508869230D281B00FB80CD /* TranslationManager_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */; };
 		8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F922F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
@@ -356,6 +357,8 @@
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		83E20E4222D756CD006D5BEF /* N-Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "N-Meta.swift"; sourceTree = "<group>"; };
 		8C26C47122F4085D00170071 /* LocalizationProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalizationProposal.swift; path = Classes/Model/LocalizationProposal.swift; sourceTree = "<group>"; };
+		8C508866230D280500FB80CD /* TranslationManager_macOS.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = TranslationManager_macOS.framework.dSYM; path = ../Carthage/Build/Mac/TranslationManager_macOS.framework.dSYM; sourceTree = "<group>"; };
+		8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_macOS.framework; path = ../Carthage/Build/Mac/TranslationManager_macOS.framework; sourceTree = "<group>"; };
 		8C80D0F622F066AC00165F5D /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
@@ -448,6 +451,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C508869230D281B00FB80CD /* TranslationManager_macOS.framework in Frameworks */,
 				E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */,
 				E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */,
 			);
@@ -593,6 +597,8 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */,
+				8C508866230D280500FB80CD /* TranslationManager_macOS.framework.dSYM */,
 				8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */,
 				8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */,
 				238D644722C518B3002406FA /* TranslationManager.framework */,

@@ -17,6 +17,7 @@ import TranslationManager_tvOS
 import TranslationManager_watchOS
 #elseif os(macOS)
 import AppKit
+import TranslationManager_macOS
 #endif
 
 public class NStack {
