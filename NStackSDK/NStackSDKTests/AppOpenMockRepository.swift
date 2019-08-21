@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 class MockConnectionManager: Repository {
 
     func fetchPreferredLanguages() -> [String] {

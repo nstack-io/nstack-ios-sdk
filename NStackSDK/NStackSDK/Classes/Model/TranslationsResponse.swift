@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 public struct TranslationsResponse: Codable {
     let translations: [String: Any]
     let language: Language?
