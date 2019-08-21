@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 public typealias Result<T> = Swift.Result<T, Error>
 
 public typealias Completion<T> = ((Result<T>) -> Void)

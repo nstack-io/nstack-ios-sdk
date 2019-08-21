@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
 

@@ -1,23 +1,30 @@
 {
-  "data" : {
-    "en-GB" : {
-      "default" : {
-        "successKey" : "Success"
-      }
+    "data" : {
+        "default" : {
+            "keyys" : "englishKeyys",
+            "successKey" : "Success"
+        },
+        "oneMoreSection" : {
+            "soManyKeys" : "AndValues",
+            "test1" : "<p>test<\/p>\r\n",
+            "test2" : "__test2"
+        },
+        "otherSection" : {
+            "otherString" : "Haha"
+        }
     },
-    "da-DK" : {
-      "default" : {
-        "successKey" : "Fedt"
-      }
+    "meta" : {
+        "language" : {
+            "direction" : "LRM",
+            "id" : 11,
+            "is_best_fit" : false,
+            "is_default" : false,
+            "locale" : "en-GB",
+            "name" : "English (UK)"
+        },
+        "platform" : {
+            "id" : 24,
+            "slug" : "mobile"
+        }
     }
-  },
-  "meta" : {
-    "is_cached" : false,
-    "language" : {
-      "locale" : "en-GB",
-      "id" : 11,
-      "name" : "English (UK)",
-      "direction" : "LRM"
-    }
-  }
 }

@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 public struct Localization: LocalizationModel {
 
     public var id: Int

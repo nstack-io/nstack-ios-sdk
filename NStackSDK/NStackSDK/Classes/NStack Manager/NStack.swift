@@ -121,7 +121,7 @@ public class NStack {
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride,
-            nmeta: NMeta(environment: configuration.currentEnvironment.rawValue)
+            nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
 
@@ -212,12 +212,6 @@ public class NStack {
 
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
-//                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
-//                                                                       acceptHeaderUsed: header,
-//                                                                       completion: { (_) in
-//                        //if error, try to update translations in Translations Manager
-//                        self.translationsManager?.updateTranslations()
-//                    })
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in

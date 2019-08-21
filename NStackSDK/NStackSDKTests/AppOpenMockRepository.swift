@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 class MockConnectionManager: Repository {
 
     func fetchPreferredLanguages() -> [String] {
@@ -63,7 +62,21 @@ class MockConnectionManager: Repository {
     }
 
     func fetchCountries(completion: @escaping Completion<[Country]>) {
-
+        let countryArray = [Country(id: 1,
+                                               name: "",
+                                               code: "",
+                                               codeIso: "", native: "", phone: 1, continent: "",
+                                               capital: "", capitalLat: 1.0, capitalLng: 1.0,
+                                               currency: "", currencyName: "", languages: "",
+                                               image: nil,
+                                               imagePath2: nil,
+                                               capitalTimeZone: NStackSDK.Timezone(id: 1,
+                                                                                   name: "",
+                                                                                   abbreviation: "",
+                                                                                   offsetSec: 12,
+                                                                                   label: ""))]
+        let result: Result = .success(countryArray)
+        completion(result)
     }
 
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
@@ -79,19 +92,31 @@ class MockConnectionManager: Repository {
     }
 
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
-
+        let result: Result = .success(IPAddress(ipStart: "_ipStart",
+                                                ipEnd: "", country: "", stateProv: "", city: "", lat: "", lng: "", timeZoneOffset: "", timeZoneName: "", ispName: "", connectionType: "", type: "", requestedIp: ""))
+        completion(result)
     }
 
     func validateEmail(_ email: String, completion: @escaping Completion<Validation>) {
+        let result: Result = .success(Validation(ok: true))
+        completion(result)
+    }
 
+    struct Person: Swift.Codable {
+        var firstName: String
+        var lastName: String
     }
 
     func fetchStaticResponse<T>(_ slug: String, completion: @escaping ((Result<T>) -> Void)) where T: Decodable, T: Encodable {
-
+        let number: Int = 12
+        let result: Result = .success(number)
+        completion(result as! Result<T>)
     }
 
     func fetchCollection<T>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) where T: Decodable, T: Encodable {
-
+        let number: Int = 12
+        let result: Result = .success(number)
+        completion(result as! Result<T>)
     }
 
     func markWhatsNewAsSeen(_ id: Int) {
