@@ -15,11 +15,11 @@ protocol ProposalCellProtocol {
 }
 
 extension UITableViewCell: ProposalCellProtocol {
-    
+
     func setTextLabel(with text: String) {
         textLabel?.text = text
     }
-    
+
     func setTextColor(_ color: UIColor) {
         textLabel?.textColor = color
     }

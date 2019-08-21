@@ -45,11 +45,11 @@ public protocol NStackLocalizable where Self: NStackLocalizableView {
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
-    func translations<L: LocalizableModel>() throws -> L?
+    func translations<L: LocalizableModel>() throws -> L
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateTranslations(_ completion: ((Error?) -> Void)?)
     func updateTranslations()
-    
+
     func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
     func containsComponent(for identifier: TranslationIdentifier) -> Bool
     func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier)
@@ -59,7 +59,7 @@ public class LocalizationWrapper {
     private(set) var translationsManager: TranslatableManager<Language, Localization>?
     let originallyTranslatedComponents: NSMapTable<TranslationIdentifier, NStackLocalizable>
     var proposedTranslations: [TranslationIdentifier: LocalizationProposal]
-    
+
     init(translationsManager: TranslatableManager<Language, Localization>) {
         self.translationsManager = translationsManager
         self.originallyTranslatedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
@@ -68,27 +68,33 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
-    public func translations<L: LocalizableModel>() throws -> L? {
-        return try translationsManager?.translations()
+    public func translations<L: LocalizableModel>() throws -> L {
+        guard let manager = translationsManager else {
+            fatalError("no translations manager initialized")
+        }
+        do {
+            return try manager.translations()
+        } catch {
+            fatalError("no translations found")
+        }
     }
-    
+
     public var bestFitLanguage: Language? {
         return translationsManager?.bestFitLanguage
     }
-    
-    
+
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
         translationsManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
     }
-    
+
     public func updateTranslations() {
         translationsManager?.updateTranslations()
     }
-        
+
     public func updateTranslations(_ completion: ((Error?) -> Void)? = nil) {
         translationsManager?.updateTranslations(completion)
     }
-    
+
     /**
      Fetches a localized string value for the `identifier` and adds that to the `component`
      
@@ -96,7 +102,7 @@ extension LocalizationWrapper: LocalizationWrappable {
      */
     public func localize(component: NStackLocalizable, for identifier: TranslationIdentifier) {
         component.translationIdentifier = identifier
-        
+
         //Has the user proposed a translation earlier in this session?
         if
             let proposedTranslation = proposedTranslations[identifier],
@@ -113,7 +119,7 @@ extension LocalizationWrapper: LocalizationWrappable {
             localizeFromOriginallyTranslated(component: component, for: identifier)
         }
     }
-    
+
     private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: TranslationIdentifier) {
         originallyTranslatedComponents.setObject(component, forKey: identifier)
         do {
@@ -127,7 +133,7 @@ extension LocalizationWrapper: LocalizationWrappable {
             //`component.setLocalizedValue("")` for instance, lets just leave the component as is
         }
     }
-    
+
     /**
      stores proposed text value locally.
      
@@ -143,7 +149,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         //And store
         proposedTranslations[identifier] = LocalizationProposal(value: value, locale: locale)
     }
-    
+
     /**
      - Return `true` if `component` has been localized, `false` if it has not
     */

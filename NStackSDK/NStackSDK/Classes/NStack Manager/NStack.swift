@@ -30,7 +30,7 @@ public class NStack {
 
     /// The manager responsible for fetching, updating and persisting translations.
     public fileprivate(set) var translationsManager: LocalizationWrappable?
-    
+
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
 
@@ -165,7 +165,7 @@ public class NStack {
         let manager = TranslatableManager<Language, Localization>(repository: repository,
                                                                   contextRepository: repository,
                                                                   localizableModel: configuration.translationsClass,
-                                                                  updateMode: .manual)
+                                                                  updateMode: .automatic)
 
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
@@ -179,7 +179,6 @@ public class NStack {
 
         // Set callback
         manager.delegate = self
-//        translationsManager = manager
         translationsManager = LocalizationWrapper(translationsManager: manager)
     }
 
@@ -253,7 +252,7 @@ public class NStack {
             }
         })
     }
-    
+
     /// Sends the proposal to NStack
     ///
     /// - Parameters:
@@ -264,7 +263,7 @@ public class NStack {
     func storeProposal(for identifier: TranslationIdentifier, with value: String) {
         guard let language = translationsManager?.bestFitLanguage else { return }
         let locale = language.acceptLanguage
-        
+
         repository.storeProposal(section: identifier.section,
                                  key: identifier.key,
                                  value: value,
@@ -282,8 +281,7 @@ public class NStack {
             }
         }
     }
-    
-    
+
     /// Fetches all proposals returns as an array of Proposal
     ///
     /// - Parameter completion: returns an array of Proposal
@@ -298,8 +296,7 @@ public class NStack {
             }
         }
     }
-    
-    
+
     /// Deletes a proposal
     ///
     /// - Parameters:
@@ -310,7 +307,7 @@ public class NStack {
             completion(result)
         }
     }
-    
+
 }
 
 extension NStack: TranslatableManagerDelegate {
