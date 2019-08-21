@@ -7,7 +7,13 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(watchOS)
+import WatchKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 struct NMeta {
     private var environment: String
@@ -26,8 +32,15 @@ private func userAgentString(environment: String) -> String {
 
     appendString += "\(environment);"
     appendString += "\(Bundle.main.releaseVersionNumber ?? "");"
+    #if os(iOS) || os(tvOS)
     appendString += "\(UIDevice.current.systemVersion);"
     appendString += "\(UIDevice.current.modelName)"
+    #elseif os(watchOS)
+    appendString += "\(WKInterfaceDevice.current().systemVersion);"
+    appendString += "\(WKInterfaceDevice.current().model)"
+    #elseif os(macOS)
+    
+    #endif
 
     return appendString
 }
@@ -43,6 +56,7 @@ extension Bundle {
     }
 }
 
+#if os(iOS) || os(tvOS)
 fileprivate extension UIDevice {
 
     var modelName: String {
@@ -57,3 +71,4 @@ fileprivate extension UIDevice {
         return identifier
     }
 }
+#endif

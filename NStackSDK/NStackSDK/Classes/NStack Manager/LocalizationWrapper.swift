@@ -7,24 +7,45 @@
 //
 
 import Foundation
+
+#if os(iOS)
+import UIKit
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
+
+#if os(iOS) || os(tvOS)
+public typealias NStackLocalizableView = UIView
+public typealias NStackLocalizableBackgroundColor = UIColor
+#elseif os(watchOS)
+public typealias NStackLocalizableView = WKInterfaceGroup
+public typealias NStackLocalizableBackgroundColor = UIColor
+#elseif os(macOS)
+public typealias NStackLocalizableView = NSView
+public typealias NStackLocalizableBackgroundColor = NSColor
+#endif
 
 @objc
-public protocol NStackLocalizable where Self: UIView {
+public protocol NStackLocalizable where Self: NStackLocalizableView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
     func localize(for stringIdentifier: String)
     func setLocalizedValue(_ localizedValue: String)
     var translatableValue: String? { get set }
-    var backgroundViewToColor: UIView? { get }
-    var originalBackgroundColor: UIColor? { get set }
+    var backgroundViewToColor: NStackLocalizableView? { get }
+    var originalBackgroundColor: NStackLocalizableBackgroundColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
     var translationIdentifier: TranslationIdentifier? { get set }
 }
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
-    func translations<L: LocalizableModel>() throws -> L?
+    func translations<L: LocalizableModel>() throws -> L
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateTranslations(_ completion: ((Error?) -> Void)?)
     func updateTranslations()
@@ -47,8 +68,15 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
-    public func translations<L: LocalizableModel>() throws -> L? {
-        return try translationsManager?.translations()
+    public func translations<L: LocalizableModel>() throws -> L {
+        guard let manager = translationsManager else {
+            fatalError("no translations manager initialized")
+        }
+        do {
+            return try manager.translations()
+        } catch {
+            fatalError("no translations found")
+        }
     }
 
     public var bestFitLanguage: Language? {
