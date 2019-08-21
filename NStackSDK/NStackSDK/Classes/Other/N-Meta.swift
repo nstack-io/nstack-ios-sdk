@@ -39,7 +39,7 @@ private func userAgentString(environment: String) -> String {
     appendString += "\(WKInterfaceDevice.current().systemVersion);"
     appendString += "\(WKInterfaceDevice.current().model)"
     #elseif os(macOS)
-    
+
     #endif
 
     return appendString

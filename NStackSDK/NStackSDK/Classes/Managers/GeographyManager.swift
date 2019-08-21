@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 public class GeographyManager {
 
     // MARK: - Properites

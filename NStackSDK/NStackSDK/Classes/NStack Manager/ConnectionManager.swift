@@ -19,7 +19,6 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
 
@@ -98,7 +97,7 @@ extension ConnectionManager {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        let url = baseURLv2 + "localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
+        let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
         let localizationCompletion: (Result<[Localization]>) -> Void = { (response) in
