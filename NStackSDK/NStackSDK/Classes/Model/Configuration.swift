@@ -122,4 +122,13 @@ extension Configuration {
     var isProduction: Bool {
         return currentEnvironment.isProduction
     }
+
+    var currentEnvironmentAPIString: String {
+        switch self.currentEnvironment {
+        case .debug:
+            return "development"
+        default:
+            return currentEnvironment.rawValue
+        }
+    }
 }
