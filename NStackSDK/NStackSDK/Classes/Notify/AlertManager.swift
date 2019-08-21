@@ -10,6 +10,7 @@ import Foundation
 #if os(tvOS) || os(iOS)
 import UIKit
 import StoreKit
+#endif
 
 public class AlertManager {
 
@@ -29,6 +30,7 @@ public class AlertManager {
         case message(text: String, dismissButtonText: String, completion:() -> Void)
     }
 
+#if os(tvOS) || os(iOS)
     let repository: VersionsRepository
 
     var alertWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -90,11 +92,11 @@ public class AlertManager {
     }
 
     public var requestReview: () -> Void = {
-        #if os(iOS)
-            if #available(iOSApplicationExtension 10.3, *) {
-                SKStoreReviewController.requestReview()
-            }
-        #endif
+        if #available(iOSApplicationExtension 10.3, *) {
+            #if os(iOS)
+            SKStoreReviewController.requestReview()
+            #endif
+        }
     }
 
     // MARK: - Lifecyle -
@@ -166,5 +168,5 @@ public class AlertManager {
             self.repository.markRateReminderAsSeen(result)
         }
     }
-}
 #endif
+}
