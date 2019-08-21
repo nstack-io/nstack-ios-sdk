@@ -165,7 +165,7 @@ public class NStack {
         let manager = TranslatableManager<Language, Localization>(repository: repository,
                                                                   contextRepository: repository,
                                                                   localizableModel: configuration.translationsClass,
-                                                                  updateMode: .automatic)
+                                                                  updateMode: .manual)
 
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,

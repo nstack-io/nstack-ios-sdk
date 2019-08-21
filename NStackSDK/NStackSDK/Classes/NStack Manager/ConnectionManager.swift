@@ -100,8 +100,15 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let localizationCompletion: (Result<[Localization]>) -> Void = { (response) in
-            completion(response as! Result<[C]>)
+        let localizationCompletion: (Result<DataModel<[Localization]>>) -> Void = { (response) in
+            switch response {
+            case .success(let data):
+                let model = data.model
+                let result: Result = .success(model)
+                completion(result as! Result<[C]>)
+            default:
+                break
+            }
         }
         session.startDataTask(with: request, completionHandler: localizationCompletion)
     }
