@@ -1,2 +1,1 @@
-#github "nodes-ios/TranslationManager" == 2.0.1-beta.2
-github "nodes-ios/TranslationManager" "bugfix/frameworks-for-missing-platforms"
+github "nodes-ios/TranslationManager" == 2.0.1-beta.3
