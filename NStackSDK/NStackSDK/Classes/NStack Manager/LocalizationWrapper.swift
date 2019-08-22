@@ -73,7 +73,7 @@ extension LocalizationWrapper: LocalizationWrappable {
             fatalError("no translations manager initialized")
         }
         do {
-            return try manager.translations()
+            return try manager.translations()!
         } catch {
             fatalError("no translations found")
         }
