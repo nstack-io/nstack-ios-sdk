@@ -306,6 +306,7 @@ public class NStack {
 
 extension NStack: TranslatableManagerDelegate {
     public func translationManager(languageUpdated: LanguageModel?) {
-        self.languageChangedHandler?(languageUpdated?.locale)
+        print("Language Changed To: \(languageUpdated?.locale.identifier ?? "unknown")")
+        translationsManager?.refreshTranslations()
     }
 }

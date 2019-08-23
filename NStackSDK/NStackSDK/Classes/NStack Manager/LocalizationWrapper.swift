@@ -49,6 +49,7 @@ public protocol LocalizationWrappable {
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateTranslations(_ completion: ((Error?) -> Void)?)
     func updateTranslations()
+    func refreshTranslations()
 
     func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
     func containsComponent(for identifier: TranslationIdentifier) -> Bool
@@ -68,6 +69,18 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
+    public func refreshTranslations() {
+        for translation in originallyTranslatedComponents.keyEnumerator() {
+            if let translationIdentifier = translation as? TranslationIdentifier {
+                if let localizableComponent = originallyTranslatedComponents.object(forKey: translationIdentifier) {
+                    DispatchQueue.main.async {
+                        localizableComponent.localize(for: "\(translationIdentifier.section).\(translationIdentifier.key)")
+                    }
+                }
+            }
+        }
+    }
+
     public func translations<L: LocalizableModel>() throws -> L {
         guard let manager = translationsManager else {
             fatalError("no translations manager initialized")
