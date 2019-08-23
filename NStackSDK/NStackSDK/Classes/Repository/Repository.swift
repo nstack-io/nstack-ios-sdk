@@ -7,15 +7,41 @@
 //
 
 import Foundation
-import Alamofire
 
-typealias Completion<T> = ((DataResponse<T>) -> Void)
+#if os(iOS)
+import UIKit
+import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
+
+public typealias Result<T> = Swift.Result<T, Error>
+
+public typealias Completion<T> = ((Result<T>) -> Void)
+
+typealias Repository =
+    AppOpenRepository &
+    UpdatesRepository &
+    GeographyRepository &
+    ValidationRepository &
+    ContentRepository &
+    ColletionRepository &
+    VersionsRepository &
+    TranslationRepository &
+    LocalizationContextRepository &
+    ProposalsRepository
 
 // MARK: - App Open -
 
 protocol AppOpenRepository {
-    func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?,
-                     completion: @escaping Completion<Any>)
+    func postAppOpen(oldVersion: String,
+                     currentVersion: String,
+                     acceptLanguage: String?,
+                     completion: @escaping Completion<AppOpenResponse>)
 }
 
 // MARK: - Updates -
@@ -23,17 +49,6 @@ protocol AppOpenRepository {
 protocol UpdatesRepository {
     func fetchUpdates(oldVersion: String, currentVersion: String,
                       completion: @escaping Completion<Update>)
-}
-
-// MARK: - Translations -
-
-protocol TranslationsRepository {
-    func fetchTranslations(acceptLanguage: String, completion: @escaping Completion<TranslationsResponse>)
-    func fetchCurrentLanguage(acceptLanguage: String, completion: @escaping Completion<Language>)
-    func fetchAvailableLanguages(completion:  @escaping Completion<[Language]>)
-    func fetchPreferredLanguages() -> [String]
-    func fetchBundles() -> [Bundle]
-    func fetchCurrentPhoneLanguage() -> String?
 }
 
 // MARK: - Geography -
@@ -56,24 +71,30 @@ protocol ValidationRepository {
 // MARK: - Content -
 
 protocol ContentRepository {
-    func fetchContent(_ id: Int, completion:  @escaping Completion<Any>)
-    func fetchContent(_ slug: String, completion: @escaping Completion<Any>)
-    func fetchStaticResponse<T:Swift.Codable>(atSlug slug: String, completion: @escaping ((NStack.Result<T>) -> Void)) 
+    func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>)
 }
 
 // MARK: - Collection -
 
 protocol ColletionRepository {
-    func fetchCollection<T: Swift.Codable>(_ id: Int, maxNumberOfEntries: Int, completion: @escaping ((NStack.Result<T>) -> Void))
+    func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void))
 }
 
 // MARK: - Versions -
 
 protocol VersionsRepository {
     func markWhatsNewAsSeen(_ id: Int)
-    func markMessageAsRead(_ id: String)
+    func markMessageAsRead(_ id: Int)
 
     #if os(iOS) || os(tvOS)
     func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)
     #endif
+}
+
+// MARK: - Proposals
+
+protocol ProposalsRepository {
+    func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>)
+    func fetchProposals(completion: @escaping Completion<[Proposal]>)
+    func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void)
 }

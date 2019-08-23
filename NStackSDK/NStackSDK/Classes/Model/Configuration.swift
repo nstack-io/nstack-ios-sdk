@@ -7,7 +7,17 @@
 //
 
 import Foundation
-import Serpent
+
+#if os(iOS)
+import UIKit
+import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
 
 public struct UpdateOptions: OptionSet {
     public let rawValue: Int
@@ -20,13 +30,25 @@ public struct UpdateOptions: OptionSet {
 
 public struct Configuration {
 
+    public enum NStackEnvironment: String {
+        case debug
+        case staging
+        case production
+
+        var isProduction: Bool {
+            return self == .production
+        }
+    }
+
     public let appId: String
     public let restAPIKey: String
-    public let translationsClass: Translatable.Type?
+    public let translationsClass: LocalizableModel.Type
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
+    public var useMock = false
     public var translationsUrlOverride: String?
+    public var currentEnvironment: NStackEnvironment
 
     // Used for tests
     internal var versionOverride: String?
@@ -34,34 +56,36 @@ public struct Configuration {
     fileprivate static let UUIDKey = "NSTACK_UUID_DEFAULTS_KEY"
 
     internal static var guid: String {
-        let savedUUID = UserDefaults.standard.object(forKey: UUIDKey)
-        if let UUID = savedUUID as? String {
+        if let UUID = UserDefaults.standard.string(forKey: UUIDKey) {
             return UUID
         }
 
         let newUUID = UUID().uuidString
-        UserDefaults.standard.set(newUUID, forKey: UUIDKey)
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.setValue(newUUID, forKey: UUIDKey)
         return newUUID
     }
 
     public init(appId: String,
                 restAPIKey: String,
-                translationsClass: Translatable.Type? = nil,
+                translationsClass: LocalizableModel.Type,
                 flatTranslations: Bool = false,
-                translationsUrlOverride: String? = nil) {
+                translationsUrlOverride: String? = nil,
+                environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.translationsClass = translationsClass
         self.flat = flatTranslations
         self.translationsUrlOverride = translationsUrlOverride
+        self.currentEnvironment = environment
     }
 
-    public init(plistName: String, translationsClass: Translatable.Type? = nil) {
+    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
         var translationsUrlOverride: String?
+
+        self.currentEnvironment = environment
 
         for bundle in Bundle.allBundles {
             let fileName = plistName.replacingOccurrences(of: ".plist", with: "")
@@ -69,7 +93,7 @@ public struct Configuration {
 
                 let object = NSDictionary(contentsOf: fileURL)
 
-                guard let keyDict = object as? [String : AnyObject] else {
+                guard let keyDict = object as? [String: AnyObject] else {
                     fatalError("Can't parse file \(fileName).plist")
                 }
 
@@ -88,9 +112,23 @@ public struct Configuration {
         self.restAPIKey = finalRestAPIKey
         self.translationsClass = translationsClass
         self.translationsUrlOverride = translationsUrlOverride
-
         if let flat = flatString, flat == "1" {
             self.flat = true
+        }
+    }
+}
+
+extension Configuration {
+    var isProduction: Bool {
+        return currentEnvironment.isProduction
+    }
+
+    var currentEnvironmentAPIString: String {
+        switch self.currentEnvironment {
+        case .debug:
+            return "development"
+        default:
+            return currentEnvironment.rawValue
         }
     }
 }

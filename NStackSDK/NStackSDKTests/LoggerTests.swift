@@ -10,5 +10,5 @@ import XCTest
 @testable import NStackSDK
 
 class LoggerTests: XCTestCase {
-    
+
 }

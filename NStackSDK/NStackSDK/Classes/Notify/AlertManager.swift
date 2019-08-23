@@ -10,22 +10,27 @@ import Foundation
 #if os(tvOS) || os(iOS)
 import UIKit
 import StoreKit
+#endif
 
 public class AlertManager {
 
     public enum RateReminderResult: String {
-        case Rate = "yes"
-        case Later = "later"
-        case Never = "no"
+        case rate = "yes"
+        case later = "later"
+        case never = "no"
     }
 
     public enum AlertType {
-        case updateAlert(title:String, text:String, dismissButtonText:String?, appStoreButtonText:String, completion:(_ didPressAppStore:Bool) -> Void)
+        case updateAlert(title: String,
+                        text: String,
+                        dismissButtonText: String?,
+                        appStoreButtonText: String,
+                        completion:(_ didPressAppStore: Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion:() -> Void)
         case message(text: String, dismissButtonText: String, completion:() -> Void)
-
     }
 
+#if os(tvOS) || os(iOS)
     let repository: VersionsRepository
 
     var alertWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -35,14 +40,13 @@ public class AlertManager {
     }
 
     // FIXME: Refactor
-
     public var showAlertBlock: (_ alertType: AlertType) -> Void = { alertType in
         guard !NStack.sharedInstance.alertManager.alreadyShowingAlert else {
             return
         }
 
-        var header:String?
-        var message:String?
+        var header: String?
+        var message: String?
         var actions = [UIAlertAction]()
 
         switch alertType {
@@ -50,13 +54,13 @@ public class AlertManager {
             header = title
             message = String(NSString(format: text as NSString))
             if let dismissText = dismissText {
-                actions.append(UIAlertAction(title: dismissText, style: .default, handler: { action in
+                actions.append(UIAlertAction(title: dismissText, style: .default, handler: { _ in
                     NStack.sharedInstance.alertManager.hideAlertWindow()
                     completion(false)
                 }))
             }
 
-            actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { action in
+            actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
                 NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion(true)
             }))
@@ -64,14 +68,14 @@ public class AlertManager {
         case let .whatsNewAlert(title, text, dismissButtonText, completion):
             header = title
             message = text
-            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { action in
+            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion()
             }))
 
         case let .message(text, dismissButtonText, completion):
             message = text
-            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { action in
+            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion()
             }))
@@ -88,13 +92,13 @@ public class AlertManager {
     }
 
     public var requestReview: () -> Void = {
-        #if os(iOS)
-            if #available(iOSApplicationExtension 10.3, *) {
-                SKStoreReviewController.requestReview()
-            }
-        #endif
+        if #available(iOSApplicationExtension 10.3, *) {
+            #if os(iOS)
+            SKStoreReviewController.requestReview()
+            #endif
+        }
     }
-    
+
     // MARK: - Lifecyle -
 
     init(repository: VersionsRepository) {
@@ -107,10 +111,9 @@ public class AlertManager {
         alertWindow.isHidden = true
     }
 
-    internal func showUpdateAlert(newVersion version:Update.Version) {
+    internal func showUpdateAlert(newVersion version: Update.Version) {
 
-        let appStoreCompletion = { (didPressAppStore:Bool) -> Void in
-            
+        let appStoreCompletion = { (didPressAppStore: Bool) -> Void in
             if didPressAppStore {
                 if let link = version.link {
                     UIApplication.safeSharedApplication()?.safeOpenURL(link)
@@ -121,26 +124,26 @@ public class AlertManager {
         let alertType: AlertType
 
         switch version.state {
-        case .Force:
+        case .force:
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: nil,
                                               appStoreButtonText: version.translations.positiveBtn,
                                               completion: appStoreCompletion)
-        case .Remind:
+        case .remind:
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: version.translations.negativeBtn,
                                               appStoreButtonText: version.translations.positiveBtn,
                                               completion: appStoreCompletion)
-        case .Disabled:
+        case .disabled:
             return
         }
 
         self.showAlertBlock(alertType)
     }
 
-    internal func showWhatsNewAlert(_ changeLog:Update.Changelog) {
+    internal func showWhatsNewAlert(_ changeLog: Update.Changelog) {
         guard let translations = changeLog.translate else { return }
         let alertType = AlertType.whatsNewAlert(title: translations.title,
                                                 text: translations.message,
@@ -151,7 +154,7 @@ public class AlertManager {
         showAlertBlock(alertType)
     }
 
-    internal func showMessage(_ message:Message) {
+    internal func showMessage(_ message: Message) {
         let alertType = AlertType.message(text: message.message, dismissButtonText: "Ok") {
             self.repository.markMessageAsRead(message.id)
         }
@@ -159,13 +162,11 @@ public class AlertManager {
         showAlertBlock(alertType)
     }
 
-    internal func showRateReminder(_ rateReminder:RateReminder) {
-        
+    internal func showRateReminder(_ rateReminder: RateReminder) {
         self.requestReview()
         if let result = AlertManager.RateReminderResult(rawValue: "yes") {
             self.repository.markRateReminderAsSeen(result)
         }
     }
-}
 #endif
-
+}

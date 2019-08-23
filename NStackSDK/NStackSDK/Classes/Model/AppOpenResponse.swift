@@ -7,25 +7,14 @@
 //
 
 import Foundation
-import Serpent
 
 // TODO: Fix update struct in app open and adjust fetchUpdates response model
 
-struct AppOpenResponse {
-    var data: AppOpenData?
-    var languageData: LanguageData? // <-meta
-}
+struct AppOpenResponse: Codable {
+    let data: AppOpenData?
+    let languageData: LanguageData?
 
-extension AppOpenResponse: Serializable {
-    init(dictionary: NSDictionary?) {
-        data         <== (self, dictionary, "data")
-        languageData <== (self, dictionary, "meta")
-    }
-
-    func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "data") <== data
-        (dict, "meta") <== languageData
-        return dict
+    enum CodingKeys: String, CodingKey {
+        case data, languageData = "meta"
     }
 }

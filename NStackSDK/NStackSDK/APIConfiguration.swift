@@ -13,16 +13,17 @@ struct APIConfiguration {
     let restAPIKey: String
     let isFlat: Bool
     let translationsUrlOverride: String?
+    let nmeta: NMeta
 
-    init(
-        appId: String = "",
-        restAPIKey: String = "",
-        isFlat: Bool = false,
-        translationsUrlOverride: String? = nil
-    ) {
+    init(appId: String = "",
+         restAPIKey: String = "",
+         isFlat: Bool = false,
+         translationsUrlOverride: String? = nil,
+         nmeta: NMeta) {
         self.appId = appId
         self.restAPIKey = restAPIKey
         self.isFlat = isFlat
         self.translationsUrlOverride = translationsUrlOverride
+        self.nmeta = nmeta
     }
 }

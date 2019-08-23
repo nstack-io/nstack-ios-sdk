@@ -6,30 +6,16 @@
 //  Copyright © 2017 Nodes ApS. All rights reserved.
 //
 
-import Serpent
+import Foundation
 
-public struct Continent {
-    public var id = 0
-    public var name = ""
-    public var code = ""
-    public var imageURL: URL? //<- image
-}
+public struct Continent: Codable {
+    let id: Int
+    let name: String
+    let code: String
+    let imageUrl: URL?
 
-extension Continent: Serializable {
-    public init(dictionary: NSDictionary?) {
-        id       <== (self, dictionary, "id")
-        name     <== (self, dictionary, "name")
-        code     <== (self, dictionary, "code")
-        imageURL <== (self, dictionary, "image")
-    }
-    
-    public func encodableRepresentation() -> NSCoding {
-        let dict = NSMutableDictionary()
-        (dict, "id")    <== id
-        (dict, "name")  <== name
-        (dict, "code")  <== code
-        (dict, "image") <== imageURL
-        return dict
+    enum CodingKeys: String, CodingKey {
+        case id, name, code
+        case imageUrl = "image"
     }
 }
-

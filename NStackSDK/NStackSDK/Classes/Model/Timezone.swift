@@ -6,32 +6,17 @@
 //  Copyright © 2016 Nodes ApS. All rights reserved.
 //
 
-import Serpent
+import Foundation
 
-public struct Timezone {
-	public var id = 0
-	public var name = ""
-	public var abbreviation = "" //<-abbr
-	public var offsetSec = 0
-	public var label = ""
-}
+public struct Timezone: Codable {
+    public var id: Int
+	public var name: String
+	public var abbreviation: String
+    public var offsetSec: Int
+    public var label: String
 
-extension Timezone: Serializable {
-	public init(dictionary: NSDictionary?) {
-		id           <== (self, dictionary, "id")
-		name         <== (self, dictionary, "name")
-		abbreviation <== (self, dictionary, "abbr")
-		offsetSec    <== (self, dictionary, "offset_sec")
-		label        <== (self, dictionary, "label")
-	}
-	
-	public func encodableRepresentation() -> NSCoding {
-		let dict = NSMutableDictionary()
-		(dict, "id")         <== id
-		(dict, "name")       <== name
-		(dict, "abbr")       <== abbreviation
-		(dict, "offset_sec") <== offsetSec
-		(dict, "label")      <== label
-		return dict
-	}
+    enum CodingKeys: String, CodingKey {
+        case id, name, offsetSec, label
+        case abbreviation = "abbr"
+    }
 }

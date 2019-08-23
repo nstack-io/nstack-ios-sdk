@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoggerType: class {
+public protocol LoggerType: class {
     var logLevel: LogLevel { get set }
     var customName: String? { get set }
     var detailedOutput: Bool { get set }
@@ -29,25 +29,25 @@ extension LoggerType {
     }
 
     func logVerbose(_ items: CustomStringConvertible...,
-        file: StaticString = #file,
-        line: Int = #line,
-        function: StaticString = #function) {
+                    file: StaticString = #file,
+                    line: Int = #line,
+                    function: StaticString = #function) {
         writeLogEntry(items.map({ $0.description }), level: .verbose,
                       file: file, line: line, function: function)
     }
 
     func logWarning(_ items: CustomStringConvertible...,
-        file: StaticString = #file,
-        line: Int = #line,
-        function: StaticString = #function) {
+                    file: StaticString = #file,
+                    line: Int = #line,
+                    function: StaticString = #function) {
         writeLogEntry(items.map({ $0.description }), level: .warning,
                       file: file, line: line, function: function)
     }
 
     func logError(_ items: CustomStringConvertible...,
-        file: StaticString = #file,
-        line: Int = #line,
-        function: StaticString = #function) {
+                  file: StaticString = #file,
+                  line: Int = #line,
+                  function: StaticString = #function) {
         writeLogEntry(items.map({ $0.description }), level: .error,
                       file: file, line: line, function: function)
     }
