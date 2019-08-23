@@ -51,6 +51,9 @@ public protocol LocalizationWrappable {
     func updateTranslations()
     func refreshTranslations()
 
+    func setOverrideLocale(locale: Locale)
+    func clearOverrideLocale()
+
     func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
     func containsComponent(for identifier: TranslationIdentifier) -> Bool
     func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier)
@@ -69,6 +72,7 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
+
     public func refreshTranslations() {
         for translation in originallyTranslatedComponents.keyEnumerator() {
             if let translationIdentifier = translation as? TranslationIdentifier {
@@ -108,6 +112,17 @@ extension LocalizationWrapper: LocalizationWrappable {
         translationsManager?.updateTranslations(completion)
     }
 
+    public func setOverrideLocale(locale: Locale) {
+        let language = Language(id: 1, name: "",
+                                direction: "", acceptLanguage: locale.identifier,
+                                isDefault: false, isBestFit: false)
+        self.translationsManager?.languageOverride = language
+    }
+
+    public func clearOverrideLocale() {
+        self.translationsManager?.languageOverride = nil
+    }
+
     /**
      Fetches a localized string value for the `identifier` and adds that to the `component`
      
@@ -134,6 +149,19 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
 
     private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: TranslationIdentifier) {
+        //clear old component if we are resetting a translation to a component that was previously stored in the map
+        var identifierToRemove: TranslationIdentifier?
+        for translation in originallyTranslatedComponents.keyEnumerator() {
+            if let translationIdentifier = translation as? TranslationIdentifier {
+                if translationIdentifier.section == identifier.section && translationIdentifier.key == identifier.key {
+                    identifierToRemove = translationIdentifier
+                }
+            }
+        }
+        if let idToClean = identifierToRemove {
+            originallyTranslatedComponents.removeObject(forKey: idToClean)
+        }
+
         originallyTranslatedComponents.setObject(component, forKey: identifier)
         do {
             // TODO: Change translationsManager?.translation to take the identifier as parameter instead of the string.
