@@ -22,7 +22,7 @@ public class ContentManager {
     ///     slug: The string slug of the required content response
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     completion: Completion block with the response as a any object if successful or error if not
-    func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
+    public func getContentResponse<T: Codable>(_ slug: String, key: String? = nil,
                                         completion: @escaping Completion<T>) {
         repository.fetchStaticResponse(slug, completion: completion)
     }
@@ -34,7 +34,7 @@ public class ContentManager {
     ///     unwrapper: Optional unwrapper where to look for the required data, default is in the data object
     ///     key: Optional string if only one property or object is required, default is nil
     ///     completion: Completion block with the response as a any object if successful or error if not
-    func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
+    public func fetchCollectionResponse<T: Codable>(for id: Int, completion: @escaping Completion<T>) {
         repository.fetchCollection(id, completion: completion)
     }
 }
