@@ -214,11 +214,14 @@ public class NStack {
                 if let localizations = appOpenResponseData.localize {
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
-                                                                       completion: { (_) in
-                                                                        //if error, try to update translations in Translations Manager
-                                                                        self.translationsManager?.updateTranslations()
+                                                                       completion: { (error) in
+                                                                        if error != nil {
+                                                                            //if error, try to update translations in Translations Manager
+                                                                            self.translationsManager?.updateTranslations()
+                                                                        } else {
+                                                                            completion?(nil)
+                                                                        }
                     })
-
                 }
 
                 #if os(iOS) || os(tvOS)
@@ -238,7 +241,6 @@ public class NStack {
                     }
                 }
                 #endif
-
             case let .failure(error):
                 // FIXME: Fix logging
 //                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
