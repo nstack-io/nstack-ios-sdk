@@ -19,12 +19,12 @@ import TranslationManager_watchOS
 import TranslationManager_macOS
 #endif
 
-public struct TranslationsResponse: Codable {
-    let translations: [String: Any]
+public struct LocalizationsResponse: Codable {
+    let localizations: [String: Any]
     let language: Language?
 
     enum CodingKeys: String, CodingKey {
-        case translations = "data"
+        case localizations = "data"
         case languageData = "meta"
     }
 
@@ -33,13 +33,13 @@ public struct TranslationsResponse: Codable {
     }
 
     init() {
-        self.translations = [:]
+        self.localizations = [:]
         self.language = nil
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        translations = try values.decodeIfPresent([String: Any].self, forKey: .translations) ?? [:]
+        localizations = try values.decodeIfPresent([String: Any].self, forKey: .localizations) ?? [:]
 
         let languageData = try values.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
         language = try languageData.decodeIfPresent(Language.self, forKey: .language)
@@ -47,7 +47,7 @@ public struct TranslationsResponse: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(translations, forKey: .translations)
+        try container.encode(localizations, forKey: .localizations)
 
         var languageData = container.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
         try languageData.encode(language, forKey: .language)

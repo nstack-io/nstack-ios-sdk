@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class TranslationIdentifier: NSObject {
+public class LocalizationIdentifier: NSObject {
     let section: String
     let key: String
 

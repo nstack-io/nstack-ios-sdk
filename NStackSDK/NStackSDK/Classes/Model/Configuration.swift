@@ -42,12 +42,12 @@ public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
-    public let translationsClass: LocalizableModel.Type
+    public let localizationsClass: LocalizableModel.Type
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
     public var useMock = false
-    public var translationsUrlOverride: String?
+    public var localizationsUrlOverride: String?
     public var currentEnvironment: NStackEnvironment
 
     // Used for tests
@@ -67,23 +67,23 @@ public struct Configuration {
 
     public init(appId: String,
                 restAPIKey: String,
-                translationsClass: LocalizableModel.Type,
-                flatTranslations: Bool = false,
-                translationsUrlOverride: String? = nil,
+                localizationsClass: LocalizableModel.Type,
+                flatLocalizations: Bool = false,
+                localizationsUrlOverride: String? = nil,
                 environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
-        self.translationsClass = translationsClass
-        self.flat = flatTranslations
-        self.translationsUrlOverride = translationsUrlOverride
+        self.localizationsClass = localizationsClass
+        self.flat = flatLocalizations
+        self.localizationsUrlOverride = localizationsUrlOverride
         self.currentEnvironment = environment
     }
 
-    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type) {
+    public init(plistName: String, environment: NStackEnvironment, localizationsClass: LocalizableModel.Type) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
-        var translationsUrlOverride: String?
+        var localizationsUrlOverride: String?
 
         self.currentEnvironment = environment
 
@@ -100,7 +100,7 @@ public struct Configuration {
                 appId = keyDict["APPLICATION_ID"] as? String
                 restAPIKey = keyDict["REST_API_KEY"] as? String
                 flatString = keyDict["FLAT"] as? String
-                translationsUrlOverride = keyDict["TRANSLATIONS_URL"] as? String
+                localizationsUrlOverride = keyDict["LOCALIZATIONS_URL"] as? String
                 break
             }
         }
@@ -110,8 +110,8 @@ public struct Configuration {
 
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
-        self.translationsClass = translationsClass
-        self.translationsUrlOverride = translationsUrlOverride
+        self.localizationsClass = localizationsClass
+        self.localizationsUrlOverride = localizationsUrlOverride
         if let flat = flatString, flat == "1" {
             self.flat = true
         }

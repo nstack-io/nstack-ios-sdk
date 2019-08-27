@@ -13,7 +13,7 @@ extension UIButton: NStackLocalizable {
 
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String: Bool]()
-    private static var _translationIdentifier = [String: TranslationIdentifier]()
+    private static var _localizationIdentifier = [String: LocalizationIdentifier]()
 
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
@@ -33,14 +33,14 @@ extension UIButton: NStackLocalizable {
         }
     }
 
-    public var translationIdentifier: TranslationIdentifier? {
+    public var localizationIdentifier: LocalizationIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UIButton._translationIdentifier[tmpAddress]
+            return UIButton._localizationIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UIButton._translationIdentifier[tmpAddress] = newValue
+            UIButton._localizationIdentifier[tmpAddress] = newValue
         }
     }
 

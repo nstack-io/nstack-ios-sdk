@@ -29,7 +29,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting translations.
-    public fileprivate(set) var translationsManager: LocalizationWrappable?
+    public fileprivate(set) var localizationManager: LocalizationWrappable?
 
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
