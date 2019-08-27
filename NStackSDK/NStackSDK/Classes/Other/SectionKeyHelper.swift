@@ -23,9 +23,9 @@ struct SectionKeyHelper {
         return "\(section).\(key)"
     }
 
-    static func transform(_ sectionAndKey: String) -> TranslationIdentifier? {
+    static func transform(_ sectionAndKey: String) -> LocalizationIdentifier? {
         guard let tuple = split(sectionAndKey) else { return nil }
-        return TranslationIdentifier(section: tuple.section, key: tuple.key)
+        return LocalizationIdentifier(section: tuple.section, key: tuple.key)
     }
 
 }

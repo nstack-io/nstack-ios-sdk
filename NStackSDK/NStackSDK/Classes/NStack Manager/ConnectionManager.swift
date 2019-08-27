@@ -10,13 +10,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-import TranslationManager
+import LocalizationManager
 #elseif os(tvOS)
-import TranslationManager_tvOS
+import LocalizationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import LocalizationManager_watchOS
 #elseif os(macOS)
-import TranslationManager_macOS
+import LocalizationManager_macOS
 #endif
 
 struct DataModel<T: Codable>: WrapperModelType {
@@ -85,7 +85,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, completionHandler: completion)
     }
 }
-// MARK: - TranslationRepository
+// MARK: - LocalizationRepository
 extension ConnectionManager {
     func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
         let params: [String: Any] = [
@@ -113,7 +113,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, completionHandler: localizationCompletion)
     }
 
-    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
+    func getLocalizations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios"
@@ -123,8 +123,8 @@ extension ConnectionManager {
 
         let url = localization.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let languageCompletion: (Result<TranslationResponse<Language>>) -> Void = { (response) in
-            completion(response as! Result<TranslationResponse<L>>)
+        let languageCompletion: (Result<LocalizationResponse<Language>>) -> Void = { (response) in
+            completion(response as! Result<LocalizationResponse<L>>)
         }
         session.startDataTask(with: request, completionHandler: languageCompletion)
     }
@@ -321,7 +321,7 @@ extension ConnectionManager {
         // FIXME: Handle language change
         // FIXME: Fix this
 //        let previousAcceptLanguage = cache.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
-//        let currentAcceptLanguage  = TranslationManager.acceptLanguage()
+//        let currentAcceptLanguage  = LocalizationManager.acceptLanguage()
 //
 //        if let previous = previousAcceptLanguage, previous != currentAcceptLanguage {
 //            cache.setObject(currentAcceptLanguage, forKey: Constants.CacheKeys.prevAcceptedLanguage)

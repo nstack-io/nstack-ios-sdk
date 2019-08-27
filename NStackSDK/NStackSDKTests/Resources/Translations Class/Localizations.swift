@@ -24,9 +24,9 @@
 // ----------------------------------------------------------------------
 
 import Foundation
-import TranslationManager
+import LocalizationManager
 
-public final class Translations: LocalizableModel {
+public final class Localizations: LocalizableModel {
     public var defaultSection = DefaultSection()
     public var otherSection = OtherSection()
     public var oneMoreSection = OneMoreSection()

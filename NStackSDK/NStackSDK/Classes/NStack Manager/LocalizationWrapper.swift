@@ -10,13 +10,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-import TranslationManager
+import LocalizationManager
 #elseif os(tvOS)
-import TranslationManager_tvOS
+import LocalizationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import LocalizationManager_watchOS
 #elseif os(macOS)
-import TranslationManager_macOS
+import LocalizationManager_macOS
 #endif
 
 #if os(iOS) || os(tvOS)
@@ -32,113 +32,113 @@ public typealias NStackLocalizableBackgroundColor = NSColor
 
 @objc
 public protocol NStackLocalizable where Self: NStackLocalizableView {
-    //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
+    //this function must call: NStackSDK.shared.localizationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
     func localize(for stringIdentifier: String)
     func setLocalizedValue(_ localizedValue: String)
-    var translatableValue: String? { get set }
+    var localizableValue: String? { get set }
     var backgroundViewToColor: NStackLocalizableView? { get }
     var originalBackgroundColor: NStackLocalizableBackgroundColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
-    var translationIdentifier: TranslationIdentifier? { get set }
+    var localizationIdentifier: LocalizationIdentifier? { get set }
 }
 
 public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
-    func translations<L: LocalizableModel>() throws -> L
+    func localizations<L: LocalizableModel>() throws -> L
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
-    func updateTranslations(_ completion: ((Error?) -> Void)?)
-    func updateTranslations()
-    func refreshTranslations()
+    func updateLocalizations(_ completion: ((Error?) -> Void)?)
+    func updateLocalizations()
+    func refreshLocalizations()
 
     func setOverrideLocale(locale: Locale)
     func clearOverrideLocale()
 
-    func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
-    func containsComponent(for identifier: TranslationIdentifier) -> Bool
-    func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier)
+    func localize(component: NStackLocalizable, for identifier: LocalizationIdentifier)
+    func containsComponent(for identifier: LocalizationIdentifier) -> Bool
+    func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationIdentifier)
 }
 
 public class LocalizationWrapper {
-    private(set) var translationsManager: TranslatableManager<Language, Localization>?
-    let originallyTranslatedComponents: NSMapTable<TranslationIdentifier, NStackLocalizable>
-    var proposedTranslations: [TranslationIdentifier: LocalizationProposal]
+    private(set) var localizationManager: LocalizationManager<Language, Localization>?
+    let originallyLocalizedComponents: NSMapTable<LocalizationIdentifier, NStackLocalizable>
+    var proposedLocalizations: [LocalizationIdentifier: LocalizationProposal]
 
-    init(translationsManager: TranslatableManager<Language, Localization>) {
-        self.translationsManager = translationsManager
-        self.originallyTranslatedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
-        self.proposedTranslations = [TranslationIdentifier: LocalizationProposal]()
+    init(localizationManager: LocalizationManager<Language, Localization>) {
+        self.localizationManager = localizationManager
+        self.originallyLocalizedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
+        self.proposedLocalizations = [LocalizationIdentifier: LocalizationProposal]()
     }
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
 
-    public func refreshTranslations() {
-        for translation in originallyTranslatedComponents.keyEnumerator() {
-            if let translationIdentifier = translation as? TranslationIdentifier {
-                if let localizableComponent = originallyTranslatedComponents.object(forKey: translationIdentifier) {
+    public func refreshLocalizations() {
+        for localization in originallyLocalizedComponents.keyEnumerator() {
+            if let localizationIdentifier = localization as? LocalizationIdentifier {
+                if let localizableComponent = originallyLocalizedComponents.object(forKey: localizationIdentifier) {
                     DispatchQueue.main.async {
-                        localizableComponent.localize(for: "\(translationIdentifier.section).\(translationIdentifier.key)")
+                        localizableComponent.localize(for: "\(localizationIdentifier.section).\(localizationIdentifier.key)")
                     }
                 }
             }
         }
     }
 
-    public func translations<L: LocalizableModel>() throws -> L {
-        guard let manager = translationsManager else {
-            fatalError("no translations manager initialized")
+    public func localizations<L: LocalizableModel>() throws -> L {
+        guard let manager = localizationManager else {
+            fatalError("no localizations manager initialized")
         }
         do {
-            return try manager.translations()
+            return try manager.localizations()
         } catch {
-            fatalError("no translations found")
+            fatalError("no localizations found")
         }
     }
 
     public var bestFitLanguage: Language? {
-        return translationsManager?.bestFitLanguage
+        return localizationManager?.bestFitLanguage
     }
 
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
-        translationsManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
+        localizationManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
     }
 
-    public func updateTranslations() {
-        translationsManager?.updateTranslations()
+    public func updateLocalizations() {
+        localizationManager?.updateLocalizations()
     }
 
-    public func updateTranslations(_ completion: ((Error?) -> Void)? = nil) {
-        translationsManager?.updateTranslations(completion)
+    public func updateLocalizations(_ completion: ((Error?) -> Void)? = nil) {
+        localizationManager?.updateLocalizations(completion)
     }
 
     public func setOverrideLocale(locale: Locale) {
         let language = Language(id: 1, name: "",
                                 direction: "", acceptLanguage: locale.identifier,
                                 isDefault: false, isBestFit: false)
-        self.translationsManager?.languageOverride = language
+        self.localizationManager?.languageOverride = language
     }
 
     public func clearOverrideLocale() {
-        self.translationsManager?.languageOverride = nil
+        self.localizationManager?.languageOverride = nil
     }
 
     /**
      Fetches a localized string value for the `identifier` and adds that to the `component`
      
-     If a proposed value exists, use that, otherwise fetch a value from the `translationsManager`.
+     If a proposed value exists, use that, otherwise fetch a value from the `localizationsManager`.
      */
-    public func localize(component: NStackLocalizable, for identifier: TranslationIdentifier) {
-        component.translationIdentifier = identifier
+    public func localize(component: NStackLocalizable, for identifier: LocalizationIdentifier) {
+        component.localizationIdentifier = identifier
 
-        //Has the user proposed a translation earlier in this session?
+        //Has the user proposed a localization earlier in this session?
         if
-            let proposedTranslation = proposedTranslations[identifier],
-            let bestFitLocale = translationsManager?.bestFitLanguage?.locale
+            let proposedLocalization = proposedLocalizations[identifier],
+            let bestFitLocale = localizationManager?.bestFitLanguage?.locale
         {
             //for this locale?
-            if proposedTranslation.locale == bestFitLocale {
-                component.setLocalizedValue(proposedTranslation.value)
+            if proposedLocalization.locale == bestFitLocale {
+                component.setLocalizedValue(proposedLocalization.value)
             } else {
                 //OK, not for this locale, then just use the original value
                 localizeFromOriginallyTranslated(component: component, for: identifier)
@@ -148,25 +148,25 @@ extension LocalizationWrapper: LocalizationWrappable {
         }
     }
 
-    private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: TranslationIdentifier) {
-        //clear old component if we are resetting a translation to a component that was previously stored in the map
-        var identifierToRemove: TranslationIdentifier?
-        for translation in originallyTranslatedComponents.keyEnumerator() {
-            if let translationIdentifier = translation as? TranslationIdentifier {
-                if translationIdentifier.section == identifier.section && translationIdentifier.key == identifier.key {
-                    identifierToRemove = translationIdentifier
+    private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: LocalizationIdentifier) {
+        //clear old component if we are resetting a localization to a component that was previously stored in the map
+        var identifierToRemove: LocalizationIdentifier?
+        for localization in originallyLocalizedComponents.keyEnumerator() {
+            if let localizationIdentifier = localization as? LocalizationIdentifier {
+                if localizationIdentifier.section == identifier.section && localizationIdentifier.key == identifier.key {
+                    identifierToRemove = localizationIdentifier
                 }
             }
         }
         if let idToClean = identifierToRemove {
-            originallyTranslatedComponents.removeObject(forKey: idToClean)
+            originallyLocalizedComponents.removeObject(forKey: idToClean)
         }
 
-        originallyTranslatedComponents.setObject(component, forKey: identifier)
+        originallyLocalizedComponents.setObject(component, forKey: identifier)
         do {
-            // TODO: Change translationsManager?.translation to take the identifier as parameter instead of the string.
-            if let localizedValue = try translationsManager?.translation(for: SectionKeyHelper.combine(section: identifier.section, key: identifier.key)) {
-                originallyTranslatedComponents.setObject(component, forKey: identifier)
+            // TODO: Change localizationsManager?.localization to take the identifier as parameter instead of the string.
+            if let localizedValue = try localizationManager?.localization(for: SectionKeyHelper.combine(section: identifier.section, key: identifier.key)) {
+                originallyLocalizedComponents.setObject(component, forKey: identifier)
                 component.setLocalizedValue(localizedValue)
             }
         } catch {
@@ -184,21 +184,21 @@ extension LocalizationWrapper: LocalizationWrappable {
      - Parameter value: proposed value
      - Parameter key: NStack key/identifier
     */
-    public func storeProposal(_ value: String, locale: Locale, for identifier: TranslationIdentifier) {
+    public func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationIdentifier) {
         //remove from originallyTranslatedComponents if it is already there (problably)
-        originallyTranslatedComponents.removeObject(forKey: identifier)
+        originallyLocalizedComponents.removeObject(forKey: identifier)
         //And store
-        proposedTranslations[identifier] = LocalizationProposal(value: value, locale: locale)
+        proposedLocalizations[identifier] = LocalizationProposal(value: value, locale: locale)
     }
 
     /**
      - Return `true` if `component` has been localized, `false` if it has not
     */
-    public func containsComponent(for identifier: TranslationIdentifier) -> Bool {
-        if originallyTranslatedComponents.object(forKey: identifier) != nil {
+    public func containsComponent(for identifier: LocalizationIdentifier) -> Bool {
+        if originallyLocalizedComponents.object(forKey: identifier) != nil {
             return true
         } else {
-            return proposedTranslations[identifier] != nil
+            return proposedLocalizations[identifier] != nil
         }
     }
 }

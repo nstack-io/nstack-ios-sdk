@@ -10,14 +10,14 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-import TranslationManager
+import LocalizationManager
 #elseif os(tvOS)
-import TranslationManager_tvOS
+import LocalizationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import LocalizationManager_watchOS
 #elseif os(macOS)
 import AppKit
-import TranslationManager_macOS
+import LocalizationManager_macOS
 #endif
 
 public class NStack {
@@ -28,7 +28,7 @@ public class NStack {
     /// The configuration object the shared instance have been initialized with.
     public fileprivate(set) var configuration: Configuration!
 
-    /// The manager responsible for fetching, updating and persisting translations.
+    /// The manager responsible for fetching, updating and persisting localizations.
     public fileprivate(set) var localizationManager: LocalizationWrappable?
 
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
@@ -46,15 +46,15 @@ public class NStack {
     #endif
 
     /// This gets called when the phone language has changed while app is running.
-    /// At this point, translations have been updated, if there was an internet connection.
+    /// At this point, localizations have been updated, if there was an internet connection.
     public var languageChangedHandler: ((Locale?) -> Void)?
 
     /// Description
     public var logLevel: LogLevel = .error {
         didSet {
             logger.logLevel = logLevel
-            // FIXME: Fix logger in translations
-            //translationsManager?.logger.logLevel = logLevel
+            // FIXME: Fix logger in localizations
+            //localizationsManager?.logger.logLevel = logLevel
         }
     }
 
@@ -91,10 +91,10 @@ public class NStack {
     fileprivate init() {}
 
     /// Initializes NStack and, if `updateAutomaticallyOnStart` is set on the passed `Configuration`
-    /// object, fetches all data (including translations if enabled) from NStack API right away.
+    /// object, fetches all data (including localizations if enabled) from NStack API right away.
     ///
     /// - Parameters:
-    ///   - configuration: A `Configuration` struct containing API keys and translations type.
+    ///   - configuration: A `Configuration` struct containing API keys and localizations type.
     ///   - launchOptions: Launch options passed from `applicationDidFinishLaunching:` function.
     public class func start(configuration: Configuration,
                             launchOptions: [LaunchOptionsKeyType: Any]?) {
@@ -120,7 +120,7 @@ public class NStack {
             appId: configuration.appId,
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
-            translationsUrlOverride: configuration.translationsUrlOverride,
+            localizationsUrlOverride: configuration.localizationsUrlOverride,
             nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
@@ -149,8 +149,8 @@ public class NStack {
         alertManager = AlertManager(repository: repository)
         #endif
 
-        //sets up translation manager
-        setupTranslations()
+        //sets up localization manager
+        setupLocalizations()
 
         // Update if necessary and launch options doesn't contain a key present in avoid update list
         if configuration.updateOptions.contains(.onStart) &&
@@ -160,18 +160,18 @@ public class NStack {
         }
     }
 
-    func setupTranslations() {
-        // Setup translations
-        let manager = TranslatableManager<Language, Localization>(repository: repository,
+    func setupLocalizations() {
+        // Setup localizations
+        let manager = LocalizationManager<Language, Localization>(repository: repository,
                                                                   contextRepository: repository,
-                                                                  localizableModel: configuration.translationsClass,
+                                                                  localizableModel: configuration.localizationsClass,
                                                                   updateMode: .manual)
 
-        // Delete translations if new version
+        // Delete localizations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,
                                       greaterThanVersion: VersionUtilities.previousAppVersion) {
             do {
-                try manager.clearTranslations(includingPersisted: true)
+                try manager.clearLocalizations(includingPersisted: true)
             } catch {
                 #warning("Handle catch here")
             }
@@ -179,19 +179,19 @@ public class NStack {
 
         // Set callback
         manager.delegate = self
-        translationsManager = LocalizationWrapper(translationsManager: manager)
+        localizationManager = LocalizationWrapper(localizationManager: manager)
     }
 
     /// Fetches the latest data from the NStack server and updates accordingly.
     ///
     /// - Shows appropriate notifications to the user (Update notifications, what's new, messages, rate reminders).
-    /// - Updates the translation strings for current language.
+    /// - Updates the localization strings for current language.
     ///
     /// *Note:* By default, this is automatically invoked after *NStack.start()* has been called and subsequently on applicationDidBecomeActive.
     /// To override this behavior, see the properties on the *configuration* struct.
     ///
     /// - Parameter completion: This is run after the call has finished. 
-    ///                         If *error* was nil, translation strings are up-to-date.
+    ///                         If *error* was nil, localization strings are up-to-date.
     public func update(_ completion: ((_ error: NStackError.Manager?) -> Void)? = nil) {
         guard configured else {
             print(NStackError.Manager.notConfigured.description)
@@ -210,13 +210,13 @@ public class NStack {
             case .success(let appOpenResponse):
                 guard let appOpenResponseData = appOpenResponse.data else { return }
 
-                // Update translations
+                // Update localizations
                 if let localizations = appOpenResponseData.localize {
-                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
+                    self.localizationManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (_) in
-                                                                        //if error, try to update translations in Translations Manager
-                                                                        self.translationsManager?.updateTranslations()
+                                                                        //if error, try to update localizations in Localization Manager
+                                                                        self.localizationManager?.updateLocalizations()
                     })
 
                 }
@@ -254,8 +254,8 @@ public class NStack {
     ///   - key: The actual key for the text
     ///   - value: The new value for the key
     ///   - locale: The locale it should affect
-    func storeProposal(for identifier: TranslationIdentifier, with value: String) {
-        guard let language = translationsManager?.bestFitLanguage else { return }
+    func storeProposal(for identifier: LocalizationIdentifier, with value: String) {
+        guard let language = localizationManager?.bestFitLanguage else { return }
         let locale = language.acceptLanguage
 
         repository.storeProposal(section: identifier.section,
@@ -269,7 +269,7 @@ public class NStack {
                                                                                            key: response.key)),
                     let locale = response.locale
                 else { return }
-                self.translationsManager?.storeProposal(response.value, locale: locale, for: identifier)
+                self.localizationManager?.storeProposal(response.value, locale: locale, for: identifier)
             case .failure(let error):
                 self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
             }
@@ -304,9 +304,9 @@ public class NStack {
 
 }
 
-extension NStack: TranslatableManagerDelegate {
-    public func translationManager(languageUpdated: LanguageModel?) {
+extension NStack: LocalizationManagerDelegate {
+    public func localizationManager(languageUpdated: LanguageModel?) {
         print("Language Changed To: \(languageUpdated?.locale.identifier ?? "unknown")")
-        translationsManager?.refreshTranslations()
+        localizationManager?.refreshLocalizations()
     }
 }

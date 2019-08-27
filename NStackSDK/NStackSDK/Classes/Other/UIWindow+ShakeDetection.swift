@@ -15,7 +15,7 @@ extension UIWindow {
         static var isEditing = false
         static var canDisplayBottomPopup = true
         static var proposalBottomPopupView: UIView?
-        static var translatableSubviews: [NStackLocalizable] = []
+        static var localizableSubviews: [NStackLocalizable] = []
         static var flowSubviews: [UIView] = []
         static var currentItem: NStackLocalizable?
     }
@@ -45,13 +45,13 @@ extension UIWindow {
 
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
-            appendTranslatableSubviews(for: topController)
+            appendLocalizableSubviews(for: topController)
 
-            if !ShakeDetection.translatableSubviews.isEmpty {
+            if !ShakeDetection.localizableSubviews.isEmpty {
                 ShakeDetection.isEditing = true
 
                 // Handle the editable items
-                for item in ShakeDetection.translatableSubviews {
+                for item in ShakeDetection.localizableSubviews {
                     // Save original states
                     item.originalBackgroundColor = item.backgroundColor
                     item.originalIsUserInteractionEnabled = item.isUserInteractionEnabled
@@ -69,19 +69,19 @@ extension UIWindow {
         }
     }
 
-    private func appendTranslatableSubviews(for viewController: UIViewController) {
+    private func appendLocalizableSubviews(for viewController: UIViewController) {
         // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
-        ShakeDetection.translatableSubviews = viewController.view.subviews
+        ShakeDetection.localizableSubviews = viewController.view.subviews
             .map({ currentView in
-                guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
+                guard let localizationManager = NStack.sharedInstance.localizationManager else { return nil }
 
                 guard
-                    let translatableItem = currentView as? NStackLocalizable,
-                    let identifier = translatableItem.translationIdentifier
+                    let localizableItem = currentView as? NStackLocalizable,
+                    let identifier = localizableItem.localizationIdentifier
                 else {
                     return nil
                 }
-                return translationsManager.containsComponent(for: identifier) ? translatableItem : nil
+                return localizationManager.containsComponent(for: identifier) ? localizableItem : nil
             })
             .compactMap({ return $0})
     }
@@ -98,14 +98,14 @@ extension UIWindow {
 
     // Revert to original state
     private func revertAndReset() {
-        for item in ShakeDetection.translatableSubviews {
+        for item in ShakeDetection.localizableSubviews {
             item.backgroundViewToColor?.backgroundColor = item.originalBackgroundColor
             item.isUserInteractionEnabled = item.originalIsUserInteractionEnabled
             if let lastGesture = item.gestureRecognizers?.last {
                 item.removeGestureRecognizer(lastGesture)
             }
         }
-        ShakeDetection.translatableSubviews = []
+        ShakeDetection.localizableSubviews = []
         ShakeDetection.isEditing = false
 
         displayBottomPopup()
@@ -170,8 +170,8 @@ extension UIWindow {
         let proposeButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
         proposalLaunchView.addSubview(proposeButton)
         proposeButton.setTitleColor(.blue, for: .normal)
-        proposeButton.setTitle("Propose new translation", for: .normal)
-        proposeButton.addTarget(self, action: #selector(proposeNewTranslationClicked), for: .touchUpInside)
+        proposeButton.setTitle("Propose new localization", for: .normal)
+        proposeButton.addTarget(self, action: #selector(proposeNewLocalizationClicked), for: .touchUpInside)
         proposeButton.translatesAutoresizingMaskIntoConstraints = false
         proposeButton.bottomAnchor.constraint(equalTo: proposalLaunchView.bottomAnchor, constant: -15).isActive = true
         proposeButton.trailingAnchor.constraint(equalTo: proposalLaunchView.trailingAnchor, constant: -25).isActive = true
@@ -180,8 +180,8 @@ extension UIWindow {
         proposalLaunchView.addSubview(viewProposalsButton)
         viewProposalsButton.setTitleColor(.blue, for: .normal)
         viewProposalsButton.tag = Sender.openProposalsForKey.rawValue
-        viewProposalsButton.setTitle("View translation proposals", for: .normal)
-        viewProposalsButton.addTarget(self, action: #selector(viewTranslationProposalsClicked), for: .touchUpInside)
+        viewProposalsButton.setTitle("View localization proposals", for: .normal)
+        viewProposalsButton.addTarget(self, action: #selector(viewLocalizationProposalsClicked), for: .touchUpInside)
         viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
         viewProposalsButton.bottomAnchor.constraint(equalTo: proposeButton.topAnchor).isActive = true
         viewProposalsButton.trailingAnchor.constraint(equalTo: proposalLaunchView.trailingAnchor, constant: -25).isActive = true
@@ -216,7 +216,7 @@ extension UIWindow {
                 viewProposalsButton.setTitleColor(.blue, for: .normal)
                 viewProposalsButton.tag = Sender.openAllProposals.rawValue
                 viewProposalsButton.setTitle("Open", for: .normal)
-                viewProposalsButton.addTarget(self, action: #selector(viewTranslationProposalsClicked), for: .touchUpInside)
+                viewProposalsButton.addTarget(self, action: #selector(viewLocalizationProposalsClicked), for: .touchUpInside)
                 viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
                 viewProposalsButton.centerYAnchor.constraint(equalTo: proposalBottomPopup.centerYAnchor).isActive = true
                 viewProposalsButton.trailingAnchor.constraint(equalTo: proposalBottomPopup.trailingAnchor, constant: -20).isActive = true
@@ -252,19 +252,19 @@ extension UIWindow {
 
     // MARK: Flow button actions
 
-    // Opens the alertview to enter a new translation proposal into
+    // Opens the alertview to enter a new localization proposal into
     @objc
-    func proposeNewTranslationClicked() {
+    func proposeNewLocalizationClicked() {
         if let visibleViewController = visibleViewController, let item = ShakeDetection.currentItem {
-            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: item.localizableValue, message: "", preferredStyle: UIAlertController.Style.alert)
 
             let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { _ -> Void in
                 let textField = alertController.textFields![0] as UITextField
                 if textField.text != "" {
                     // Set proposal to label
-                    item.translatableValue = textField.text
+                    item.localizableValue = textField.text
                     // Send proposal to API
-                    if let identifier = item.translationIdentifier {
+                    if let identifier = item.localizationIdentifier {
                         NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
                     }
                 }
@@ -289,9 +289,9 @@ extension UIWindow {
         }
     }
 
-    // Opens the listview of all translations for the given key
+    // Opens the listview of all localizations for the given key
     @objc
-    func viewTranslationProposalsClicked(sender: UIButton) {
+    func viewLocalizationProposalsClicked(sender: UIButton) {
         if let visibleViewController = visibleViewController {
             NStack.sharedInstance.fetchProposals { (proposals) in
                 DispatchQueue.main.async {

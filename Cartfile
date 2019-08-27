@@ -1,1 +1,1 @@
-github "nodes-ios/TranslationManager" == 2.0.1
+github "nodes-ios/TranslationManager" "feature/refactorTranslationToLocalization"

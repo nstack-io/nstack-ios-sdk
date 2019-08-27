@@ -1,5 +1,5 @@
 //
-//  TranslationsResponse.swift
+//  LocalizationsResponse.swift
 //  NStackSDK
 //
 //  Created by Dominik Hádl on 15/08/16.
@@ -10,13 +10,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-import TranslationManager
+import LocalizationManager
 #elseif os(tvOS)
-import TranslationManager_tvOS
+import LocalizationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import LocalizationManager_watchOS
 #elseif os(macOS)
-import TranslationManager_macOS
+import LocalizationManager_macOS
 #endif
 
 public struct LocalizationsResponse: Codable {

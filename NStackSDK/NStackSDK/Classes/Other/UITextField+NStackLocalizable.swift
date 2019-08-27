@@ -17,14 +17,14 @@ extension UITextField: NStackLocalizable {
 
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
-        NStack.sharedInstance.translationsManager?.localize(component: self, for: identifier)
+        NStack.sharedInstance.localizationManager?.localize(component: self, for: identifier)
     }
 
     @objc public func setLocalizedValue(_ localizedValue: String) {
         text = localizedValue
     }
 
-    public var translatableValue: String? {
+    public var localizableValue: String? {
         get {
             return text
         }

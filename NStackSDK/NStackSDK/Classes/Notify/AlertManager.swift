@@ -125,16 +125,16 @@ public class AlertManager {
 
         switch version.state {
         case .force:
-            alertType = AlertType.updateAlert(title: version.translations.title,
-                                              text: version.translations.message,
+            alertType = AlertType.updateAlert(title: version.localizations.title,
+                                              text: version.localizations.message,
                                               dismissButtonText: nil,
-                                              appStoreButtonText: version.translations.positiveBtn,
+                                              appStoreButtonText: version.localizations.positiveBtn,
                                               completion: appStoreCompletion)
         case .remind:
-            alertType = AlertType.updateAlert(title: version.translations.title,
-                                              text: version.translations.message,
-                                              dismissButtonText: version.translations.negativeBtn,
-                                              appStoreButtonText: version.translations.positiveBtn,
+            alertType = AlertType.updateAlert(title: version.localizations.title,
+                                              text: version.localizations.message,
+                                              dismissButtonText: version.localizations.negativeBtn,
+                                              appStoreButtonText: version.localizations.positiveBtn,
                                               completion: appStoreCompletion)
         case .disabled:
             return
@@ -144,9 +144,9 @@ public class AlertManager {
     }
 
     internal func showWhatsNewAlert(_ changeLog: Update.Changelog) {
-        guard let translations = changeLog.translate else { return }
-        let alertType = AlertType.whatsNewAlert(title: translations.title,
-                                                text: translations.message,
+        guard let localizations = changeLog.translate else { return }
+        let alertType = AlertType.whatsNewAlert(title: localizations.title,
+                                                text: localizations.message,
                                                 dismissButtonText: "Ok") {
             self.repository.markWhatsNewAsSeen(changeLog.lastId)
         }

@@ -1,5 +1,5 @@
 //
-//  TranslationIdentifier.swift
+//  LocalizationIdentifier.swift
 //  NStackSDK
 //
 //  Created by Nicolai Harbo on 01/08/2019.

@@ -10,13 +10,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-import TranslationManager
+import LocalizationManager
 #elseif os(tvOS)
-import TranslationManager_tvOS
+import LocalizationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import LocalizationManager_watchOS
 #elseif os(macOS)
-import TranslationManager_macOS
+import LocalizationManager_macOS
 #endif
 
 class MockConnectionManager: Repository {
@@ -37,16 +37,16 @@ class MockConnectionManager: Repository {
 
     }
 
-    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
-        let translationsResponse: TranslationResponse<Language>? = TranslationResponse(translations: [
-            "default": ["successKey": "SuccessUpdated"],
-            "otherSection": ["anotherKey": "HeresAValue"]
-            ], meta: TranslationMeta(language: Language(id: 1, name: "English",
-                                                        direction: "LRM", acceptLanguage: "en-GB",
-                                                        isDefault: true, isBestFit: true)))
-
-        let result: Result = .success(translationsResponse!)
-        completion(result as! Result<TranslationResponse<L>>)
+    func getLocalizations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel {
+//        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
+//            "default": ["successKey": "SuccessUpdated"],
+//            "otherSection": ["anotherKey": "HeresAValue"]
+//            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
+//                                                        direction: "LRM", acceptLanguage: "en-GB",
+//                                                        isDefault: true, isBestFit: true)))
+//
+//        let result: Result = .success(localizationsResponse!)
+//        completion(result as! Result<LocalizationResponse<L>>)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {

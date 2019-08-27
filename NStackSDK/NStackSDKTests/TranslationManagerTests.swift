@@ -1,5 +1,5 @@
 ////
-////  TranslationManagerTests.swift
+////  LocalizationManagerTests.swift
 ////  NStackSDK
 ////
 ////  Created by Dominik Hádl on 15/08/16.
@@ -10,19 +10,19 @@
 //import Cashier
 //@testable import NStackSDK
 //
-//class TranslationManagerTests: XCTestCase {
+//class LocalizationManagerTests: XCTestCase {
 //
-//    let store = NOPersistentStore.cache(withId: "TranslationManagerTests")!
-//    var repositoryMock: TranslationsRepositoryMock!
+//    let store = NOPersistentStore.cache(withId: "LocalizationManagerTests")!
+//    var repositoryMock: LocalizationsRepositoryMock!
 //    var fileManagerMock: FileManagerMock!
-//    var manager: TranslationManager!
+//    var manager: LocalizationManager!
 //    var logger: LoggerType!
 //
 //    let mockLanguage = Language(id: 0, name: "Danish", locale: "da-DK",
 //                                direction: "lrm", acceptLanguage: "da-DK")
 //
-//    var mockTranslations: TranslationsResponse {
-//        return TranslationsResponse(translations:
+//    var mockLocalizations: LocalizationsResponse {
+//        return LocalizationsResponse(localizations:
 //            ["en-GB" :
 //                [
 //                    "default" : ["successKey" : "SuccessUpdated"]
@@ -34,14 +34,14 @@
 //            ], languageData: LanguageData(language: mockLanguage))
 //    }
 //
-//    var mockWrappedTranslations: TranslationsResponse {
-//        var mock = mockTranslations
-//        mock.translations = ["data" : mock.translations!]
+//    var mockWrappedLocalizations: LocalizationsResponse {
+//        var mock = mockLocalizations
+//        mock.localizations = ["data" : mock.localizations!]
 //        return mock
 //    }
 //
-//    var testTranslations: Translations {
-//        return manager.translations()
+//    var testLocalizations: Localizations {
+//        return manager.localizations()
 //    }
 //
 //    var mockBundle: BundleMock {
@@ -49,24 +49,24 @@
 //        return BundleMock(path: path.replacingOccurrences(of: "file://", with: ""))!
 //    }
 //
-//    var invalidTranslationsJSONPath: String {
-//        return Bundle(for: type(of: self)).resourcePath! + "/InvalidTranslations.json"
+//    var invalidLocalizationsJSONPath: String {
+//        return Bundle(for: type(of: self)).resourcePath! + "/InvalidLocalizations.json"
 //    }
 //    
-//    var emptyTranslationsJSONPath: String {
-//        return Bundle(for: type(of: self)).resourcePath! + "/EmptyTranslations.json"
+//    var emptyLocalizationsJSONPath: String {
+//        return Bundle(for: type(of: self)).resourcePath! + "/EmptyLocalizations.json"
 //    }
 //
-//    var emptyLanguageMetaTranslationsJSONPath: String {
-//        return Bundle(for: type(of: self)).resourcePath! + "/EmptyLanguageMetaTranslations.json"
+//    var emptyLanguageMetaLocalizationsJSONPath: String {
+//        return Bundle(for: type(of: self)).resourcePath! + "/EmptyLanguageMetaLocalizations.json"
 //    }
 //    
 //    var wrongFormatJSONPath: String {
-//        return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeTranslations.json"
+//        return Bundle(for: type(of: self)).resourcePath! + "/WrongTypeLocalizations.json"
 //    }
 //
-//    var backendSelectedTranslationsJSONPath: String {
-//        return Bundle(for: type(of: self)).resourcePath! + "/BackendSelectedLanguageTranslations.json"
+//    var backendSelectedLocalizationsJSONPath: String {
+//        return Bundle(for: type(of: self)).resourcePath! + "/BackendSelectedLanguageLocalizations.json"
 //    }
 //    
 //
@@ -78,9 +78,9 @@
 //
 //        logger = ConsoleLogger()
 //        logger.logLevel = .verbose
-//        repositoryMock = TranslationsRepositoryMock()
+//        repositoryMock = LocalizationsRepositoryMock()
 //        fileManagerMock = FileManagerMock()
-//        manager = TranslationManager(translationsType: Translations.self,
+//        manager = LocalizationManager(localizationsType: Localizations.self,
 //                                     repository: repositoryMock,
 //                                     logger: logger,
 //                                     store: store,
@@ -93,7 +93,7 @@
 //        // Stop logger logging before teardown
 //        logger.logLevel = .none
 //
-//        manager.clearTranslations(includingPersisted: true)
+//        manager.clearLocalizations(includingPersisted: true)
 //        manager = nil
 //        repositoryMock = nil
 //        fileManagerMock = nil
@@ -106,53 +106,53 @@
 //
 //    // MARK: - Loading -
 //    
-//    func testLoadTranslations() {
-//        XCTAssertNil(manager.translationsObject)
-//        manager.loadTranslations()
-//        XCTAssertNotNil(manager.translationsObject,
-//                        "Translations object shouldn't be nil after loading.")
+//    func testLoadLocalizations() {
+//        XCTAssertNil(manager.localizationsObject)
+//        manager.loadLocalizations()
+//        XCTAssertNotNil(manager.localizationsObject,
+//                        "Localizations object shouldn't be nil after loading.")
 //    }
 //    
 //    // MARK: - Update -
 //    
 //    func testUpdateSuccess() {
-//        repositoryMock.translationsResponse = mockWrappedTranslations
-//        XCTAssertNil(manager.synchronousUpdateTranslations(), "Error should be nil.")
-//        XCTAssertNotNil(manager.translationsObject,
-//                        "Translations should be loaded after successful update.")
-//        XCTAssertNotNil(manager.persistedTranslations,
-//                        "Persistent translations should be saved after successful update.")
+//        repositoryMock.localizationsResponse = mockWrappedLocalizations
+//        XCTAssertNil(manager.synchronousUpdateLocalizations(), "Error should be nil.")
+//        XCTAssertNotNil(manager.localizationsObject,
+//                        "Localizations should be loaded after successful update.")
+//        XCTAssertNotNil(manager.persistedLocalizations,
+//                        "Persistent localizations should be saved after successful update.")
 //    }
 //    
 //    func testUpdateFailure() {
-//        repositoryMock.translationsResponse = nil
-//        XCTAssertNotNil(manager.synchronousUpdateTranslations(), "Error shouldn't be nil.")
-//        XCTAssertNil(manager.translationsObject,
-//                     "Translations should not be loaded after failed update.")
-//        XCTAssertNil(manager.persistedTranslations,
-//                     "Persistent translations should not be saved after failed update.")
+//        repositoryMock.localizationsResponse = nil
+//        XCTAssertNotNil(manager.synchronousUpdateLocalizations(), "Error shouldn't be nil.")
+//        XCTAssertNil(manager.localizationsObject,
+//                     "Localizations should not be loaded after failed update.")
+//        XCTAssertNil(manager.persistedLocalizations,
+//                     "Persistent localizations should not be saved after failed update.")
 //    }
 //    
-//    // MARK: - Translation for key
+//    // MARK: - Localization for key
 //    
-//    func testTranslationForKeyFailure() {
+//    func testLocalizationForKeyFailure() {
 //        repositoryMock.preferredLanguages = [mockLanguage.locale]
-//        XCTAssertNotEqual(manager.translationString(keyPath: "default.successKey"), "NoSuccess")
+//        XCTAssertNotEqual(manager.localizationString(keyPath: "default.successKey"), "NoSuccess")
 //    }
 //    
-//    func testTranslationForWrongKeyFailure() {
+//    func testLocalizationForWrongKeyFailure() {
 //        repositoryMock.preferredLanguages = [mockLanguage.locale]
-//        XCTAssertNil(manager.translationString(keyPath: "wrong.successKey"))
+//        XCTAssertNil(manager.localizationString(keyPath: "wrong.successKey"))
 //    }
 //    
-//    func testTranslationForKeySuccess() {
+//    func testLocalizationForKeySuccess() {
 //        repositoryMock.preferredLanguages = [mockLanguage.locale]
-//        XCTAssertEqual(manager.translationString(keyPath: "default.successKey"), "Fedt")
+//        XCTAssertEqual(manager.localizationString(keyPath: "default.successKey"), "Fedt")
 //    }
 //    
-//    func testTranslationForEmptyKey() {
+//    func testLocalizationForEmptyKey() {
 //        repositoryMock.preferredLanguages = [mockLanguage.locale]
-//        XCTAssertNil(manager.translationString(keyPath: ""))
+//        XCTAssertNil(manager.localizationString(keyPath: ""))
 //    }
 //    
 //    // MARK: - Fetch -
@@ -248,9 +248,9 @@
 //    // MARK: - Language Override -
 //    
 //    func testLanguageOverride() {
-//        XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
+//        XCTAssertEqual(testLocalizations.defaultSection.successKey, "Success")
 //        manager.languageOverride = mockLanguage
-//        XCTAssertEqual(testTranslations.defaultSection.successKey, "Fedt")
+//        XCTAssertEqual(testLocalizations.defaultSection.successKey, "Fedt")
 //    }
 //    
 //    func testLanguageOverrideStore() {
@@ -261,119 +261,119 @@
 //        XCTAssertNil(manager.languageOverride, "Language override should be nil.")
 //    }
 //    
-//    func testLanguageOverrideClearTranslations() {
-//        // Load translations
-//        manager.loadTranslations()
-//        XCTAssertNotNil(manager.translationsObject,
-//                        "Translations shouldn't be nil after loading.")
+//    func testLanguageOverrideClearLocalizations() {
+//        // Load localizations
+//        manager.loadLocalizations()
+//        XCTAssertNotNil(manager.localizationsObject,
+//                        "Localizations shouldn't be nil after loading.")
 //        
 //        // Override lang, should clear all loaded
 //        manager.languageOverride = mockLanguage
-//        XCTAssertNil(manager.translationsObject,
-//                     "Translations should be cleared if language is overriden.")
+//        XCTAssertNil(manager.localizationsObject,
+//                     "Localizations should be cleared if language is overriden.")
 //        
 //        // Accessing again should load with override lang
-//        _ = manager.translations() as Translations
-//        XCTAssertNotNil(manager.translationsObject,
-//                        "Translations should load with language override.")
+//        _ = manager.localizations() as Localizations
+//        XCTAssertNotNil(manager.localizationsObject,
+//                        "Localizations should load with language override.")
 //    }
 //
 //    func testBackendLanguagePriority() {
-//        // We request da-DK as preferred language, which is not a part of the translations we get.
+//        // We request da-DK as preferred language, which is not a part of the localizations we get.
 //        // The manager then should prioritise falling back to the language that the backend provided.
 //        // Instead of falling to any type of english or first in the array.
 //        //
 //        // In the JSON backends return US english as most appropriate.
-//        manager.clearTranslations(includingPersisted: true)
+//        manager.clearLocalizations(includingPersisted: true)
 //        repositoryMock.preferredLanguages = ["da-DK"]
-//        mockBundle.resourcePathOverride = backendSelectedTranslationsJSONPath
+//        mockBundle.resourcePathOverride = backendSelectedLocalizationsJSONPath
 //        repositoryMock.customBundles = [mockBundle]
-//        XCTAssertEqual(testTranslations.defaultSection.successKey, "Whatever")
+//        XCTAssertEqual(testLocalizations.defaultSection.successKey, "Whatever")
 //    }
 //    
-//    // MARK: - Translations -
+//    // MARK: - Localizations -
 //    
-//    func testTranslationsMemoryCache() {
-//        XCTAssertNil(manager.translationsObject)
-//        XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
-//        XCTAssertNotNil(manager.translationsObject)
-//        XCTAssertEqual(testTranslations.defaultSection.successKey, "Success")
+//    func testLocalizationsMemoryCache() {
+//        XCTAssertNil(manager.localizationsObject)
+//        XCTAssertEqual(testLocalizations.defaultSection.successKey, "Success")
+//        XCTAssertNotNil(manager.localizationsObject)
+//        XCTAssertEqual(testLocalizations.defaultSection.successKey, "Success")
 //    }
 //    
-//    // MARK: - Translation Dictionaries -
+//    // MARK: - Localization Dictionaries -
 //    
-//    func testPersistedTranslations() {
-//        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
-//        manager.persistedTranslations = mockTranslations.translations
-//        XCTAssertNotNil(manager.persistedTranslations)
-//        manager.persistedTranslations = nil
-//        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil.")
+//    func testPersistedLocalizations() {
+//        XCTAssertNil(manager.persistedLocalizations, "Persisted localizations should be nil at start.")
+//        manager.persistedLocalizations = mockLocalizations.localizations
+//        XCTAssertNotNil(manager.persistedLocalizations)
+//        manager.persistedLocalizations = nil
+//        XCTAssertNil(manager.persistedLocalizations, "Persisted localizations should be nil.")
 //    }
 //    
-//    func testPersistedTranslationsSaveFailure() {
+//    func testPersistedLocalizationsSaveFailure() {
 //        fileManagerMock.searchPathUrlsOverride = []
-//        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
-//        manager.persistedTranslations = mockTranslations.translations
-//        XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
+//        XCTAssertNil(manager.persistedLocalizations, "Persisted localizations should be nil at start.")
+//        manager.persistedLocalizations = mockLocalizations.localizations
+//        XCTAssertNil(manager.persistedLocalizations, "There shouldn't be any saved localizations.")
 //    }
 //    
-//    func testPersistedTranslationsSaveFailureBadUrl() {
+//    func testPersistedLocalizationsSaveFailureBadUrl() {
 //        fileManagerMock.searchPathUrlsOverride = [URL(string: "test://")!]
-//        XCTAssertNil(manager.persistedTranslations, "Persisted translations should be nil at start.")
-//        manager.persistedTranslations = mockTranslations.translations
-//        XCTAssertNil(manager.persistedTranslations, "There shouldn't be any saved translations.")
+//        XCTAssertNil(manager.persistedLocalizations, "Persisted localizations should be nil at start.")
+//        manager.persistedLocalizations = mockLocalizations.localizations
+//        XCTAssertNil(manager.persistedLocalizations, "There shouldn't be any saved localizations.")
 //    }
 //    
-//    func testPersistedTranslationsOnUpdate() {
-//        repositoryMock.translationsResponse = mockWrappedTranslations
-//        XCTAssertNil(manager.synchronousUpdateTranslations(), "No error should happen on update.")
-//        XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should be available.")
+//    func testPersistedLocalizationsOnUpdate() {
+//        repositoryMock.localizationsResponse = mockWrappedLocalizations
+//        XCTAssertNil(manager.synchronousUpdateLocalizations(), "No error should happen on update.")
+//        XCTAssertNotNil(manager.persistedLocalizations, "Persisted localizations should be available.")
 //    }
 //    
-//    func testFallbackTranslations() {
-//        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should be available.")
+//    func testFallbackLocalizations() {
+//        XCTAssertNotNil(manager.fallbackLocalizations, "Fallback localizations should be available.")
 //    }
 //    
-//    func testFallbackTranslationsInvalidPath() {
+//    func testFallbackLocalizationsInvalidPath() {
 //        let bundle = mockBundle
 //        bundle.resourcePathOverride = "file://BlaBlaBla.json" // invalid path
 //        repositoryMock.customBundles = [bundle]
-//        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid path.")
+//        XCTAssertNotNil(manager.fallbackLocalizations, "Fallback localizations should fail with invalid path.")
 //    }
 //    
-//    func testFallbackTranslationsInvalidJSON() {
+//    func testFallbackLocalizationsInvalidJSON() {
 //        let bundle = mockBundle
-//        bundle.resourcePathOverride = invalidTranslationsJSONPath // invalid json file
+//        bundle.resourcePathOverride = invalidLocalizationsJSONPath // invalid json file
 //        repositoryMock.customBundles = [bundle]
-//        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with invalid JSON.")
+//        XCTAssertNotNil(manager.fallbackLocalizations, "Fallback localizations should fail with invalid JSON.")
 //    }
 //    
-//    func testFallbackTranslationsEmptyJSON() {
+//    func testFallbackLocalizationsEmptyJSON() {
 //        let bundle = mockBundle
-//        bundle.resourcePathOverride = emptyTranslationsJSONPath // empty json file
+//        bundle.resourcePathOverride = emptyLocalizationsJSONPath // empty json file
 //        repositoryMock.customBundles = [bundle]
-//        XCTAssertNotNil(manager.loadTranslations(), "Fallback translations should fail with invalid JSON.")
+//        XCTAssertNotNil(manager.loadLocalizations(), "Fallback localizations should fail with invalid JSON.")
 //    }
 //    
-//    func testFallbackTranslationsEmptyLanguageJSON() {
+//    func testFallbackLocalizationsEmptyLanguageJSON() {
 //        let bundle = mockBundle
-//        bundle.resourcePathOverride = emptyLanguageMetaTranslationsJSONPath// empty meta laguage file
+//        bundle.resourcePathOverride = emptyLanguageMetaLocalizationsJSONPath// empty meta laguage file
 //        repositoryMock.customBundles = [bundle]
-//        XCTAssertNotNil(manager.loadTranslations(), "Fallback translations should fail with empty language meta JSON.")
+//        XCTAssertNotNil(manager.loadLocalizations(), "Fallback localizations should fail with empty language meta JSON.")
 //    }
 //    
-//    func testFallbackTranslationsWrongFormatJSON() {
+//    func testFallbackLocalizationsWrongFormatJSON() {
 //        let bundle = mockBundle
 //        bundle.resourcePathOverride = wrongFormatJSONPath // wrong format json file
 //        repositoryMock.customBundles = [bundle]
-//        XCTAssertNotNil(manager.fallbackTranslations, "Fallback translations should fail with wrong format JSON.")
+//        XCTAssertNotNil(manager.fallbackLocalizations, "Fallback localizations should fail with wrong format JSON.")
 //    }
 //    
 //    // MARK: - Unwrap & Parse -
 //    
 //    func testUnwrapAndParse() {
 //        repositoryMock.preferredLanguages = ["en"]
-//        let final = manager.processAllTranslations(mockWrappedTranslations.translations!)
+//        let final = manager.processAllLocalizations(mockWrappedLocalizations.localizations!)
 //        XCTAssertNotNil(final, "Unwrap and parse should succeed.")
 //        XCTAssertEqual(final?.value(forKeyPath: "default.successKey") as? String, Optional("SuccessUpdated"))
 //    }
@@ -467,30 +467,30 @@
 //    
 //    // MARK: - Clearing -
 //    
-//    func testClearTranslations() {
-//        manager.loadTranslations()
-//        XCTAssertNotNil(manager.translationsObject, "Translations shouldn't be nil.")
-//        manager.clearTranslations()
-//        XCTAssertNil(manager.translationsObject, "Translations should not exist after clear.")
+//    func testClearLocalizations() {
+//        manager.loadLocalizations()
+//        XCTAssertNotNil(manager.localizationsObject, "Localizations shouldn't be nil.")
+//        manager.clearLocalizations()
+//        XCTAssertNil(manager.localizationsObject, "Localizations should not exist after clear.")
 //    }
 //    
-//    func testClearPersistedTranslations() {
-//        repositoryMock.translationsResponse = mockWrappedTranslations
-//        XCTAssertNil(manager.synchronousUpdateTranslations())
-//        XCTAssertNotNil(manager.persistedTranslations, "Persisted translations should exist.")
-//        manager.clearTranslations(includingPersisted: true)
-//        XCTAssertNil(manager.persistedTranslations, "Persisted translations should not exist after clear.")
+//    func testClearPersistedLocalizations() {
+//        repositoryMock.localizationsResponse = mockWrappedLocalizations
+//        XCTAssertNil(manager.synchronousUpdateLocalizations())
+//        XCTAssertNotNil(manager.persistedLocalizations, "Persisted localizations should exist.")
+//        manager.clearLocalizations(includingPersisted: true)
+//        XCTAssertNil(manager.persistedLocalizations, "Persisted localizations should not exist after clear.")
 //    }
 //}
 //
 //// MARK: - Helpers -
 //
-//extension TranslationManager {
-//    fileprivate func synchronousUpdateTranslations() -> NStackError.Translations? {
+//extension LocalizationManager {
+//    fileprivate func synchronousUpdateLocalizations() -> NStackError.Localizations? {
 //        let semaphore = DispatchSemaphore(value: 0)
-//        var error: NStackError.Translations?
+//        var error: NStackError.Localizations?
 //        
-//        updateTranslations { e in
+//        updateLocalizations { e in
 //            error = e
 //            semaphore.signal()
 //        }
