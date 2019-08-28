@@ -38,15 +38,15 @@ class MockConnectionManager: Repository {
     }
 
     func getLocalizations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel {
-//        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
-//            "default": ["successKey": "SuccessUpdated"],
-//            "otherSection": ["anotherKey": "HeresAValue"]
-//            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
-//                                                        direction: "LRM", acceptLanguage: "en-GB",
-//                                                        isDefault: true, isBestFit: true)))
-//
-//        let result: Result = .success(localizationsResponse!)
-//        completion(result as! Result<LocalizationResponse<L>>)
+        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
+            "default": ["successKey": "SuccessUpdated"],
+            "otherSection": ["anotherKey": "HeresAValue"]
+            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
+                                                        direction: "LRM", acceptLanguage: "en-GB",
+                                                        isDefault: true, isBestFit: true)))
+
+        let result: Result = .success(localizationsResponse!)
+        completion(result as! Result<LocalizationResponse<L>>)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
@@ -146,14 +146,14 @@ class MockConnectionManager: Repository {
 
 extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
-        let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en_EN", isDefault: true, isBestFit: false)
+        let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
         let data = AppOpenData(count: 58,
                                message: nil,
                                update: nil,
                                rateReminder: nil,
                                localize: [
-                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang),
-                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)],
+                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)
+                                ],
                                platform: "ios",
                                createdAt: "2019-06-21T14:10:29+00:00",
                                lastUpdated: "2019-06-21T14:10:29+00:00")
