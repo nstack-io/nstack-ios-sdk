@@ -36,24 +36,23 @@ class NStackTests: XCTestCase {
         XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
     }
 
-    //API is returning funny values
-//    func testUpdateAppOpen() {
-//        NStack.sharedInstance.update()
-//        XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Localization Manager where that sets the best fit language.")
-//    }
+    func testUpdateAppOpen() {
+        NStack.sharedInstance.update()
+        XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Localization Manager where that sets the best fit language.")
+    }
 
-//    func testGetLocalization() {
-//        NStack.sharedInstance.update()
-//        do {
-//            guard let result = try NStack.sharedInstance.localizationManager?.localizations() as? Localizations else {
-//                XCTFail()
-//                return
-//            }
-//            XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
-//        } catch {
-//            XCTFail()
-//        }
-//    }
+    func testGetLocalization() {
+        NStack.sharedInstance.update()
+        do {
+            guard let result = try NStack.sharedInstance.localizationManager?.localizations() as? Localizations else {
+                XCTFail()
+                return
+            }
+            XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
+        } catch {
+            XCTFail()
+        }
+    }
 
     // MARK: - Geography
 
