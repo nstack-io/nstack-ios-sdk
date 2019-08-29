@@ -44,8 +44,13 @@ public protocol NStackLocalizable where Self: NStackLocalizableView {
 }
 
 public protocol LocalizationWrappable {
+
     var bestFitLanguage: Language? { get }
+    var languageOverride: Locale? { get }
+
     func localizations<L: LocalizableModel>() throws -> L
+    func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void))
+
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateLocalizations(_ completion: ((Error?) -> Void)?)
     func updateLocalizations()
@@ -73,6 +78,18 @@ public class LocalizationWrapper {
 
 extension LocalizationWrapper: LocalizationWrappable {
 
+    public var languageOverride: Locale? {
+        return localizationManager?.languageOverride?.locale
+    }
+
+    public var bestFitLanguage: Language? {
+        return localizationManager?.bestFitLanguage
+    }
+
+    public func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void)) {
+        localizationManager?.fetchAvailableLanguages(completion: completion)
+    }
+
     public func refreshLocalizations() {
         for localization in originallyLocalizedComponents.keyEnumerator() {
             if let localizationIdentifier = localization as? LocalizationIdentifier {
@@ -94,10 +111,6 @@ extension LocalizationWrapper: LocalizationWrappable {
         } catch {
             fatalError("no localizations found")
         }
-    }
-
-    public var bestFitLanguage: Language? {
-        return localizationManager?.bestFitLanguage
     }
 
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {

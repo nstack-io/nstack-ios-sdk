@@ -86,6 +86,7 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		23147C5F231806C10043BBAE /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23147C5E231806C10043BBAE /* LocalizationManager.framework */; };
 		23442E5B22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E5C22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E5D22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
@@ -320,6 +321,7 @@
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
 		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
+		23147C5E231806C10043BBAE /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = ../Carthage/Build/iOS/LocalizationManager.framework; sourceTree = "<group>"; };
 		23442E5A22C627FD00F196EE /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Classes/Model/Localization.swift; sourceTree = "<group>"; };
 		23442E5F22C6281000F196EE /* GeographyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeographyManager.swift; path = Classes/Managers/GeographyManager.swift; sourceTree = "<group>"; };
 		23442E6022C6281000F196EE /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = Classes/Managers/ContentManager.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23147C5F231806C10043BBAE /* LocalizationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
 			);
@@ -595,6 +598,7 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23147C5E231806C10043BBAE /* LocalizationManager.framework */,
 				8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */,
 				8C508866230D280500FB80CD /* TranslationManager_macOS.framework.dSYM */,
 				8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */,
@@ -839,6 +843,7 @@
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
 				30A3D8441B9DB94100C2D15C /* Headers */,
 				30A3D8451B9DB94100C2D15C /* Resources */,
+				23147C5D231806940043BBAE /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -1118,6 +1123,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
+		};
+		23147C5D231806940043BBAE /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/LocalizationManager.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		238D644D22C619C6002406FA /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
