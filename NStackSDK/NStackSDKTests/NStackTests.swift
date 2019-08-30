@@ -12,7 +12,7 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Localizations.self)
+    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Localization.self)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
@@ -44,7 +44,7 @@ class NStackTests: XCTestCase {
     func testGetLocalization() {
         NStack.sharedInstance.update()
         do {
-            guard let result = try NStack.sharedInstance.localizationManager?.localizations() as? Localizations else {
+            guard let result = try NStack.sharedInstance.localizationManager?.localization() as? Localization else {
                 XCTFail()
                 return
             }
