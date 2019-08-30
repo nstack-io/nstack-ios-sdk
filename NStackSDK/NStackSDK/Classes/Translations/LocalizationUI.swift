@@ -11,7 +11,7 @@ import UIKit
 import Serpent
 import Alamofire
 
-internal func localizationString(keyPath: String) -> String? {
+internal func localizationItemString(keyPath: String) -> String? {
 	if keyPath.characters.isEmpty {
 		return nil
 	}

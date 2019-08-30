@@ -21,6 +21,6 @@ public func <=> (left: NStackLocalizable, right: String) {
     left.localize(for: right)
 }
 
-public func <=> (left: NStackLocalizable, right: LocalizationIdentifier) {
+public func <=> (left: NStackLocalizable, right: LocalizationItemIdentifier) {
     NStack.sharedInstance.localizationManager?.localize(component: left, for: right)
 }

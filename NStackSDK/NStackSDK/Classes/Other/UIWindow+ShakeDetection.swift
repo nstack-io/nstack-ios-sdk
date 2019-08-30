@@ -77,7 +77,7 @@ extension UIWindow {
 
                 guard
                     let localizableItem = currentView as? NStackLocalizable,
-                    let identifier = localizableItem.localizationIdentifier
+                    let identifier = localizableItem.localizationItemIdentifier
                 else {
                     return nil
                 }
@@ -264,7 +264,7 @@ extension UIWindow {
                     // Set proposal to label
                     item.localizableValue = textField.text
                     // Send proposal to API
-                    if let identifier = item.localizationIdentifier {
+                    if let identifier = item.localizationItemIdentifier {
                         NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
                     }
                 }

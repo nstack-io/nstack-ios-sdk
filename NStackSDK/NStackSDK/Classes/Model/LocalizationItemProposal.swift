@@ -1,5 +1,5 @@
 //
-//  LocalizationProposal.swift
+//  LocalizationItemProposal.swift
 //  NStackSDK
 //
 //  Created by Peter Bødskov on 02/08/2019.
@@ -19,7 +19,7 @@ import LocalizationManager_watchOS
 
 #endif
 
-struct LocalizationProposal {
+struct LocalizationItemProposal {
     let value: String
     let locale: Locale
 }

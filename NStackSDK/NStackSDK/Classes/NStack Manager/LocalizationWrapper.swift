@@ -40,7 +40,7 @@ public protocol NStackLocalizable where Self: NStackLocalizableView {
     var backgroundViewToColor: NStackLocalizableView? { get }
     var originalBackgroundColor: NStackLocalizableBackgroundColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
-    var localizationIdentifier: LocalizationIdentifier? { get set }
+    var localizationItemIdentifier: LocalizationItemIdentifier? { get set }
 }
 
 public protocol LocalizationWrappable {
@@ -59,20 +59,20 @@ public protocol LocalizationWrappable {
     func setOverrideLocale(locale: Locale)
     func clearOverrideLocale()
 
-    func localize(component: NStackLocalizable, for identifier: LocalizationIdentifier)
-    func containsComponent(for identifier: LocalizationIdentifier) -> Bool
-    func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationIdentifier)
+    func localize(component: NStackLocalizable, for identifier: LocalizationItemIdentifier)
+    func containsComponent(for identifier: LocalizationItemIdentifier) -> Bool
+    func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationItemIdentifier)
 }
 
 public class LocalizationWrapper {
     private(set) var localizationManager: LocalizationManager<Language, Localization>?
-    let originallyLocalizedComponents: NSMapTable<LocalizationIdentifier, NStackLocalizable>
-    var proposedLocalizations: [LocalizationIdentifier: LocalizationProposal]
+    let originallyLocalizedComponents: NSMapTable<LocalizationItemIdentifier, NStackLocalizable>
+    var proposedLocalizations: [LocalizationItemIdentifier: LocalizationItemProposal]
 
     init(localizationManager: LocalizationManager<Language, Localization>) {
         self.localizationManager = localizationManager
         self.originallyLocalizedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
-        self.proposedLocalizations = [LocalizationIdentifier: LocalizationProposal]()
+        self.proposedLocalizations = [LocalizationItemIdentifier: LocalizationItemProposal]()
     }
 }
 
@@ -92,10 +92,10 @@ extension LocalizationWrapper: LocalizationWrappable {
 
     public func refreshLocalizations() {
         for localization in originallyLocalizedComponents.keyEnumerator() {
-            if let localizationIdentifier = localization as? LocalizationIdentifier {
-                if let localizableComponent = originallyLocalizedComponents.object(forKey: localizationIdentifier) {
+            if let localizationItemIdentifier = localization as? LocalizationItemIdentifier {
+                if let localizableComponent = originallyLocalizedComponents.object(forKey: localizationItemIdentifier) {
                     DispatchQueue.main.async {
-                        localizableComponent.localize(for: "\(localizationIdentifier.section).\(localizationIdentifier.key)")
+                        localizableComponent.localize(for: "\(localizationItemIdentifier.section).\(localizationItemIdentifier.key)")
                     }
                 }
             }
@@ -141,8 +141,8 @@ extension LocalizationWrapper: LocalizationWrappable {
      
      If a proposed value exists, use that, otherwise fetch a value from the `localizationsManager`.
      */
-    public func localize(component: NStackLocalizable, for identifier: LocalizationIdentifier) {
-        component.localizationIdentifier = identifier
+    public func localize(component: NStackLocalizable, for identifier: LocalizationItemIdentifier) {
+        component.localizationItemIdentifier = identifier
 
         //Has the user proposed a localization earlier in this session?
         if
@@ -161,13 +161,13 @@ extension LocalizationWrapper: LocalizationWrappable {
         }
     }
 
-    private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: LocalizationIdentifier) {
+    private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: LocalizationItemIdentifier) {
         //clear old component if we are resetting a localization to a component that was previously stored in the map
-        var identifierToRemove: LocalizationIdentifier?
+        var identifierToRemove: LocalizationItemIdentifier?
         for localization in originallyLocalizedComponents.keyEnumerator() {
-            if let localizationIdentifier = localization as? LocalizationIdentifier {
-                if localizationIdentifier.section == identifier.section && localizationIdentifier.key == identifier.key {
-                    identifierToRemove = localizationIdentifier
+            if let localizationItemIdentifier = localization as? LocalizationItemIdentifier {
+                if localizationItemIdentifier.section == identifier.section && localizationItemIdentifier.key == identifier.key {
+                    identifierToRemove = localizationItemIdentifier
                 }
             }
         }
@@ -197,17 +197,17 @@ extension LocalizationWrapper: LocalizationWrappable {
      - Parameter value: proposed value
      - Parameter key: NStack key/identifier
     */
-    public func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationIdentifier) {
+    public func storeProposal(_ value: String, locale: Locale, for identifier: LocalizationItemIdentifier) {
         //remove from originallyTranslatedComponents if it is already there (problably)
         originallyLocalizedComponents.removeObject(forKey: identifier)
         //And store
-        proposedLocalizations[identifier] = LocalizationProposal(value: value, locale: locale)
+        proposedLocalizations[identifier] = LocalizationItemProposal(value: value, locale: locale)
     }
 
     /**
      - Return `true` if `component` has been localized, `false` if it has not
     */
-    public func containsComponent(for identifier: LocalizationIdentifier) -> Bool {
+    public func containsComponent(for identifier: LocalizationItemIdentifier) -> Bool {
         if originallyLocalizedComponents.object(forKey: identifier) != nil {
             return true
         } else {

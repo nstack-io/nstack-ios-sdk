@@ -42,12 +42,12 @@ public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
-    public let localizationsClass: LocalizableModel.Type
+    public let localizationClass: LocalizableModel.Type
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
     public var useMock = false
-    public var localizationsUrlOverride: String?
+    public var localizationUrlOverride: String?
     public var currentEnvironment: NStackEnvironment
 
     // Used for tests
@@ -67,19 +67,19 @@ public struct Configuration {
 
     public init(appId: String,
                 restAPIKey: String,
-                localizationsClass: LocalizableModel.Type,
-                flatLocalizations: Bool = false,
+                localizationClass: LocalizableModel.Type,
+                flatLocalization: Bool = false,
                 localizationsUrlOverride: String? = nil,
                 environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
-        self.localizationsClass = localizationsClass
-        self.flat = flatLocalizations
-        self.localizationsUrlOverride = localizationsUrlOverride
+        self.localizationClass = localizationClass
+        self.flat = flatLocalization
+        self.localizationUrlOverride = localizationsUrlOverride
         self.currentEnvironment = environment
     }
 
-    public init(plistName: String, environment: NStackEnvironment, localizationsClass: LocalizableModel.Type) {
+    public init(plistName: String, environment: NStackEnvironment, localizationClass: LocalizableModel.Type) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
@@ -110,8 +110,8 @@ public struct Configuration {
 
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
-        self.localizationsClass = localizationsClass
-        self.localizationsUrlOverride = localizationsUrlOverride
+        self.localizationClass = localizationClass
+        self.localizationUrlOverride = localizationsUrlOverride
         if let flat = flatString, flat == "1" {
             self.flat = true
         }

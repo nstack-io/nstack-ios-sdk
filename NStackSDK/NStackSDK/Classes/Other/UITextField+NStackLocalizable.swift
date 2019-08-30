@@ -13,7 +13,7 @@ extension UITextField: NStackLocalizable {
 
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String: Bool]()
-    private static var _localizationIdentifier = [String: LocalizationIdentifier]()
+    private static var _localizationItemIdentifier = [String: LocalizationItemIdentifier]()
 
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
@@ -33,14 +33,14 @@ extension UITextField: NStackLocalizable {
         }
     }
 
-    public var localizationIdentifier: LocalizationIdentifier? {
+    public var localizationItemIdentifier: LocalizationItemIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextField._localizationIdentifier[tmpAddress]
+            return UITextField._localizationItemIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UITextField._localizationIdentifier[tmpAddress] = newValue
+            UITextField._localizationItemIdentifier[tmpAddress] = newValue
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  LocalizationIdentifier.swift
+//  LocalizationItemIdentifier.swift
 //  NStackSDK
 //
 //  Created by Nicolai Harbo on 01/08/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LocalizationIdentifier: NSObject {
+public class LocalizationItemIdentifier: NSObject {
     let section: String
     let key: String
 

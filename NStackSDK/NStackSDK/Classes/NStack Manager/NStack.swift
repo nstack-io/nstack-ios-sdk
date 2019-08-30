@@ -120,7 +120,7 @@ public class NStack {
             appId: configuration.appId,
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
-            localizationsUrlOverride: configuration.localizationsUrlOverride,
+            localizationsUrlOverride: configuration.localizationUrlOverride,
             nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
@@ -164,7 +164,7 @@ public class NStack {
         // Setup localizations
         let manager = LocalizationManager<Language, Localization>(repository: repository,
                                                                   contextRepository: repository,
-                                                                  localizableModel: configuration.localizationsClass,
+                                                                  localizableModel: configuration.localizationClass,
                                                                   updateMode: .manual)
 
         // Delete localizations if new version
@@ -256,7 +256,7 @@ public class NStack {
     ///   - key: The actual key for the text
     ///   - value: The new value for the key
     ///   - locale: The locale it should affect
-    func storeProposal(for identifier: LocalizationIdentifier, with value: String) {
+    func storeProposal(for identifier: LocalizationItemIdentifier, with value: String) {
         guard let language = localizationManager?.bestFitLanguage else { return }
         let locale = language.acceptLanguage
 

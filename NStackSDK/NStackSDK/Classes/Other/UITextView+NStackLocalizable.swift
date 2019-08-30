@@ -13,7 +13,7 @@ extension UITextView: NStackLocalizable {
 
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String: Bool]()
-    private static var _localizationIdentifier = [String: LocalizationIdentifier]()
+    private static var _localizationItemIdentifier = [String: LocalizationItemIdentifier]()
 
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
@@ -33,14 +33,14 @@ extension UITextView: NStackLocalizable {
         }
     }
 
-    public var localizationIdentifier: LocalizationIdentifier? {
+    public var localizationItemIdentifier: LocalizationItemIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextView._localizationIdentifier[tmpAddress]
+            return UITextView._localizationItemIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UITextView._localizationIdentifier[tmpAddress] = newValue
+            UITextView._localizationItemIdentifier[tmpAddress] = newValue
         }
     }
 

@@ -20,11 +20,11 @@ import LocalizationManager_macOS
 #endif
 
 public struct LocalizationsResponse: Codable {
-    let localizations: [String: Any]
+    let localization: [String: Any]
     let language: Language?
 
     enum CodingKeys: String, CodingKey {
-        case localizations = "data"
+        case localization = "data"
         case languageData = "meta"
     }
 
@@ -33,13 +33,13 @@ public struct LocalizationsResponse: Codable {
     }
 
     init() {
-        self.localizations = [:]
+        self.localization = [:]
         self.language = nil
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        localizations = try values.decodeIfPresent([String: Any].self, forKey: .localizations) ?? [:]
+        localization = try values.decodeIfPresent([String: Any].self, forKey: .localization) ?? [:]
 
         let languageData = try values.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
         language = try languageData.decodeIfPresent(Language.self, forKey: .language)
@@ -47,7 +47,7 @@ public struct LocalizationsResponse: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(localizations, forKey: .localizations)
+        try container.encode(localization, forKey: .localization)
 
         var languageData = container.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
         try languageData.encode(language, forKey: .language)
