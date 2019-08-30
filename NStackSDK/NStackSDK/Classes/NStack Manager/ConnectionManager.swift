@@ -65,7 +65,7 @@ extension ConnectionManager {
             "version": currentVersion,
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": ConnectionManager.lastUpdatedString,
+            "last_updated": VersionUtilities.lastUpdatedDate?.iso8601 ?? "",
             "old_version": oldVersion
         ]
 
@@ -91,7 +91,7 @@ extension ConnectionManager {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": ConnectionManager.lastUpdatedString
+            "last_updated": lastUpdated?.iso8601 ?? ""
         ]
 
         var headers = defaultHeaders
@@ -103,6 +103,7 @@ extension ConnectionManager {
         let localizationCompletion: (Result<DataModel<[Localization]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
+                VersionUtilities.lastUpdatedDate = lastUpdated
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[C]>)
@@ -306,36 +307,5 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
         let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
-    }
-}
-
-// MARK: - Utility Functions -
-
-// FIXME: Refactor
-
-extension ConnectionManager {
-
-    static var lastUpdatedString: String {
-        //let cache = Constants.persistentStore
-
-        // FIXME: Handle language change
-        // FIXME: Fix this
-//        let previousAcceptLanguage = cache.string(forKey: Constants.CacheKeys.prevAcceptedLanguage)
-//        let currentAcceptLanguage  = LocalizationManager.acceptLanguage()
-//
-//        if let previous = previousAcceptLanguage, previous != currentAcceptLanguage {
-//            cache.setObject(currentAcceptLanguage, forKey: Constants.CacheKeys.prevAcceptedLanguage)
-//            setLastUpdated(Date.distantPast)
-//        }
-
-//        let key = Constants.CacheKeys.lastUpdatedDate
-//        let date = cache.object(forKey: key) as? Date ?? Date.distantPast
-//        return date.stringRepresentation()
-        return ""
-    }
-
-    func setLastUpdated(toDate date: Date = Date()) {
-        // FIXME: Implement this
-//        Constants.persistentStore.setObject(date, forKey: Constants.CacheKeys.lastUpdatedDate)
     }
 }

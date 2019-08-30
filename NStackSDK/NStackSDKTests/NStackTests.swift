@@ -12,7 +12,7 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-    var conf = Configuration(plistName: "NStack", environment: .debug, localizationsClass: Localizations.self)
+    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Localizations.self)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"

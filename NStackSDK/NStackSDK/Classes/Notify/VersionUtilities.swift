@@ -20,6 +20,15 @@ enum VersionUtilities {
         }
     }
 
+    static var lastUpdatedDate: Date? {
+        get {
+            return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.CacheKeys.previousVersion)
+        }
+    }
+
     static var currentAppVersion: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
