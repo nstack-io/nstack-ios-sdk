@@ -330,7 +330,6 @@
 		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
-		3027B2D21BBAF1A700C2F4FB /* LocalizationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationUI.swift; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
@@ -649,7 +648,6 @@
 				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
 				30B2E82D1B9DCDC00064DB21 /* Notify */,
-				30B2E82E1B9DCE200064DB21 /* Translations */,
 				23442E5322C6222300F196EE /* Managers */,
 				01F4C6651DFF14690050D0F1 /* Logger */,
 				01A334461E4E825E003CE9BA /* Other */,
@@ -694,15 +692,6 @@
 			);
 			name = Notify;
 			path = Classes/Notify;
-			sourceTree = "<group>";
-		};
-		30B2E82E1B9DCE200064DB21 /* Translations */ = {
-			isa = PBXGroup;
-			children = (
-				3027B2D21BBAF1A700C2F4FB /* LocalizationUI.swift */,
-			);
-			name = Translations;
-			path = Classes/Translations;
 			sourceTree = "<group>";
 		};
 		8C9BA2DB22EEFFD80057BAEF /* Operators */ = {

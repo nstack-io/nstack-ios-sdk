@@ -26,7 +26,7 @@
 import Foundation
 import LocalizationManager
 
-public final class Localizations: LocalizableModel {
+public final class Localization: LocalizableModel {
     public var defaultSection = DefaultSection()
     public var otherSection = OtherSection()
     public var oneMoreSection = OneMoreSection()

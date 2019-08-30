@@ -94,7 +94,7 @@ public class NStack {
     /// object, fetches all data (including localizations if enabled) from NStack API right away.
     ///
     /// - Parameters:
-    ///   - configuration: A `Configuration` struct containing API keys and localizations type.
+    ///   - configuration: A `Configuration` struct containing API keys and localization type.
     ///   - launchOptions: Launch options passed from `applicationDidFinishLaunching:` function.
     public class func start(configuration: Configuration,
                             launchOptions: [LaunchOptionsKeyType: Any]?) {
@@ -309,6 +309,6 @@ public class NStack {
 extension NStack: LocalizationManagerDelegate {
     public func localizationManager(languageUpdated: LanguageModel?) {
         print("Language Changed To: \(languageUpdated?.locale.identifier ?? "unknown")")
-        localizationManager?.refreshLocalizations()
+        localizationManager?.refreshLocalization()
     }
 }

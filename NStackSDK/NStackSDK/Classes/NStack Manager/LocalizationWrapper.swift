@@ -48,13 +48,13 @@ public protocol LocalizationWrappable {
     var bestFitLanguage: Language? { get }
     var languageOverride: Locale? { get }
 
-    func localizations<L: LocalizableModel>() throws -> L
+    func localization<L: LocalizableModel>() throws -> L
     func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void))
 
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
-    func updateLocalizations(_ completion: ((Error?) -> Void)?)
     func updateLocalizations()
-    func refreshLocalizations()
+    func updateLocalizations(_ completion: ((Error?) -> Void)?)
+    func refreshLocalization()
 
     func setOverrideLocale(locale: Locale)
     func clearOverrideLocale()
@@ -67,12 +67,12 @@ public protocol LocalizationWrappable {
 public class LocalizationWrapper {
     private(set) var localizationManager: LocalizationManager<Language, Localization>?
     let originallyLocalizedComponents: NSMapTable<LocalizationItemIdentifier, NStackLocalizable>
-    var proposedLocalizations: [LocalizationItemIdentifier: LocalizationItemProposal]
+    var proposedChanges: [LocalizationItemIdentifier: LocalizationItemProposal]
 
     init(localizationManager: LocalizationManager<Language, Localization>) {
         self.localizationManager = localizationManager
         self.originallyLocalizedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
-        self.proposedLocalizations = [LocalizationItemIdentifier: LocalizationItemProposal]()
+        self.proposedChanges = [LocalizationItemIdentifier: LocalizationItemProposal]()
     }
 }
 
@@ -90,7 +90,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         localizationManager?.fetchAvailableLanguages(completion: completion)
     }
 
-    public func refreshLocalizations() {
+    public func refreshLocalization() {
         for localization in originallyLocalizedComponents.keyEnumerator() {
             if let localizationItemIdentifier = localization as? LocalizationItemIdentifier {
                 if let localizableComponent = originallyLocalizedComponents.object(forKey: localizationItemIdentifier) {
@@ -102,14 +102,14 @@ extension LocalizationWrapper: LocalizationWrappable {
         }
     }
 
-    public func localizations<L: LocalizableModel>() throws -> L {
+    public func localization<L: LocalizableModel>() throws -> L {
         guard let manager = localizationManager else {
-            fatalError("no localizations manager initialized")
+            fatalError("no localization manager initialized")
         }
         do {
             return try manager.localizations()
         } catch {
-            fatalError("no localizations found")
+            fatalError("no localization found")
         }
     }
 
@@ -139,14 +139,14 @@ extension LocalizationWrapper: LocalizationWrappable {
     /**
      Fetches a localized string value for the `identifier` and adds that to the `component`
      
-     If a proposed value exists, use that, otherwise fetch a value from the `localizationsManager`.
+     If a proposed value exists, use that, otherwise fetch a value from the `localizationManager`.
      */
     public func localize(component: NStackLocalizable, for identifier: LocalizationItemIdentifier) {
         component.localizationItemIdentifier = identifier
 
         //Has the user proposed a localization earlier in this session?
         if
-            let proposedLocalization = proposedLocalizations[identifier],
+            let proposedLocalization = proposedChanges[identifier],
             let bestFitLocale = localizationManager?.bestFitLanguage?.locale
         {
             //for this locale?
@@ -201,7 +201,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         //remove from originallyTranslatedComponents if it is already there (problably)
         originallyLocalizedComponents.removeObject(forKey: identifier)
         //And store
-        proposedLocalizations[identifier] = LocalizationItemProposal(value: value, locale: locale)
+        proposedChanges[identifier] = LocalizationItemProposal(value: value, locale: locale)
     }
 
     /**
@@ -211,7 +211,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         if originallyLocalizedComponents.object(forKey: identifier) != nil {
             return true
         } else {
-            return proposedLocalizations[identifier] != nil
+            return proposedChanges[identifier] != nil
         }
     }
 }
