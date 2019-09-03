@@ -114,7 +114,9 @@ label3.localize(for: skt.defaultSection.successKey)
 label4 <=> "default.successKey"
 ----
 label5 <=> skt.defaultSection.successKey
-----
+~~~~
+And with Swift 5.1 and up, you can also use the `NSLocalizable` property wrapper.
+~~~~swift
 @IBOutlet @NSLocalizable("default.successKey") var label6: UILabel!
 ----
 @IBOutlet @NSLocalizable(skt.defaultSection.successKey) var label7: UILabel!
