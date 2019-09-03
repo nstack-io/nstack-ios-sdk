@@ -7,27 +7,57 @@
 //
 
 import Foundation
+
+#if os(iOS)
+import UIKit
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
+
+#if os(iOS) || os(tvOS)
+public typealias NStackLocalizableView = UIView
+public typealias NStackLocalizableBackgroundColor = UIColor
+#elseif os(watchOS)
+public typealias NStackLocalizableView = WKInterfaceGroup
+public typealias NStackLocalizableBackgroundColor = UIColor
+#elseif os(macOS)
+public typealias NStackLocalizableView = NSView
+public typealias NStackLocalizableBackgroundColor = NSColor
+#endif
 
 @objc
-public protocol NStackLocalizable where Self: UIView {
+public protocol NStackLocalizable where Self: NStackLocalizableView {
     //this function must call: NStackSDK.shared.translationsManager.localize(component: self, for: localizedValue)
     //later on we can make some sort of operator overload...or maybe a property wrapper
     func localize(for stringIdentifier: String)
     func setLocalizedValue(_ localizedValue: String)
     var translatableValue: String? { get set }
-    var backgroundViewToColor: UIView? { get }
-    var originalBackgroundColor: UIColor? { get set }
+    var backgroundViewToColor: NStackLocalizableView? { get }
+    var originalBackgroundColor: NStackLocalizableBackgroundColor? { get set }
     var originalIsUserInteractionEnabled: Bool { get set }
     var translationIdentifier: TranslationIdentifier? { get set }
 }
 
 public protocol LocalizationWrappable {
+
     var bestFitLanguage: Language? { get }
-    func translations<L: LocalizableModel>() throws -> L?
+    var languageOverride: Locale? { get }
+
+    func translations<L: LocalizableModel>() throws -> L
+    func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void))
+
     func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateTranslations(_ completion: ((Error?) -> Void)?)
     func updateTranslations()
+    func refreshTranslations()
+
+    func setOverrideLocale(locale: Locale)
+    func clearOverrideLocale()
 
     func localize(component: NStackLocalizable, for identifier: TranslationIdentifier)
     func containsComponent(for identifier: TranslationIdentifier) -> Bool
@@ -47,14 +77,42 @@ public class LocalizationWrapper {
 }
 
 extension LocalizationWrapper: LocalizationWrappable {
-    public func translations<L: LocalizableModel>() throws -> L? {
-        return try translationsManager?.translations()
+
+    public var languageOverride: Locale? {
+        return translationsManager?.languageOverride?.locale
     }
 
     public var bestFitLanguage: Language? {
         return translationsManager?.bestFitLanguage
     }
 
+    public func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void)) {
+        translationsManager?.fetchAvailableLanguages(completion: completion)
+    }
+
+    public func refreshTranslations() {
+        for translation in originallyTranslatedComponents.keyEnumerator() {
+            if let translationIdentifier = translation as? TranslationIdentifier {
+                if let localizableComponent = originallyTranslatedComponents.object(forKey: translationIdentifier) {
+                    DispatchQueue.main.async {
+                        localizableComponent.localize(for: "\(translationIdentifier.section).\(translationIdentifier.key)")
+                    }
+                }
+            }
+        }
+    }
+
+    public func translations<L: LocalizableModel>() throws -> L {
+        guard let manager = translationsManager else {
+            fatalError("no translations manager initialized")
+        }
+        do {
+            return try manager.translations()
+        } catch {
+            fatalError("no translations found")
+        }
+    }
+  
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
         translationsManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
     }
@@ -65,6 +123,17 @@ extension LocalizationWrapper: LocalizationWrappable {
 
     public func updateTranslations(_ completion: ((Error?) -> Void)? = nil) {
         translationsManager?.updateTranslations(completion)
+    }
+
+    public func setOverrideLocale(locale: Locale) {
+        let language = Language(id: 1, name: "",
+                                direction: "", acceptLanguage: locale.identifier,
+                                isDefault: false, isBestFit: false)
+        self.translationsManager?.languageOverride = language
+    }
+
+    public func clearOverrideLocale() {
+        self.translationsManager?.languageOverride = nil
     }
 
     /**
@@ -93,6 +162,19 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
 
     private func localizeFromOriginallyTranslated(component: NStackLocalizable, for identifier: TranslationIdentifier) {
+        //clear old component if we are resetting a translation to a component that was previously stored in the map
+        var identifierToRemove: TranslationIdentifier?
+        for translation in originallyTranslatedComponents.keyEnumerator() {
+            if let translationIdentifier = translation as? TranslationIdentifier {
+                if translationIdentifier.section == identifier.section && translationIdentifier.key == identifier.key {
+                    identifierToRemove = translationIdentifier
+                }
+            }
+        }
+        if let idToClean = identifierToRemove {
+            originallyTranslatedComponents.removeObject(forKey: idToClean)
+        }
+
         originallyTranslatedComponents.setObject(component, forKey: identifier)
         do {
             // TODO: Change translationsManager?.translation to take the identifier as parameter instead of the string.

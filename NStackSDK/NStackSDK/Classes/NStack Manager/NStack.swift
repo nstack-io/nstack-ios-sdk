@@ -7,12 +7,17 @@
 //
 
 import Foundation
-import TranslationManager
 
-#if os(macOS)
-import AppKit
-#else
+#if os(iOS)
 import UIKit
+import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import AppKit
+import TranslationManager_macOS
 #endif
 
 public class NStack {
@@ -116,7 +121,7 @@ public class NStack {
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
             translationsUrlOverride: configuration.translationsUrlOverride,
-            nmeta: NMeta(environment: configuration.currentEnvironment.rawValue)
+            nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
         repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
 
@@ -174,7 +179,6 @@ public class NStack {
 
         // Set callback
         manager.delegate = self
-//        translationsManager = manager
         translationsManager = LocalizationWrapper(translationsManager: manager)
     }
 
@@ -208,19 +212,16 @@ public class NStack {
 
                 // Update translations
                 if let localizations = appOpenResponseData.localize {
-//                    self.translationsManager?.handleLocalizationModels(localizations: localizations,
-//                                                                       acceptHeaderUsed: header,
-//                                                                       completion: { (_) in
-//                        //if error, try to update translations in Translations Manager
-//                        self.translationsManager?.updateTranslations()
-//                    })
                     self.translationsManager?.handleLocalizationModels(localizations: localizations,
                                                                        acceptHeaderUsed: header,
-                                                                       completion: { (_) in
-                                                                        //if error, try to update translations in Translations Manager
-                                                                        self.translationsManager?.updateTranslations()
+                                                                       completion: { (error) in
+                                                                        if error != nil {
+                                                                            //if error, try to update translations in Translations Manager
+                                                                            self.translationsManager?.updateTranslations()
+                                                                        } else {
+                                                                            completion?(nil)
+                                                                        }
                     })
-
                 }
 
                 #if os(iOS) || os(tvOS)
@@ -240,7 +241,6 @@ public class NStack {
                     }
                 }
                 #endif
-
             case let .failure(error):
                 // FIXME: Fix logging
 //                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
@@ -308,6 +308,7 @@ public class NStack {
 
 extension NStack: TranslatableManagerDelegate {
     public func translationManager(languageUpdated: LanguageModel?) {
-        self.languageChangedHandler?(languageUpdated?.locale)
+        print("Language Changed To: \(languageUpdated?.locale.identifier ?? "unknown")")
+        translationsManager?.refreshTranslations()
     }
 }

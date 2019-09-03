@@ -7,7 +7,17 @@
 //
 
 import Foundation
+
+#if os(iOS)
+import UIKit
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -87,11 +97,18 @@ extension ConnectionManager {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        let url = baseURLv2 + "localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
+        let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let localizationCompletion: (Result<[Localization]>) -> Void = { (response) in
-            completion(response as! Result<[C]>)
+        let localizationCompletion: (Result<DataModel<[Localization]>>) -> Void = { (response) in
+            switch response {
+            case .success(let data):
+                let model = data.model
+                let result: Result = .success(model)
+                completion(result as! Result<[C]>)
+            default:
+                break
+            }
         }
         session.startDataTask(with: request, completionHandler: localizationCompletion)
     }

@@ -7,7 +7,17 @@
 //
 
 import Foundation
+
+#if os(iOS)
+import UIKit
 import TranslationManager
+#elseif os(tvOS)
+import TranslationManager_tvOS
+#elseif os(watchOS)
+import TranslationManager_watchOS
+#elseif os(macOS)
+import TranslationManager_macOS
+#endif
 
 public struct UpdateOptions: OptionSet {
     public let rawValue: Int
@@ -111,5 +121,14 @@ public struct Configuration {
 extension Configuration {
     var isProduction: Bool {
         return currentEnvironment.isProduction
+    }
+
+    var currentEnvironmentAPIString: String {
+        switch self.currentEnvironment {
+        case .debug:
+            return "development"
+        default:
+            return currentEnvironment.rawValue
+        }
     }
 }

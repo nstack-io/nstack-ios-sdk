@@ -49,16 +49,6 @@ class ProposalViewController: UIViewController {
     private func close() {
         self.dismiss(animated: true, completion: nil)
     }
-
-    private func setupAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") {(_: UIContextualAction, _: UIView, completionHandler: @escaping (Bool) -> Void) in
-            self.presenter.handle(.deleteProposal(section: indexPath.section, index: indexPath.row))
-            self.tableView?.reloadRows(at: [indexPath], with: .automatic)
-            completionHandler(true)
-        }
-        action.backgroundColor = .red
-        return action
-    }
 }
 
 extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
@@ -81,17 +71,30 @@ extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
         return presenter.titleForHeader(in: section)
     }
 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if presenter.canDeleteProposal(in: indexPath.section, for: indexPath.row) {
+            return true
+        }
+        return false
+    }
+
+    // MARK: Swipe actions for +iOS 11
+    @available(iOSApplicationExtension 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = setupAction(forRowAt: indexPath)
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfig
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if presenter.canDeleteProposal(in: indexPath.section, for: indexPath.row) {
-            return true
+    @available(iOSApplicationExtension 11.0, *)
+    private func setupAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Delete") {(_: UIContextualAction, _: UIView, completionHandler: @escaping (Bool) -> Void) in
+            self.presenter.handle(.deleteProposal(section: indexPath.section, index: indexPath.row))
+            self.tableView?.reloadRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
         }
-        return false
+        action.backgroundColor = .red
+        return action
     }
 }
 

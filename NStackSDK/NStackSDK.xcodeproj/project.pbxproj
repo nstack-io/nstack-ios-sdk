@@ -103,7 +103,6 @@
 		23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
-		23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644722C518B3002406FA /* TranslationManager.framework */; };
 		2DDAC7512F7DC94F3382176C /* Pods_NStackSDK_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313EA78AC0449925458336C5 /* Pods_NStackSDK_tvOSTests.framework */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
 		304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
@@ -148,6 +147,7 @@
 		8C26C47322F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
 		8C26C47422F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
 		8C26C47522F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
+		8C508869230D281B00FB80CD /* TranslationManager_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */; };
 		8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F922F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
@@ -160,6 +160,17 @@
 		8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
+		8CA9F226230BD97D00CF8065 /* TranslationManager_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */; };
+		8CA9F228230BDB7100CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		8CA9F229230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		8CA9F22A230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
+		8CA9F22C230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
+		8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
+		8CA9F22E230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
+		8CA9F22F230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
+		8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
+		8CA9F25B230C037100CF8065 /* TranslationManager_watchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */; };
 		9F19B242F21C0C601C1452D6 /* Pods_NStackSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */; };
 		A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3D22F962210005580E /* ProposalProtocols.swift */; };
 		A829DC4022F962340005580E /* ProposalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829DC3F22F962340005580E /* ProposalModel.swift */; };
@@ -348,9 +359,13 @@
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		83E20E4222D756CD006D5BEF /* N-Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "N-Meta.swift"; sourceTree = "<group>"; };
 		8C26C47122F4085D00170071 /* LocalizationProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalizationProposal.swift; path = Classes/Model/LocalizationProposal.swift; sourceTree = "<group>"; };
+		8C508866230D280500FB80CD /* TranslationManager_macOS.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = TranslationManager_macOS.framework.dSYM; path = ../Carthage/Build/Mac/TranslationManager_macOS.framework.dSYM; sourceTree = "<group>"; };
+		8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_macOS.framework; path = ../Carthage/Build/Mac/TranslationManager_macOS.framework; sourceTree = "<group>"; };
 		8C80D0F622F066AC00165F5D /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
+		8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_tvOS.framework; path = ../Carthage/Build/tvOS/TranslationManager_tvOS.framework; sourceTree = "<group>"; };
+		8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager_watchOS.framework; path = ../Carthage/Build/watchOS/TranslationManager_watchOS.framework; sourceTree = "<group>"; };
 		8D4D8B340C27AC4744DE2E32 /* Pods-NStackSDK-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9599037681857A8B5F52456B /* Pods_NStackSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NStackSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2BB912CEEC4DBB51EB052 /* Pods-NStackSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -392,6 +407,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CA9F25B230C037100CF8065 /* TranslationManager_watchOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +415,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23BD95F122CE58E0001759CE /* TranslationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
 			);
@@ -418,6 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CA9F226230BD97D00CF8065 /* TranslationManager_tvOS.framework in Frameworks */,
 				E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */,
 				E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */,
 			);
@@ -436,6 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C508869230D281B00FB80CD /* TranslationManager_macOS.framework in Frameworks */,
 				E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */,
 				E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */,
 			);
@@ -581,6 +598,10 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C508868230D281B00FB80CD /* TranslationManager_macOS.framework */,
+				8C508866230D280500FB80CD /* TranslationManager_macOS.framework.dSYM */,
+				8CA9F25A230C037100CF8065 /* TranslationManager_watchOS.framework */,
+				8CA9F225230BD97D00CF8065 /* TranslationManager_tvOS.framework */,
 				238D644722C518B3002406FA /* TranslationManager.framework */,
 				238D644922C518FE002406FA /* TranslationManager.framework */,
 				E3B654771E00484F00FC9380 /* Mac */,
@@ -821,7 +842,6 @@
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
 				30A3D8441B9DB94100C2D15C /* Headers */,
 				30A3D8451B9DB94100C2D15C /* Resources */,
-				238D644622C5186A002406FA /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -1102,25 +1122,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
 		};
-		238D644622C5186A002406FA /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../Carthage/Build/iOS/TranslationManager.framework",
-			);
-			name = Carthage;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
 		238D644D22C619C6002406FA /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1274,6 +1275,7 @@
 			files = (
 				01A334941E4F1B5E003CE9BA /* Constants.swift in Sources */,
 				01A3348B1E4F1B4B003CE9BA /* ApplicationObserver.swift in Sources */,
+				8CA9F22A230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */,
 				23442E6922C6281000F196EE /* ContentManager.swift in Sources */,
 				01A334861E4F1B43003CE9BA /* TranslationsResponse.swift in Sources */,
 				01A3347E1E4F1B43003CE9BA /* AppOpenData.swift in Sources */,
@@ -1297,6 +1299,7 @@
 				23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */,
 				01A334841E4F1B43003CE9BA /* Timezone.swift in Sources */,
 				01A3347F1E4F1B43003CE9BA /* Message.swift in Sources */,
+				8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */,
 				01A334831E4F1B43003CE9BA /* Country.swift in Sources */,
 				01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */,
 				01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */,
@@ -1309,6 +1312,7 @@
 				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
+				8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47522F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -1403,6 +1407,7 @@
 			files = (
 				E3689BFF1D9EBA54004620D6 /* AppOpenResponse.swift in Sources */,
 				E3689C001D9EBA54004620D6 /* LanguageData.swift in Sources */,
+				8CA9F228230BDB7100CF8065 /* TranslationIdentifier.swift in Sources */,
 				23442E6722C6281000F196EE /* ContentManager.swift in Sources */,
 				E3689C011D9EBA54004620D6 /* AppOpenData.swift in Sources */,
 				01A334511E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
@@ -1426,6 +1431,7 @@
 				01BBEFAF1DE0FC66003AC718 /* Timezone.swift in Sources */,
 				E3689C071D9EBA54004620D6 /* TranslationsResponse.swift in Sources */,
 				E3689C081D9EBA54004620D6 /* NStack.swift in Sources */,
+				8CA9F22E230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */,
 				E3689C091D9EBA54004620D6 /* ApplicationObserver.swift in Sources */,
 				01F4C6C81DFF72F00050D0F1 /* LogLevel.swift in Sources */,
 				E3689C0A1D9EBA54004620D6 /* ConnectionManager.swift in Sources */,
@@ -1438,6 +1444,7 @@
 				01A3344E1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
+				8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47322F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				C0D852E4215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E2230D1FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -1475,6 +1482,7 @@
 				33E222F21FA8C5280013CCC3 /* Validation.swift in Sources */,
 				33E223071FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
 				E3B654A51E0056F300FC9380 /* Update.swift in Sources */,
+				8CA9F229230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */,
 				E3B654A61E0056F300FC9380 /* RateReminder.swift in Sources */,
 				E3B654A81E0056F300FC9380 /* Country.swift in Sources */,
 				E3B654A91E0056F300FC9380 /* Timezone.swift in Sources */,
@@ -1483,6 +1491,7 @@
 				C0D852EF215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				C0D852EA215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */,
+				8CA9F22F230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */,
 				E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */,
 				8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */,
@@ -1498,6 +1507,7 @@
 				E3B654B11E0056F300FC9380 /* NStackError.swift in Sources */,
 				C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */,
+				8CA9F22C230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47422F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */,
 				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
@@ -1647,7 +1657,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1704,7 +1714,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -1734,7 +1744,7 @@
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
@@ -1762,7 +1772,7 @@
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
@@ -1840,7 +1850,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
 		};
@@ -1870,7 +1880,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
 		};
