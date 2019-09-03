@@ -51,7 +51,7 @@ public protocol LocalizationWrappable {
     func localization<L: LocalizableModel>() throws -> L
     func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void))
 
-    func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
+    func handleLocalizationModels(configs: [LocalizationConfig], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateLocalizations()
     func updateLocalizations(_ completion: ((Error?) -> Void)?)
     func refreshLocalization()
@@ -65,11 +65,11 @@ public protocol LocalizationWrappable {
 }
 
 public class LocalizationWrapper {
-    private(set) var localizationManager: LocalizationManager<Language, Localization>?
+    private(set) var localizationManager: LocalizationManager<Language, LocalizationConfig>?
     let originallyLocalizedComponents: NSMapTable<LocalizationItemIdentifier, NStackLocalizable>
     var proposedChanges: [LocalizationItemIdentifier: LocalizationItemProposal]
 
-    init(localizationManager: LocalizationManager<Language, Localization>) {
+    init(localizationManager: LocalizationManager<Language, LocalizationConfig>) {
         self.localizationManager = localizationManager
         self.originallyLocalizedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
         self.proposedChanges = [LocalizationItemIdentifier: LocalizationItemProposal]()
@@ -107,14 +107,14 @@ extension LocalizationWrapper: LocalizationWrappable {
             fatalError("no localization manager initialized")
         }
         do {
-            return try manager.localizations()
+            return try manager.localization()
         } catch {
             fatalError("no localization found")
         }
     }
 
-    public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
-        localizationManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
+    public func handleLocalizationModels(configs: [LocalizationConfig], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
+        localizationManager?.handleLocalizationModels(descriptors: configs, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
     }
 
     public func updateLocalizations() {

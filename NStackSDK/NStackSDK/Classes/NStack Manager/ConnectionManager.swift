@@ -87,7 +87,7 @@ extension ConnectionManager {
 }
 // MARK: - LocalizationRepository
 extension ConnectionManager {
-    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
+    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[D]>) -> Void) where D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
@@ -100,13 +100,13 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let localizationCompletion: (Result<DataModel<[Localization]>>) -> Void = { (response) in
+        let localizationCompletion: (Result<DataModel<[LocalizationConfig]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
                 VersionUtilities.lastUpdatedDate = lastUpdated
                 let model = data.model
                 let result: Result = .success(model)
-                completion(result as! Result<[C]>)
+                completion(result as! Result<[D]>)
             default:
                 break
             }
@@ -114,7 +114,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, completionHandler: localizationCompletion)
     }
 
-    func getLocalizations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel {
+    func getLocalization<L, D>(descriptor: D, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel, D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios"
@@ -122,7 +122,7 @@ extension ConnectionManager {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        let url = localization.url
+        let url = descriptor.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
         let languageCompletion: (Result<LocalizationResponse<Language>>) -> Void = { (response) in
             completion(response as! Result<LocalizationResponse<L>>)

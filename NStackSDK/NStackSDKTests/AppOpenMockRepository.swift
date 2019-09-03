@@ -20,6 +20,22 @@ import LocalizationManager_macOS
 #endif
 
 class MockConnectionManager: Repository {
+    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Swift.Result<[D], Error>) -> Void) where D: LocalizationDescriptor {
+
+    }
+
+    func getLocalization<L, D>(descriptor: D, acceptLanguage: String, completion: @escaping (Swift.Result<LocalizationResponse<L>, Error>) -> Void) where L: LanguageModel, D: LocalizationDescriptor {
+
+        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
+            "default": ["successKey": "SuccessUpdated"],
+            "otherSection": ["anotherKey": "HeresAValue"]
+            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
+                                                         direction: "LRM", acceptLanguage: "en-GB",
+                                                         isDefault: true, isBestFit: true)))
+
+        let result: Result = .success(localizationsResponse!)
+        completion(result as! Result<LocalizationResponse<L>>)
+    }
 
     func fetchPreferredLanguages() -> [String] {
         return []
@@ -31,22 +47,6 @@ class MockConnectionManager: Repository {
 
     func fetchCurrentPhoneLanguage() -> String? {
         return nil
-    }
-
-    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
-
-    }
-
-    func getLocalizations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel {
-        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
-            "default": ["successKey": "SuccessUpdated"],
-            "otherSection": ["anotherKey": "HeresAValue"]
-            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
-                                                        direction: "LRM", acceptLanguage: "en-GB",
-                                                        isDefault: true, isBestFit: true)))
-
-        let result: Result = .success(localizationsResponse!)
-        completion(result as! Result<LocalizationResponse<L>>)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
@@ -152,7 +152,11 @@ extension MockConnectionManager {
                                update: nil,
                                rateReminder: nil,
                                localize: [
-                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)
+                                LocalizationConfig(lastUpdatedAt: Date(),
+                                                   localeIdentifier: "en-GB",
+                                                   shouldUpdate: true,
+                                                   url: "locazlize.56.url",
+                                                   language: lang)
                                 ],
                                platform: "ios",
                                createdAt: "2019-06-21T14:10:29+00:00",

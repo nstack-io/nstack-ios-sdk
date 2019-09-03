@@ -162,7 +162,7 @@ public class NStack {
 
     func setupLocalizations() {
         // Setup localizations
-        let manager = LocalizationManager<Language, Localization>(repository: repository,
+        let manager = LocalizationManager<Language, LocalizationConfig>(repository: repository,
                                                                   contextRepository: repository,
                                                                   localizableModel: configuration.localizationClass,
                                                                   updateMode: .manual)
@@ -212,7 +212,7 @@ public class NStack {
 
                 // Update localizations
                 if let localizations = appOpenResponseData.localize {
-                    self.localizationManager?.handleLocalizationModels(localizations: localizations,
+                    self.localizationManager?.handleLocalizationModels(configs: localizations,
                                                                        acceptHeaderUsed: header,
                                                                        completion: { (error) in
                                                                         if error != nil {
