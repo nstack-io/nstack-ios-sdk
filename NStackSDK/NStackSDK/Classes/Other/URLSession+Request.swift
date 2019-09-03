@@ -132,7 +132,7 @@ extension URLSession {
         guard let response = response as? HTTPURLResponse else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
-        
+
         // Remove this print when done testing
         if
             let data = data,

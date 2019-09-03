@@ -25,8 +25,8 @@ public class AlertManager {
                         dismissButtonText: String?,
                         appStoreButtonText: String,
                         completion:(_ didPressAppStore: Bool) -> Void)
-        case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion:() -> Void)
-        case message(text: String, dismissButtonText: String, completion:() -> Void)
+        case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion: () -> Void)
+        case message(text: String, dismissButtonText: String, completion: () -> Void)
     }
 
     let repository: VersionsRepository

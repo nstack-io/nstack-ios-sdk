@@ -12,11 +12,11 @@ enum Proposals {
     enum Request { }
     enum Response { }
     enum DisplayData { }
-    
+
     enum Action {
         case deleteProposal(section: Int, index: Int)
     }
-    
+
     enum Route {
     }
 }

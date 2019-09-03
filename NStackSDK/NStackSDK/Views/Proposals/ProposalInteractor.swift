@@ -12,7 +12,7 @@ class ProposalInteractor {
     // MARK: - Properties
     weak var output: ProposalInteractorOutput?
     private let nstack: NStack?
-    
+
     // MARK: - Init
     init(nstack: NStack) {
         self.nstack = nstack
@@ -33,5 +33,5 @@ extension ProposalInteractor: ProposalInteractorInput {
             }
         })
     }
-    
+
 }
