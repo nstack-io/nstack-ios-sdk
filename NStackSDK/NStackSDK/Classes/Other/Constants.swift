@@ -9,7 +9,7 @@
 enum Constants {
     enum CacheKeys {
         static let previousVersion      = "PreviousVersionKey"
-        static let lastUpdatedDate      = "LastUpdated"
+        static let lastUpdatedDate      = "LastUpdatedKey"
         static let prevAcceptedLanguage = "PrevAcceptedLanguageKey"
         static let countries            = "CountriesKey"
         static let continents           = "ContinentsKey"

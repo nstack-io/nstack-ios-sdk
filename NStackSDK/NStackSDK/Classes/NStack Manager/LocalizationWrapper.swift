@@ -112,7 +112,7 @@ extension LocalizationWrapper: LocalizationWrappable {
             fatalError("no translations found")
         }
     }
-  
+
     public func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
         translationsManager?.handleLocalizationModels(localizations: localizations, acceptHeaderUsed: acceptHeaderUsed, completion: completion)
     }
