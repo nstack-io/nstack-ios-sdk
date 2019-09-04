@@ -129,11 +129,6 @@ extension ConnectionManager {
         }
         session.startDataTask(with: request, completionHandler: languageCompletion)
     }
-
-    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
-        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
-        completion(.success([lang] as! [L]))
-    }
 }
 // MARK: - LocalizationContextRepository
 extension ConnectionManager {
