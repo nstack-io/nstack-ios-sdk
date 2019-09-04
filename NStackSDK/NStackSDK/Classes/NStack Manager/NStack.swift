@@ -201,7 +201,7 @@ public class NStack {
 
         // FIXME: Refactor
         let acceptLanguageProvider = AcceptLanguageProvider(repository: repository)
-        let header = acceptLanguageProvider.createHeaderString()
+        let header = acceptLanguageProvider.createHeaderString(languageOverride: translationsManager?.languageOverride)
         repository.postAppOpen(oldVersion: VersionUtilities.previousAppVersion,
                                currentVersion: VersionUtilities.currentAppVersion,
                                acceptLanguage: header,
