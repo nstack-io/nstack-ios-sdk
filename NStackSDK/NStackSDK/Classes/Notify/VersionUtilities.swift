@@ -16,7 +16,16 @@ enum VersionUtilities {
             return UserDefaults.standard.string(forKey: Constants.CacheKeys.previousVersion) ?? currentAppVersion
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Constants.CacheKeys.previousVersion)
+            UserDefaults.standard.setValue(newValue, forKey: Constants.CacheKeys.previousVersion)
+        }
+    }
+
+    static var lastUpdatedIso8601Date: String {
+        get {
+            return UserDefaults.standard.string(forKey: Constants.CacheKeys.lastUpdatedDate) ?? ""
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.CacheKeys.lastUpdatedDate)
         }
     }
 
