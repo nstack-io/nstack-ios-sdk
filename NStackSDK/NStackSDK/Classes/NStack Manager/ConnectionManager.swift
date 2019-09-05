@@ -82,7 +82,7 @@ extension ConnectionManager {
         let url = baseURLv2 + "open" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
-        session.startDataTask(with: request, completionHandler: completion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
     }
 }
 // MARK: - TranslationRepository
@@ -111,7 +111,7 @@ extension ConnectionManager {
                 break
             }
         }
-        session.startDataTask(with: request, completionHandler: localizationCompletion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: localizationCompletion)
     }
 
     func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
@@ -127,7 +127,7 @@ extension ConnectionManager {
         let languageCompletion: (Result<TranslationResponse<Language>>) -> Void = { (response) in
             completion(response as! Result<TranslationResponse<L>>)
         }
-        session.startDataTask(with: request, completionHandler: languageCompletion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languageCompletion)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
@@ -145,7 +145,7 @@ extension ConnectionManager {
                 completion(result as! Result<[L]>)
             }
         }
-        session.startDataTask(with: request, completionHandler: languagesCompletion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languagesCompletion)
     }
 }
 // MARK: - LocalizationContextRepository
@@ -159,7 +159,7 @@ extension ConnectionManager {
     }
 
     func fetchCurrentPhoneLanguage() -> String? {
-        return nil
+        return Locale.preferredLanguages.first
     }
 }
 
@@ -178,7 +178,7 @@ extension ConnectionManager {
         let url = baseURLv1 + "notify/updates"
 
         let request = session.request(url, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - VersionsRepository
@@ -228,38 +228,38 @@ extension ConnectionManager {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
         let url = baseURLv1 + "geographic/continents"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
         let url = baseURLv1 + "geographic/languages"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
         let url = baseURLv1 + "geographic/time_zones"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         let url = baseURLv1 + "geographic/time_zones/by_lat_lng"
         let parameters: [String: Any] = ["lat_lng": "\(String(lat)),\(String(lng))"]
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
         let url = baseURLv1 + "geographic/ip-address"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
         let url = baseURLv1 + "geographic/countries"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ValidationRepository
@@ -268,7 +268,7 @@ extension ConnectionManager {
         let parameters: [String: Any] = ["email": email]
         let url = baseURLv1 + "validator/email"
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ContentRepository
@@ -276,7 +276,7 @@ extension ConnectionManager {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>) {
         let url = baseURLv1 + "content/responses/\(slug)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ColletionRepository
@@ -284,7 +284,7 @@ extension ConnectionManager {
     func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
         let url = baseURLv1 + "content/collections/\(id)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 
@@ -307,18 +307,18 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/proposals"
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
         let url = baseURLv2 + "content/localize/proposals?guid=\(Configuration.guid)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
         let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
         let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }

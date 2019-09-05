@@ -27,6 +27,12 @@ public struct Localization: LocalizationModel {
     public var shouldUpdate: Bool
     public var language: Language
 
+    enum CodingKeys: String, CodingKey {
+        case language, url, id
+        case lastUpdatedAt = "last_updated_at"
+        case shouldUpdate = "should_update"
+    }
+
     public var localeIdentifier: String {
         return language.acceptLanguage
     }
