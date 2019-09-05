@@ -129,6 +129,22 @@ extension ConnectionManager {
         }
         session.startDataTask(with: request, completionHandler: languageCompletion)
     }
+
+    func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
+        let url = baseURLv2 + "content/localize/mobile/languages"
+        let request = session.request(url, method: .get, parameters: nil, headers: defaultHeaders)
+        let languagesCompletion: (Result<DataModel<[Language]>>) -> Void = { (response) in
+            switch response {
+            case .success(let data):
+                let model = data.model
+                let result: Result = .success(model)
+                completion(result as! Result<[L]>)
+            default:
+                break
+            }
+        }
+        session.startDataTask(with: request, completionHandler: languagesCompletion)
+    }
 }
 // MARK: - LocalizationContextRepository
 extension ConnectionManager {
