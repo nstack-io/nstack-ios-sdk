@@ -139,8 +139,10 @@ extension ConnectionManager {
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
-            default:
-                break
+            case .failure(let error):
+                let model: [Language] = []
+                let result: Result = .success(model)
+                completion(result as! Result<[L]>)
             }
         }
         session.startDataTask(with: request, completionHandler: languagesCompletion)

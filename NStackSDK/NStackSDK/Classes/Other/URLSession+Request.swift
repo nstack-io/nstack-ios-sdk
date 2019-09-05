@@ -101,7 +101,6 @@ extension URLSession {
             do {
                 let data = try self.validate(data, response, error)
                 let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 let decoded = try decoder.decode(T.self, from: data)
                 handler(Result.success(decoded))
@@ -117,7 +116,6 @@ extension URLSession {
             do {
                 let data = try self.validate(data, response, error)
                 let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
 
                 let parentData = try decoder.decode(wrapperType, from: data)
                 handler(Result.success(parentData.model))
