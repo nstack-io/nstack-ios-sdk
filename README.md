@@ -12,7 +12,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## What is NStack?
 
-See the [NStack documentation](https://nstack-io.github.io/documentation/index.html) for more information about NStack
+See the [NStack documentation](https://nstack-io.github.io/documentation/docs/guides/iOS/ios.html) for more information about NStack
 
 ## 📝 Requirements
 
@@ -24,7 +24,7 @@ See the [NStack documentation](https://nstack-io.github.io/documentation/index.h
 ### Carthage
 ~~~
 # Swift 5
-github "nstack-io/nstack-ios-sdk" ~> 3.0
+github "nstack-io/nstack-ios-sdk" ~> 4.0
 
 # Swift 4.2-5 using Alamofire 5 - Pre-release
 github "nstack-io/nstack-ios-sdk" "feature/alamofire5"
