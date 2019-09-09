@@ -20,4 +20,11 @@ struct AppOpenData: Codable {
 
     let createdAt: String
     let lastUpdated: String?
+
+    enum CodingKeys: String, CodingKey {
+        case count, message, update, localize, platform
+        case lastUpdated = "last_updated"
+        case createdAt = "created_at"
+        case rateReminder = "rate_reminder"
+    }
 }

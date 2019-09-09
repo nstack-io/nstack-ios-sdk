@@ -65,7 +65,7 @@ extension ConnectionManager {
             "version": currentVersion,
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedDate?.iso8601 ?? "",
+            "last_updated": VersionUtilities.lastUpdatedIso8601Date,
             "old_version": oldVersion
         ]
 
@@ -82,7 +82,7 @@ extension ConnectionManager {
         let url = baseURLv2 + "open" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
-        session.startDataTask(with: request, completionHandler: completion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
     }
 }
 // MARK: - LocalizationRepository
@@ -91,7 +91,7 @@ extension ConnectionManager {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": lastUpdated?.iso8601 ?? ""
+            "last_updated": VersionUtilities.lastUpdatedIso8601Date
         ]
 
         var headers = defaultHeaders
@@ -103,7 +103,7 @@ extension ConnectionManager {
         let localizationCompletion: (Result<DataModel<[LocalizationConfig]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
-                VersionUtilities.lastUpdatedDate = lastUpdated
+                VersionUtilities.lastUpdatedIso8601Date = Date().iso8601
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[D]>)
@@ -111,7 +111,7 @@ extension ConnectionManager {
                 break
             }
         }
-        session.startDataTask(with: request, completionHandler: localizationCompletion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: localizationCompletion)
     }
 
     func getLocalization<L, D>(descriptor: D, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel, D: LocalizationDescriptor {
@@ -127,12 +127,25 @@ extension ConnectionManager {
         let languageCompletion: (Result<LocalizationResponse<Language>>) -> Void = { (response) in
             completion(response as! Result<LocalizationResponse<L>>)
         }
-        session.startDataTask(with: request, completionHandler: languageCompletion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languageCompletion)
     }
 
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
-        let lang = Language(id: 1, name: "English", direction: "lrm", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
-        completion(.success([lang] as! [L]))
+        let url = baseURLv2 + "content/localize/mobile/languages"
+        let request = session.request(url, method: .get, parameters: nil, headers: defaultHeaders)
+        let languagesCompletion: (Result<DataModel<[Language]>>) -> Void = { (response) in
+            switch response {
+            case .success(let data):
+                let model = data.model
+                let result: Result = .success(model)
+                completion(result as! Result<[L]>)
+            case .failure(let error):
+                let model: [Language] = []
+                let result: Result = .success(model)
+                completion(result as! Result<[L]>)
+            }
+        }
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languagesCompletion)
     }
 }
 // MARK: - LocalizationContextRepository
@@ -146,7 +159,7 @@ extension ConnectionManager {
     }
 
     func fetchCurrentPhoneLanguage() -> String? {
-        return nil
+        return Locale.preferredLanguages.first
     }
 }
 
@@ -165,7 +178,7 @@ extension ConnectionManager {
         let url = baseURLv1 + "notify/updates"
 
         let request = session.request(url, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - VersionsRepository
@@ -215,38 +228,38 @@ extension ConnectionManager {
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
         let url = baseURLv1 + "geographic/continents"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchLanguages(completion: @escaping Completion<[Language]>) {
         let url = baseURLv1 + "geographic/languages"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
         let url = baseURLv1 + "geographic/time_zones"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         let url = baseURLv1 + "geographic/time_zones/by_lat_lng"
         let parameters: [String: Any] = ["lat_lng": "\(String(lat)),\(String(lng))"]
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
         let url = baseURLv1 + "geographic/ip-address"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchCountries(completion:  @escaping Completion<[Country]>) {
         let url = baseURLv1 + "geographic/countries"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ValidationRepository
@@ -255,7 +268,7 @@ extension ConnectionManager {
         let parameters: [String: Any] = ["email": email]
         let url = baseURLv1 + "validator/email"
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ContentRepository
@@ -263,7 +276,7 @@ extension ConnectionManager {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>) {
         let url = baseURLv1 + "content/responses/\(slug)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ColletionRepository
@@ -271,7 +284,7 @@ extension ConnectionManager {
     func fetchCollection<T: Codable>(_ id: Int, completion: @escaping ((Result<T>) -> Void)) {
         let url = baseURLv1 + "content/collections/\(id)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 
@@ -294,18 +307,18 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/proposals"
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
         let url = baseURLv2 + "content/localize/proposals?guid=\(Configuration.guid)"
         let request = session.request(url, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
         let url = baseURLv2 + "content/localize/proposals/\(proposal.id)?guid=\(Configuration.guid)"
         let request = session.request(url, method: .delete, parameters: nil, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }

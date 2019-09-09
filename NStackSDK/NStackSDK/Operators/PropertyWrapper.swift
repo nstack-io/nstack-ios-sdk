@@ -8,21 +8,23 @@
 
 import Foundation
 
-//@propertyWrapper public struct NSLocalizable<T: NStackLocalizable> {
-//    private var _component: NStackLocalizable?
-//    var localization: String
-//
-//    public init(_ localizationKey: String) {
-//        self.localization = localizationKey
-//    }
-//
-//    // Has to be 'value' for the @propertyWrapper to work.
-//    // 'value' refers to the NStackLocalizable component that will use the localization
-//    public var value: T? {
-//        get { return _component as? T }
-//        set {
-//            _component = newValue
-//            _component?.localize(for: localization)
-//        }
-//    }
-//}
+#if swift(>=5.1)
+@propertyWrapper public struct NSLocalizable<T: NStackLocalizable> {
+    private var _component: NStackLocalizable?
+    var translation: String
+
+    public init(_ translationKey: String) {
+        self.translation = translationKey
+    }
+
+    // Has to be 'value' for the @propertyWrapper to work.
+    // 'value' refers to the NStackLocalizable component that will use the translation
+    public var wrappedValue: T? {
+        get { return _component as? T }
+        set {
+            _component = newValue
+            _component?.localize(for: translation)
+        }
+    }
+}
+#endif
