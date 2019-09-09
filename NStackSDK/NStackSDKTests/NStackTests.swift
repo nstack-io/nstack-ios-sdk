@@ -36,7 +36,23 @@ class NStackTests: XCTestCase {
 
     func testUpdateAppOpen() {
         NStack.sharedInstance.update()
+
         XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Localization Manager where that sets the best fit language.")
+    }
+
+    func testUpdateAppOpenFail() {
+        if let mockRepo = NStack.sharedInstance.repository as? MockConnectionManager {
+            mockRepo.succeed = false
+        }
+        let exp = expectation(description: "error returned")
+        NStack.sharedInstance.update { (error) in
+            if let err = error {
+                exp.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 5.0)
     }
 
     func testGetLocalization() {
@@ -119,6 +135,35 @@ class NStackTests: XCTestCase {
             }
         }
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)
+        waitForExpectations(timeout: 5.0)
+    }
+
+    func testStoreProposal() {
+        let exp = expectation(description: "Proposal stored")
+        let localizationIdentifier = LocalizationItemIdentifier(section: "section", key: "key")
+        NStack.sharedInstance.storeProposal(for: localizationIdentifier, with: "new_value") { (error) in
+            if error == nil {
+                exp.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 5.0)
+    }
+
+    func testStoreProposalFail() {
+        if let mockRepo = NStack.sharedInstance.repository as? MockConnectionManager {
+            mockRepo.succeed = false
+        }
+        let exp = expectation(description: "Proposal stored")
+        let localizationIdentifier = LocalizationItemIdentifier(section: "section", key: "key")
+        NStack.sharedInstance.storeProposal(for: localizationIdentifier, with: "new_value") { (error) in
+            if error != nil {
+                exp.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
         waitForExpectations(timeout: 5.0)
     }
 }

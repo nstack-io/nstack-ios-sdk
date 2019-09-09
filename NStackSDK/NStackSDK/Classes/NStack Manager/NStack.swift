@@ -243,8 +243,6 @@ public class NStack {
                 }
                 #endif
             case let .failure(error):
-                // FIXME: Fix logging
-//                self.logger.log("Failure: \(response.response?.description ?? "unknown error")", level: .error)
                 completion?(.updateFailed(reason: error.localizedDescription))
             }
         })
@@ -257,8 +255,11 @@ public class NStack {
     ///   - key: The actual key for the text
     ///   - value: The new value for the key
     ///   - locale: The locale it should affect
-    func storeProposal(for identifier: LocalizationItemIdentifier, with value: String) {
-        guard let language = localizationManager?.bestFitLanguage else { return }
+    func storeProposal(for identifier: LocalizationItemIdentifier, with value: String, completion: @escaping ((_ error: NStackError.Localization?) -> Void)) {
+        guard let language = localizationManager?.bestFitLanguage else {
+            completion(.updateFailed(reason: "No best fit language"))
+            return
+        }
         let locale = language.locale
 
         repository.storeProposal(section: identifier.section,
@@ -271,10 +272,15 @@ public class NStack {
                     let identifier = SectionKeyHelper.transform(SectionKeyHelper.combine(section: response.section,
                                                                                            key: response.key)),
                     let locale = response.locale
-                else { return }
+                else {
+                    completion(.updateFailed(reason: "Identifier/Locale from response could not be found."))
+                    return
+                }
                 self.localizationManager?.storeProposal(response.value, locale: locale, for: identifier)
+                completion(nil)
             case .failure(let error):
                 self.logger.logError("NStack failed storing proposal: " + error.localizedDescription)
+                completion(.updateFailed(reason: error.localizedDescription))
             }
         }
     }

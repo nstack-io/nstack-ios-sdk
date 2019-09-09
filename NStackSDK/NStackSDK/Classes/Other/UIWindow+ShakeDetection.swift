@@ -265,7 +265,11 @@ extension UIWindow {
                     item.localizableValue = textField.text
                     // Send proposal to API
                     if let identifier = item.localizationItemIdentifier {
-                        NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
+                        NStack.sharedInstance.storeProposal(for: identifier,
+                                                            with: textField.text ?? "",
+                                                            completion: { (error) in
+                                                                self.showConfirmationAlert(text: error?.localizedDescription ?? "Proposal Stored")
+                        })
                     }
                 }
             })
@@ -285,6 +289,16 @@ extension UIWindow {
             alertController.addAction(cancelAction)
 
             dismissFlow()
+            visibleViewController.present(alertController, animated: true, completion: nil)
+        }
+    }
+
+    func showConfirmationAlert(text: String) {
+        if let visibleViewController = visibleViewController {
+            let alertController = UIAlertController(title: text, message: "", preferredStyle: UIAlertController.Style.alert)
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            alertController.addAction(okAction)
             visibleViewController.present(alertController, animated: true, completion: nil)
         }
     }

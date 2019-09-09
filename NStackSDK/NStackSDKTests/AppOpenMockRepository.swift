@@ -20,6 +20,8 @@ import LocalizationManager_macOS
 #endif
 
 class MockConnectionManager: Repository {
+    var succeed: Bool = true
+
     func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Swift.Result<[D], Error>) -> Void) where D: LocalizationDescriptor {
 
     }
@@ -134,7 +136,12 @@ class MockConnectionManager: Repository {
     }
 
     func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
-
+        let proposal = Proposal(id: 1, applicationId: 123, key: key, section: section, localeString: locale, value: value)
+        if succeed {
+            completion(.success(proposal))
+        } else {
+            completion(.failure(NSError(domain: "", code: 500, userInfo: nil)))
+        }
     }
 
     func fetchProposals(completion: @escaping Completion<[Proposal]>) {
@@ -148,23 +155,28 @@ class MockConnectionManager: Repository {
 
 extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
-        let lang = DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true)
-        let data = AppOpenData(count: 58,
-                               message: nil,
-                               update: nil,
-                               rateReminder: nil,
-                               localize: [
-                                LocalizationConfig(lastUpdatedAt: Date(),
-                                                   localeIdentifier: "en-GB",
-                                                   shouldUpdate: true,
-                                                   url: "locazlize.56.url",
-                                                   language: lang)
-                                ],
-                               platform: "ios",
-                               createdAt: "2019-06-21T14:10:29+00:00",
-                               lastUpdated: "2019-06-21T14:10:29+00:00")
 
-        let response = AppOpenResponse(data: data, languageData: LanguageData(acceptLanguage: "da-DK"))
-        completion(.success(response))
+        if succeed {
+            let lang = DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true)
+            let data = AppOpenData(count: 58,
+                                   message: nil,
+                                   update: nil,
+                                   rateReminder: nil,
+                                   localize: [
+                                    LocalizationConfig(lastUpdatedAt: Date(),
+                                                       localeIdentifier: "en-GB",
+                                                       shouldUpdate: true,
+                                                       url: "locazlize.56.url",
+                                                       language: lang)
+                ],
+                                   platform: "ios",
+                                   createdAt: "2019-06-21T14:10:29+00:00",
+                                   lastUpdated: "2019-06-21T14:10:29+00:00")
+
+            let response = AppOpenResponse(data: data, languageData: LanguageData(acceptLanguage: "da-DK"))
+            completion(.success(response))
+        } else {
+            completion(.failure(NSError(domain: "", code: 500, userInfo: nil)))
+        }
     }
 }

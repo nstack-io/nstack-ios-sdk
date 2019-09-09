@@ -47,6 +47,7 @@ public struct Configuration {
     public var verboseMode = false
     public var flat = false
     public var useMock = false
+    public var mockSucceed = true
     public var localizationUrlOverride: String?
     public var currentEnvironment: NStackEnvironment
 
