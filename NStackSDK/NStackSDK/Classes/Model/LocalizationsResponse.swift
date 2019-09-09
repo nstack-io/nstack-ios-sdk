@@ -21,7 +21,7 @@ import LocalizationManager_macOS
 
 public struct LocalizationsResponse: Codable {
     let localization: [String: Any]
-    let language: Language?
+    let language: DefaultLanguage?
 
     enum CodingKeys: String, CodingKey {
         case localization = "data"
@@ -42,7 +42,7 @@ public struct LocalizationsResponse: Codable {
         localization = try values.decodeIfPresent([String: Any].self, forKey: .localization) ?? [:]
 
         let languageData = try values.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
-        language = try languageData.decodeIfPresent(Language.self, forKey: .language)
+        language = try languageData.decodeIfPresent(DefaultLanguage.self, forKey: .language)
     }
 
     public func encode(to encoder: Encoder) throws {

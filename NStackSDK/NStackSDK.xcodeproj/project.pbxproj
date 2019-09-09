@@ -99,8 +99,11 @@
 		23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
+		239A25BC232658C900EC67FC /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239A25BB232658C900EC67FC /* Localization.swift */; };
+		239A25BD232658C900EC67FC /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239A25BB232658C900EC67FC /* Localization.swift */; };
+		239A25BE232658C900EC67FC /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239A25BB232658C900EC67FC /* Localization.swift */; };
+		239A25BF232658C900EC67FC /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239A25BB232658C900EC67FC /* Localization.swift */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
-		23D3DD88231D600A004427BB /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3DD87231D600A004427BB /* Language.swift */; };
 		23D3DD8A231D63A1004427BB /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3DD89231D63A1004427BB /* LocalizationConfig.swift */; };
 		2DDAC7512F7DC94F3382176C /* Pods_NStackSDK_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313EA78AC0449925458336C5 /* Pods_NStackSDK_tvOSTests.framework */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -328,8 +331,8 @@
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		238D644722C518B3002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
+		239A25BB232658C900EC67FC /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Classes/Model/Localization.swift; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
-		23D3DD87231D600A004427BB /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		23D3DD89231D63A1004427BB /* LocalizationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationConfig.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
@@ -591,7 +594,7 @@
 				8C80D0F622F066AC00165F5D /* Proposal.swift */,
 				A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */,
 				8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */,
-				23D3DD87231D600A004427BB /* Language.swift */,
+				239A25BB232658C900EC67FC /* Localization.swift */,
 				23D3DD89231D63A1004427BB /* LocalizationConfig.swift */,
 			);
 			name = Models;
@@ -1320,6 +1323,7 @@
 				01A334931E4F1B59003CE9BA /* LogLevel.swift in Sources */,
 				C0D852D1215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */,
+				239A25BF232658C900EC67FC /* Localization.swift in Sources */,
 				01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */,
 				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
@@ -1360,7 +1364,6 @@
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
-				23D3DD88231D600A004427BB /* Language.swift in Sources */,
 				A864BBEC22F31AD200CC2BFF /* LocalizationItemIdentifier.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */,
@@ -1376,6 +1379,7 @@
 				01814A2C1D6209F40053E804 /* LocalizationsResponse.swift in Sources */,
 				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
+				239A25BC232658C900EC67FC /* Localization.swift in Sources */,
 				C0D852ED215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */,
 				83E20E4322D756CD006D5BEF /* N-Meta.swift in Sources */,
@@ -1452,6 +1456,7 @@
 				E3689C0C1D9EBA54004620D6 /* AlertManager.swift in Sources */,
 				E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */,
 				C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
+				239A25BD232658C900EC67FC /* Localization.swift in Sources */,
 				01A3344B1E4E825E003CE9BA /* Constants.swift in Sources */,
 				01A3344E1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
@@ -1527,6 +1532,7 @@
 				01A3344C1E4E825E003CE9BA /* Constants.swift in Sources */,
 				01A3344F1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				83E20E4522D75B35006D5BEF /* N-Meta.swift in Sources */,
+				239A25BE232658C900EC67FC /* Localization.swift in Sources */,
 				8C9BA2DF22EEFFF00057BAEF /* Operator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -45,11 +45,11 @@ public protocol NStackLocalizable where Self: NStackLocalizableView {
 
 public protocol LocalizationWrappable {
 
-    var bestFitLanguage: Language? { get }
+    var bestFitLanguage: DefaultLanguage? { get }
     var languageOverride: Locale? { get }
 
     func localization<L: LocalizableModel>() throws -> L
-    func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void))
+    func fetchAvailableLanguages(completion: @escaping (([DefaultLanguage]) -> Void))
 
     func handleLocalizationModels(configs: [LocalizationConfig], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
     func updateLocalizations()
@@ -65,11 +65,11 @@ public protocol LocalizationWrappable {
 }
 
 public class LocalizationWrapper {
-    private(set) var localizationManager: LocalizationManager<Language, LocalizationConfig>?
+    private(set) var localizationManager: LocalizationManager<DefaultLanguage, LocalizationConfig>?
     let originallyLocalizedComponents: NSMapTable<LocalizationItemIdentifier, NStackLocalizable>
     var proposedChanges: [LocalizationItemIdentifier: LocalizationItemProposal]
 
-    init(localizationManager: LocalizationManager<Language, LocalizationConfig>) {
+    init(localizationManager: LocalizationManager<DefaultLanguage, LocalizationConfig>) {
         self.localizationManager = localizationManager
         self.originallyLocalizedComponents = NSMapTable(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
         self.proposedChanges = [LocalizationItemIdentifier: LocalizationItemProposal]()
@@ -82,11 +82,11 @@ extension LocalizationWrapper: LocalizationWrappable {
         return localizationManager?.languageOverride?.locale
     }
 
-    public var bestFitLanguage: Language? {
+    public var bestFitLanguage: DefaultLanguage? {
         return localizationManager?.bestFitLanguage
     }
 
-    public func fetchAvailableLanguages(completion: @escaping (([Language]) -> Void)) {
+    public func fetchAvailableLanguages(completion: @escaping (([DefaultLanguage]) -> Void)) {
         localizationManager?.fetchAvailableLanguages(completion: completion)
     }
 
@@ -126,8 +126,8 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
 
     public func setOverrideLocale(locale: Locale) {
-        let language = Language(id: 1, name: "",
-                                direction: "", acceptLanguage: locale.identifier,
+        let language = DefaultLanguage(id: 1, name: "",
+                                direction: "", locale: locale,
                                 isDefault: false, isBestFit: false)
         self.localizationManager?.languageOverride = language
     }

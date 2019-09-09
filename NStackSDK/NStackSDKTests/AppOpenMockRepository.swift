@@ -26,12 +26,14 @@ class MockConnectionManager: Repository {
 
     func getLocalization<L, D>(descriptor: D, acceptLanguage: String, completion: @escaping (Swift.Result<LocalizationResponse<L>, Error>) -> Void) where L: LanguageModel, D: LocalizationDescriptor {
 
-        let localizationsResponse: LocalizationResponse<Language>? = LocalizationResponse(localizations: [
+        let language = DefaultLanguage(id: 1, name: "English",
+                                       direction: "LRM", locale: Locale(identifier: "en-GB"),
+                                       isDefault: true, isBestFit: true)
+
+        let localizationsResponse: LocalizationResponse<DefaultLanguage>? = LocalizationResponse(localizations: [
             "default": ["successKey": "SuccessUpdated"],
             "otherSection": ["anotherKey": "HeresAValue"]
-            ], meta: LocalizationMeta(language: Language(id: 1, name: "English",
-                                                         direction: "LRM", acceptLanguage: "en-GB",
-                                                         isDefault: true, isBestFit: true)))
+            ], meta: LocalizationMeta(language: language))
 
         let result: Result = .success(localizationsResponse!)
         completion(result as! Result<LocalizationResponse<L>>)
@@ -79,7 +81,7 @@ class MockConnectionManager: Repository {
         completion(result)
     }
 
-    func fetchLanguages(completion: @escaping Completion<[Language]>) {
+    func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>) {
 
     }
 
@@ -146,7 +148,7 @@ class MockConnectionManager: Repository {
 
 extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
-        let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
+        let lang = DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true)
         let data = AppOpenData(count: 58,
                                message: nil,
                                update: nil,

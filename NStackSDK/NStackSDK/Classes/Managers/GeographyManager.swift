@@ -92,12 +92,12 @@ public class GeographyManager {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateLanguages(completion: @escaping Completion<[Language]>) {
+    func updateLanguages(completion: @escaping Completion<[DefaultLanguage]>) {
         repository.fetchLanguages(completion: completion)
     }
 
     /// Locally stored list of languages
-    private(set) var languages: [Language]? {
+    private(set) var languages: [DefaultLanguage]? {
         get {
             // FIXME: Load from disk on start
             //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)

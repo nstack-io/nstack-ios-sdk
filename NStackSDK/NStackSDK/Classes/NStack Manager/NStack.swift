@@ -162,7 +162,7 @@ public class NStack {
 
     func setupLocalizations() {
         // Setup localizations
-        let manager = LocalizationManager<Language, LocalizationConfig>(repository: repository,
+        let manager = LocalizationManager<DefaultLanguage, LocalizationConfig>(repository: repository,
                                                                   contextRepository: repository,
                                                                   localizableModel: configuration.localizationClass,
                                                                   updateMode: .manual)
@@ -259,12 +259,12 @@ public class NStack {
     ///   - locale: The locale it should affect
     func storeProposal(for identifier: LocalizationItemIdentifier, with value: String) {
         guard let language = localizationManager?.bestFitLanguage else { return }
-        let locale = language.acceptLanguage
+        let locale = language.locale
 
         repository.storeProposal(section: identifier.section,
                                  key: identifier.key,
                                  value: value,
-                                 locale: locale) { (result) in
+                                 locale: locale.identifier) { (result) in
             switch result {
             case .success(let response):
                 guard

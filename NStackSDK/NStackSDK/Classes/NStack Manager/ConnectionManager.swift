@@ -124,7 +124,7 @@ extension ConnectionManager {
 
         let url = descriptor.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let languageCompletion: (Result<LocalizationResponse<Language>>) -> Void = { (response) in
+        let languageCompletion: (Result<LocalizationResponse<DefaultLanguage>>) -> Void = { (response) in
             completion(response as! Result<LocalizationResponse<L>>)
         }
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languageCompletion)
@@ -133,14 +133,14 @@ extension ConnectionManager {
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
         let url = baseURLv2 + "content/localize/mobile/languages"
         let request = session.request(url, method: .get, parameters: nil, headers: defaultHeaders)
-        let languagesCompletion: (Result<DataModel<[Language]>>) -> Void = { (response) in
+        let languagesCompletion: (Result<DataModel<[DefaultLanguage]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             case .failure(let error):
-                let model: [Language] = []
+                let model: [DefaultLanguage] = []
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             }
@@ -231,7 +231,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
-    func fetchLanguages(completion: @escaping Completion<[Language]>) {
+    func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>) {
         let url = baseURLv1 + "geographic/languages"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
