@@ -42,15 +42,16 @@ class NStackTests: XCTestCase {
     }
 
     func testGetTranslation() {
-        NStack.sharedInstance.update()
-        do {
-            guard let result = try NStack.sharedInstance.translationsManager?.translations() as? Translations else {
+        NStack.sharedInstance.update { (_) in
+            do {
+                guard let result = try NStack.sharedInstance.translationsManager?.translations() as? Translations else {
+                    XCTFail()
+                    return
+                }
+                XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
+            } catch {
                 XCTFail()
-                return
             }
-            XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
-        } catch {
-            XCTFail()
         }
     }
 
