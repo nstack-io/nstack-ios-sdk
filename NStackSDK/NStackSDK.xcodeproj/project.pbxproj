@@ -272,62 +272,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		23B7653F2327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C061C1F1217889E400449A14;
-			remoteInfo = TranslationManager;
-		};
-		23B765412327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C061C1FA217889E400449A14;
-			remoteInfo = TranslationManagerTests;
-		};
-		23B765432327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8CBF5802230BCA6B00C60FF7;
-			remoteInfo = "TranslationManager-tvOS";
-		};
-		23B765452327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8CBF580A230BCA6C00C60FF7;
-			remoteInfo = "TranslationManager-tvOSTests";
-		};
-		23B765472327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8CA9F236230BE19F00CF8065;
-			remoteInfo = "TranslationManager-watchOS";
-		};
-		23B765492327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8C50882E230D1D0A00FB80CD;
-			remoteInfo = "TranslationManager-macOS";
-		};
-		23B7654B2327D26B000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8C508836230D1D0A00FB80CD;
-			remoteInfo = "TranslationManager-macOSTests";
-		};
-		23B7654D2327D271000A68D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C061C1F0217889E400449A14;
-			remoteInfo = TranslationManager;
-		};
 		30A3D8531B9DB94100C2D15C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 30A3D83E1B9DB94100C2D15C /* Project object */;
@@ -385,7 +329,6 @@
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		238D644722C518B3002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
-		23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TranslationManager.xcodeproj; path = ../../TranslationManager/TranslationManager.xcodeproj; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
 		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
@@ -625,20 +568,6 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
-		23B765362327D26B000A68D7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				23B765402327D26B000A68D7 /* TranslationManager.framework */,
-				23B765422327D26B000A68D7 /* TranslationManagerTests.xctest */,
-				23B765442327D26B000A68D7 /* TranslationManager_tvOS.framework */,
-				23B765462327D26B000A68D7 /* TranslationManager-tvOSTests.xctest */,
-				23B765482327D26B000A68D7 /* TranslationManager_watchOS.framework */,
-				23B7654A2327D26B000A68D7 /* TranslationManager_macOS.framework */,
-				23B7654C2327D26B000A68D7 /* TranslationManager-macOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		304C42801BA0743D00AE3D6F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,7 +616,6 @@
 		30A3D83D1B9DB94100C2D15C = {
 			isa = PBXGroup;
 			children = (
-				23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */,
 				30A3D8491B9DB94100C2D15C /* NStackSDK */,
 				30A3D8551B9DB94100C2D15C /* NStackSDK Tests */,
 				304C42851BA074CB00AE3D6F /* Frameworks */,
@@ -918,7 +846,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				23B7654E2327D271000A68D7 /* PBXTargetDependency */,
 			);
 			name = NStackSDK;
 			productName = NStack;
@@ -1080,12 +1007,6 @@
 			mainGroup = 30A3D83D1B9DB94100C2D15C;
 			productRefGroup = 30A3D8481B9DB94100C2D15C /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 23B765362327D26B000A68D7 /* Products */;
-					ProjectRef = 23B765352327D26B000A68D7 /* TranslationManager.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				30A3D8461B9DB94100C2D15C /* NStackSDK */,
@@ -1098,58 +1019,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		23B765402327D26B000A68D7 /* TranslationManager.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TranslationManager.framework;
-			remoteRef = 23B7653F2327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B765422327D26B000A68D7 /* TranslationManagerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = TranslationManagerTests.xctest;
-			remoteRef = 23B765412327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B765442327D26B000A68D7 /* TranslationManager_tvOS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TranslationManager_tvOS.framework;
-			remoteRef = 23B765432327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B765462327D26B000A68D7 /* TranslationManager-tvOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TranslationManager-tvOSTests.xctest";
-			remoteRef = 23B765452327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B765482327D26B000A68D7 /* TranslationManager_watchOS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TranslationManager_watchOS.framework;
-			remoteRef = 23B765472327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B7654A2327D26B000A68D7 /* TranslationManager_macOS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TranslationManager_macOS.framework;
-			remoteRef = 23B765492327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23B7654C2327D26B000A68D7 /* TranslationManager-macOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TranslationManager-macOSTests.xctest";
-			remoteRef = 23B7654B2327D26B000A68D7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		01A334721E4F1B2A003CE9BA /* Resources */ = {
@@ -1672,11 +1541,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		23B7654E2327D271000A68D7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TranslationManager;
-			targetProxy = 23B7654D2327D271000A68D7 /* PBXContainerItemProxy */;
-		};
 		30A3D8541B9DB94100C2D15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 30A3D8461B9DB94100C2D15C /* NStackSDK */;
