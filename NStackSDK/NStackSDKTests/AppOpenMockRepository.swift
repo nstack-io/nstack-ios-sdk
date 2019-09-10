@@ -146,7 +146,7 @@ class MockConnectionManager: Repository {
 
 extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
-        let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en_EN", isDefault: true, isBestFit: false)
+        let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
         let data = AppOpenData(count: 58,
                                message: nil,
                                update: nil,
