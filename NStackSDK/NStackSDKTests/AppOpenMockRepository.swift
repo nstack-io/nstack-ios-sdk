@@ -21,6 +21,20 @@ import LocalizationManager_macOS
 
 class MockConnectionManager: Repository {
     var succeed: Bool = true
+    var appOpenData = AppOpenData(count: 58,
+                                  message: nil,
+                                  update: nil,
+                                  rateReminder: nil,
+                                  localize: [
+                                    LocalizationConfig(lastUpdatedAt: Date(),
+                                                       localeIdentifier: "en-GB",
+                                                       shouldUpdate: true,
+                                                       url: "locazlize.56.url",
+                                                       language: DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true))
+        ],
+                                  platform: "ios",
+                                  createdAt: "2019-06-21T14:10:29+00:00",
+                                  lastUpdated: "2019-06-21T14:10:29+00:00")
 
     func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Swift.Result<[D], Error>) -> Void) where D: LocalizationDescriptor {
 
@@ -157,23 +171,7 @@ extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
 
         if succeed {
-            let lang = DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true)
-            let data = AppOpenData(count: 58,
-                                   message: nil,
-                                   update: nil,
-                                   rateReminder: nil,
-                                   localize: [
-                                    LocalizationConfig(lastUpdatedAt: Date(),
-                                                       localeIdentifier: "en-GB",
-                                                       shouldUpdate: true,
-                                                       url: "locazlize.56.url",
-                                                       language: lang)
-                ],
-                                   platform: "ios",
-                                   createdAt: "2019-06-21T14:10:29+00:00",
-                                   lastUpdated: "2019-06-21T14:10:29+00:00")
-
-            let response = AppOpenResponse(data: data, languageData: LanguageData(acceptLanguage: "da-DK"))
+            let response = AppOpenResponse(data: self.appOpenData, languageData: LanguageData(acceptLanguage: "da-DK"))
             completion(.success(response))
         } else {
             completion(.failure(NSError(domain: "", code: 500, userInfo: nil)))
