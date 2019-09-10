@@ -128,13 +128,13 @@ public class AlertManager {
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: nil,
-                                              appStoreButtonText: version.translations.positiveBtn,
+                                              appStoreButtonText: version.translations.positiveBtn ?? "",
                                               completion: appStoreCompletion)
         case .remind:
             alertType = AlertType.updateAlert(title: version.translations.title,
                                               text: version.translations.message,
                                               dismissButtonText: version.translations.negativeBtn,
-                                              appStoreButtonText: version.translations.positiveBtn,
+                                              appStoreButtonText: version.translations.positiveBtn ?? "",
                                               completion: appStoreCompletion)
         case .disabled:
             return
