@@ -37,7 +37,6 @@ class NStackTests: XCTestCase {
 
     func testUpdateAppOpen() {
         NStack.sharedInstance.update()
-
         XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Localization Manager where that sets the best fit language.")
     }
 
@@ -56,16 +55,17 @@ class NStackTests: XCTestCase {
         waitForExpectations(timeout: 5.0)
     }
 
-    func testGetLocalization() {
-        NStack.sharedInstance.update()
-        do {
-            guard let result = try NStack.sharedInstance.localizationManager?.localization() as? Localization else {
+    func testGetTranslation() {
+        NStack.sharedInstance.update { (_) in
+            do {
+                guard let result = try NStack.sharedInstance.localizationManager?.localization() as? Localization else {
+                    XCTFail()
+                    return
+                }
+                XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
+            } catch {
                 XCTFail()
-                return
             }
-            XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
-        } catch {
-            XCTFail()
         }
     }
 
@@ -175,7 +175,7 @@ class NStackTests: XCTestCase {
             let version = Update.Version(state: .remind, lastId: 12, version: "1.2.4", localizations: .init(title: "Update", message: "Update now", positiveBtn: "OK", negativeBtn: "No"), link: nil)
             mockRepo.appOpenData = AppOpenData(count: 59,
                                                message: nil,
-                                               update: Update(newInThisVersion: .init(state: true, lastId: 12, version: "1.2.3", translate: nil), newerVersion: version),
+                                               update: Update(newInThisVersion: Update.Changelog(state: true, lastId: 12, version: "1.2.3", localizations: nil), newerVersion: version),
                                                rateReminder: nil,
                                                localize: [
                                                 LocalizationConfig(lastUpdatedAt: Date(),

@@ -128,13 +128,13 @@ public class AlertManager {
             alertType = AlertType.updateAlert(title: version.localizations.title,
                                               text: version.localizations.message,
                                               dismissButtonText: nil,
-                                              appStoreButtonText: version.localizations.positiveBtn,
+                                              appStoreButtonText: version.localizations.positiveBtn ?? "",
                                               completion: appStoreCompletion)
         case .remind:
             alertType = AlertType.updateAlert(title: version.localizations.title,
                                               text: version.localizations.message,
                                               dismissButtonText: version.localizations.negativeBtn,
-                                              appStoreButtonText: version.localizations.positiveBtn,
+                                              appStoreButtonText: version.localizations.positiveBtn ?? "",
                                               completion: appStoreCompletion)
         case .disabled:
             return
@@ -144,7 +144,7 @@ public class AlertManager {
     }
 
     internal func showWhatsNewAlert(_ changeLog: Update.Changelog) {
-        guard let localizations = changeLog.translate else { return }
+        guard let localizations = changeLog.localizations else { return }
         let alertType = AlertType.whatsNewAlert(title: localizations.title,
                                                 text: localizations.message,
                                                 dismissButtonText: "Ok") {

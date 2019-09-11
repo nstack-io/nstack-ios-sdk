@@ -18,28 +18,29 @@ struct Update: Codable {
     let newInThisVersion: Changelog?
     let newerVersion: Version?
 
+    enum CodingKeys: String, CodingKey {
+        case newInThisVersion = "new_in_version"
+        case newerVersion = "newer_version"
+    }
+
     struct UpdateLocalizations: Codable {
         let title: String
         let message: String
-        let positiveBtn: String
-        let negativeBtn: String
-    }
-
-    struct Update: Codable {
-        let newInThisVersion: Changelog?
-        let newerVersion: Version?
-
-        enum CodingKeys: String, CodingKey {
-            case newInThisVersion = "new_in_version"
-            case newerVersion
-        }
+        let positiveBtn: String?
+        let negativeBtn: String?
     }
 
     struct Changelog: Codable {
         let state: Bool
         let lastId: Int
         let version: String
-        let translate: UpdateLocalizations?
+        let localizations: UpdateLocalizations?
+
+        enum CodingKeys: String, CodingKey {
+            case state, version
+            case localizations = "translate"
+            case lastId = "last_id"
+        }
     }
 
     struct Version: Codable {
@@ -50,7 +51,8 @@ struct Update: Codable {
         let link: URL?
 
         enum CodingKeys: String, CodingKey {
-            case state, lastId, version, link
+            case state, version, link
+            case lastId = "last_id"
             case localizations = "translate"
         }
     }
