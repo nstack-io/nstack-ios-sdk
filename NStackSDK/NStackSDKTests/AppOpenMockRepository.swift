@@ -116,7 +116,13 @@ class MockConnectionManager: Repository {
     }
 
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
-
+        let timezone = NStackSDK.Timezone(id: 1,
+                                                name: "TestTimeZone",
+                                                abbreviation: "",
+                                                offsetSec: 12,
+                                                label: "")
+        let result: Result = .success(timezone)
+        completion(result)
     }
 
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {

@@ -35,6 +35,17 @@ class NStackTests: XCTestCase {
         XCTAssertTrue(NStack.sharedInstance.configured, "NStack should be configured after calling start.")
     }
 
+    func testLogsErrorWhenAlreadyConfigured() {
+        XCTAssertEqual(NStack.sharedInstance.configuration.appId, "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90")
+        var conf = Configuration(plistName: "BadNStack", environment: .debug, localizationClass: Localization.self)
+        conf.verboseMode = true
+        conf.updateOptions = [.onDidBecomeActive]
+        conf.versionOverride = "2.0"
+        conf.useMock = true
+        NStack.start(configuration: conf, launchOptions: nil)
+        XCTAssertEqual(NStack.sharedInstance.configuration.appId, "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90")
+    }
+
     func testUpdateAppOpen() {
         NStack.sharedInstance.update()
         XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Localization Manager where that sets the best fit language.")
@@ -149,6 +160,20 @@ class NStackTests: XCTestCase {
             return
         }
         XCTAssertEqual(timezone.name, "TestTimeZone")
+    }
+
+    func testFetchTimezone() {
+        let exp = expectation(description: "Timezone fetched")
+        NStack.sharedInstance.geographyManager?.timezone(lat: 12.234, lng: 13.345, completion: { (result) in
+            switch result {
+            case .success(let timezone):
+                XCTAssertEqual(timezone.name, "TestTimeZone")
+                exp.fulfill()
+            case .failure:
+                XCTFail("timezone should be returned")
+            }
+        })
+        waitForExpectations(timeout: 5.0)
     }
 
     // MARK: - Validation
