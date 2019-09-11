@@ -76,13 +76,15 @@ class MockConnectionManager: Repository {
     }
 
     func fetchContinents(completion: @escaping Completion<[Continent]>) {
-
+        let continentArray = [Continent(id: 12, name: "TestContinent", code: "testCode", imageUrl: nil)]
+        let result: Result = .success(continentArray)
+        completion(result)
     }
 
     func fetchCountries(completion: @escaping Completion<[Country]>) {
         let countryArray = [Country(id: 1,
-                                               name: "",
-                                               code: "",
+                                               name: "TestCountry",
+                                               code: "TCY",
                                                codeIso: "", native: "", phone: 1, continent: "",
                                                capital: "", capitalLat: 1.0, capitalLng: 1.0,
                                                currency: "", currencyName: "", languages: "",
@@ -98,11 +100,19 @@ class MockConnectionManager: Repository {
     }
 
     func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>) {
-
+        let languagesArray = [DefaultLanguage(id: 123, name: "TestLanguage", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true)]
+        let result: Result = .success(languagesArray)
+        completion(result)
     }
 
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
-
+        let timezoneArray = [NStackSDK.Timezone(id: 1,
+                                                                        name: "TestTimeZone",
+                                                                        abbreviation: "",
+                                                                        offsetSec: 12,
+                                                                        label: "")]
+        let result: Result = .success(timezoneArray)
+        completion(result)
     }
 
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {

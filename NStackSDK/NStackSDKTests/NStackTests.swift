@@ -83,6 +83,7 @@ class NStackTests: XCTestCase {
         }
         waitForExpectations(timeout: 5.0)
     }
+
     func testUpdateCountriesList() {
         let exp = expectation(description: "Cached list of contries updated")
         NStack.sharedInstance.geographyManager?.updateCountries { (result) in
@@ -94,6 +95,60 @@ class NStackTests: XCTestCase {
             }
         }
         waitForExpectations(timeout: 5.0)
+        guard let country: Country =  NStack.sharedInstance.geographyManager?.countries?.first else {
+            XCTFail("Country should be set")
+            return
+        }
+        XCTAssertEqual(country.name, "TestCountry")
+    }
+
+    func testUpdateContinentsList() {
+        let exp = expectation(description: "Cached list of continents updated")
+        NStack.sharedInstance.geographyManager?.updateContinents { (result) in
+            switch result {
+            case .success(let countriesArray):
+                exp.fulfill()
+            case .failure:
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 5.0)
+        guard let continent =  NStack.sharedInstance.geographyManager?.continents?.first else {
+            XCTFail("continent should be set")
+            return
+        }
+        XCTAssertEqual(continent.name, "TestContinent")
+    }
+
+    func testUpdateLanguagesList() {
+        let exp = expectation(description: "Cached list of languages updated")
+        NStack.sharedInstance.geographyManager?.updateLanguages { (result) in
+            switch result {
+            case .success(let countriesArray):
+                exp.fulfill()
+            case .failure:
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 5.0)
+        guard let lang: DefaultLanguage =  NStack.sharedInstance.geographyManager?.languages?.first else {
+            XCTFail("language should be set")
+            return
+        }
+        XCTAssertEqual(lang.name, "TestLanguage")
+    }
+
+    func testUpdateTimezonesList() {
+        let exp = expectation(description: "Cached list of timezones updated")
+        NStack.sharedInstance.geographyManager?.updateTimezones { (_, _) in
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5.0)
+        guard let timezone: Timezone =  NStack.sharedInstance.geographyManager?.timezones?.first else {
+            XCTFail("timezone should be set")
+            return
+        }
+        XCTAssertEqual(timezone.name, "TestTimeZone")
     }
 
     // MARK: - Validation
@@ -168,39 +223,45 @@ class NStackTests: XCTestCase {
         waitForExpectations(timeout: 5.0)
     }
 
-    func testUpdateAlert() {
-        XCTAssertFalse(NStack.sharedInstance.alertManager.alreadyShowingAlert)
-        if let mockRepo = NStack.sharedInstance.repository as? MockConnectionManager {
-            mockRepo.succeed = true
-            let version = Update.Version(state: .remind, lastId: 12, version: "1.2.4", localizations: .init(title: "Update", message: "Update now", positiveBtn: "OK", negativeBtn: "No"), link: nil)
-            mockRepo.appOpenData = AppOpenData(count: 59,
-                                               message: nil,
-                                               update: Update(newInThisVersion: Update.Changelog(state: true, lastId: 12, version: "1.2.3", localizations: nil), newerVersion: version),
-                                               rateReminder: nil,
-                                               localize: [
-                                                LocalizationConfig(lastUpdatedAt: Date(),
-                                                                   localeIdentifier: "en-GB",
-                                                                   shouldUpdate: true,
-                                                                   url: "locazlize.56.url",
-                                                                   language: DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true))
-                ],
-                                               platform: "ios",
-                                               createdAt: "2019-06-21T14:10:29+00:00",
-                                               lastUpdated: "2019-06-21T14:10:29+00:00")
-        } else {
-            XCTFail("Should be using mock repo")
-        }
-        let exp = expectation(description: "alert shown")
-        NStack.sharedInstance.update { (error) in
-            if let err = error {
-                XCTFail()
-            } else {
+//    func testUpdateAlert() {
+//        XCTAssertFalse(NStack.sharedInstance.alertManager.alreadyShowingAlert)
+//        if let mockRepo = NStack.sharedInstance.repository as? MockConnectionManager {
+//            mockRepo.succeed = true
+//            let version = Update.Version(state: .remind, lastId: 12, version: "1.2.4", localizations: .init(title: "Update", message: "Update now", positiveBtn: "OK", negativeBtn: "No"), link: nil)
+//            mockRepo.appOpenData = AppOpenData(count: 59,
+//                                               message: nil,
+//                                               update: Update(newInThisVersion: Update.Changelog(state: true, lastId: 12, version: "1.2.3", localizations: nil), newerVersion: version),
+//                                               rateReminder: nil,
+//                                               localize: [
+//                                                LocalizationConfig(lastUpdatedAt: Date(),
+//                                                                   localeIdentifier: "en-GB",
+//                                                                   shouldUpdate: true,
+//                                                                   url: "locazlize.56.url",
+//                                                                   language: DefaultLanguage(id: 56, name: "English", direction: "LRM", locale: Locale(identifier: "en-GB"), isDefault: true, isBestFit: true))
+//                ],
+//                                               platform: "ios",
+//                                               createdAt: "2019-06-21T14:10:29+00:00",
+//                                               lastUpdated: "2019-06-21T14:10:29+00:00")
+//        } else {
+//            XCTFail("Should be using mock repo")
+//        }
+//        let exp = expectation(description: "alert shown")
+//        NStack.sharedInstance.update { (error) in
+//            if let err = error {
+//                XCTFail()
+//            } else {
+//
+//            }
+//        }
+//        waitForExpectations(timeout: 5.0)
+//        DispatchQueue.main.async {
+//            XCTAssertTrue(NStack.sharedInstance.alertManager.alreadyShowingAlert)
+//        }
+//    }
 
-            }
-        }
-        waitForExpectations(timeout: 5.0)
-        DispatchQueue.main.async {
-            XCTAssertTrue(NStack.sharedInstance.alertManager.alreadyShowingAlert)
-        }
+    func testISODateFormat() {
+        let date = Date(timeIntervalSince1970: 0)
+        XCTAssertEqual(date.iso8601, "1970-01-01T00:00:00Z")
     }
+
 }
