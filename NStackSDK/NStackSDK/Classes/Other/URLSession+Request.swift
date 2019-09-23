@@ -77,7 +77,7 @@ extension URLSession {
                                             wrapperType: T.Type,
                                             convertFromSnakeCase: Bool = false,
                                             completionHandler: @escaping (Result<T.ModelType>) -> Void) -> URLSessionDataTask {
-        let task = dataTask(with: request, wrapperType: wrapperType, completionHandler: completionHandler)
+        let task = dataTask(with: request, wrapperType: wrapperType, convertFromSnakeCase: convertFromSnakeCase, completionHandler: completionHandler)
         task.resume()
         return task
     }
