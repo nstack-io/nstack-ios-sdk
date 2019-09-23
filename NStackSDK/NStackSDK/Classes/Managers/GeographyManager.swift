@@ -33,7 +33,7 @@ public class GeographyManager {
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
-    func ipDetails(completion: @escaping Completion<IPAddress>) {
+    public func ipDetails(completion: @escaping Completion<IPAddress>) {
         repository.fetchIPDetails(completion: completion)
     }
 
@@ -42,12 +42,12 @@ public class GeographyManager {
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateCountries(completion: @escaping Completion<[Country]>) {
+    public func updateCountries(completion: @escaping Completion<[Country]>) {
         repository.fetchCountries(completion: completion)
     }
 
     /// Locally stored list of countries
-    private(set) var countries: [Country]? {
+    public private(set) var countries: [Country]? {
         get {
             // FIXME: Load from disk on load
             return nil
@@ -67,12 +67,12 @@ public class GeographyManager {
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateContinents(completion: @escaping Completion<[Continent]>) {
+    public func updateContinents(completion: @escaping Completion<[Continent]>) {
         repository.fetchContinents(completion: completion)
     }
 
     /// Locally stored list of continents
-    private(set) var continents: [Continent]? {
+    public private(set) var continents: [Continent]? {
         get {
             // FIXME: Load from disk on start
             //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
@@ -92,12 +92,12 @@ public class GeographyManager {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateLanguages(completion: @escaping Completion<[Language]>) {
+    public func updateLanguages(completion: @escaping Completion<[Language]>) {
         repository.fetchLanguages(completion: completion)
     }
 
     /// Locally stored list of languages
-    private(set) var languages: [Language]? {
+    public private(set) var languages: [Language]? {
         get {
             // FIXME: Load from disk on start
             //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
@@ -117,7 +117,7 @@ public class GeographyManager {
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
+    public func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
         repository.fetchTimeZones { (result) in
             switch result {
             case .success(let data):
@@ -130,7 +130,7 @@ public class GeographyManager {
     }
 
     /// Locally stored list of timezones
-    private(set) var timezones: [Timezone]? {
+    public private(set) var timezones: [Timezone]? {
         get {
             // FIXME: Load from disk on start
             //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
@@ -152,7 +152,7 @@ public class GeographyManager {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         repository.fetchTimeZone(lat: lat, lng: lng, completion: completion)
     }
 }
