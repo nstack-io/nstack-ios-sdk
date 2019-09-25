@@ -64,7 +64,7 @@ public class GeographyManager {
     /// - Returns: A dictionary representation of the selected local translations set.
     private func fallbackCountries() throws -> [Country] {
         // Iterate through bundle until we find the translations file
-        for bundle: Bundle in Bundle.allBundles {
+        for bundle: Bundle in Bundle.allFrameworks {
             // Check if bundle contains translations file, otheriwse continue with next bundle
             guard let filePath = bundle.path(forResource: "Countries", ofType: "json") else {
                 continue
