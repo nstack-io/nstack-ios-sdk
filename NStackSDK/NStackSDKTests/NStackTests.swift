@@ -71,7 +71,7 @@ class NStackTests: XCTestCase {
     }
     func testUpdateCountriesList() {
         let exp = expectation(description: "Cached list of contries updated")
-        NStack.sharedInstance.geographyManager?.updateCountries { (result) in
+        NStack.sharedInstance.geographyManager?.countries { (result) in
             switch result {
             case .success(let countriesArray):
                 exp.fulfill()

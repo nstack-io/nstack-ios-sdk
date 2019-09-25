@@ -32,4 +32,14 @@ public enum NStackError {
             }
         }
     }
+
+    public enum GeographyManager: Error {
+        case noResourceAvailable
+
+        var description: String {
+            switch self {
+            case .noResourceAvailable: return "No resource JSON available"
+            }
+        }
+    }
 }
