@@ -13,10 +13,15 @@ internal struct Message: Codable {
     let message: String
     let showSetting: String
     let url: URL?
+    
+    /// Temporary solution for localizing the message's buttons
+    /// - Valid keys: `okBtn`, `urlBtn`
+    let localization: [String: String]?
 
     enum CodingKeys: String, CodingKey {
         case id, message
         case showSetting = "show_setting"
         case url
+        case localization
     }
 }

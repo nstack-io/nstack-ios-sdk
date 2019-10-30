@@ -149,7 +149,7 @@ extension MockConnectionManager {
         let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
         let data = AppOpenData(
             count: 58,
-            message: Message(id: 5, message: "New promotional price?", showSetting: "", url: nil),
+            message: Message(id: 5, message: "New promotional price?", showSetting: "", url: nil, localization: nil),
             update: nil,
             rateReminder: nil,
             localize: [

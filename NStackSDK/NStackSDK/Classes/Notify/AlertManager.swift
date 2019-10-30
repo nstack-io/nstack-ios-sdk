@@ -170,8 +170,8 @@ public class AlertManager {
         let alertType = AlertType.message(
             text: message.message,
             url: message.url,
-            dismissButtonText: "Ok",
-            openButtonText: "Open URL") {
+            dismissButtonText: message.localization?["okBtn"] ?? "Ok",
+            openButtonText: message.localization?["urlBtn"] ?? "Open URL") {
                 self.repository.markMessageAsRead(message.id)
         }
 
