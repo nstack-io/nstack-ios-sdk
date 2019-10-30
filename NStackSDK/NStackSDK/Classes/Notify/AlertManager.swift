@@ -27,7 +27,7 @@ public class AlertManager {
                         appStoreButtonText: String,
                         completion:(_ didPressAppStore: Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion: () -> Void)
-        case message(text: String, dismissButtonText: String, completion: () -> Void)
+        case message(text: String, url: URL?, dismissButtonText: String, openButtonText: String, completion: () -> Void)
     }
 
 #if os(tvOS) || os(iOS)
@@ -73,13 +73,25 @@ public class AlertManager {
                 completion()
             }))
 
-        case let .message(text, dismissButtonText, completion):
+        case let .message(text, url, dismissButtonText, openButtonText, completion):
             message = text
+
+            // Add Open URL button to alert if url's present
+            if let url = url, !openButtonText.isEmpty {
+                actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
+                    UIApplication.safeSharedApplication()?.safeOpenURL(url)
+
+                    NStack.sharedInstance.alertManager.hideAlertWindow()
+
+                    completion()
+                }))
+            }
+
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 NStack.sharedInstance.alertManager.hideAlertWindow()
+
                 completion()
             }))
-
         }
 
         let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
@@ -155,8 +167,12 @@ public class AlertManager {
     }
 
     internal func showMessage(_ message: Message) {
-        let alertType = AlertType.message(text: message.message, dismissButtonText: "Ok") {
-            self.repository.markMessageAsRead(message.id)
+        let alertType = AlertType.message(
+            text: message.message,
+            url: message.url,
+            dismissButtonText: "Ok",
+            openButtonText: "Open URL") {
+                self.repository.markMessageAsRead(message.id)
         }
 
         showAlertBlock(alertType)
