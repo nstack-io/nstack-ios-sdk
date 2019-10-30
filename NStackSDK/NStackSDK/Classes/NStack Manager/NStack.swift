@@ -120,6 +120,7 @@ public class NStack {
             appId: configuration.appId,
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
+            isProduction: configuration.isProduction,
             translationsUrlOverride: configuration.translationsUrlOverride,
             nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
