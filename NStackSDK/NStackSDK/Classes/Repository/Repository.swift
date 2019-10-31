@@ -33,7 +33,8 @@ typealias Repository =
     VersionsRepository &
     TranslationRepository &
     LocalizationContextRepository &
-    ProposalsRepository
+    ProposalsRepository &
+    FeedbackRepository
 
 // MARK: - App Open -
 
@@ -91,10 +92,16 @@ protocol VersionsRepository {
     #endif
 }
 
-// MARK: - Proposals
+// MARK: - Proposals -
 
 protocol ProposalsRepository {
     func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>)
     func fetchProposals(completion: @escaping Completion<[Proposal]>)
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void)
+}
+
+// MARK: - Feedback -
+
+protocol FeedbackRepository {
+    func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
 }

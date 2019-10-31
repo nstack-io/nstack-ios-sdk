@@ -322,3 +322,42 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
+
+// MARK: - FeedbackRepository
+extension ConnectionManager {
+    private func getPlatform() -> String {
+        switch UIDevice.current.systemName.lowercased() {
+        case "ios": return "ios"
+        default: return "unknown"
+        }
+    }
+
+    func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {
+        let boundary = UUID().uuidString
+
+        var urlRequest = URLRequest(url: URL(string: baseURLv2 + "ugc/feedbacks")!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.allHTTPHeaderFields = defaultHeaders
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        let data = MultipartBuilder(boundary: boundary)
+            .append(name: "type", value: feedback.type.rawValue)
+            .append(name: "platform", value: getPlatform())
+            .append(name: "os", value: UIDevice.current.systemVersion)
+            .append(name: "device", value: UIDevice.current.modelType.rawValue)
+            .append(name: "app_version", value: feedback.appVersion)
+            .append(name: "name", value: feedback.name)
+            .append(name: "email", value: feedback.email)
+            .append(name: "message", value: feedback.message)
+            .append(name: "image", image: feedback.image, jpegQuality: 0.7)
+            .build()
+
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { _, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }).resume()
+    }
+}

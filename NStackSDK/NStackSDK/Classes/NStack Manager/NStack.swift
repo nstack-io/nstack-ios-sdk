@@ -37,6 +37,9 @@ public class NStack {
     /// The manager responsible for validation
     public fileprivate(set) var validationManager: ValidationManager?
 
+    /// The manager responsible for feedback
+    public fileprivate(set) var feedbackManager: FeedbackManager?
+
     /// The manager responsible for getting custom content and collections availble
     public fileprivate(set) var contentManager: ContentManager?
 
@@ -142,6 +145,7 @@ public class NStack {
 
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
+        feedbackManager = FeedbackManager(repository: repository)
         contentManager = ContentManager(repository: repository)
 
         #if os(iOS) || os(tvOS)
