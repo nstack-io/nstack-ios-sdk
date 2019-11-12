@@ -41,9 +41,12 @@ final class ConnectionManager: Repository {
     private let configuration: APIConfiguration
 
     var defaultHeaders: [String: String] {
+        let sdkVersion = Bundle(for: ConnectionManager.self).releaseVersionNumber ?? ""
+
         return [
             "X-Application-id": configuration.appId,
-            "X-Rest-Api-Key": configuration.restAPIKey
+            "X-Rest-Api-Key": configuration.restAPIKey,
+            "SDK-Version": "ios-\(sdkVersion)"
         ]
     }
 
@@ -78,7 +81,7 @@ extension ConnectionManager {
             headers["Accept-Language"] = acceptLanguage
         }
         headers["N-Meta"] = configuration.nmeta.current
-        
+
         let url = baseURLv2 + "open"
             + "?test=" + (configuration.isProduction ? "false" : "true")
             + (configuration.isFlat ? "&flat=true" : "")
