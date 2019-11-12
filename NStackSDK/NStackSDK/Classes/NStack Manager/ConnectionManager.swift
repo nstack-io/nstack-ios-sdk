@@ -41,10 +41,12 @@ final class ConnectionManager: Repository {
     private let configuration: APIConfiguration
 
     var defaultHeaders: [String: String] {
+        let sdkVersion = Bundle(for: ConnectionManager.self).releaseVersionNumber ?? ""
+
         return [
             "X-Application-id": configuration.appId,
             "X-Rest-Api-Key": configuration.restAPIKey,
-            "SDK-Version": configuration.currentSDKVersion
+            "SDK-Version": "ios-\(sdkVersion)"
         ]
     }
 

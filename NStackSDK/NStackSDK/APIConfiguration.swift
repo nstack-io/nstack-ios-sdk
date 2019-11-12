@@ -14,8 +14,7 @@ struct APIConfiguration {
     let isFlat: Bool
     let isProduction: Bool
     let translationsUrlOverride: String?
-    let nmeta: NMeta
-    let currentSDKVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    let nmeta: NMeta    
 
     init(appId: String = "",
          restAPIKey: String = "",
