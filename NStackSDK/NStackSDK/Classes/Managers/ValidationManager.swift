@@ -20,7 +20,7 @@ public class ValidationManager {
     /// - Parameters
     ///     email: A string to be validated as a email
     ///     completion: Completion block when the API call has finished.
-    func validateEmail(_ email: String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> Void)) {
+    public func validateEmail(_ email: String, completion: @escaping ((_ valid: Bool, _ error: Error?) -> Void)) {
         repository.validateEmail(email) { (result) in
             switch result {
             case .success(let data):
