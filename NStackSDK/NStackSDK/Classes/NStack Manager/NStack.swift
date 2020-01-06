@@ -40,6 +40,9 @@ public class NStack {
     /// The manager responsible for getting custom content and collections availble
     public fileprivate(set) var contentManager: ContentManager?
 
+    /// The manager responsible for feedback
+    public fileprivate(set) var feedbackManager: APIFeedbackManager?
+
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
     public fileprivate(set) var alertManager: AlertManager!
@@ -144,6 +147,7 @@ public class NStack {
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
         contentManager = ContentManager(repository: repository)
+        feedbackManager = APIFeedbackManager(repository: repository)
 
         #if os(iOS) || os(tvOS)
         // Setup alert manager

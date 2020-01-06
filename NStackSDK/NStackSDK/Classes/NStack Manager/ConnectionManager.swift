@@ -327,3 +327,16 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
+
+// MARK: - FeedbackRepository
+extension ConnectionManager {
+    func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
+        let params: [String: Any] = [
+            "message": message
+        ]
+
+        let url = baseURLv1 + "ugc/feedbacks"
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, completionHandler: completion)
+    }
+}

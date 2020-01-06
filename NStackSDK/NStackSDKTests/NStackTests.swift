@@ -124,4 +124,18 @@ class NStackTests: XCTestCase {
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)
         waitForExpectations(timeout: 5.0)
     }
+
+    func testFeedback() {
+        let exp = expectation(description: "Feedback Posted")
+        let completion: Completion<Any> = { (response) in
+            switch response {
+            case .success:
+                exp.fulfill()
+            case .failure:
+                XCTFail("Failed to post feedback")
+            }
+        }
+        NStack.sharedInstance.feedbackManager?.postFeedback("Testing Feedback", completion: completion)
+        waitForExpectations(timeout: 5.0)
+    }
 }
