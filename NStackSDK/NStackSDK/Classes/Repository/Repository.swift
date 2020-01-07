@@ -77,10 +77,6 @@ protocol ContentRepository {
 
 // MARK: - Feedback -
 
-public protocol FeedbackManager {
-    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
-}
-
 public protocol FeedbackRepository {
     func postFeedback(_ message: String, completion: @escaping Completion<Any>)
 }

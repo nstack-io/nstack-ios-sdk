@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol FeedbackManager {
+    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
+}
+
 internal class APIFeedbackManager: FeedbackManager {
 
     // MARK: - Properites
