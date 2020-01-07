@@ -142,6 +142,10 @@ class MockConnectionManager: Repository {
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {
 
     }
+
+    func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
+
+    }
 }
 
 extension MockConnectionManager {

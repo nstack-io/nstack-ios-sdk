@@ -135,6 +135,7 @@
 		33E223101FA9F5010013CCC3 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2230A1FA9F5010013CCC3 /* Continent.swift */; };
 		33E223111FA9F5010013CCC3 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2230A1FA9F5010013CCC3 /* Continent.swift */; };
 		50FC72D90A530F7F6F72DCA2 /* Pods_NStackSDK_macOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F737BF3D0B267967FC4A9FB /* Pods_NStackSDK_macOSTests.framework */; };
+		7579C77223C346CE00A05022 /* APIFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7579C77123C346CE00A05022 /* APIFeedbackManager.swift */; };
 		82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
 		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
@@ -352,6 +353,7 @@
 		363AAFE5C83C2B6334610FE6 /* Pods-NStackSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDKTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		51791B9F59E3061E46F6BD13 /* Pods-NStackSDK-macOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-macOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDK-macOSTests/Pods-NStackSDK-macOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		60AE0647CD3584B2AE7E581D /* Pods-NStackSDK-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7579C77123C346CE00A05022 /* APIFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFeedbackManager.swift; sourceTree = "<group>"; };
 		81D6DD59DB9748ECCEE77F25 /* Pods-NStackSDK-macOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NStackSDK-macOSTests.release.xcconfig"; path = "Target Support Files/Pods-NStackSDK-macOSTests/Pods-NStackSDK-macOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 				23442E6022C6281000F196EE /* ContentManager.swift */,
 				23442E5F22C6281000F196EE /* GeographyManager.swift */,
 				23442E6122C6281000F196EE /* ValidationManager.swift */,
+				7579C77123C346CE00A05022 /* APIFeedbackManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				23442E6622C6281000F196EE /* ContentManager.swift in Sources */,
 				8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */,
 				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
+				7579C77223C346CE00A05022 /* APIFeedbackManager.swift in Sources */,
 				A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
