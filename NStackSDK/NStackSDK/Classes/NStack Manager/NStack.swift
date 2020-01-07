@@ -41,7 +41,7 @@ public class NStack {
     public fileprivate(set) var contentManager: ContentManager?
 
     /// The manager responsible for feedback
-    public fileprivate(set) var feedbackManager: APIFeedbackManager?
+    public fileprivate(set) var feedbackManager: FeedbackManager?
 
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.

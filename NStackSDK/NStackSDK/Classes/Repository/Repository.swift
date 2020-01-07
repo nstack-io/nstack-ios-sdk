@@ -34,7 +34,7 @@ typealias Repository =
     TranslationRepository &
     LocalizationContextRepository &
     ProposalsRepository &
-    FeedbackRepository
+    FeedbackManager
 
 // MARK: - App Open -
 
@@ -77,7 +77,7 @@ protocol ContentRepository {
 
 // MARK: - Feedback -
 
-public protocol FeedbackRepository {
+public protocol FeedbackManager {
     func postFeedback(_ message: String, completion: @escaping Completion<Any>)
 }
 
