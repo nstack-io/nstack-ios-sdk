@@ -11,9 +11,9 @@ import Foundation
 internal class APIFeedbackManager: FeedbackManager {
 
     // MARK: - Properites
-    internal var repository: FeedbackManager
+    internal var repository: FeedbackRepository
     // MARK: - Init
-    init(repository: FeedbackManager) {
+    init(repository: FeedbackRepository) {
         self.repository = repository
     }
 
