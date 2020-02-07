@@ -8,8 +8,6 @@
 
 #if !os(macOS)
 import UIKit
-import Serpent
-import Alamofire
 
 internal func translationString(keyPath: String) -> String? {
 	if keyPath.characters.isEmpty {

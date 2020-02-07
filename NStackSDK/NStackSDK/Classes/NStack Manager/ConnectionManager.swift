@@ -78,7 +78,7 @@ extension ConnectionManager {
             headers["Accept-Language"] = acceptLanguage
         }
         headers["N-Meta"] = configuration.nmeta.current
-        
+
         let url = baseURLv2 + "open"
             + "?test=" + (configuration.isProduction ? "false" : "true")
             + (configuration.isFlat ? "&flat=true" : "")
