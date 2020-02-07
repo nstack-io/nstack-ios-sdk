@@ -45,6 +45,7 @@ extension UIWindow {
 
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
+            
             appendTranslatableSubviews(for: topController)
 
             if !ShakeDetection.translatableSubviews.isEmpty {
@@ -68,9 +69,13 @@ extension UIWindow {
             }
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+    // Find items that are ´NStackLocalizable´ and has a section and key value that has been translated
+>>>>>>> a bit of clean up and a couple of comments added
     private func appendTranslatableSubviews(for viewController: UIViewController) {
-        // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
         ShakeDetection.translatableSubviews = viewController.view.subviews
             .map({ currentView in
                 guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
@@ -192,8 +197,14 @@ extension UIWindow {
         for flowSubview in ShakeDetection.flowSubviews {
             flowSubview.removeFromSuperview()
         }
+        ShakeDetection.flowSubviews.removeAll()
     }
+<<<<<<< HEAD
 
+=======
+    
+    // Displays the bottom popup for opening all translation proposals - dismisses automatically after 3 seconds
+>>>>>>> a bit of clean up and a couple of comments added
     private func displayBottomPopup() {
         if ShakeDetection.canDisplayBottomPopup {
             ShakeDetection.canDisplayBottomPopup = false
@@ -227,7 +238,7 @@ extension UIWindow {
                                 proposalBottomPopup.center.y -= proposalBottomPopup.bounds.height
                                 proposalBottomPopup.layoutIfNeeded()
                 }, completion: {(_ completed: Bool) -> Void in
-                    // dismiss after 5 seconds if no interaction
+                    // dismiss after 3 seconds if no interaction
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                         self.hideBottomPopup()
                     })
@@ -306,8 +317,13 @@ extension UIWindow {
                     // Present list vc
                     let proposalNav = UINavigationController()
                     proposalNav.modalPresentationStyle = .overFullScreen
+<<<<<<< HEAD
                     let interactor = ProposalInteractor(nstack: NStack.sharedInstance)
 
+=======
+                    let interactor = ProposalInteractor(nstackSharedInstance: NStack.sharedInstance)
+                    
+>>>>>>> minor changes to the ui part
                     let listingAllProposals = sender.tag == Sender.openAllProposals.rawValue
 
                     let presenter = ProposalPresenter(interactor: interactor,

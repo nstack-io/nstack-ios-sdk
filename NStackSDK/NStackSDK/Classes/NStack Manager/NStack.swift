@@ -70,22 +70,7 @@ public class NStack {
     internal fileprivate(set) var configured = false
     internal var observer: ApplicationObserver?
     internal var logger: LoggerType = ConsoleLogger()
-    // FOX
-//    public private(set) var timeZones: [Timezone]? {
-//        didSet {
-//            guard let timeZones = timeZones else {
-//                // Delete from disk
-//
-//                return
-//            }
-//
-//            // Write to disk
-//            let encoder = JSONEncoder()
-//            encoder.keyEncodingStrategy = .convertToSnakeCase
-//            let data = try? encoder.encode(timeZones)
-//            try? data?.write(to: , options: [.atomic])
-//        }
-//    }
+
     // MARK: - Start NStack -
 
     fileprivate init() {}
