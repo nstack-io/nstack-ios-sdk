@@ -7,8 +7,6 @@
 //
 
 import XCTest
-//import Serpent
-//import Alamofire
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
