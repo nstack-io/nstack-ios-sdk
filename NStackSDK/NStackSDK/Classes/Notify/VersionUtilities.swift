@@ -20,7 +20,7 @@ enum VersionUtilities {
         }
     }
 
-    static var lastUpdatedIso8601Date: String {
+    static var lastUpdatedIso8601DateString: String {
         get {
             return UserDefaults.standard.string(forKey: Constants.CacheKeys.lastUpdatedDate) ?? ""
         }
@@ -34,7 +34,9 @@ enum VersionUtilities {
             return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Constants.CacheKeys.previousVersion)
+            if let date = newValue as? Date {
+                UserDefaults.standard.set(date, forKey: Constants.CacheKeys.lastUpdatedDate)
+            }
         }
     }
 

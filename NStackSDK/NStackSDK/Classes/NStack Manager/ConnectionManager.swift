@@ -65,7 +65,7 @@ extension ConnectionManager {
             "version": currentVersion,
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedIso8601Date,
+            "last_updated": VersionUtilities.lastUpdatedIso8601DateString,
             "old_version": oldVersion
         ]
 
@@ -91,7 +91,7 @@ extension ConnectionManager {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedIso8601Date
+            "last_updated": VersionUtilities.lastUpdatedIso8601DateString
         ]
 
         var headers = defaultHeaders
@@ -103,7 +103,7 @@ extension ConnectionManager {
         let localizationCompletion: (Result<DataModel<[LocalizationConfig]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
-                VersionUtilities.lastUpdatedIso8601Date = Date().iso8601
+                VersionUtilities.lastUpdatedIso8601DateString = Date().iso8601
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[D]>)

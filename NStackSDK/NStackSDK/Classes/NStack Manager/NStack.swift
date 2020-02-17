@@ -219,7 +219,7 @@ public class NStack {
                                                                             //if error, try to update translations in Translations Manager
                                                                             self.localizationManager?.updateLocalizations()
                                                                         } else {
-                                                                            VersionUtilities.lastUpdatedIso8601Date = Date().iso8601
+                                                                            VersionUtilities.lastUpdatedIso8601DateString = Date().iso8601
                                                                             completion?(nil)
                                                                         }
                     })
