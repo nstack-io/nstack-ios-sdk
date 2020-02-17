@@ -14,17 +14,17 @@ public struct Country: Codable {
 	public let code: String
 	public let codeIso: String
 	public let native: String
-    public let phone: Int
+    public let phone: Int?
 	public let continent: String
-	public let capital: String
-    public let capitalLat: Double
-	public let capitalLng: Double
+	public let capital: String?
+    public let capitalLat: Double?
+	public let capitalLng: Double?
 	public let currency: String
 	public let currencyName: String
-	public let languages: String
+	public let languages: String?
 	public let image: URL?
 	public let imagePath2: URL?
-    public let capitalTimeZone: Timezone
+    public let capitalTimeZone: Timezone?
 
     enum CodingKeys: String, CodingKey {
         case id, name, code, codeIso, native, phone, continent

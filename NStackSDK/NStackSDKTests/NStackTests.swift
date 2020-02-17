@@ -7,8 +7,6 @@
 //
 
 import XCTest
-//import Serpent
-//import Alamofire
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
@@ -71,7 +69,7 @@ class NStackTests: XCTestCase {
     }
     func testUpdateCountriesList() {
         let exp = expectation(description: "Cached list of contries updated")
-        NStack.sharedInstance.geographyManager?.updateCountries { (result) in
+        NStack.sharedInstance.geographyManager?.countries { (result) in
             switch result {
             case .success(let countriesArray):
                 exp.fulfill()
@@ -122,6 +120,20 @@ class NStackTests: XCTestCase {
             }
         }
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)
+        waitForExpectations(timeout: 5.0)
+    }
+
+    func testFeedback() {
+        let exp = expectation(description: "Feedback Posted")
+        let completion: Completion<Any> = { (response) in
+            switch response {
+            case .success:
+                exp.fulfill()
+            case .failure:
+                XCTFail("Failed to post feedback")
+            }
+        }
+        NStack.sharedInstance.feedbackManager?.postFeedback("Testing Feedback", completion: completion)
         waitForExpectations(timeout: 5.0)
     }
 }

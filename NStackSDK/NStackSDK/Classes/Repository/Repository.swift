@@ -7,17 +7,14 @@
 //
 
 import Foundation
-
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import WatchKit
 #elseif os(macOS)
-import TranslationManager_macOS
+import AppKit
 #endif
+import TranslationManager
 
 public typealias Result<T> = Swift.Result<T, Error>
 
@@ -33,7 +30,8 @@ typealias Repository =
     VersionsRepository &
     TranslationRepository &
     LocalizationContextRepository &
-    ProposalsRepository
+    ProposalsRepository &
+    FeedbackRepository
 
 // MARK: - App Open -
 
@@ -72,6 +70,12 @@ protocol ValidationRepository {
 
 protocol ContentRepository {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>)
+}
+
+// MARK: - Feedback -
+
+public protocol FeedbackRepository {
+    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
 }
 
 // MARK: - Collection -

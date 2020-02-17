@@ -7,18 +7,12 @@
 //
 
 import Foundation
-
-#if os(iOS)
-import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
+#if os(macOS)
 import AppKit
-import TranslationManager_macOS
+#else
+import UIKit
 #endif
+import TranslationManager
 
 public class NStack {
 
@@ -39,6 +33,9 @@ public class NStack {
 
     /// The manager responsible for getting custom content and collections availble
     public fileprivate(set) var contentManager: ContentManager?
+
+    /// The manager responsible for feedback
+    public fileprivate(set) var feedbackManager: FeedbackManager?
 
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
@@ -120,6 +117,7 @@ public class NStack {
             appId: configuration.appId,
             restAPIKey: configuration.restAPIKey,
             isFlat: configuration.flat,
+            isProduction: configuration.isProduction,
             translationsUrlOverride: configuration.translationsUrlOverride,
             nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
@@ -143,6 +141,7 @@ public class NStack {
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
         contentManager = ContentManager(repository: repository)
+        feedbackManager = APIFeedbackManager(repository: repository)
 
         #if os(iOS) || os(tvOS)
         // Setup alert manager
