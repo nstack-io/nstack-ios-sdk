@@ -7,18 +7,12 @@
 //
 
 import Foundation
-
-#if os(iOS)
-import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
+#if os(macOS)
 import AppKit
-import TranslationManager_macOS
+#else
+import UIKit
 #endif
+import TranslationManager
 
 public class NStack {
 
@@ -146,8 +140,8 @@ public class NStack {
 
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
+        feedbackManager = FeedbackManager(repository: repository)
         contentManager = ContentManager(repository: repository)
-        feedbackManager = APIFeedbackManager(repository: repository)
 
         #if os(iOS) || os(tvOS)
         // Setup alert manager

@@ -483,7 +483,7 @@
 //    }
 //}
 //
-//// MARK: - Helpers -
+// MARK: - Helpers -
 //
 //extension TranslationManager {
 //    fileprivate func synchronousUpdateTranslations() -> NStackError.Translations? {

@@ -7,17 +7,12 @@
 //
 
 import Foundation
-
-#if os(iOS)
+#if os(macOS)
+import AppKit
+#else
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
-import TranslationManager_macOS
 #endif
+import TranslationManager
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -330,13 +325,39 @@ extension ConnectionManager {
 
 // MARK: - FeedbackRepository
 extension ConnectionManager {
-    func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
-        let params: [String: Any] = [
-            "message": message
-        ]
+    private func getPlatform() -> String {
+        switch UIDevice.current.systemName.lowercased() {
+        case "ios": return "ios"
+        default: return "unknown"
+        }
+    }
 
-        let url = baseURLv1 + "ugc/feedbacks"
-        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, completionHandler: completion)
+    func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {
+        let boundary = UUID().uuidString
+
+        var urlRequest = URLRequest(url: URL(string: baseURLv2 + "ugc/feedbacks")!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.allHTTPHeaderFields = defaultHeaders
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        let data = MultipartBuilder(boundary: boundary)
+            .append(name: "type", value: feedback.type.rawValue)
+            .append(name: "platform", value: getPlatform())
+            .append(name: "os", value: UIDevice.current.systemVersion)
+            .append(name: "device", value: UIDevice.current.modelType.rawValue)
+            .append(name: "app_version", value: feedback.appVersion)
+            .append(name: "name", value: feedback.name)
+            .append(name: "email", value: feedback.email)
+            .append(name: "message", value: feedback.message)
+            .append(name: "image", image: feedback.image, jpegQuality: 0.7)
+            .build()
+
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { _, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }).resume()
     }
 }
