@@ -1,6 +1,0 @@
-framework module Pods_NStackSDKTests {
-  umbrella header "Pods-NStackSDKTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
