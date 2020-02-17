@@ -7,17 +7,10 @@
 //
 
 import Foundation
-
 #if os(iOS)
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
-import TranslationManager_macOS
 #endif
+import TranslationManager
 
 public class GeographyManager {
 
@@ -33,7 +26,7 @@ public class GeographyManager {
     /// Retrieve details based on the requestee's ip address
     ///
     /// - Parameter completion: Completion block when the API call has finished.
-    func ipDetails(completion: @escaping Completion<IPAddress>) {
+    public func ipDetails(completion: @escaping Completion<IPAddress>) {
         repository.fetchIPDetails(completion: completion)
     }
 
@@ -42,107 +35,72 @@ public class GeographyManager {
     /// Updates the list of countries stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateCountries(completion: @escaping Completion<[Country]>) {
-        repository.fetchCountries(completion: completion)
+    public func countries(completion: @escaping Completion<[Country]>) {
+        repository.fetchCountries { (result) in
+            switch result {
+            case .success:
+                completion(result)
+            case .failure:
+                do {
+                    let countries = try self.fallbackCountries()
+                    completion(.success(countries))
+                } catch {
+                    completion(result)
+                }
+            }
+        }
     }
 
-    /// Locally stored list of countries
-    private(set) var countries: [Country]? {
-        get {
-            // FIXME: Load from disk on load
-            return nil
-            //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.countries)
+     /// Loads the local JSON copy, has a return value so that it can be synchronously
+    /// loaded the first time they're needed.
+    ///
+    /// - Returns: A dictionary representation of the selected local translations set.
+    private func fallbackCountries() throws -> [Country] {
+        // Iterate through bundle until we find the translations file
+        for bundle: Bundle in Bundle.allFrameworks {
+            // Check if bundle contains translations file, otheriwse continue with next bundle
+            guard let filePath = bundle.path(forResource: "Countries", ofType: "json") else {
+                continue
+            }
+
+            let fileUrl = URL(fileURLWithPath: filePath)
+            let data = try Data(contentsOf: fileUrl)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode([Country].self, from: data)
         }
-        set {
-            // FIXME: Save to disk or delete
-            //            guard let newValue = newValue else {
-            //                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.countries, purgeMemoryCache: true)
-            //                return
-            //            }
-            //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.countries)
-        }
+
+        throw NStackError.GeographyManager.noResourceAvailable
     }
 
     // MARK: - Continents
     /// Updates the list of continents stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateContinents(completion: @escaping Completion<[Continent]>) {
+    public func continents(completion: @escaping Completion<[Continent]>) {
         repository.fetchContinents(completion: completion)
-    }
-
-    /// Locally stored list of continents
-    private(set) var continents: [Continent]? {
-        get {
-            // FIXME: Load from disk on start
-            //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.continents)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-            //            guard let newValue = newValue else {
-            //                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.continents, purgeMemoryCache: true)
-            //                return
-            //            }
-            //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.continents)
-        }
     }
 
     // MARK: - Languages
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateLanguages(completion: @escaping Completion<[Language]>) {
+    public func languages(completion: @escaping Completion<[Language]>) {
         repository.fetchLanguages(completion: completion)
-    }
-
-    /// Locally stored list of languages
-    private(set) var languages: [Language]? {
-        get {
-            // FIXME: Load from disk on start
-            //return Constants.persistentStore.serializableForKey(Constants.CacheKeys.languanges)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-            //            guard let newValue = newValue else {
-            //                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.languanges, purgeMemoryCache: true)
-            //                return
-            //            }
-            //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.languanges)
-        }
     }
 
     // MARK: - Timezones
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    func updateTimezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
+    public func timezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
         repository.fetchTimeZones { (result) in
             switch result {
             case .success(let data):
-                self.timezones = data
                 completion?(data, nil)
             case .failure(let error):
                 completion?([], error)
             }
-        }
-    }
-
-    /// Locally stored list of timezones
-    private(set) var timezones: [Timezone]? {
-        get {
-            // FIXME: Load from disk on start
-            //            return Constants.persistentStore.serializableForKey(Constants.CacheKeys.timezones)
-            return nil
-        }
-        set {
-            // FIXME: Save/delete to disk
-            //            guard let newValue = newValue else {
-            //                Constants.persistentStore.deleteSerializableForKey(Constants.CacheKeys.timezones, purgeMemoryCache: true)
-            //                return
-            //            }
-            //            Constants.persistentStore.setSerializable(newValue, forKey: Constants.CacheKeys.timezones)
         }
     }
 
@@ -152,7 +110,7 @@ public class GeographyManager {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
         repository.fetchTimeZone(lat: lat, lng: lng, completion: completion)
     }
 }

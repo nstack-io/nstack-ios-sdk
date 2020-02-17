@@ -7,17 +7,12 @@
 //
 
 import Foundation
-
-#if os(iOS)
+#if os(macOS)
+import AppKit
+#else
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
-import TranslationManager_macOS
 #endif
+import TranslationManager
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -41,9 +36,12 @@ final class ConnectionManager: Repository {
     private let configuration: APIConfiguration
 
     var defaultHeaders: [String: String] {
+        let sdkVersion = Bundle(for: ConnectionManager.self).releaseVersionNumber ?? ""
+
         return [
             "X-Application-id": configuration.appId,
-            "X-Rest-Api-Key": configuration.restAPIKey
+            "X-Rest-Api-Key": configuration.restAPIKey,
+            "SDK-Version": "ios-\(sdkVersion)"
         ]
     }
 
@@ -79,7 +77,9 @@ extension ConnectionManager {
         }
         headers["N-Meta"] = configuration.nmeta.current
 
-        let url = baseURLv2 + "open" + (configuration.isFlat ? "?flat=true" : "")
+        let url = baseURLv2 + "open"
+            + "?test=" + (configuration.isProduction ? "false" : "true")
+            + (configuration.isFlat ? "&flat=true" : "")
 
         let request = session.request(url, method: .post, parameters: params, headers: headers)
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)

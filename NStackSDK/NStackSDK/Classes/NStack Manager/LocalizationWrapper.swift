@@ -7,17 +7,14 @@
 //
 
 import Foundation
-
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
 #elseif os(watchOS)
-import TranslationManager_watchOS
+import WatchKit
 #elseif os(macOS)
-import TranslationManager_macOS
+import AppKit
 #endif
+import TranslationManager
 
 #if os(iOS) || os(tvOS)
 public typealias NStackLocalizableView = UIView
