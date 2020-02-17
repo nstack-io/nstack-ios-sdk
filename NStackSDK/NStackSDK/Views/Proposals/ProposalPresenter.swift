@@ -110,7 +110,11 @@ extension ProposalPresenter: ProposalPresenterInput {
 extension ProposalPresenter: ProposalInteractorOutput {
 
     func present(_ response: Proposals.Response.ProposalDeleted) {
+<<<<<<< HEAD
 
+=======
+        // TODO: Present info message?
+>>>>>>> a bit of clean up and a couple of comments added
     }
 
 }
