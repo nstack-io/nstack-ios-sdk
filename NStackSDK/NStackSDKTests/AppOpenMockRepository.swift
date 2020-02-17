@@ -140,7 +140,7 @@ class MockConnectionManager: Repository {
 
     }
 
-    func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
+    func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {
 
     }
 }

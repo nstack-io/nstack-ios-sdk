@@ -29,40 +29,10 @@ extension UIWindow {
         if !NStack.sharedInstance.configuration.isProduction {
             switch motion {
             case .motionShake:
-               // handleShake()
-                shakeForFeedback()
+                handleShake()
             default:
                 break
             }
-        }
-    }
-
-    private func shakeForFeedback() {
-        if let visibleViewController = visibleViewController, let item = ShakeDetection.currentItem {
-            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
-
-            let sendAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { _ -> Void in
-                let textField = alertController.textFields![0] as UITextField
-                // Send message(text) to API
-                NStack.sharedInstance.feedbackManager?.postFeedback(textField.text ?? "", completion: { (response) in
-                    print(response)
-                })
-            })
-
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { _ in
-                guard let currentItem = ShakeDetection.currentItem else { return }
-                self.startFlow(for: currentItem, in: visibleViewController)
-            }
-
-            alertController.addTextField { (textField: UITextField!) -> Void in
-                textField.placeholder = "Send message here"
-            }
-
-            alertController.addAction(sendAction)
-            alertController.addAction(cancelAction)
-
-            dismissFlow()
-            visibleViewController.present(alertController, animated: true, completion: nil)
         }
     }
 

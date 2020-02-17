@@ -140,8 +140,8 @@ public class NStack {
 
         geographyManager = GeographyManager(repository: repository)
         validationManager = ValidationManager(repository: repository)
+        feedbackManager = FeedbackManager(repository: repository)
         contentManager = ContentManager(repository: repository)
-        feedbackManager = APIFeedbackManager(repository: repository)
 
         #if os(iOS) || os(tvOS)
         // Setup alert manager

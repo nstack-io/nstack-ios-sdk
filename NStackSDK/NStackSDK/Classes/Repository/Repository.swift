@@ -72,12 +72,6 @@ protocol ContentRepository {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>)
 }
 
-// MARK: - Feedback -
-
-public protocol FeedbackRepository {
-    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
-}
-
 // MARK: - Collection -
 
 protocol ColletionRepository {
@@ -95,10 +89,16 @@ protocol VersionsRepository {
     #endif
 }
 
-// MARK: - Proposals
+// MARK: - Proposals -
 
 protocol ProposalsRepository {
     func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>)
     func fetchProposals(completion: @escaping Completion<[Proposal]>)
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void)
+}
+
+// MARK: - Feedback -
+
+protocol FeedbackRepository {
+    func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
 }
