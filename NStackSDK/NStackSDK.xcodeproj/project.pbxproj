@@ -891,7 +891,6 @@
 				30A3D84D1B9DB94100C2D15C /* Sources */,
 				30A3D84E1B9DB94100C2D15C /* Frameworks */,
 				30A3D84F1B9DB94100C2D15C /* Resources */,
-				431618CF16991DF83871D6FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -930,7 +929,6 @@
 				E3689BE61D9EB9EB004620D6 /* Sources */,
 				E3689BE71D9EB9EB004620D6 /* Frameworks */,
 				E3689BE81D9EB9EB004620D6 /* Resources */,
-				EA47C74062A941748D447333 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -968,7 +966,6 @@
 				E3B6543E1E00450C00FC9380 /* Sources */,
 				E3B6543F1E00450C00FC9380 /* Frameworks */,
 				E3B654401E00450C00FC9380 /* Resources */,
-				B5AA5F4D8F53515A60AC71FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1173,26 +1170,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ -e ${SRCROOT}/../Pods/SwiftLint/swiftlint ]; then\n    ${SRCROOT}/../Pods/SwiftLint/swiftlint autocorrect --config \"${SRCROOT}/../.swiftlint.yml\"\n    ${SRCROOT}/../Pods/SwiftLint/swiftlint --config \"${SRCROOT}/../.swiftlint.yml\"\nfi\n";
 		};
-		431618CF16991DF83871D6FF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NStackSDKTests/Pods-NStackSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		618212FF8FB251AA7234D9B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1237,26 +1214,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B5AA5F4D8F53515A60AC71FF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NStackSDK-macOSTests/Pods-NStackSDK-macOSTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NStackSDK-macOSTests/Pods-NStackSDK-macOSTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		BAF118ECE49EA89238544C53 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1277,26 +1234,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EA47C74062A941748D447333 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NStackSDK-tvOSTests/Pods-NStackSDK-tvOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
