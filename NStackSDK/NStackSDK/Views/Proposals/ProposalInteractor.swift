@@ -11,11 +11,11 @@ import Foundation
 class ProposalInteractor {
     // MARK: - Properties
     weak var output: ProposalInteractorOutput?
-    private let nstack: NStack?
+    private let nstackSharedInstance: NStack?
 
     // MARK: - Init
-    init(nstack: NStack) {
-        self.nstack = nstack
+    init(nstackSharedInstance: NStack) {
+        self.nstackSharedInstance = nstackSharedInstance
     }
 }
 
@@ -24,7 +24,7 @@ class ProposalInteractor {
 // PRESENTER -> INTERACTOR
 extension ProposalInteractor: ProposalInteractorInput {
     func perform(_ request: Proposals.Request.DeleteProposal) {
-        nstack?.deleteProposal(request.proposal, completion: { (result) in
+        nstackSharedInstance?.deleteProposal(request.proposal, completion: { (result) in
             switch result {
             case .success:
                 self.output?.present(Proposals.Response.ProposalDeleted(success: true))
