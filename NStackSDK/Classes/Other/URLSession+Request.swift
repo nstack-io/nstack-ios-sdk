@@ -9,12 +9,10 @@
 import Foundation
 
 extension URLSession {
-
     func request(_ urlString: String,
                  method: HTTPMethod = .get,
                  parameters: [String: Any]? = nil,
                  headers: [String: String]? = nil) -> URLRequest {
-
         let url: URL
         var request: URLRequest
         if method == .get {
@@ -33,7 +31,7 @@ extension URLSession {
 
     func dataTask<T>(with request: URLRequest,
                      completionHandler: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
-        let handler = dataHandler( handler: completionHandler)
+        let handler = dataHandler(handler: completionHandler)
         let task = dataTask(with: request, completionHandler: handler)
         return task
     }
@@ -111,7 +109,7 @@ extension URLSession {
 
                 let decoded = try decoder.decode(T.self, from: data)
                 handler(Result.success(decoded))
-            } catch let error {
+            } catch {
                 handler(.failure(error))
             }
         }
@@ -130,7 +128,7 @@ extension URLSession {
 
                 let parentData = try decoder.decode(wrapperType, from: data)
                 handler(Result.success(parentData.model))
-            } catch let error {
+            } catch {
                 handler(.failure(error))
             }
         }
@@ -167,7 +165,7 @@ extension URLSession {
             }
         }
         if queryString.last != nil { queryString.removeLast() }
-        //plus was turning into white space when turned into data
+        // plus was turning into white space when turned into data
         queryString = queryString.replacingOccurrences(of: "+", with: "%2B")
 
         return queryString

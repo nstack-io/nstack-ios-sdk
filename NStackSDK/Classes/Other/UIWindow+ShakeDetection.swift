@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UIWindow {
-
     private struct ShakeDetection {
         static var isEditing = false
         static var canDisplayBottomPopup = true
@@ -45,7 +44,7 @@ extension UIWindow {
 
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
-            
+
             appendTranslatableSubviews(for: topController)
 
             if !ShakeDetection.translatableSubviews.isEmpty {
@@ -58,7 +57,7 @@ extension UIWindow {
                     item.originalIsUserInteractionEnabled = item.isUserInteractionEnabled
 
                     // Add gesture recognizer
-                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
                     item.addGestureRecognizer(tapGesture)
                     item.isUserInteractionEnabled = true
 
@@ -73,7 +72,7 @@ extension UIWindow {
     private func appendTranslatableSubviews(for viewController: UIViewController) {
         // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
         ShakeDetection.translatableSubviews = viewController.view.subviews
-            .map({ currentView in
+            .map { currentView in
                 guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
 
                 guard
@@ -83,16 +82,15 @@ extension UIWindow {
                     return nil
                 }
                 return translationsManager.containsComponent(for: identifier) ? translatableItem : nil
-            })
-            .compactMap({ return $0})
+            }
+            .compactMap { $0 }
     }
 
     @objc
     func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if
             let visibleViewController = visibleViewController,
-            let item = sender?.view as? NStackLocalizable
-        {
+            let item = sender?.view as? NStackLocalizable {
             startFlow(for: item, in: visibleViewController)
         }
     }
@@ -124,10 +122,10 @@ extension UIWindow {
     func getVisibleViewControllerFrom(vc: UIViewController) -> UIViewController {
         if let navigationController = vc as? UINavigationController,
             let visibleController = navigationController.visibleViewController {
-            return getVisibleViewControllerFrom(vc: visibleController )
+            return getVisibleViewControllerFrom(vc: visibleController)
         } else if let tabBarController = vc as? UITabBarController,
             let selectedTabController = tabBarController.selectedViewController {
-            return getVisibleViewControllerFrom(vc: selectedTabController )
+            return getVisibleViewControllerFrom(vc: selectedTabController)
         } else {
             if let presentedViewController = vc.presentedViewController {
                 return getVisibleViewControllerFrom(vc: presentedViewController)
@@ -145,11 +143,11 @@ extension UIWindow {
         ShakeDetection.currentItem = item
 
         // Dimm background
-        let dimmedBackground = UIView(frame: self.bounds)
+        let dimmedBackground = UIView(frame: bounds)
         dimmedBackground.backgroundColor = UIColor(white: 0, alpha: 0.35)
         ShakeDetection.flowSubviews.append(dimmedBackground)
-        self.addSubview(dimmedBackground)
-        let dismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissFlow))
+        addSubview(dimmedBackground)
+        let dismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissFlow))
         dimmedBackground.addGestureRecognizer(dismissTapGesture)
 
         // Create main view
@@ -158,7 +156,7 @@ extension UIWindow {
         proposalLaunchView.frame.origin.x = viewController.view.bounds.midX - proposalLaunchView.bounds.midX
         proposalLaunchView.frame.origin.y = viewController.view.bounds.midY - proposalLaunchView.bounds.midY
         ShakeDetection.flowSubviews.append(proposalLaunchView)
-        self.addSubview(proposalLaunchView)
+        addSubview(proposalLaunchView)
         proposalLaunchView.backgroundColor = .white
 
         let label = UILabel()
@@ -201,8 +199,8 @@ extension UIWindow {
             ShakeDetection.canDisplayBottomPopup = false
             if let viewController = visibleViewController {
                 ShakeDetection.proposalBottomPopupView = UIView(frame: CGRect(x: viewController.view.bounds.minX, y: viewController.view.bounds.maxY, width: viewController.view.bounds.width, height: 60))
-                guard let proposalBottomPopup = ShakeDetection.proposalBottomPopupView else {return}
-                self.addSubview(proposalBottomPopup)
+                guard let proposalBottomPopup = ShakeDetection.proposalBottomPopupView else { return }
+                addSubview(proposalBottomPopup)
                 proposalBottomPopup.backgroundColor = .gray
                 proposalBottomPopup.alpha = 0
 
@@ -225,30 +223,30 @@ extension UIWindow {
 
                 UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear],
                                animations: {
-                                proposalBottomPopup.alpha = 1
-                                proposalBottomPopup.center.y -= proposalBottomPopup.bounds.height
-                                proposalBottomPopup.layoutIfNeeded()
-                }, completion: {(_ completed: Bool) -> Void in
-                    // dismiss after 3 seconds if no interaction
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                        self.hideBottomPopup()
-                    })
+                                   proposalBottomPopup.alpha = 1
+                                   proposalBottomPopup.center.y -= proposalBottomPopup.bounds.height
+                                   proposalBottomPopup.layoutIfNeeded()
+                               }, completion: { (_: Bool) -> Void in
+                                   // dismiss after 3 seconds if no interaction
+                                   DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                       self.hideBottomPopup()
+                                   }
                 })
             }
         }
     }
 
     private func hideBottomPopup() {
-        guard let proposalBottomPopup = ShakeDetection.proposalBottomPopupView else {return}
+        guard let proposalBottomPopup = ShakeDetection.proposalBottomPopupView else { return }
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear],
                        animations: {
-                        proposalBottomPopup.alpha = 0
-                        proposalBottomPopup.center.y += proposalBottomPopup.bounds.height
-                        proposalBottomPopup.layoutIfNeeded()
+                           proposalBottomPopup.alpha = 0
+                           proposalBottomPopup.center.y += proposalBottomPopup.bounds.height
+                           proposalBottomPopup.layoutIfNeeded()
 
-        }, completion: {(_ completed: Bool) -> Void in
-            proposalBottomPopup.removeFromSuperview()
-            ShakeDetection.canDisplayBottomPopup = true
+                       }, completion: { (_: Bool) -> Void in
+                           proposalBottomPopup.removeFromSuperview()
+                           ShakeDetection.canDisplayBottomPopup = true
         })
     }
 
@@ -272,8 +270,7 @@ extension UIWindow {
                 }
             })
 
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
-                (_: UIAlertAction!) -> Void in
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { (_: UIAlertAction!) -> Void in
                 // Start flow again
                 guard let currentItem = ShakeDetection.currentItem else { return }
                 self.startFlow(for: currentItem, in: visibleViewController)
@@ -295,13 +292,13 @@ extension UIWindow {
     @objc
     func viewTranslationProposalsClicked(sender: UIButton) {
         if let visibleViewController = visibleViewController {
-            NStack.sharedInstance.fetchProposals { (proposals) in
+            NStack.sharedInstance.fetchProposals { proposals in
                 DispatchQueue.main.async {
                     self.dismissFlow()
                     self.hideBottomPopup()
 
                     guard let proposals = proposals else {
-                        #warning("present erormessage here")
+                        #warning("present error message here")
                         return
                     }
 
@@ -329,5 +326,4 @@ extension UIWindow {
             }
         }
     }
-
 }

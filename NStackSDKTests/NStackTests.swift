@@ -59,7 +59,7 @@ class NStackTests: XCTestCase {
         let exp = expectation(description: "IP-address returned")
         NStack.sharedInstance.geographyManager?.ipDetails { (result) in
             switch result {
-            case .success(let ipAddress):
+            case .success:
                 exp.fulfill()
             case .failure:
                 XCTFail()
@@ -71,7 +71,7 @@ class NStackTests: XCTestCase {
         let exp = expectation(description: "Cached list of contries updated")
         NStack.sharedInstance.geographyManager?.countries { (result) in
             switch result {
-            case .success(let countriesArray):
+            case .success:
                 exp.fulfill()
             case .failure:
                 XCTFail()
@@ -111,7 +111,7 @@ class NStackTests: XCTestCase {
 
     func testCollectionValid() {
         let exp = expectation(description: "Collection received")
-        var completion: Completion<Int> = { (response) in
+        let completion: Completion<Int> = { (response) in
             switch response {
             case .success:
                 exp.fulfill()
