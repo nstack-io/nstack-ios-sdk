@@ -148,16 +148,17 @@ class MockConnectionManager: Repository {
 extension MockConnectionManager {
     func postAppOpen(oldVersion: String, currentVersion: String, acceptLanguage: String?, completion: @escaping Completion<AppOpenResponse>) {
         let lang = Language(id: 56, name: "English", direction: "LRM", acceptLanguage: "en-GB", isDefault: true, isBestFit: true)
-        let data = AppOpenData(count: 58,
-                               message: nil,
-                               update: nil,
-                               rateReminder: nil,
-                               localize: [
-                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang),
-                                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)],
-                               platform: "ios",
-                               createdAt: "2019-06-21T14:10:29+00:00",
-                               lastUpdated: "2019-06-21T14:10:29+00:00")
+        let data = AppOpenData(
+            count: 58,
+            message: Message(id: 5, message: "New promotional price?", showSetting: "", url: nil, localization: nil),
+            update: nil,
+            rateReminder: nil,
+            localize: [
+                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang),
+                Localization(id: 56, url: "locazlize.56.url", lastUpdatedAt: "2019-06-21T14:10:29+00:00", shouldUpdate: true, language: lang)],
+            platform: "ios",
+            createdAt: "2019-06-21T14:10:29+00:00",
+            lastUpdated: "2019-06-21T14:10:29+00:00")
 
         let response = AppOpenResponse(data: data, languageData: LanguageData(acceptLanguage: "da-DK"))
         completion(.success(response))
