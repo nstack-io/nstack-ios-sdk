@@ -69,13 +69,9 @@ extension UIWindow {
             }
         }
     }
-<<<<<<< HEAD
 
-=======
-    
-    // Find items that are ´NStackLocalizable´ and has a section and key value that has been translated
->>>>>>> a bit of clean up and a couple of comments added
     private func appendTranslatableSubviews(for viewController: UIViewController) {
+        // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
         ShakeDetection.translatableSubviews = viewController.view.subviews
             .map({ currentView in
                 guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
@@ -199,12 +195,7 @@ extension UIWindow {
         }
         ShakeDetection.flowSubviews.removeAll()
     }
-<<<<<<< HEAD
 
-=======
-    
-    // Displays the bottom popup for opening all translation proposals - dismisses automatically after 3 seconds
->>>>>>> a bit of clean up and a couple of comments added
     private func displayBottomPopup() {
         if ShakeDetection.canDisplayBottomPopup {
             ShakeDetection.canDisplayBottomPopup = false
@@ -317,13 +308,8 @@ extension UIWindow {
                     // Present list vc
                     let proposalNav = UINavigationController()
                     proposalNav.modalPresentationStyle = .overFullScreen
-<<<<<<< HEAD
-                    let interactor = ProposalInteractor(nstack: NStack.sharedInstance)
-
-=======
                     let interactor = ProposalInteractor(nstackSharedInstance: NStack.sharedInstance)
-                    
->>>>>>> minor changes to the ui part
+
                     let listingAllProposals = sender.tag == Sender.openAllProposals.rawValue
 
                     let presenter = ProposalPresenter(interactor: interactor,
