@@ -7,17 +7,10 @@
 //
 
 import Foundation
-
 #if os(iOS)
 import UIKit
-import TranslationManager
-#elseif os(tvOS)
-import TranslationManager_tvOS
-#elseif os(watchOS)
-import TranslationManager_watchOS
-#elseif os(macOS)
-import TranslationManager_macOS
 #endif
+import TranslationManager
 
 public class GeographyManager {
 
