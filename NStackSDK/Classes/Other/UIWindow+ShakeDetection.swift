@@ -45,6 +45,7 @@ extension UIWindow {
 
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
+            
             appendTranslatableSubviews(for: topController)
 
             if !ShakeDetection.translatableSubviews.isEmpty {
@@ -192,6 +193,7 @@ extension UIWindow {
         for flowSubview in ShakeDetection.flowSubviews {
             flowSubview.removeFromSuperview()
         }
+        ShakeDetection.flowSubviews.removeAll()
     }
 
     private func displayBottomPopup() {
@@ -227,7 +229,7 @@ extension UIWindow {
                                 proposalBottomPopup.center.y -= proposalBottomPopup.bounds.height
                                 proposalBottomPopup.layoutIfNeeded()
                 }, completion: {(_ completed: Bool) -> Void in
-                    // dismiss after 5 seconds if no interaction
+                    // dismiss after 3 seconds if no interaction
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                         self.hideBottomPopup()
                     })
@@ -306,7 +308,7 @@ extension UIWindow {
                     // Present list vc
                     let proposalNav = UINavigationController()
                     proposalNav.modalPresentationStyle = .overFullScreen
-                    let interactor = ProposalInteractor(nstack: NStack.sharedInstance)
+                    let interactor = ProposalInteractor(nstackSharedInstance: NStack.sharedInstance)
 
                     let listingAllProposals = sender.tag == Sender.openAllProposals.rawValue
 
