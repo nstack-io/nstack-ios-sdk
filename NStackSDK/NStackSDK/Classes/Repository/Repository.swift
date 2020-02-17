@@ -72,12 +72,6 @@ protocol ContentRepository {
     func fetchStaticResponse<T: Codable>(_ slug: String, completion: @escaping Completion<T>)
 }
 
-// MARK: - Feedback -
-
-public protocol FeedbackRepository {
-    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
-}
-
 // MARK: - Collection -
 
 protocol ColletionRepository {
