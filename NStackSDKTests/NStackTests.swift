@@ -39,8 +39,12 @@ class NStackTests: XCTestCase {
     }
 
     func testUpdateAppOpen() {
-        NStack.sharedInstance.update()
-        XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+        let exp = expectation(description: "Best fit language was set")
+        NStack.sharedInstance.update { _ in
+            XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5.0)
     }
 
     func testGetTranslation() {
