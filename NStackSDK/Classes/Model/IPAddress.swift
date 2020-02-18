@@ -14,12 +14,12 @@ public struct IPAddress: Codable {
     public let country: String
     public let stateProv: String
     public let city: String
-    public let lat: String
-    public let lng: String
+    public let lat: Double
+    public let lng: Double
     public let timeZoneOffset: String
     public let timeZoneName: String
     public let ispName: String
     public let connectionType: String
     public let type: String
-    public let requestedIp: String
+    public let requiredIp: String
 }

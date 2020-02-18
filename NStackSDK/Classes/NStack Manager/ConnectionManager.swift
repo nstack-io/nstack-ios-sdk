@@ -268,7 +268,7 @@ extension ConnectionManager {
         let parameters: [String: Any] = ["email": email]
         let url = baseURLv1 + "validator/email"
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
-        session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
+        session.startDataTask(with: request, convertFromSnakeCase: true, completionHandler: completion)
     }
 }
 // MARK: - ContentRepository

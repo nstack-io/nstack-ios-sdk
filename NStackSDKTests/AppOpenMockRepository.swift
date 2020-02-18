@@ -81,14 +81,14 @@ class MockConnectionManager: Repository {
                                                 country: "",
                                                 stateProv: "",
                                                 city: "",
-                                                lat: "",
-                                                lng: "",
+                                                lat: 0,
+                                                lng: 0,
                                                 timeZoneOffset: "",
                                                 timeZoneName: "",
                                                 ispName: "",
                                                 connectionType: "",
                                                 type: "",
-                                                requestedIp: ""))
+                                                requiredIp: ""))
         completion(result)
     }
 
