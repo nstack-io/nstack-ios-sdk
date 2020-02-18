@@ -13,25 +13,42 @@ app:
     opts:
       is_expand: false
 trigger_map:
+- push_branch: '*'
+  workflow: build
 - pull_request_target_branch: master
   workflow: run-tests
 - pull_request_target_branch: develop
   workflow: run-tests
 workflows:
-  run-tests:
+  build:
+    description: Runs on every push. Tries to make a build.
     steps:
-    - activate-ssh-key@4.0.3:
+    - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4.0.17: {}
-    - cache-pull@2.1.1: {}
-    - certificate-and-profile-installer@1.10.1: {}
-    - carthage@3.2.2:
+    - git-clone: {}
+    - cache-pull: {}
+    - certificate-and-profile-installer: {}
+    - carthage:
         inputs:
         - carthage_options: --platform ios
         - carthage_command: bootstrap
-    - xcode-test@2.4.1:
+    - xcode-build-for-test: {}
+    - cache-push: {}
+  run-tests:
+    description: Runs on pull requests to `develop` and `master`. Builds and runs
+      the tests.
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - cache-pull: {}
+    - certificate-and-profile-installer: {}
+    - carthage:
+        inputs:
+        - carthage_options: --platform ios
+        - carthage_command: bootstrap
+    - xcode-test:
         inputs:
         - project_path: $BITRISE_PROJECT_PATH
         - scheme: $BITRISE_SCHEME
-    - deploy-to-bitrise-io@1.9.2: {}
-    - cache-push@2.2.1: {}
+    - cache-push: {}
