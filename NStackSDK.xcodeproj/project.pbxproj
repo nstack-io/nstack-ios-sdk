@@ -583,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				7579C77123C346CE00A05022 /* APIFeedbackManager.swift */,
+				29D7EB5223FAB71900C622EA /* TranslationManager.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -996,7 +997,6 @@
 					};
 					30A3D8501B9DB94100C2D15C = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = HW27H6H98R;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -1702,7 +1702,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				DEVELOPMENT_TEAM = HW27H6H98R;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1714,6 +1716,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1722,7 +1726,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				DEVELOPMENT_TEAM = HW27H6H98R;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/iOS",
@@ -1733,6 +1739,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 			};
