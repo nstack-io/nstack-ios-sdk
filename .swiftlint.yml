@@ -18,7 +18,7 @@ file_length:
   error: 600
 
 line_length:
-  warning: 150
+  warning: 180
   error: 250
 
 type_body_length:
@@ -28,6 +28,10 @@ type_body_length:
 large_tuple: # warn user when using 3 values in tuple, give error if there are 4
    - 3
    - 4
+
+nesting:
+  type_level: 3 
+  statement_level: 7
 
 type_name:
   min_length: 3 # only warning

@@ -20,9 +20,13 @@ let testConfiguration: () -> Configuration = {
 
 class NStackTests: XCTestCase {
 
-    override func setUp() {
+    override class func setUp() {
         super.setUp()
         NStack.start(configuration: testConfiguration(), launchOptions: nil)
+    }
+
+    override func setUp() {
+        super.setUp()
     }
 
     override func tearDown() {
@@ -35,20 +39,24 @@ class NStackTests: XCTestCase {
     }
 
     func testUpdateAppOpen() {
-        NStack.sharedInstance.update()
-        XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+        let exp = expectation(description: "Best fit language was set")
+        NStack.sharedInstance.update { _ in
+            XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 5.0)
     }
 
     func testGetTranslation() {
         NStack.sharedInstance.update { (_) in
             do {
                 guard let result = try NStack.sharedInstance.translationsManager?.translations() as? Translations else {
-                    XCTFail()
+                    XCTFail("Translations were nil or coulsn't be cast to `Translations`")
                     return
                 }
-                XCTAssertEqual(result.defaultSection.successKey, "SuccessUpdated")
+                XCTAssertEqual(result.defaultSection.successKey, "Success")
             } catch {
-                XCTFail()
+                XCTFail("Failed with error \(error.localizedDescription)")
             }
         }
     }
@@ -59,22 +67,23 @@ class NStackTests: XCTestCase {
         let exp = expectation(description: "IP-address returned")
         NStack.sharedInstance.geographyManager?.ipDetails { (result) in
             switch result {
-            case .success(let ipAddress):
+            case .success:
                 exp.fulfill()
-            case .failure:
-                XCTFail()
+            case .failure(let error):
+                XCTFail("Failed with error \(error.localizedDescription)")
             }
         }
         waitForExpectations(timeout: 5.0)
     }
+
     func testUpdateCountriesList() {
         let exp = expectation(description: "Cached list of contries updated")
         NStack.sharedInstance.geographyManager?.countries { (result) in
             switch result {
-            case .success(let countriesArray):
+            case .success:
                 exp.fulfill()
-            case .failure:
-                XCTFail()
+            case .failure(let error):
+                XCTFail("Failed to fetch the countries: \(error.localizedDescription)")
             }
         }
         waitForExpectations(timeout: 5.0)
@@ -87,7 +96,7 @@ class NStackTests: XCTestCase {
             if valid {
                 exp.fulfill()
             } else {
-                XCTFail()
+                XCTFail("Email isn't valid")
             }
         }
         waitForExpectations(timeout: 5.0)
@@ -96,27 +105,39 @@ class NStackTests: XCTestCase {
     // MARK: - Content
 
     func testContentResponseId() {
-//        let exp = expectation(description: "Content recieved")
-//        var completion: Completion<Int> = { (response) in
-//            switch response {
-//            case .success:
-//                exp.fulfill()
-//            case .failure:
-//                XCTFail()
-//            }
-//        }
-//        NStack.sharedInstance.contentManager?.getContentResponse("sdf", completion: completion)
-//        waitForExpectations(timeout: 5.0)
-    }
 
-    func testCollectionValid() {
-        let exp = expectation(description: "Collection received")
-        var completion: Completion<Int> = { (response) in
+        struct Name: Codable {
+            let firstName: String
+            let lastName: String
+        }
+
+        let exp = expectation(description: "Content recieved")
+        let completion: Completion<[Name]> = { (response) in
             switch response {
             case .success:
                 exp.fulfill()
-            case .failure:
-                XCTFail()
+            case .failure(let error):
+                XCTFail("Failed with error \(error.localizedDescription)")
+            }
+        }
+        NStack.sharedInstance.contentManager?.getContentResponse("testarray", completion: completion)
+        waitForExpectations(timeout: 5.0)
+    }
+
+    func testCollectionValid() {
+
+        struct Country: Codable {
+            let id: Int
+            let name: String
+        }
+
+        let exp = expectation(description: "Collection received")
+        let completion: Completion<Country> = { (response) in
+            switch response {
+            case .success:
+                exp.fulfill()
+            case .failure(let error):
+                XCTFail("Failed with error \(error.localizedDescription)")
             }
         }
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)

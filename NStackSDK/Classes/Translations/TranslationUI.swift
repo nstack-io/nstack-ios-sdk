@@ -68,10 +68,10 @@ internal func translationString(keyPath: String) -> String? {
 }
 
 @IBDesignable public class NOSegmentControl: UISegmentedControl {
-	@IBInspectable public var translationKeyPath1 = ""
-	@IBInspectable public var translationKeyPath2 = ""
-	@IBInspectable public var translationKeyPath3 = ""
-	@IBInspectable public var translationKeyPath4 = ""
+    @IBInspectable public var translationKeyPath1: String = ""
+	@IBInspectable public var translationKeyPath2: String = ""
+	@IBInspectable public var translationKeyPath3: String = ""
+	@IBInspectable public var translationKeyPath4: String = ""
 
 	override public func awakeFromNib() {
 		updateFromLang()
