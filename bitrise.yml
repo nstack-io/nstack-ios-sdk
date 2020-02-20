@@ -1,0 +1,54 @@
+format_version: "8"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+app:
+  envs:
+  - BITRISE_PROJECT_PATH: NStackSDK.xcodeproj
+    opts:
+      is_expand: false
+  - BITRISE_SCHEME: NStackSDK
+    opts:
+      is_expand: false
+  - BITRISE_EXPORT_METHOD: ad-hoc
+    opts:
+      is_expand: false
+trigger_map:
+- push_branch: '*'
+  workflow: build
+- pull_request_target_branch: master
+  workflow: run-tests
+- pull_request_target_branch: develop
+  workflow: run-tests
+workflows:
+  build:
+    description: Runs on every push. Tries to make a build.
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - cache-pull: {}
+    - certificate-and-profile-installer: {}
+    - carthage:
+        inputs:
+        - carthage_options: --platform ios
+        - carthage_command: bootstrap
+    - xcode-build-for-test: {}
+    - cache-push: {}
+  run-tests:
+    description: Runs on pull requests to `develop` and `master`. Builds and runs
+      the tests.
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - cache-pull: {}
+    - certificate-and-profile-installer: {}
+    - carthage:
+        inputs:
+        - carthage_options: --platform ios
+        - carthage_command: bootstrap
+    - xcode-test:
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+    - cache-push: {}

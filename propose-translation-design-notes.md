@@ -16,8 +16,10 @@ Here is how that is intended working:
 5. if you decide to suggest a new proposal, a textfield will appear where you can type your proposal
 6. the proposal is sent to the backend (see the section `API Calls` later) for saving
 7. furthermore the proposal is stored locally in the app for the current session
-8. if you decide to see all existing proposals, a list is presented, showing all proposals for the currently highlighted text
-9. when leaving editmode (by shaking the phone), a popup will appear from the bottom, telling you if there's any proposals for the given view. This popup should disappear automatically after some seconds
+8. only one proposal per text can be made - if the proposal is the same as the already proposed value, the api will return an error. If it's different, it will override the value to the new proposal.
+9. leave editmode by shaking the phone again
+10. when leaving editmode (by shaking the phone), a popup will appear from the bottom, telling you if there's any proposals for the app. This popup disappears automaitcally after 3 seconds.
+11. In the lists proposals, it's possible to delete a proposal from the list. If the proposal can be deleted, it's textcolor is blue. To delete a proposal, you simply swipe from right to left, to get the delete option shown.
 
 ## Components
 For this to work we need the following
@@ -25,6 +27,7 @@ For this to work we need the following
 - Some API calls where we can:
   - store a proposal
   - fetch all stored proposals
+  - delete a proposal
 - Changes in the existing NStack SDK
   - A gesture recognizer listening for shakes
   - A store for proposals
@@ -50,14 +53,18 @@ And that is understandable, it works. But unfortunately, it is no longer enough,
 The NStack 2.0 API enables these two API calls:
 
 - a `POST` call to "/content/localize/proposals", allowing us to store a proposal
-- a `GET` call to "/content/localize/proposals", returning an array of proposals
+- a `GET` call to "/content/localize/proposals", returning an array of proposals. Add the `guid` as a queryparameter to get the info about, if the propsal can be deleted or not.
+- a `DELETE` call to "/content/localize/proposals/id", where id is the id of the proposal you want to delete. Add the queryparameter `guid` to delete it from the right collection.
 
 See more details, parameters etc. in Postman
 
 ### Gesture Recognizer
-In the file `UIWindow+ShakeDetection` you will find an extension to `UIWindow` which sets up a gesture recognizer if the preconditions are met (currently: we are not in production).
+In the file `UIWindow+ShakeDetection` you will find an extension to `UIWindow`.
+
+In the file we loop through the top viewcontroller's subviews, and adds them to an array if they conform to the `NStackLocalizable` protocol described further down. It adds resture recognizers, sets background color to indicate that the view is editable, and then stores all the relevant values needed to edit the text and for resetting the element after leaving editmode.
 
 Note that have to "operate on UIWindow level" as this is triggered from the NStack SDK and is intended to be independent from the current UI provided by the app.
+
 
 ### Proposal Store
 #### Overall Design
@@ -66,6 +73,7 @@ This is the `protocol` exposing the features provided by the proposal store:
 ```
 public protocol LocalizationWrappable {}
   var bestFitLanguage: Language? { get }
+  func translations<L: LocalizableModel>() throws -> L?
   func handleLocalizationModels(localizations: [LocalizationModel], acceptHeaderUsed: String?, completion: ((Error?) -> Void)?)
   func updateTranslations(_ completion: ((Error?) -> Void)?)
   func updateTranslations()
@@ -95,9 +103,9 @@ The idea is that all UI relevant components conform to `NStackLocalizable` and w
 
 So for instance:
 
-`myLabel.localize(for: "default.yes")`
+`myLabel.localize(for: tr.defaultSection.yes)`
 
-The component calls the `localize` method of `LocalizationWrappable` asking for a value, and sending themselves as a reference.
+The component will pass "defaultSection.yes" the the `localize` method of `LocalizationWrappable` asking for a value, and sending themselves as a reference.
 
 The `LocalizationWrappable` can now determine whether to use a proposed value or delegate to the existing `TranslationManager`.
 
@@ -117,6 +125,12 @@ For this, we rely on a `NSMapTable` [documented here](https://developer.apple.co
 All of the above is implemented by the `LocalizationWrapper` class.
 
 ### UI
+When shaking the phone and tapping an item, a subview will be added to the `UIWindow`. This view (including others) is stored in an array, `ShakeDetection.flowSubviews`, which is cleared after every dismissal. We use this array do know what view's to remove from thir superview when dismissing the flow.
+
+When opening a list of proposals, we present the `ProposalViewController` modally `.overFullScreen`. This ensures that we always get the modal shown without the possibility to nagigate away from the current view. Also we get around not calling the underneath view's `viewDidAppear` or `viewWillAppear` like this.
+The view is made with a presenter and an interactor as we know it from the VIPER arch, but without a coordinator, as we at the moment aren't routing anywhere.
+
+If a propsal can be deleted, it will display with blue text instead of black. By swiping from right to left, the delete option will appear, and by tapping it, the `DELETE` call will be triggered. The `ProposalInteractor` takes care of the deletion.
 
 ### Extensions to UI Components
 As already mentioned, all UI components who wishes to support NStack proposals must implement the `NStackLocalizable` protocol.
