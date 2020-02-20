@@ -91,7 +91,8 @@ extension ConnectionManager {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedIso8601Date
+            "last_updated": VersionUtilities.lastUpdatedIso8601Date,
+            "dev": "true"
         ]
 
         var headers = defaultHeaders
@@ -139,7 +140,7 @@ extension ConnectionManager {
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
-            case .failure(let error):
+            case .failure:
                 let model: [Language] = []
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
