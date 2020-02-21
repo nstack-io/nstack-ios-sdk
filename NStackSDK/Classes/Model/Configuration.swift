@@ -12,7 +12,7 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
 public struct UpdateOptions: OptionSet {
     public let rawValue: Int
@@ -37,12 +37,13 @@ public struct Configuration {
 
     public let appId: String
     public let restAPIKey: String
-    public let translationsClass: LocalizableModel.Type
+    public let localizationClass: LocalizableModel.Type
     public var updateOptions: UpdateOptions = [.onStart, .onDidBecomeActive]
     public var verboseMode = false
     public var flat = false
     public var useMock = false
-    public var translationsUrlOverride: String?
+    public var mockSucceed = true
+    public var localizationUrlOverride: String?
     public var currentEnvironment: NStackEnvironment
 
     // Used for tests
@@ -62,23 +63,23 @@ public struct Configuration {
 
     public init(appId: String,
                 restAPIKey: String,
-                translationsClass: LocalizableModel.Type,
-                flatTranslations: Bool = false,
-                translationsUrlOverride: String? = nil,
+                localizationClass: LocalizableModel.Type,
+                flatLocalization: Bool = false,
+                localizationsUrlOverride: String? = nil,
                 environment: NStackEnvironment) {
         self.appId = appId
         self.restAPIKey = restAPIKey
-        self.translationsClass = translationsClass
-        self.flat = flatTranslations
-        self.translationsUrlOverride = translationsUrlOverride
+        self.localizationClass = localizationClass
+        self.flat = flatLocalization
+        self.localizationUrlOverride = localizationsUrlOverride
         self.currentEnvironment = environment
     }
 
-    public init(plistName: String, environment: NStackEnvironment, translationsClass: LocalizableModel.Type) {
+    public init(plistName: String, environment: NStackEnvironment, localizationClass: LocalizableModel.Type) {
         var appId: String?
         var restAPIKey: String?
         var flatString: String?
-        var translationsUrlOverride: String?
+        var localizationsUrlOverride: String?
 
         self.currentEnvironment = environment
 
@@ -95,7 +96,7 @@ public struct Configuration {
                 appId = keyDict["APPLICATION_ID"] as? String
                 restAPIKey = keyDict["REST_API_KEY"] as? String
                 flatString = keyDict["FLAT"] as? String
-                translationsUrlOverride = keyDict["TRANSLATIONS_URL"] as? String
+                localizationsUrlOverride = keyDict["LOCALIZATIONS_URL"] as? String
                 break
             }
         }
@@ -105,8 +106,8 @@ public struct Configuration {
 
         self.appId = finalAppId
         self.restAPIKey = finalRestAPIKey
-        self.translationsClass = translationsClass
-        self.translationsUrlOverride = translationsUrlOverride
+        self.localizationClass = localizationClass
+        self.localizationUrlOverride = localizationsUrlOverride
         if let flat = flatString, flat == "1" {
             self.flat = true
         }

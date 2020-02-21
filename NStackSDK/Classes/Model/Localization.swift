@@ -12,23 +12,23 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
-public struct Localization: LocalizationModel {
-
-    public var id: Int
-    public var url: String
-    public var lastUpdatedAt: String
-    public var shouldUpdate: Bool
-    public var language: Language
-
-    enum CodingKeys: String, CodingKey {
-        case language, url, id
-        case lastUpdatedAt = "last_updated_at"
-        case shouldUpdate = "should_update"
-    }
-
-    public var localeIdentifier: String {
-        return language.acceptLanguage
-    }
-}
+//public struct Localization: LocalizationModel {
+//
+//    public var id: Int
+//    public var url: String
+//    public var lastUpdatedAt: String
+//    public var shouldUpdate: Bool
+//    public var language: Language
+//
+//    enum CodingKeys: String, CodingKey {
+//        case language, url, id
+//        case lastUpdatedAt = "last_updated_at"
+//        case shouldUpdate = "should_update"
+//    }
+//
+//    public var localeIdentifier: String {
+//        return language.acceptLanguage
+//    }
+//}

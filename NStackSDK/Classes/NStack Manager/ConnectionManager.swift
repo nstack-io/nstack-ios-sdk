@@ -12,7 +12,7 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
 struct DataModel<T: Codable>: WrapperModelType {
     let model: T
@@ -63,7 +63,7 @@ extension ConnectionManager {
             "version": currentVersion,
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedIso8601Date,
+            "last_updated": VersionUtilities.lastUpdatedIso8601DateString,
             "old_version": oldVersion
         ]
 
@@ -85,13 +85,13 @@ extension ConnectionManager {
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
     }
 }
-// MARK: - TranslationRepository
+// MARK: - LocalizationRepository
 extension ConnectionManager {
-    func getLocalizationConfig<C>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[C]>) -> Void) where C: LocalizationModel {
+    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[D]>) -> Void) where D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
-            "last_updated": VersionUtilities.lastUpdatedIso8601Date,
+            "last_updated": VersionUtilities.lastUpdatedIso8601DateString,
             "dev": "true"
         ]
 
@@ -101,13 +101,13 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let localizationCompletion: (Result<DataModel<[Localization]>>) -> Void = { (response) in
+        let localizationCompletion: (Result<DataModel<[LocalizationConfig]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
-                VersionUtilities.lastUpdatedIso8601Date = Date().iso8601
+                VersionUtilities.lastUpdatedIso8601DateString = Date().iso8601
                 let model = data.model
                 let result: Result = .success(model)
-                completion(result as! Result<[C]>)
+                completion(result as! Result<[D]>)
             default:
                 break
             }
@@ -115,7 +115,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: localizationCompletion)
     }
 
-    func getTranslations<L>(localization: LocalizationModel, acceptLanguage: String, completion: @escaping (Result<TranslationResponse<L>>) -> Void) where L: LanguageModel {
+    func getLocalization<L, D>(descriptor: D, acceptLanguage: String, completion: @escaping (Result<LocalizationResponse<L>>) -> Void) where L: LanguageModel, D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios"
@@ -123,10 +123,10 @@ extension ConnectionManager {
         var headers = defaultHeaders
         headers["Accept-Language"] = acceptLanguage
 
-        let url = localization.url
+        let url = descriptor.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let languageCompletion: (Result<TranslationResponse<Language>>) -> Void = { (response) in
-            completion(response as! Result<TranslationResponse<L>>)
+        let languageCompletion: (Result<LocalizationResponse<DefaultLanguage>>) -> Void = { (response) in
+            completion(response as! Result<LocalizationResponse<L>>)
         }
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languageCompletion)
     }
@@ -134,14 +134,14 @@ extension ConnectionManager {
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
         let url = baseURLv2 + "content/localize/mobile/languages"
         let request = session.request(url, method: .get, parameters: nil, headers: defaultHeaders)
-        let languagesCompletion: (Result<DataModel<[Language]>>) -> Void = { (response) in
+        let languagesCompletion: (Result<DataModel<[DefaultLanguage]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             case .failure:
-                let model: [Language] = []
+                let model: [DefaultLanguage] = []
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             }
@@ -232,7 +232,7 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
-    func fetchLanguages(completion: @escaping Completion<[Language]>) {
+    func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>) {
         let url = baseURLv1 + "geographic/languages"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)

@@ -17,6 +17,20 @@ public struct Proposal: Codable {
     let value: String
     let canDelete: Bool = false
 
+    public init (id: Int,
+                 applicationId: Int,
+                 key: String,
+                 section: String,
+                 localeString: String,
+                 value: String) {
+        self.id = id
+        self.applicationId = applicationId
+        self.key = key
+        self.section = section
+        self.localeString = localeString
+        self.value = value
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case applicationId
