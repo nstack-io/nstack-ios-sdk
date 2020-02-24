@@ -24,8 +24,7 @@ class MockConnectionManager: Repository {
                                   update: nil,
                                   rateReminder: nil,
                                   localize: [
-                                      LocalizationConfig(lastUpdatedAt: Date(),
-                                                         localeIdentifier: "en-GB",
+                                      LocalizationConfig(lastUpdatedAt: "",
                                                          shouldUpdate: true,
                                                          url: "locazlize.56.url",
                                                          language: DefaultLanguage(id: 56,
