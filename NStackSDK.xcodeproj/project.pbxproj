@@ -78,10 +78,6 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
-		23442E5B22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5C22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5D22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5E22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E6222C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6322C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6422C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
@@ -370,7 +366,6 @@
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
 		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
-		23442E5A22C627FD00F196EE /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Classes/Model/Localization.swift; sourceTree = "<group>"; };
 		23442E5F22C6281000F196EE /* GeographyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeographyManager.swift; path = Classes/Managers/GeographyManager.swift; sourceTree = "<group>"; };
 		23442E6022C6281000F196EE /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = Classes/Managers/ContentManager.swift; sourceTree = "<group>"; };
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
@@ -642,7 +637,6 @@
 				30B0CAB01BD7C24E005463AA /* Message.swift */,
 				304C42831BA0747300AE3D6F /* Update.swift */,
 				304C428C1BA075D500AE3D6F /* RateReminder.swift */,
-				23442E5A22C627FD00F196EE /* Localization.swift */,
 				839497BE1DC21DBF007FE281 /* Country.swift */,
 				839497C01DC21ED2007FE281 /* Timezone.swift */,
 				01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */,
@@ -1247,7 +1241,6 @@
 				23442E6522C6281000F196EE /* GeographyManager.swift in Sources */,
 				01A334881E4F1B47003CE9BA /* Repository.swift in Sources */,
 				01A334921E4F1B59003CE9BA /* Logger.swift in Sources */,
-				23442E5E22C627FD00F196EE /* Localization.swift in Sources */,
 				01A3348D1E4F1B50003CE9BA /* AlertManager.swift in Sources */,
 				83E20E4622D75B36006D5BEF /* N-Meta.swift in Sources */,
 				23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */,
@@ -1288,7 +1281,6 @@
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				23442E6A22C6281000F196EE /* ValidationManager.swift in Sources */,
 				33E222EE1FA8C5280013CCC3 /* Validation.swift in Sources */,
-				23442E5B22C627FD00F196EE /* Localization.swift in Sources */,
 				01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
 				A829DC4422F962520005580E /* ProposalInteractor.swift in Sources */,
@@ -1380,7 +1372,6 @@
 				C0D852EE215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				23442E6322C6281000F196EE /* GeographyManager.swift in Sources */,
 				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
-				23442E5C22C627FD00F196EE /* Localization.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
 				83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */,
 				23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */,
@@ -1449,7 +1440,6 @@
 				8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */,
 				23442E6422C6281000F196EE /* GeographyManager.swift in Sources */,
-				23442E5D22C627FD00F196EE /* Localization.swift in Sources */,
 				E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */,
 				C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
 				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
