@@ -176,6 +176,7 @@ public class NStack {
     ///
     /// - Parameter completion: This is run after the call has finished. 
     ///                         If *error* was nil, localization strings are up-to-date.
+    // swiftlint:disable:next cyclomatic_complexity
     public func update(_ completion: ((_ error: NStackError.Manager?) -> Void)? = nil) {
         guard configured else {
             print(NStackError.Manager.notConfigured.description)

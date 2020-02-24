@@ -378,7 +378,6 @@
 		29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationConfig.swift; sourceTree = "<group>"; };
 		29D7EB5223FAB71900C622EA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
-		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
@@ -424,7 +423,6 @@
 		A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationItemIdentifier.swift; sourceTree = "<group>"; };
 		A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalViewController.swift; sourceTree = "<group>"; };
 		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
-		C0D852D2215A371F0090B7C5 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C0D852D7215A373F0090B7C5 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		C0D852E2215A42EE0090B7C5 /* URLSession+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Request.swift"; sourceTree = "<group>"; };
 		C0D852E7215A596D0090B7C5 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
@@ -515,7 +513,6 @@
 			isa = PBXGroup;
 			children = (
 				01503A2D1DF1DD2500B521CF /* Repository.swift */,
-				C0D852D2215A371F0090B7C5 /* RequestFactory.swift */,
 				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 			);
 			name = Repository;
@@ -706,7 +703,6 @@
 				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
 				30B2E82D1B9DCDC00064DB21 /* Notify */,
-				30B2E82E1B9DCE200064DB21 /* Translations */,
 				23442E5322C6222300F196EE /* Managers */,
 				01F4C6651DFF14690050D0F1 /* Logger */,
 				01A334461E4E825E003CE9BA /* Other */,
@@ -749,15 +745,6 @@
 			);
 			name = Notify;
 			path = Classes/Notify;
-			sourceTree = "<group>";
-		};
-		30B2E82E1B9DCE200064DB21 /* Translations */ = {
-			isa = PBXGroup;
-			children = (
-				3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */,
-			);
-			name = Translations;
-			path = Classes/Translations;
 			sourceTree = "<group>";
 		};
 		83100E932333B13100F84217 /* tvOS */ = {

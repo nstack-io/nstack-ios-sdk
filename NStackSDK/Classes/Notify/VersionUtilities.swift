@@ -34,7 +34,7 @@ enum VersionUtilities {
             return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
         }
         set {
-            if let date = newValue as? Date {
+            if let date = newValue {
                 UserDefaults.standard.setCodable(date, forKey: Constants.CacheKeys.lastUpdatedDate)
             }
         }

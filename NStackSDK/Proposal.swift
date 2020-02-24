@@ -30,7 +30,7 @@ public struct Proposal: Codable {
         self.localeString = localeString
         self.value = value
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case applicationId
