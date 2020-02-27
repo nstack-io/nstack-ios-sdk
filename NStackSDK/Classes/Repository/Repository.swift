@@ -14,7 +14,7 @@ import WatchKit
 #elseif os(macOS)
 import AppKit
 #endif
-import TranslationManager
+import LocalizationManager
 
 public typealias Result<T> = Swift.Result<T, Error>
 
@@ -28,7 +28,7 @@ typealias Repository =
     ContentRepository &
     ColletionRepository &
     VersionsRepository &
-    TranslationRepository &
+    LocalizationRepository &
     LocalizationContextRepository &
     ProposalsRepository &
     FeedbackRepository
@@ -54,7 +54,7 @@ protocol UpdatesRepository {
 protocol GeographyRepository {
     func fetchContinents(completion: @escaping Completion<[Continent]>)
     func fetchCountries(completion: @escaping Completion<[Country]>)
-    func fetchLanguages(completion: @escaping Completion<[Language]>)
+    func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>)
     func fetchTimeZones(completion: @escaping Completion<[Timezone]>)
     func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>)
     func fetchIPDetails(completion: @escaping Completion<IPAddress>)

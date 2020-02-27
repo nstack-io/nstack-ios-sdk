@@ -1,5 +1,5 @@
 //
-//  TranslationsResponse.swift
+//  LocalizationsResponse.swift
 //  NStackSDK
 //
 //  Created by Dominik Hádl on 15/08/16.
@@ -12,11 +12,11 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
-public struct TranslationsResponse: Codable {
-    let translations: [String: Any]
-    let language: Language?
+public struct LocalizationsResponse: Codable {
+    let localization: [String: Any]
+    let language: DefaultLanguage?
 
     enum CodingKeys: String, CodingKey {
         case translations = "data"
@@ -28,21 +28,21 @@ public struct TranslationsResponse: Codable {
     }
 
     init() {
-        self.translations = [:]
+        self.localization = [:]
         self.language = nil
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        translations = try values.decodeIfPresent([String: Any].self, forKey: .translations) ?? [:]
+        localization = try values.decodeIfPresent([String: Any].self, forKey: .translations) ?? [:]
 
         let languageData = try values.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
-        language = try languageData.decodeIfPresent(Language.self, forKey: .language)
+        language = try languageData.decodeIfPresent(DefaultLanguage.self, forKey: .language)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(translations, forKey: .translations)
+        try container.encode(localization, forKey: .translations)
 
         var languageData = container.nestedContainer(keyedBy: LanguageCodingKeys.self, forKey: .languageData)
         try languageData.encode(language, forKey: .language)

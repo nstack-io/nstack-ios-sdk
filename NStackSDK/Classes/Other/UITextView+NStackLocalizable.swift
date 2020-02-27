@@ -13,18 +13,18 @@ extension UITextView: NStackLocalizable {
 
     private static var _backgroundColor = [String: UIColor?]()
     private static var _userInteractionEnabled = [String: Bool]()
-    private static var _translationIdentifier = [String: TranslationIdentifier]()
+    private static var _localizationItemIdentifier = [String: LocalizationItemIdentifier]()
 
     @objc public func localize(for stringIdentifier: String) {
         guard let identifier = SectionKeyHelper.transform(stringIdentifier) else { return }
-        NStack.sharedInstance.translationsManager?.localize(component: self, for: identifier)
+        NStack.sharedInstance.localizationManager?.localize(component: self, for: identifier)
     }
 
     @objc public func setLocalizedValue(_ localizedValue: String) {
         text = localizedValue
     }
 
-    public var translatableValue: String? {
+    public var localizableValue: String? {
         get {
             return text
         }
@@ -33,14 +33,14 @@ extension UITextView: NStackLocalizable {
         }
     }
 
-    public var translationIdentifier: TranslationIdentifier? {
+    public var localizationItemIdentifier: LocalizationItemIdentifier? {
         get {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            return UITextView._translationIdentifier[tmpAddress]
+            return UITextView._localizationItemIdentifier[tmpAddress]
         }
         set {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UITextView._translationIdentifier[tmpAddress] = newValue
+            UITextView._localizationItemIdentifier[tmpAddress] = newValue
         }
     }
 

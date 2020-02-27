@@ -12,7 +12,7 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
 struct AppOpenData: Codable {
     let count: Int?
@@ -21,7 +21,7 @@ struct AppOpenData: Codable {
     let update: Update?
     let rateReminder: RateReminder?
 
-    let localize: [Localization]?
+    let localize: [LocalizationConfig]?
     let platform: String
 
     let createdAt: String

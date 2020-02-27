@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0106ADA31C7914B700E0C8BC /* Translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 0106ADA21C7914B700E0C8BC /* Translations.json */; };
 		01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
 		01503A2E1DF1DD2500B521CF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
-		01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		01814A2C1D6209F40053E804 /* LocalizationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */; };
 		0184A2C51D60BF6B00E63E01 /* NStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C41D60BF6B00E63E01 /* NStackError.swift */; };
 		0184A2C71D61C66300E63E01 /* VersionUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */; };
 		01A3343F1E4E7DFD003CE9BA /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,7 +33,7 @@
 		01A334831E4F1B43003CE9BA /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		01A334841E4F1B43003CE9BA /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
-		01A334861E4F1B43003CE9BA /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		01A334861E4F1B43003CE9BA /* LocalizationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */; };
 		01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
 		01A334881E4F1B47003CE9BA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
 		01A334891E4F1B47003CE9BA /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -78,10 +78,6 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
-		23442E5B22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5C22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5D22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
-		23442E5E22C627FD00F196EE /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5A22C627FD00F196EE /* Localization.swift */; };
 		23442E6222C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6322C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6422C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
@@ -97,12 +93,24 @@
 		2346FDA2233B6BC40025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		2346FDA3233B6C680025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
-		29D7EB5423FABA0E00C622EA /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29D7EB5223FAB71900C622EA /* TranslationManager.framework */; };
+		29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
+		29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
+		29A72DF423FFECD700CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29A72DF723FFECE500CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
+		29A72DF823FFECE500CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; };
+		29A72DFC23FFECED00CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29A72DFF24000DFD00CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
+		29A72E002400166400CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
+		29A72E012400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
+		29A72E022400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
+		29A72E032400281A00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
 		3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
 		304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42811BA0745500AE3D6F /* AppOpenData.swift */; };
 		304C42841BA0747300AE3D6F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
 		304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
-		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */; platformFilter = ios; settings = {ATTRIBUTES = (Required, ); }; };
 		305112721BD676DF005578DE /* VersionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305112711BD676DF005578DE /* VersionUtilities.swift */; };
 		30A3D84B1B9DB94100C2D15C /* NStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A3D84A1B9DB94100C2D15C /* NStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A3D8561B9DB94100C2D15C /* NStackTests.swift */; };
@@ -130,18 +138,16 @@
 		33E223111FA9F5010013CCC3 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2230A1FA9F5010013CCC3 /* Continent.swift */; };
 		82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */; };
 		82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CB554A1C8DEAC200389D2B /* LanguageData.swift */; };
-		83100E972333B15100F84217 /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83100E962333B15100F84217 /* TranslationManager.framework */; };
-		83100E982333B18600F84217 /* TranslationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238D644722C518B3002406FA /* TranslationManager.framework */; };
 		839497BF1DC21DBF007FE281 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		839497C11DC21ED2007FE281 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		83E20E4322D756CD006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4522D75B35006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
 		83E20E4622D75B36006D5BEF /* N-Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E20E4222D756CD006D5BEF /* N-Meta.swift */; };
-		8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
-		8C26C47322F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
-		8C26C47422F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
-		8C26C47522F4085D00170071 /* LocalizationProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationProposal.swift */; };
+		8C26C47222F4085D00170071 /* LocalizationItemProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */; };
+		8C26C47322F4085D00170071 /* LocalizationItemProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */; };
+		8C26C47422F4085D00170071 /* LocalizationItemProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */; };
+		8C26C47522F4085D00170071 /* LocalizationItemProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */; };
 		8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
 		8C80D0F922F066AC00165F5D /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80D0F622F066AC00165F5D /* Proposal.swift */; };
@@ -154,9 +160,9 @@
 		8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
 		8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */; };
-		8CA9F228230BDB7100CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
-		8CA9F229230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
-		8CA9F22A230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		8CA9F228230BDB7100CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
+		8CA9F229230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
+		8CA9F22A230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
 		8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		8CA9F22C230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
@@ -181,7 +187,7 @@
 		A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13ED22F05A7D002A7682 /* UITextField+NStackLocalizable.swift */; };
 		A83A13F022F05A94002A7682 /* UITextView+NStackLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */; };
 		A83A140922F2CB5C002A7682 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
-		A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */; };
+		A864BBEC22F31AD200CC2BFF /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
 		A8ECFA3022F44E2D009D2175 /* ProposalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */; };
 		C0D852CE215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
 		C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */; };
@@ -218,7 +224,7 @@
 		E3689C031D9EBA54004620D6 /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C42831BA0747300AE3D6F /* Update.swift */; };
 		E3689C041D9EBA54004620D6 /* RateReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304C428C1BA075D500AE3D6F /* RateReminder.swift */; };
 		E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
-		E3689C071D9EBA54004620D6 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		E3689C071D9EBA54004620D6 /* LocalizationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */; };
 		E3689C081D9EBA54004620D6 /* NStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2E8301B9DD6A10064DB21 /* NStack.swift */; };
 		E3689C091D9EBA54004620D6 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7070A1BDD80CE00FC5A01 /* ApplicationObserver.swift */; };
 		E3689C0A1D9EBA54004620D6 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -234,7 +240,7 @@
 		E3B654A81E0056F300FC9380 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497BE1DC21DBF007FE281 /* Country.swift */; };
 		E3B654A91E0056F300FC9380 /* Timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839497C01DC21ED2007FE281 /* Timezone.swift */; };
 		E3B654AA1E0056F300FC9380 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4EDE81D5DF17800E7E94C /* Configuration.swift */; };
-		E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* TranslationsResponse.swift */; };
+		E3B654AB1E0056F300FC9380 /* LocalizationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */; };
 		E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */; };
 		E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01503A2D1DF1DD2500B521CF /* Repository.swift */; };
 		E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */; };
@@ -289,11 +295,58 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		29A72DEE23FFEC7600CE8483 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29A72DF523FFECD700CE8483 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29A72DF423FFECD700CE8483 /* LocalizationManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29A72DF923FFECE500CE8483 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29A72DF823FFECE500CE8483 /* LocalizationManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29A72DFD23FFECED00CE8483 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29A72DFC23FFECED00CE8483 /* LocalizationManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
 		01503A2B1DF1DD1500B521CF /* APIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
 		01503A2D1DF1DD2500B521CF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		01814A2B1D6209F40053E804 /* TranslationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslationsResponse.swift; path = Classes/Model/TranslationsResponse.swift; sourceTree = "<group>"; };
+		01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalizationsResponse.swift; path = Classes/Model/LocalizationsResponse.swift; sourceTree = "<group>"; };
 		0184A2C41D60BF6B00E63E01 /* NStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NStackError.swift; sourceTree = "<group>"; };
 		0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionUtilitiesTests.swift; sourceTree = "<group>"; };
 		01A334471E4E825E003CE9BA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -313,17 +366,18 @@
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
 		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
-		23442E5A22C627FD00F196EE /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = Classes/Model/Localization.swift; sourceTree = "<group>"; };
 		23442E5F22C6281000F196EE /* GeographyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeographyManager.swift; path = Classes/Managers/GeographyManager.swift; sourceTree = "<group>"; };
 		23442E6022C6281000F196EE /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = Classes/Managers/ContentManager.swift; sourceTree = "<group>"; };
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		2346FD6D233B65400025B68D /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
-		238D644722C518B3002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
-		238D644922C518FE002406FA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
+		29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/Mac/LocalizationManager.framework; sourceTree = "<group>"; };
+		29A72DF223FFECD700CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/iOS/LocalizationManager.framework; sourceTree = "<group>"; };
+		29A72DF623FFECE500CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/tvOS/LocalizationManager.framework; sourceTree = "<group>"; };
+		29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/watchOS/LocalizationManager.framework; sourceTree = "<group>"; };
+		29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationConfig.swift; sourceTree = "<group>"; };
 		29D7EB5223FAB71900C622EA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
-		3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationUI.swift; sourceTree = "<group>"; };
 		304C42811BA0745500AE3D6F /* AppOpenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenData.swift; path = Classes/Model/AppOpenData.swift; sourceTree = "<group>"; };
 		304C42831BA0747300AE3D6F /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Classes/Model/Update.swift; sourceTree = "<group>"; };
 		304C428C1BA075D500AE3D6F /* RateReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateReminder.swift; path = Classes/Model/RateReminder.swift; sourceTree = "<group>"; };
@@ -343,11 +397,10 @@
 		7579C77123C346CE00A05022 /* APIFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFeedbackManager.swift; sourceTree = "<group>"; };
 		82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
-		83100E962333B15100F84217 /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = ../../Carthage/Build/tvOS/TranslationManager.framework; sourceTree = "<group>"; };
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
 		839497C01DC21ED2007FE281 /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timezone.swift; path = Classes/Model/Timezone.swift; sourceTree = "<group>"; };
 		83E20E4222D756CD006D5BEF /* N-Meta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "N-Meta.swift"; sourceTree = "<group>"; };
-		8C26C47122F4085D00170071 /* LocalizationProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalizationProposal.swift; path = Classes/Model/LocalizationProposal.swift; sourceTree = "<group>"; };
+		8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalizationItemProposal.swift; path = Classes/Model/LocalizationItemProposal.swift; sourceTree = "<group>"; };
 		8C80D0F622F066AC00165F5D /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		8C9BA2DC22EEFFF00057BAEF /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		8C9BA2E322EF27E70057BAEF /* LocalizationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationWrapper.swift; sourceTree = "<group>"; };
@@ -367,10 +420,9 @@
 		A83A13ED22F05A7D002A7682 /* UITextField+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NStackLocalizable.swift"; sourceTree = "<group>"; };
 		A83A13EF22F05A94002A7682 /* UITextView+NStackLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+NStackLocalizable.swift"; sourceTree = "<group>"; };
 		A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionKeyHelper.swift; sourceTree = "<group>"; };
-		A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationIdentifier.swift; sourceTree = "<group>"; };
+		A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationItemIdentifier.swift; sourceTree = "<group>"; };
 		A8ECFA2E22F44E2D009D2175 /* ProposalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalViewController.swift; sourceTree = "<group>"; };
 		C0D852CD215A2C390090B7C5 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
-		C0D852D2215A371F0090B7C5 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C0D852D7215A373F0090B7C5 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		C0D852E2215A42EE0090B7C5 /* URLSession+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Request.swift"; sourceTree = "<group>"; };
 		C0D852E7215A596D0090B7C5 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
@@ -393,6 +445,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83100E982333B18600F84217 /* TranslationManager.framework in Frameworks */,
+				29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
 			);
@@ -411,7 +464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */,
-				29D7EB5423FABA0E00C622EA /* TranslationManager.framework in Frameworks */,
+				29A72E032400281A00CE8483 /* LocalizationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +472,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83100E972333B15100F84217 /* TranslationManager.framework in Frameworks */,
+				29A72DF723FFECE500CE8483 /* LocalizationManager.framework in Frameworks */,
 				E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */,
 				E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */,
 			);
@@ -437,6 +490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */,
 				E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */,
 				E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */,
 			);
@@ -459,7 +513,6 @@
 			isa = PBXGroup;
 			children = (
 				01503A2D1DF1DD2500B521CF /* Repository.swift */,
-				C0D852D2215A371F0090B7C5 /* RequestFactory.swift */,
 				3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */,
 			);
 			name = Repository;
@@ -581,19 +634,19 @@
 				30B0CAB01BD7C24E005463AA /* Message.swift */,
 				304C42831BA0747300AE3D6F /* Update.swift */,
 				304C428C1BA075D500AE3D6F /* RateReminder.swift */,
-				23442E5A22C627FD00F196EE /* Localization.swift */,
 				839497BE1DC21DBF007FE281 /* Country.swift */,
 				839497C01DC21ED2007FE281 /* Timezone.swift */,
-				01814A2B1D6209F40053E804 /* TranslationsResponse.swift */,
+				01814A2B1D6209F40053E804 /* LocalizationsResponse.swift */,
 				33E222ED1FA8C5280013CCC3 /* Validation.swift */,
 				33E223021FA9F4EA0013CCC3 /* IPAddress.swift */,
 				33E2230A1FA9F5010013CCC3 /* Continent.swift */,
 				C0D852D7215A373F0090B7C5 /* Routes.swift */,
 				C0D852DC215A3A730090B7C5 /* Repository */,
 				8C80D0F622F066AC00165F5D /* Proposal.swift */,
-				A864BBEB22F31AD200CC2BFF /* TranslationIdentifier.swift */,
-				8C26C47122F4085D00170071 /* LocalizationProposal.swift */,
+				A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */,
+				8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */,
 				A53B7D28236B244A00673DB6 /* Feedback.swift */,
+				29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -601,11 +654,13 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */,
+				29A72DF223FFECD700CE8483 /* LocalizationManager.framework */,
+				29A72DF623FFECE500CE8483 /* LocalizationManager.framework */,
+				29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */,
 				83100E952333B13C00F84217 /* watchOS */,
 				83100E942333B13600F84217 /* macOS */,
 				83100E932333B13100F84217 /* tvOS */,
-				238D644722C518B3002406FA /* TranslationManager.framework */,
-				238D644922C518FE002406FA /* TranslationManager.framework */,
 				E3B654771E00484F00FC9380 /* Mac */,
 				E3689C111D9EBC63004620D6 /* iOS */,
 			);
@@ -648,7 +703,6 @@
 				01503A2A1DF1DD0E00B521CF /* Repository */,
 				30B2E82C1B9DCC1D0064DB21 /* NStack Manager */,
 				30B2E82D1B9DCDC00064DB21 /* Notify */,
-				30B2E82E1B9DCE200064DB21 /* Translations */,
 				23442E5322C6222300F196EE /* Managers */,
 				01F4C6651DFF14690050D0F1 /* Logger */,
 				01A334461E4E825E003CE9BA /* Other */,
@@ -693,19 +747,9 @@
 			path = Classes/Notify;
 			sourceTree = "<group>";
 		};
-		30B2E82E1B9DCE200064DB21 /* Translations */ = {
-			isa = PBXGroup;
-			children = (
-				3027B2D21BBAF1A700C2F4FB /* TranslationUI.swift */,
-			);
-			name = Translations;
-			path = Classes/Translations;
-			sourceTree = "<group>";
-		};
 		83100E932333B13100F84217 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				83100E962333B15100F84217 /* TranslationManager.framework */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -836,6 +880,7 @@
 				01A334701E4F1B2A003CE9BA /* Frameworks */,
 				01A334711E4F1B2A003CE9BA /* Headers */,
 				01A334721E4F1B2A003CE9BA /* Resources */,
+				29A72DFD23FFECED00CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -856,6 +901,7 @@
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
 				30A3D8441B9DB94100C2D15C /* Headers */,
 				30A3D8451B9DB94100C2D15C /* Resources */,
+				29A72DF523FFECD700CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -893,6 +939,7 @@
 				E3689BDE1D9EB9EA004620D6 /* Frameworks */,
 				E3689BDF1D9EB9EA004620D6 /* Headers */,
 				E3689BE01D9EB9EA004620D6 /* Resources */,
+				29A72DF923FFECE500CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -929,6 +976,7 @@
 				E3B654361E00450C00FC9380 /* Frameworks */,
 				E3B654371E00450C00FC9380 /* Headers */,
 				E3B654381E00450C00FC9380 /* Resources */,
+				29A72DEE23FFEC7600CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1161,14 +1209,15 @@
 			files = (
 				01A334941E4F1B5E003CE9BA /* Constants.swift in Sources */,
 				01A3348B1E4F1B4B003CE9BA /* ApplicationObserver.swift in Sources */,
-				8CA9F22A230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */,
+				8CA9F22A230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */,
 				23442E6922C6281000F196EE /* ContentManager.swift in Sources */,
-				01A334861E4F1B43003CE9BA /* TranslationsResponse.swift in Sources */,
+				01A334861E4F1B43003CE9BA /* LocalizationsResponse.swift in Sources */,
 				01A3347E1E4F1B43003CE9BA /* AppOpenData.swift in Sources */,
 				33E222F41FA8C5280013CCC3 /* Validation.swift in Sources */,
 				01A334961E4F1B5E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
 				01A334811E4F1B43003CE9BA /* RateReminder.swift in Sources */,
 				C469F15022FC3A66002F9FDF /* PropertyWrapper.swift in Sources */,
+				29A72E022400166500CE8483 /* LocalizationConfig.swift in Sources */,
 				01A3348E1E4F1B50003CE9BA /* VersionUtilities.swift in Sources */,
 				01A3348C1E4F1B4B003CE9BA /* NStackError.swift in Sources */,
 				C0D852F5215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
@@ -1179,7 +1228,6 @@
 				23442E6522C6281000F196EE /* GeographyManager.swift in Sources */,
 				01A334881E4F1B47003CE9BA /* Repository.swift in Sources */,
 				01A334921E4F1B59003CE9BA /* Logger.swift in Sources */,
-				23442E5E22C627FD00F196EE /* Localization.swift in Sources */,
 				01A3348D1E4F1B50003CE9BA /* AlertManager.swift in Sources */,
 				83E20E4622D75B36006D5BEF /* N-Meta.swift in Sources */,
 				23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */,
@@ -1199,7 +1247,7 @@
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */,
-				8C26C47522F4085D00170071 /* LocalizationProposal.swift in Sources */,
+				8C26C47522F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
 				8C80D0FA22F066AC00165F5D /* Proposal.swift in Sources */,
@@ -1212,7 +1260,7 @@
 			files = (
 				82CB554B1C8DEAC200389D2B /* AppOpenResponse.swift in Sources */,
 				23442E6622C6281000F196EE /* ContentManager.swift in Sources */,
-				8C26C47222F4085D00170071 /* LocalizationProposal.swift in Sources */,
+				8C26C47222F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				A83A13EE22F05A7D002A7682 /* UITextField+NStackLocalizable.swift in Sources */,
 				A829DC4722F973B30005580E /* UITableViewCell+ProposalCell.swift in Sources */,
 				30E8AEDC1BD4F6BE00D43262 /* AlertManager.swift in Sources */,
@@ -1220,7 +1268,6 @@
 				304C428D1BA075D500AE3D6F /* RateReminder.swift in Sources */,
 				23442E6A22C6281000F196EE /* ValidationManager.swift in Sources */,
 				33E222EE1FA8C5280013CCC3 /* Validation.swift in Sources */,
-				23442E5B22C627FD00F196EE /* Localization.swift in Sources */,
 				01A334501E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
 				30B2E8311B9DD6A10064DB21 /* NStack.swift in Sources */,
 				A829DC4422F962520005580E /* ProposalInteractor.swift in Sources */,
@@ -1234,8 +1281,9 @@
 				A83A13EA22F05A3A002A7682 /* UILabel+NstackLocalizable.swift in Sources */,
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */,
+				29A72DFF24000DFD00CE8483 /* LocalizationConfig.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
-				A864BBEC22F31AD200CC2BFF /* TranslationIdentifier.swift in Sources */,
+				A864BBEC22F31AD200CC2BFF /* LocalizationItemIdentifier.swift in Sources */,
 				30D7070B1BDD80CE00FC5A01 /* ApplicationObserver.swift in Sources */,
 				A83A13E822F059FA002A7682 /* UIWindow+ShakeDetection.swift in Sources */,
 				A829DC4222F962430005580E /* ProposalPresenter.swift in Sources */,
@@ -1249,7 +1297,7 @@
 				A53B7D29236B244A00673DB6 /* Feedback.swift in Sources */,
 				A53B7D2B236B352300673DB6 /* FeedbackManager.swift in Sources */,
 				CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */,
-				01814A2C1D6209F40053E804 /* TranslationsResponse.swift in Sources */,
+				01814A2C1D6209F40053E804 /* LocalizationsResponse.swift in Sources */,
 				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
 				C0D852ED215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
@@ -1293,7 +1341,7 @@
 			files = (
 				E3689BFF1D9EBA54004620D6 /* AppOpenResponse.swift in Sources */,
 				E3689C001D9EBA54004620D6 /* LanguageData.swift in Sources */,
-				8CA9F228230BDB7100CF8065 /* TranslationIdentifier.swift in Sources */,
+				8CA9F228230BDB7100CF8065 /* LocalizationItemIdentifier.swift in Sources */,
 				23442E6722C6281000F196EE /* ContentManager.swift in Sources */,
 				E3689C011D9EBA54004620D6 /* AppOpenData.swift in Sources */,
 				01A334511E4E825E003CE9BA /* UIApplication+SafeExtensions.swift in Sources */,
@@ -1301,6 +1349,7 @@
 				E3689C021D9EBA54004620D6 /* Message.swift in Sources */,
 				E3689C031D9EBA54004620D6 /* Update.swift in Sources */,
 				C469F14E22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
+				29A72E002400166400CE8483 /* LocalizationConfig.swift in Sources */,
 				01F4C6C71DFF72F00050D0F1 /* Logger.swift in Sources */,
 				01F4C6C51DFF72D50050D0F1 /* APIConfiguration.swift in Sources */,
 				C0D852F3215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
@@ -1310,12 +1359,11 @@
 				C0D852EE215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				23442E6322C6281000F196EE /* GeographyManager.swift in Sources */,
 				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
-				23442E5C22C627FD00F196EE /* Localization.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
 				83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */,
 				23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */,
 				01BBEFAF1DE0FC66003AC718 /* Timezone.swift in Sources */,
-				E3689C071D9EBA54004620D6 /* TranslationsResponse.swift in Sources */,
+				E3689C071D9EBA54004620D6 /* LocalizationsResponse.swift in Sources */,
 				E3689C081D9EBA54004620D6 /* NStack.swift in Sources */,
 				8CA9F22E230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */,
 				E3689C091D9EBA54004620D6 /* ApplicationObserver.swift in Sources */,
@@ -1331,7 +1379,7 @@
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */,
-				8C26C47322F4085D00170071 /* LocalizationProposal.swift in Sources */,
+				8C26C47322F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				C0D852E4215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E2230D1FA9F5010013CCC3 /* Continent.swift in Sources */,
 				8C80D0F822F066AC00165F5D /* Proposal.swift in Sources */,
@@ -1364,21 +1412,21 @@
 				33E222F21FA8C5280013CCC3 /* Validation.swift in Sources */,
 				33E223071FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
 				E3B654A51E0056F300FC9380 /* Update.swift in Sources */,
-				8CA9F229230BDB7200CF8065 /* TranslationIdentifier.swift in Sources */,
+				8CA9F229230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */,
 				E3B654A61E0056F300FC9380 /* RateReminder.swift in Sources */,
+				29A72E012400166500CE8483 /* LocalizationConfig.swift in Sources */,
 				E3B654A81E0056F300FC9380 /* Country.swift in Sources */,
 				E3B654A91E0056F300FC9380 /* Timezone.swift in Sources */,
 				E3B654AA1E0056F300FC9380 /* Configuration.swift in Sources */,
 				33E2230F1FA9F5010013CCC3 /* Continent.swift in Sources */,
 				C0D852EF215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				C0D852EA215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
-				E3B654AB1E0056F300FC9380 /* TranslationsResponse.swift in Sources */,
+				E3B654AB1E0056F300FC9380 /* LocalizationsResponse.swift in Sources */,
 				8CA9F22F230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */,
 				E3B654AC1E0056F300FC9380 /* APIConfiguration.swift in Sources */,
 				8C9BA2E622EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				E3B654AD1E0056F300FC9380 /* Repository.swift in Sources */,
 				23442E6422C6281000F196EE /* GeographyManager.swift in Sources */,
-				23442E5D22C627FD00F196EE /* Localization.swift in Sources */,
 				E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */,
 				C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
 				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
@@ -1390,7 +1438,7 @@
 				C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				23442E6C22C6281000F196EE /* ValidationManager.swift in Sources */,
 				8CA9F22C230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */,
-				8C26C47422F4085D00170071 /* LocalizationProposal.swift in Sources */,
+				8C26C47422F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */,
 				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
 				E3B654B71E0056F300FC9380 /* Logger.swift in Sources */,
@@ -1421,6 +1469,7 @@
 /* Begin PBXTargetDependency section */
 		30A3D8541B9DB94100C2D15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 30A3D8461B9DB94100C2D15C /* NStackSDK */;
 			targetProxy = 30A3D8531B9DB94100C2D15C /* PBXContainerItemProxy */;
 		};
@@ -1448,10 +1497,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/watchOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nodes.NStackSDK-watchOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = watchos;
@@ -1473,15 +1529,23 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/watchOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nodes.NStackSDK-watchOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1627,11 +1691,16 @@
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
 				PRODUCT_NAME = NStackSDK;
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1656,12 +1725,18 @@
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK;
 				PRODUCT_NAME = NStackSDK;
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1681,7 +1756,12 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1704,12 +1784,18 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.NStackSDK.Tests;
 				PRODUCT_NAME = NStackSDKTests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1730,10 +1816,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = appletvos;
@@ -1760,15 +1851,21 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NStackSDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
@@ -1789,7 +1886,12 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1812,11 +1914,17 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${FRAMEWORK_SEARCH_PATHS}";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
@@ -1833,10 +1941,19 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = NStackSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"@executable_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
 				PRODUCT_NAME = NStackSDK;
@@ -1860,16 +1977,26 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = NStackSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"@executable_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -1888,7 +2015,14 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1910,12 +2044,20 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NStackSDKTests/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks ${FRAMEWORK_SEARCH_PATHS} @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"${FRAMEWORK_SEARCH_PATHS}",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};

@@ -37,7 +37,7 @@ class ProposalPresenter {
             }
         } else {
             if let item = currentItem {
-                proposals = proposals.filter({$0.section == item.translationIdentifier?.section && $0.key == item.translationIdentifier?.key})
+                proposals = proposals.filter({$0.section == item.localizationItemIdentifier?.section && $0.key == item.localizationItemIdentifier?.key})
             }
         }
     }

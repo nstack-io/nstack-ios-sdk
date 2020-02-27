@@ -20,12 +20,23 @@ enum VersionUtilities {
         }
     }
 
-    static var lastUpdatedIso8601Date: String {
+    static var lastUpdatedIso8601DateString: String {
         get {
             return UserDefaults.standard.string(forKey: Constants.CacheKeys.lastUpdatedDate) ?? ""
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.CacheKeys.lastUpdatedDate)
+        }
+    }
+
+    static var lastUpdatedDate: Date? {
+        get {
+            return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
+        }
+        set {
+            if let date = newValue {
+                UserDefaults.standard.setCodable(date, forKey: Constants.CacheKeys.lastUpdatedDate)
+            }
         }
     }
 

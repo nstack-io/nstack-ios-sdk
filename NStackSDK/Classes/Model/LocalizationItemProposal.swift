@@ -12,9 +12,9 @@ import AppKit
 #else
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
-struct LocalizationProposal {
+struct LocalizationItemProposal {
     let value: String
     let locale: Locale
 }
