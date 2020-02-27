@@ -10,7 +10,7 @@ import Foundation
 #if os(iOS)
 import UIKit
 #endif
-import TranslationManager
+import LocalizationManager
 
 public class GeographyManager {
 
@@ -18,9 +18,14 @@ public class GeographyManager {
     internal var repository: GeographyRepository
 
     // MARK: - Init
-    init(repository: GeographyRepository) {
+    init(repository: GeographyRepository,
+         userDefaults: UserDefaults = .standard) {
         self.repository = repository
+        self.userDefaults = userDefaults
     }
+
+    /// User defaults used to store basic information and settings.
+    fileprivate let userDefaults: UserDefaults
 
     // MARK: - IPAddress
     /// Retrieve details based on the requestee's ip address
@@ -85,7 +90,7 @@ public class GeographyManager {
     /// Updates the list of languages stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func languages(completion: @escaping Completion<[Language]>) {
+    public func languages(completion: @escaping Completion<[DefaultLanguage]>) {
         repository.fetchLanguages(completion: completion)
     }
 

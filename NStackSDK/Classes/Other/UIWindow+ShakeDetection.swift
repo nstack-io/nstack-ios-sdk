@@ -14,7 +14,7 @@ extension UIWindow {
         static var isEditing = false
         static var canDisplayBottomPopup = true
         static var proposalBottomPopupView: UIView?
-        static var translatableSubviews: [NStackLocalizable] = []
+        static var localizableSubviews: [NStackLocalizable] = []
         static var flowSubviews: [UIView] = []
         static var currentItem: NStackLocalizable?
     }
@@ -45,13 +45,13 @@ extension UIWindow {
         if let topController = visibleViewController {
             // TODO: Observe for viewWillDisappear and remove highlighting etc with: revertAndReset()
 
-            appendTranslatableSubviews(for: topController)
+            appendLocalizableSubviews(for: topController)
 
-            if !ShakeDetection.translatableSubviews.isEmpty {
+            if !ShakeDetection.localizableSubviews.isEmpty {
                 ShakeDetection.isEditing = true
 
                 // Handle the editable items
-                for item in ShakeDetection.translatableSubviews {
+                for item in ShakeDetection.localizableSubviews {
                     // Save original states
                     item.originalBackgroundColor = item.backgroundColor
                     item.originalIsUserInteractionEnabled = item.isUserInteractionEnabled
@@ -69,15 +69,15 @@ extension UIWindow {
         }
     }
 
-    private func appendTranslatableSubviews(for viewController: UIViewController) {
+    private func appendLocalizableSubviews(for viewController: UIViewController) {
         // Find views that are ´NStackLocalizable´ and has a section and key value that has been translated
-        ShakeDetection.translatableSubviews = viewController.view.subviews
+        ShakeDetection.localizableSubviews = viewController.view.subviews
             .map { currentView in
-                guard let translationsManager = NStack.sharedInstance.translationsManager else { return nil }
+                guard let translationsManager = NStack.sharedInstance.localizationManager else { return nil }
 
                 guard
                     let translatableItem = currentView as? NStackLocalizable,
-                    let identifier = translatableItem.translationIdentifier
+                    let identifier = translatableItem.localizationItemIdentifier
                 else {
                     return nil
                 }
@@ -97,14 +97,14 @@ extension UIWindow {
 
     // Revert to original state
     private func revertAndReset() {
-        for item in ShakeDetection.translatableSubviews {
+        for item in ShakeDetection.localizableSubviews {
             item.backgroundViewToColor?.backgroundColor = item.originalBackgroundColor
             item.isUserInteractionEnabled = item.originalIsUserInteractionEnabled
             if let lastGesture = item.gestureRecognizers?.last {
                 item.removeGestureRecognizer(lastGesture)
             }
         }
-        ShakeDetection.translatableSubviews = []
+        ShakeDetection.localizableSubviews = []
         ShakeDetection.isEditing = false
 
         displayBottomPopup()
@@ -180,7 +180,7 @@ extension UIWindow {
         viewProposalsButton.setTitleColor(.blue, for: .normal)
         viewProposalsButton.tag = Sender.openProposalsForKey.rawValue
         viewProposalsButton.setTitle("View translation proposals", for: .normal)
-        viewProposalsButton.addTarget(self, action: #selector(viewTranslationProposalsClicked), for: .touchUpInside)
+        viewProposalsButton.addTarget(self, action: #selector(viewLocalizationProposalsClicked), for: .touchUpInside)
         viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
         viewProposalsButton.bottomAnchor.constraint(equalTo: proposeButton.topAnchor).isActive = true
         viewProposalsButton.trailingAnchor.constraint(equalTo: proposalLaunchView.trailingAnchor, constant: -25).isActive = true
@@ -216,7 +216,7 @@ extension UIWindow {
                 viewProposalsButton.setTitleColor(.blue, for: .normal)
                 viewProposalsButton.tag = Sender.openAllProposals.rawValue
                 viewProposalsButton.setTitle("Open", for: .normal)
-                viewProposalsButton.addTarget(self, action: #selector(viewTranslationProposalsClicked), for: .touchUpInside)
+                viewProposalsButton.addTarget(self, action: #selector(viewLocalizationProposalsClicked), for: .touchUpInside)
                 viewProposalsButton.translatesAutoresizingMaskIntoConstraints = false
                 viewProposalsButton.centerYAnchor.constraint(equalTo: proposalBottomPopup.centerYAnchor).isActive = true
                 viewProposalsButton.trailingAnchor.constraint(equalTo: proposalBottomPopup.trailingAnchor, constant: -20).isActive = true
@@ -256,25 +256,27 @@ extension UIWindow {
     @objc
     func proposeNewTranslationClicked() {
         if let visibleViewController = visibleViewController, let item = ShakeDetection.currentItem {
-            let alertController = UIAlertController(title: item.translatableValue, message: "", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: item.localizableValue, message: "", preferredStyle: UIAlertController.Style.alert)
 
             let saveAction = UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler: { _ -> Void in
                 let textField = alertController.textFields![0] as UITextField
                 if textField.text != "" {
                     // Set proposal to label
-                    item.translatableValue = textField.text
+                    item.localizableValue = textField.text
                     // Send proposal to API
-                    if let identifier = item.translationIdentifier {
-                        NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "")
+                    if let identifier = item.localizationItemIdentifier {
+                        NStack.sharedInstance.storeProposal(for: identifier, with: textField.text ?? "", completion: { error in
+                            self.showConfirmationAlert(text: error?.localizedDescription ?? "Proposal Stored")
+                            })
                     }
                 }
-            })
+                })
 
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { (_: UIAlertAction!) -> Void in
                 // Start flow again
                 guard let currentItem = ShakeDetection.currentItem else { return }
                 self.startFlow(for: currentItem, in: visibleViewController)
-            })
+                })
 
             alertController.addTextField { (textField: UITextField!) -> Void in
                 textField.placeholder = "Add proposal here"
@@ -288,9 +290,19 @@ extension UIWindow {
         }
     }
 
-    // Opens the listview of all translations for the given key
+    func showConfirmationAlert(text: String) {
+        if let visibleViewController = visibleViewController {
+            let alertController = UIAlertController(title: text, message: "", preferredStyle: UIAlertController.Style.alert)
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            alertController.addAction(okAction)
+            visibleViewController.present(alertController, animated: true, completion: nil)
+        }
+    }
+
+    // Opens the listview of all localization for the given key
     @objc
-    func viewTranslationProposalsClicked(sender: UIButton) {
+    func viewLocalizationProposalsClicked(sender: UIButton) {
         if let visibleViewController = visibleViewController {
             NStack.sharedInstance.fetchProposals { proposals in
                 DispatchQueue.main.async {

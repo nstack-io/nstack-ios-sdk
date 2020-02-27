@@ -10,7 +10,7 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-    var conf = Configuration(plistName: "NStack", environment: .debug, translationsClass: Translations.self)
+    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Translations.self)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
@@ -41,7 +41,7 @@ class NStackTests: XCTestCase {
     func testUpdateAppOpen() {
         let exp = expectation(description: "Best fit language was set")
         NStack.sharedInstance.update { _ in
-            XCTAssertNotNil(NStack.sharedInstance.translationsManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
+            XCTAssertNotNil(NStack.sharedInstance.localizationManager?.bestFitLanguage, "Nstack should send the localizations to Translation Manager where that sets the best fit language.")
             exp.fulfill()
         }
         waitForExpectations(timeout: 5.0)
@@ -50,7 +50,7 @@ class NStackTests: XCTestCase {
     func testGetTranslation() {
         NStack.sharedInstance.update { (_) in
             do {
-                guard let result = try NStack.sharedInstance.translationsManager?.translations() as? Translations else {
+                guard let result = try NStack.sharedInstance.localizationManager?.localization() as? Translations else {
                     XCTFail("Translations were nil or coulsn't be cast to `Translations`")
                     return
                 }

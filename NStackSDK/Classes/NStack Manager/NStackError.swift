@@ -23,7 +23,7 @@ public enum NStackError {
         }
     }
 
-    public enum Translations: Error {
+    public enum Localization: Error {
         case updateFailed(reason: String)
 
         var description: String {
