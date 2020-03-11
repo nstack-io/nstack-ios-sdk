@@ -213,6 +213,10 @@
 		C469F14E22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
 		C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
 		C469F15022FC3A66002F9FDF /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404B1EC22F47FB90047161D /* PropertyWrapper.swift */; };
+		C4A2EC3D2418FFEC00CD9724 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53B7D28236B244A00673DB6 /* Feedback.swift */; };
+		C4A2EC3E2418FFF100CD9724 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53B7D2A236B352300673DB6 /* FeedbackManager.swift */; };
+		C4A2EC3F2418FFF800CD9724 /* MultipartBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556C249236C382600AE78DD /* MultipartBuilder.swift */; };
+		C4A2EC402418FFFE00CD9724 /* UIDevice+ModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56CF5BF236B429800238A1F /* UIDevice+ModelType.swift */; };
 		CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFB1F8A1F56BC6C0001D227 /* StoreReviewManager.swift */; };
 		E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */; };
 		E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B5BA281D5E02DD006EA3D7 /* Foundation.framework */; };
@@ -1341,6 +1345,7 @@
 			files = (
 				E3689BFF1D9EBA54004620D6 /* AppOpenResponse.swift in Sources */,
 				E3689C001D9EBA54004620D6 /* LanguageData.swift in Sources */,
+				C4A2EC3D2418FFEC00CD9724 /* Feedback.swift in Sources */,
 				8CA9F228230BDB7100CF8065 /* LocalizationItemIdentifier.swift in Sources */,
 				23442E6722C6281000F196EE /* ContentManager.swift in Sources */,
 				E3689C011D9EBA54004620D6 /* AppOpenData.swift in Sources */,
@@ -1353,12 +1358,15 @@
 				01F4C6C71DFF72F00050D0F1 /* Logger.swift in Sources */,
 				01F4C6C51DFF72D50050D0F1 /* APIConfiguration.swift in Sources */,
 				C0D852F3215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
+				C4A2EC402418FFFE00CD9724 /* UIDevice+ModelType.swift in Sources */,
 				33E223051FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
 				E3689C041D9EBA54004620D6 /* RateReminder.swift in Sources */,
 				01F4C6C61DFF72D70050D0F1 /* Repository.swift in Sources */,
+				C4A2EC3E2418FFF100CD9724 /* FeedbackManager.swift in Sources */,
 				C0D852EE215A5A010090B7C5 /* HTTPMethod.swift in Sources */,
 				23442E6322C6281000F196EE /* GeographyManager.swift in Sources */,
 				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
+				C4A2EC3F2418FFF800CD9724 /* MultipartBuilder.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
 				83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */,
 				23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */,
