@@ -96,7 +96,6 @@
 		29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
 		29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
-		29A72DF423FFECD700CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DF723FFECE500CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
 		29A72DF823FFECE500CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; };
@@ -307,17 +306,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		29A72DF523FFECD700CE8483 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29A72DF423FFECD700CE8483 /* LocalizationManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -905,7 +893,6 @@
 				30A3D8431B9DB94100C2D15C /* Frameworks */,
 				30A3D8441B9DB94100C2D15C /* Headers */,
 				30A3D8451B9DB94100C2D15C /* Resources */,
-				29A72DF523FFECD700CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
