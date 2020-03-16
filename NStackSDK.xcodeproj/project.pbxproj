@@ -94,12 +94,9 @@
 		2346FDA3233B6C680025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		23BD95C322CD00DB001759CE /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
-		29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
 		29A72DF723FFECE500CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
-		29A72DF823FFECE500CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; };
-		29A72DFC23FFECED00CE8483 /* LocalizationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29A72DFF24000DFD00CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E002400166400CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E012400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
@@ -297,42 +294,6 @@
 			remoteInfo = "NStackSDK-macOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		29A72DEE23FFEC7600CE8483 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29A72DF123FFEC9600CE8483 /* LocalizationManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		29A72DF923FFECE500CE8483 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29A72DF823FFECE500CE8483 /* LocalizationManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		29A72DFD23FFECED00CE8483 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29A72DFC23FFECED00CE8483 /* LocalizationManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0106ADA21C7914B700E0C8BC /* Translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Translations.json; sourceTree = "<group>"; };
@@ -872,7 +833,6 @@
 				01A334701E4F1B2A003CE9BA /* Frameworks */,
 				01A334711E4F1B2A003CE9BA /* Headers */,
 				01A334721E4F1B2A003CE9BA /* Resources */,
-				29A72DFD23FFECED00CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -930,7 +890,6 @@
 				E3689BDE1D9EB9EA004620D6 /* Frameworks */,
 				E3689BDF1D9EB9EA004620D6 /* Headers */,
 				E3689BE01D9EB9EA004620D6 /* Resources */,
-				29A72DF923FFECE500CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -967,7 +926,6 @@
 				E3B654361E00450C00FC9380 /* Frameworks */,
 				E3B654371E00450C00FC9380 /* Headers */,
 				E3B654381E00450C00FC9380 /* Resources */,
-				29A72DEE23FFEC7600CE8483 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
