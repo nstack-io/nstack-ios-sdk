@@ -12,6 +12,9 @@ app:
   - BITRISE_EXPORT_METHOD: ad-hoc
     opts:
       is_expand: false
+  - BITRISE_SCHEME_TVOS: NStackSDK-tvOS
+    opts:
+      is_expand: false
 trigger_map:
 - push_branch: '*'
   workflow: build
@@ -45,10 +48,18 @@ workflows:
     - certificate-and-profile-installer: {}
     - carthage:
         inputs:
-        - carthage_options: --platform ios
+        - carthage_options: --platform ios,tvos
         - carthage_command: bootstrap
     - xcode-test:
         inputs:
         - project_path: $BITRISE_PROJECT_PATH
         - scheme: $BITRISE_SCHEME
+    - xcode-test:
+        title: Xcode Test for tvOS
+        is_always_run: true
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - simulator_device: Apple TV 4K
+        - simulator_platform: tvOS Simulator
+        - scheme: $BITRISE_SCHEME_TVOS
     - cache-push: {}
