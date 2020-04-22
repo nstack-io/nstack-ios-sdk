@@ -12,7 +12,7 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## What is NStack?
 
-See the [NStack documentation](https://nstack-io.github.io/documentation/docs/guides/iOS/ios.html) for more information about NStack
+See the [NStack documentation](https://nstack-io.github.io/docs/docs/guides/iOS/ios.html) for more information about NStack
 
 ## 📝 Requirements
 
