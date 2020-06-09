@@ -12,7 +12,12 @@ import AppKit
 #else
 import UIKit
 #endif
+#if canImport(LocalizationManager)
 import LocalizationManager
+#endif
+#if canImport(NLocalizationManager)
+import NLocalizationManager
+#endif
 
 public class NStack {
 
@@ -174,7 +179,7 @@ public class NStack {
     /// *Note:* By default, this is automatically invoked after *NStack.start()* has been called and subsequently on applicationDidBecomeActive.
     /// To override this behavior, see the properties on the *configuration* struct.
     ///
-    /// - Parameter completion: This is run after the call has finished. 
+    /// - Parameter completion: This is run after the call has finished.
     ///                         If *error* was nil, localization strings are up-to-date.
     // swiftlint:disable:next cyclomatic_complexity
     public func update(_ completion: ((_ error: NStackError.Manager?) -> Void)? = nil) {
