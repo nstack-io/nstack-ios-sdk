@@ -19,6 +19,7 @@ import LocalizationManager
 import NLocalizationManager
 #endif
 
+
 public class NStack {
 
     /// The singleton object which should be used to interact with NStack API.
@@ -111,7 +112,7 @@ public class NStack {
             localizationUrlOverride: configuration.localizationUrlOverride,
             nmeta: NMeta(environment: configuration.currentEnvironmentAPIString)
         )
-        repository = configuration.useMock ? MockConnectionManager() : ConnectionManager(configuration: apiConfiguration)
+        repository = ConnectionManager(configuration: apiConfiguration)
 
         // Observe if necessary
         if configuration.updateOptions.contains(.onDidBecomeActive) {
