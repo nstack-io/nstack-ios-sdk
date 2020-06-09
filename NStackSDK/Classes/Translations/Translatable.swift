@@ -14,10 +14,10 @@ import LocalizationManager
 import NLocalizationManager
 #endif
 
-import TranslationManager
+//import TranslationManager
 
-public struct Localizable: LocalizableModel {
-    public subscript(key: String) -> LocalizableSection? {
+public class Localizable: LocalizableModel {
+    public override subscript(key: String) -> LocalizableSection? {
 //        switch key {
 //        case CodingKeys.oneMoreSection.stringValue: return oneMoreSection
 //        case CodingKeys.otherSection.stringValue: return otherSection

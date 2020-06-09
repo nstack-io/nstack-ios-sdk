@@ -348,7 +348,6 @@
 		33E222ED1FA8C5280013CCC3 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Classes/Model/Validation.swift; sourceTree = "<group>"; };
 		33E223021FA9F4EA0013CCC3 /* IPAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IPAddress.swift; path = Classes/Model/IPAddress.swift; sourceTree = "<group>"; };
 		33E2230A1FA9F5010013CCC3 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Continent.swift; path = Classes/Model/Continent.swift; sourceTree = "<group>"; };
-		7579C77123C346CE00A05022 /* APIFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFeedbackManager.swift; sourceTree = "<group>"; };
 		82CB55491C8DEAC200389D2B /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppOpenResponse.swift; path = Classes/Model/AppOpenResponse.swift; sourceTree = "<group>"; };
 		82CB554A1C8DEAC200389D2B /* LanguageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageData.swift; path = Classes/Model/LanguageData.swift; sourceTree = "<group>"; };
 		839497BE1DC21DBF007FE281 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Classes/Model/Country.swift; sourceTree = "<group>"; };
@@ -572,7 +571,6 @@
 		29A72DD023FAC8A000CE8483 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				7579C77123C346CE00A05022 /* APIFeedbackManager.swift */,
 				29D7EB5223FAB71900C622EA /* TranslationManager.framework */,
 			);
 			name = "Recovered References";

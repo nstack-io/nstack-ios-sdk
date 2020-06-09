@@ -14,7 +14,12 @@ import WatchKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if canImport(LocalizationManager)
 import LocalizationManager
+#endif
+#if canImport(NLocalizationManager)
+import NLocalizationManager
+#endif
 
 class MockConnectionManager: Repository {
 
