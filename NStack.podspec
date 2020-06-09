@@ -35,7 +35,7 @@ TODO: Add long description of the pod here.
   s.dependency 'NLocalizationManager'
 
   s.subspec 'Core' do |core|
-      core.source_files = [ 'NStackSDK/**.swift']
+      core.source_files = [ 'NStackSDK/**/*.swift']
   end
 
 
