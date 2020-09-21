@@ -7,28 +7,25 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'NStack'
-  s.version          = '4.0.0'
-  s.summary          = 'A short description of NStack.'
+  s.name             = 'NStackSDK'
+  s.version          = '5.1.3'
+  s.summary          = 'NStackSDK is the companion software development kit to the NStack backend.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+     NStack is Nodes\' "Backend as a Service" product that enables clients to manage many aspects of their products by themselves.
+  DESC
 
-  s.homepage         = 'https://github.com/nicktrienensfuzz/nstack-ios-sdk'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Nick Trienens' => 'nick@fuzz.pro' }
-  s.source           = { :git => 'https://github.com/com:nicktrienensfuzz/nstack-ios-sdk.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.homepage     = 'https://github.com/nstack-io/nstack-ios-sdk'
+  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.author       = { "Nodes Agency - iOS" => "ios@nodes.dk" }
+  s.source       = { :git => 'https://github.com/nstack-io/nstack-ios-sdk', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = "11"
   s.swift_version = '5.2'
 
   s.default_subspecs = "Core"
