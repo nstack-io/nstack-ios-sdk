@@ -6,6 +6,8 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import UIKit
 
 public class FeedbackManager {
@@ -45,3 +47,4 @@ public class FeedbackManager {
         repository.provideFeedback(feedback, completion: completion)
     }
 }
+#endif

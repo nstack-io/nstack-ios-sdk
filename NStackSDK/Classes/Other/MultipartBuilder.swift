@@ -6,7 +6,8 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
-//import UIKit
+#if canImport(UIKit)
+import UIKit
 
 class MultipartBuilder {
     struct Part: Hashable {
@@ -79,3 +80,4 @@ class MultipartBuilder {
         return data
     }
 }
+#endif

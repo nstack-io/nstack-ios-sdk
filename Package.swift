@@ -33,7 +33,8 @@ let package = Package(
         .target(
             name: "NStackSDK-iOS",
             dependencies: [
-                "LocalizationManager",
+                .product(name: "LocalizationManager", package: "LocalizationManager", condition: .when(platforms: [.iOS])),
+//                "LocalizationManager",
 //                "TranslationManager"
             ],
             path: "NStackSDK",

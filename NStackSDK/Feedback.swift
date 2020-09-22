@@ -5,7 +5,7 @@
 //  Created by Tiago Bras on 31/10/2019.
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
-
+#if canImport(UIKit)
 import UIKit
 
 public enum FeedbackType: String {
@@ -26,3 +26,5 @@ struct Feedback {
     var image: UIImage?
     var breadcrumbs: Breadcrumbs?
 }
+
+#endif
