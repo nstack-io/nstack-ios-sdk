@@ -21,7 +21,7 @@ import LocalizationManager
 import NLocalizationManager
 #endif
 
-class MockConnectionManager: Repository {
+public class MockConnectionManager: Repository {
 
     var succeed: Bool = true
     var appOpenData = AppOpenData(count: 58,

@@ -37,9 +37,10 @@ let package = Package(
 //                "LocalizationManager",
 //                "TranslationManager"
             ],
-            path: "NStackSDK",
-            linkerSettings: [
-                       .linkedFramework("TranslationManager"),]
+            path: "NStackSDK"
+//            ,
+//            linkerSettings: [
+//                       .linkedFramework("TranslationManager"),]
             ),
         .testTarget(
             name: "NStackSDK Tests",

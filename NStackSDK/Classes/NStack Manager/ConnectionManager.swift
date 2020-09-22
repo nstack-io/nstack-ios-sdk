@@ -329,6 +329,7 @@ extension ConnectionManager {
     }
 }
 
+#if canImport(UIKit)
 // MARK: - FeedbackRepository
 extension ConnectionManager {
     private func getPlatform() -> String {
@@ -367,3 +368,4 @@ extension ConnectionManager {
         }).resume()
     }
 }
+#endif
