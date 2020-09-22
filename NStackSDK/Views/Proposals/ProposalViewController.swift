@@ -5,7 +5,7 @@
 //  Created by Nicolai Harbo on 02/08/2019.
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
-
+#if os(iOS)
 import UIKit
 
 class ProposalViewController: UIViewController {
@@ -114,3 +114,5 @@ extension ProposalViewController: ProposalPresenterOutput {
         }
     }
 }
+#endif
+

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+#if canImport(UIKit)
 import UIKit
 
 extension UIButton: NStackLocalizable {
@@ -71,3 +73,4 @@ extension UIButton: NStackLocalizable {
     }
 
 }
+#endif

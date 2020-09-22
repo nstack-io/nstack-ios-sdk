@@ -6,7 +6,7 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
-import UIKit
+//import UIKit
 
 class MultipartBuilder {
     struct Part: Hashable {

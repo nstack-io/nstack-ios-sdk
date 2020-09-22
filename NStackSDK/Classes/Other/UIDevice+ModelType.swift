@@ -7,7 +7,7 @@
 //
 
 /// See: https://stackoverflow.com/questions/26028918/how-to-determine-the-current-iphone-device-model
-
+#if canImport(UIKit)
 import UIKit
 
 // swiftlint:disable all
@@ -212,4 +212,6 @@ extension UIDevice {
         return Model.unrecognized
     }
 }
+
+#endif
 // swiftlint:enable all

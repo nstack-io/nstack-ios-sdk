@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+#if canImport(UIKit)
 import UIKit
 
 extension UITextField: NStackLocalizable {
@@ -71,3 +73,4 @@ extension UITextField: NStackLocalizable {
     }
 
 }
+#endif

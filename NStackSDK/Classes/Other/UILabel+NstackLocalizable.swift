@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+#if canImport(UIKit)
 import UIKit
 
 extension UILabel: NStackLocalizable {
@@ -71,3 +73,4 @@ extension UILabel: NStackLocalizable {
     }
 
 }
+#endif
