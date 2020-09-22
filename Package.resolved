@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LocalizationManager",
+        "repositoryURL": "https://github.com/nodes-ios/TranslationManager",
+        "state": {
+          "branch": null,
+          "revision": "1529ef047c285fb14c29f9cd12785f8152c935c6",
+          "version": "3.1.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
