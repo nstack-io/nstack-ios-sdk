@@ -92,7 +92,7 @@ extension ConnectionManager {
 }
 // MARK: - LocalizationRepository
 extension ConnectionManager {
-    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (NStackSDK_iOS.Result<[D]>) -> Void) where D: LocalizationDescriptor {
+    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (NStackSDK.Result<[D]>) -> Void) where D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
