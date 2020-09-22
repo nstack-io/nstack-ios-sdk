@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import NStackSDK
+@testable import NStackSDK_iOS
 
 class VersionUtilitiesTests: XCTestCase {
 

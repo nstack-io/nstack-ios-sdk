@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import NStackSDK
+@testable import NStackSDK_iOS
 
 let testConfiguration: () -> Configuration = {
     var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Translations.self)

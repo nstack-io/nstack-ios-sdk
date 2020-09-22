@@ -60,8 +60,8 @@ protocol GeographyRepository {
     func fetchContinents(completion: @escaping Completion<[Continent]>)
     func fetchCountries(completion: @escaping Completion<[Country]>)
     func fetchLanguages(completion: @escaping Completion<[DefaultLanguage]>)
-    func fetchTimeZones(completion: @escaping Completion<[Timezone]>)
-    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>)
+    func fetchTimeZones(completion: @escaping Completion<[NStackTimezone]>)
+    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<NStackTimezone>)
     func fetchIPDetails(completion: @escaping Completion<IPAddress>)
 }
 

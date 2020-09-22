@@ -92,7 +92,7 @@ extension ConnectionManager {
 }
 // MARK: - LocalizationRepository
 extension ConnectionManager {
-    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (Result<[D]>) -> Void) where D: LocalizationDescriptor {
+    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (NStackSDK_iOS.Result<[D]>) -> Void) where D: LocalizationDescriptor {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
@@ -106,13 +106,13 @@ extension ConnectionManager {
         let url = baseURLv2 + "content/localize/resources/platforms/mobile" + (configuration.isFlat ? "?flat=true" : "")
 
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let localizationCompletion: (Result<DataModel<[LocalizationConfig]>>) -> Void = { (response) in
+        let localizationCompletion: (Result<DataModel<[D]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
                 VersionUtilities.lastUpdatedIso8601DateString = Date().iso8601
                 let model = data.model
                 let result: Result = .success(model)
-                completion(result as! Result<[D]>)
+                completion(result)
             default:
                 break
             }
@@ -130,7 +130,7 @@ extension ConnectionManager {
 
         let url = descriptor.url
         let request = session.request(url, method: .get, parameters: params, headers: headers)
-        let languageCompletion: (Result<LocalizationResponse<DefaultLanguage>>) -> Void = { (response) in
+        let languageCompletion: (Result<LocalizationResponse<L>>) -> Void = { (response) in
             completion(response as! Result<LocalizationResponse<L>>)
         }
         session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: languageCompletion)
@@ -139,14 +139,14 @@ extension ConnectionManager {
     func getAvailableLanguages<L>(completion: @escaping (Result<[L]>) -> Void) where L: LanguageModel {
         let url = baseURLv2 + "content/localize/mobile/languages"
         let request = session.request(url, method: .get, parameters: nil, headers: defaultHeaders)
-        let languagesCompletion: (Result<DataModel<[DefaultLanguage]>>) -> Void = { (response) in
+        let languagesCompletion: (Result<DataModel<[L]>>) -> Void = { (response) in
             switch response {
             case .success(let data):
                 let model = data.model
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             case .failure:
-                let model: [DefaultLanguage] = []
+                let model: [L] = []
                 let result: Result = .success(model)
                 completion(result as! Result<[L]>)
             }
@@ -243,13 +243,13 @@ extension ConnectionManager {
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
-    func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {
+    func fetchTimeZones(completion: @escaping Completion<[NStackTimezone]>) {
         let url = baseURLv1 + "geographic/time_zones"
         let request = session.request(url, headers: defaultHeaders)
         session.startDataTask(with: request, wrapperType: DataModel.self, convertFromSnakeCase: true, completionHandler: completion)
     }
 
-    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<NStackTimezone>) {
         let url = baseURLv1 + "geographic/time_zones/by_lat_lng"
         let parameters: [String: Any] = ["lat_lng": "\(String(lat)),\(String(lng))"]
         let request = session.request(url, parameters: parameters, headers: defaultHeaders)
