@@ -34,3 +34,4 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |core|
       core.source_files = [ 'NStackSDK/**/*.swift']
   end
+end
