@@ -7,6 +7,14 @@
 //
 #if canImport(UIKit)
 import UIKit
+typealias Image = UIImage
+#elseif canImport(AppKit)
+import AppKit
+typealias Image = NSImage
+#elseif canImport(WatchKit)
+import WatchKit
+typealias Image = WKImage
+#endif
 
 public enum FeedbackType: String {
     case feedback, bug
@@ -23,8 +31,6 @@ public struct Feedback {
     var name: String?
     var email: String?
     var message: String?
-    var image: UIImage?
+    var image: Image?
     var breadcrumbs: Breadcrumbs?
 }
-
-#endif

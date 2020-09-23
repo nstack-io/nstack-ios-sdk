@@ -107,3 +107,5 @@ protocol ProposalsRepository {
 public protocol FeedbackRepository {
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
 }
+
+
