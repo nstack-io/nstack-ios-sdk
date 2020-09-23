@@ -12,7 +12,12 @@ import AppKit
 #else
 import UIKit
 #endif
+#if canImport(LocalizationManager)
 import LocalizationManager
+#endif
+#if canImport(NLocalizationManager)
+import NLocalizationManager
+#endif
 
 public struct LocalizationsResponse: Codable {
     let localization: [String: Any]
