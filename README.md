@@ -21,6 +21,11 @@ See the [NStack documentation](https://nstack-io.github.io/docs/docs/guides/iOS/
 
 ## 📦 Installation
 
+### CocoaPods
+~~~
+pod 'NStackSDK', '~> 5.1.3'
+~~~
+
 ### Carthage
 ~~~
 # Swift 5
