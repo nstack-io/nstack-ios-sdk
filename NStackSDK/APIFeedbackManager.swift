@@ -8,22 +8,22 @@
 
 import Foundation
 
-//public protocol FeedbackManager {
-//    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
-//}
-//
-//internal class APIFeedbackManager: FeedbackManager {
-//
-//    // MARK: - Properites
-//    internal var repository: FeedbackRepository
-//    // MARK: - Init
-//    init(repository: FeedbackRepository) {
-//        self.repository = repository
-//    }
-//
-//    public func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
-//        repository.postFeedback(message) { (result) in
-//            completion(result)
-//        }
-//    }
-//}
+public protocol FeedbackManager {
+    func postFeedback(_ message: String, completion: @escaping Completion<Any>)
+}
+
+internal class APIFeedbackManager: FeedbackManager {
+
+    // MARK: - Properites
+    internal var repository: FeedbackRepository
+    // MARK: - Init
+    init(repository: FeedbackRepository) {
+        self.repository = repository
+    }
+
+    public func postFeedback(_ message: String, completion: @escaping Completion<Any>) {
+        repository.postFeedback(message) { (result) in
+            completion(result)
+        }
+    }
+}

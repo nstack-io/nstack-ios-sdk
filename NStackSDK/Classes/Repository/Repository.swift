@@ -104,6 +104,6 @@ protocol ProposalsRepository {
 
 // MARK: - Feedback -
 
-protocol FeedbackRepository {
+public protocol FeedbackRepository {
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
 }

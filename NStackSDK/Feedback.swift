@@ -17,7 +17,7 @@ struct Breadcrumbs {
     var timestamp: Date
 }
 
-struct Feedback {
+public struct Feedback {
     var type: FeedbackType
     var appVersion: String?
     var name: String?

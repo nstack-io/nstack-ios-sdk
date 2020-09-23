@@ -15,7 +15,7 @@ public class FeedbackManager {
     internal var repository: FeedbackRepository
 
     // MARK: - Init
-    init(repository: FeedbackRepository) {
+    public init(repository: FeedbackRepository) {
         self.repository = repository
     }
 
