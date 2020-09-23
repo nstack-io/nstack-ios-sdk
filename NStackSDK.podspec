@@ -1,28 +1,36 @@
-Pod::Spec.new do |spec|
+#
+# Be sure to run `pod lib lint TuvaUI.podspec' to ensure this is a
+# valid spec before submitting.
+#
+# Any lines starting with a # are optional, but their use is encouraged
+# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
+#
 
-  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  These will help people to find your library, and whilst it
-  #  can feel like a chore to fill in it's definitely to your advantage. The
-  #  summary should be tweet-length, and the description more in depth.
-  #
+Pod::Spec.new do |s|
+  s.name             = 'NStackSDK'
+  s.version          = '5.1.3'
+  s.summary          = 'NStackSDK is the companion software development kit to the NStack backend.'
 
-  spec.name         = "NStackSDK"
-  spec.version      = "5.1.2"
-  spec.summary      = "NStackSDK is the companion software development kit to the NStack backend."
-  spec.homepage     = "https://github.com/nstack-io/nstack-ios-sdk"
-  spec.license      = { :type => "MIT", :file => "LICENSE" }
-  spec.author       = { "Nodes - iOS" => "ios@nodes.dk" }
+# This description is used to generate tags and improve search results.
+#   * Think: What does it do? Why did you write it? What is the focus?
+#   * Try to keep it short, snappy and to the point.
+#   * Write the description between the DESC delimiters below.
+#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.description      = <<-DESC
+     NStack is Nodes\' "Backend as a Service" product that enables clients to manage many aspects of their products by themselves.
+  DESC
 
-  spec.swift_version = '5.0'
-  spec.ios.deployment_target = "10.3"
-  spec.osx.deployment_target = "10.13"
-  spec.watchos.deployment_target = "3.0"
-  spec.tvos.deployment_target = "10.2"
+  s.homepage     = 'https://github.com/nstack-io/nstack-ios-sdk'
+  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.author       = { "Nodes Agency - iOS" => "ios@nodes.dk" }
+  s.source       = { :git => 'https://github.com/nstack-io/nstack-ios-sdk', :tag => s.version.to_s }
 
-  spec.source       = { :git => "https://github.com/nstack-io/nstack-ios-sdk.git", :tag => "#{spec.version}" }
-  spec.source_files  = "NStackSDK"
-  #spec.framework  = "LocalizationManager"
-  spec.dependency "NLocalizationManager", "~> 3.1.1"
+  s.ios.deployment_target = "11"
+  s.swift_version = '5.2'
 
-end
+  s.default_subspecs = "Core"
+  s.dependency 'NLocalizationManager'
+
+  s.subspec 'Core' do |core|
+      core.source_files = [ 'NStackSDK/**/*.swift']
+  end

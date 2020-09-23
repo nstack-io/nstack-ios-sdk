@@ -14,7 +14,12 @@ import WatchKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if canImport(LocalizationManager)
 import LocalizationManager
+#endif
+#if canImport(NLocalizationManager)
+import NLocalizationManager
+#endif
 
 #if os(iOS) || os(tvOS)
 public typealias NStackLocalizableView = UIView
@@ -135,7 +140,7 @@ extension LocalizationWrapper: LocalizationWrappable {
 
     /**
      Fetches a localized string value for the `identifier` and adds that to the `component`
-     
+
      If a proposed value exists, use that, otherwise fetch a value from the `localizationManager`.
      */
     public func localize(component: NStackLocalizable, for identifier: LocalizationItemIdentifier) {
@@ -187,10 +192,10 @@ extension LocalizationWrapper: LocalizationWrappable {
 
     /**
      stores proposed text value locally.
-     
+
      *Note:* this method does not call the NStack API for saving of the proposal - we do that first and then
      come back here to store the proposal locally
-     
+
      - Parameter value: proposed value
      - Parameter key: NStack key/identifier
     */
