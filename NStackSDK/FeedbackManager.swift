@@ -47,4 +47,15 @@ public class FeedbackManager {
         repository.provideFeedback(feedback, completion: completion)
     }
 }
+
+#else
+public class FeedbackManager {
+    // MARK: - Properties
+    internal var repository: FeedbackRepository
+
+    // MARK: - Init
+    public init(repository: FeedbackRepository) {
+        self.repository = repository
+    }
+}
 #endif

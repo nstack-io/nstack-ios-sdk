@@ -8,6 +8,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 class ProposalInteractor {
     // MARK: - Properties
     weak var output: ProposalInteractorOutput?
@@ -35,3 +36,4 @@ extension ProposalInteractor: ProposalInteractorInput {
     }
 
 }
+#endif

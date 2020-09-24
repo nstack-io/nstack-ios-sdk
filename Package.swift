@@ -30,12 +30,20 @@ let package = Package(
                 .product(name: "LocalizationManager", package: "LocalizationManager", condition: .when(platforms: [.iOS])),
             ],
             path: "NStackSDK",
-            exclude: ["APIFeedbackManager.swift"]
+            exclude: ["APIFeedbackManager.swift", "Info.plist"],
+            resources: [ .copy("Fallback/Countries.json")]
             ),
         .testTarget(
             name: "NStackSDK Tests",
             dependencies: ["NStackSDK"],
-            path: "NStackSDKTests"
+            path: "NStackSDKTests",
+            resources: [
+                // Copy Tests/ExampleTests/Resources directories as-is.
+                // Use to retain directory structure.
+                // Will be at top level in bundle.
+                .copy("Resources"),
+                .copy("Translations Class"),
+            ]
             ),
     ]
 )

@@ -8,6 +8,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 class ProposalPresenter {
     // MARK: - Properties
     let interactor: ProposalInteractorInput
@@ -114,3 +115,5 @@ extension ProposalPresenter: ProposalInteractorOutput {
     }
 
 }
+
+#endif

@@ -10,7 +10,8 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Translations.self)
+   
+    var conf =  Configuration(appId: "XRiVQholofzxvsqxSfWsS3u8769OYszgrNck", restAPIKey: "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90", localizationClass: Translations.self, environment: .debug)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
@@ -146,8 +147,10 @@ class NStackTests: XCTestCase {
 
     func testFeedbackImageUpload() {
         let exp = expectation(description: "Image upload")
-
-        if let data = try? Data(contentsOf: Bundle(for: NStackTests.self).url(forResource: "bug_screenshot", withExtension: "jpeg")!) {
+        let bundle = Bundle(for: NStackTests.self)
+        let path = bundle.path(forResource: "bug_screenshot", ofType: "jpeg")
+        let url = bundle.url(forResource: "bug_screenshot", withExtension: "jpeg")!
+        if let data = try? Data(contentsOf: url) {
             let image = UIImage(data: data)!
 
             NStack.sharedInstance.feedbackManager?.provideFeedback(
