@@ -7,13 +7,13 @@
 //
 #if canImport(UIKit)
 import UIKit
-typealias Image = UIImage
+public typealias Image = UIImage
 #elseif canImport(AppKit)
 import AppKit
-typealias Image = NSImage
+public typealias Image = NSImage
 #elseif canImport(WatchKit)
 import WatchKit
-typealias Image = WKImage
+public typealias Image = WKImage
 #endif
 
 public enum FeedbackType: String {

@@ -31,7 +31,7 @@ public class FeedbackManager {
         type: FeedbackType,
         appVersion: String,
         message: String,
-        image: UIImage? = nil,
+        image: Image? = nil,
         name: String? = nil,
         email: String? = nil,
         completion: @escaping (Result<Void>) -> Void) {
@@ -57,5 +57,19 @@ public class FeedbackManager {
     public init(repository: FeedbackRepository) {
         self.repository = repository
     }
+    
+    public func provideFeedback(
+        type: FeedbackType,
+        appVersion: String,
+        message: String,
+        image: Image? = nil,
+        name: String? = nil,
+        email: String? = nil,
+        completion: @escaping (Result<Void>) -> Void) {
+
+       fatalError()
+    }
+    
+    
 }
 #endif

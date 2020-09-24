@@ -144,31 +144,50 @@ class NStackTests: XCTestCase {
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)
         waitForExpectations(timeout: 5.0)
     }
-
+    
     func testFeedbackImageUpload() {
         let exp = expectation(description: "Image upload")
         let bundle = Bundle(for: NStackTests.self)
-        let path = bundle.path(forResource: "bug_screenshot", ofType: "jpeg")
-        let url = bundle.url(forResource: "bug_screenshot", withExtension: "jpeg")!
-        if let data = try? Data(contentsOf: url) {
-            let image = UIImage(data: data)!
-
-            NStack.sharedInstance.feedbackManager?.provideFeedback(
-                type: .bug,
-                appVersion: "1.4",
-                message: "Testing upload",
-                image: image,
-                completion: { (result) in
-                    switch result {
-                    case .success:
-                        exp.fulfill()
-                    case .failure(let error):
-                        XCTFail(error.localizedDescription)
-                    }
-
-            })
+        
+        
+        let url: URL?
+        
+        
+        if let imgURL = Bundle.module.url(forResource: "bug_screenshot", withExtension: "jpeg") {
+            url = imgURL
+        } else if
+            let imgURL = bundle.url(forResource: "bug_screenshot", withExtension: "jpeg") {
+            url = imgURL
+        } else {
+           url = nil
         }
-
+        
+        let testImage: Image
+        if let url = url, let data = try? Data(contentsOf: url),
+            let image = Image(data: data)  {
+            testImage = image
+        } else {
+            print("Falling back to empty image")
+            testImage = Image()
+        }
+        
+        
+        NStack.sharedInstance.feedbackManager?.provideFeedback(
+            type: FeedbackType.bug,
+            appVersion: "1.4",
+            message: "Testing upload",
+            image: testImage,
+            completion: { (result) in
+                switch result {
+                case .success:
+                    exp.fulfill()
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                }
+                
+            })
+        
+        
         self.wait(for: [exp], timeout: 20)
     }
 }
