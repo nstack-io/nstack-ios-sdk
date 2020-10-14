@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Timezone: Codable {
+public struct NStackTimezone: Codable {
     public var id: Int
 	public var name: String
 	public var abbreviation: String

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
+#if canImport(UIKit)
+
 import UIKit
 
 public class FeedbackManager {
@@ -13,7 +15,7 @@ public class FeedbackManager {
     internal var repository: FeedbackRepository
 
     // MARK: - Init
-    init(repository: FeedbackRepository) {
+    public init(repository: FeedbackRepository) {
         self.repository = repository
     }
 
@@ -29,7 +31,7 @@ public class FeedbackManager {
         type: FeedbackType,
         appVersion: String,
         message: String,
-        image: UIImage? = nil,
+        image: Image? = nil,
         name: String? = nil,
         email: String? = nil,
         completion: @escaping (Result<Void>) -> Void) {
@@ -45,3 +47,29 @@ public class FeedbackManager {
         repository.provideFeedback(feedback, completion: completion)
     }
 }
+
+#else
+public class FeedbackManager {
+    // MARK: - Properties
+    internal var repository: FeedbackRepository
+
+    // MARK: - Init
+    public init(repository: FeedbackRepository) {
+        self.repository = repository
+    }
+    
+    public func provideFeedback(
+        type: FeedbackType,
+        appVersion: String,
+        message: String,
+        image: Image? = nil,
+        name: String? = nil,
+        email: String? = nil,
+        completion: @escaping (Result<Void>) -> Void) {
+
+       fatalError()
+    }
+    
+    
+}
+#endif

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 extension UIWindow {
@@ -339,3 +340,4 @@ extension UIWindow {
         }
     }
 }
+#endif

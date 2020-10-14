@@ -10,7 +10,8 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-    var conf = Configuration(plistName: "NStack", environment: .debug, localizationClass: Translations.self)
+   
+    var conf =  Configuration(appId: "XRiVQholofzxvsqxSfWsS3u8769OYszgrNck", restAPIKey: "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90", localizationClass: Translations.self, environment: .debug)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
@@ -143,29 +144,50 @@ class NStackTests: XCTestCase {
         NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 24, completion: completion)
         waitForExpectations(timeout: 5.0)
     }
-
+    
     func testFeedbackImageUpload() {
         let exp = expectation(description: "Image upload")
-
-        if let data = try? Data(contentsOf: Bundle(for: NStackTests.self).url(forResource: "bug_screenshot", withExtension: "jpeg")!) {
-            let image = UIImage(data: data)!
-
-            NStack.sharedInstance.feedbackManager?.provideFeedback(
-                type: .bug,
-                appVersion: "1.4",
-                message: "Testing upload",
-                image: image,
-                completion: { (result) in
-                    switch result {
-                    case .success:
-                        exp.fulfill()
-                    case .failure(let error):
-                        XCTFail(error.localizedDescription)
-                    }
-
-            })
+        let bundle = Bundle(for: NStackTests.self)
+        
+        
+        let url: URL?
+        
+        
+        if let imgURL = Bundle.module.url(forResource: "bug_screenshot", withExtension: "jpeg") {
+            url = imgURL
+        } else if
+            let imgURL = bundle.url(forResource: "bug_screenshot", withExtension: "jpeg") {
+            url = imgURL
+        } else {
+           url = nil
         }
-
+        
+        let testImage: Image
+        if let url = url, let data = try? Data(contentsOf: url),
+            let image = Image(data: data)  {
+            testImage = image
+        } else {
+            print("Falling back to empty image")
+            testImage = Image()
+        }
+        
+        
+        NStack.sharedInstance.feedbackManager?.provideFeedback(
+            type: FeedbackType.bug,
+            appVersion: "1.4",
+            message: "Testing upload",
+            image: testImage,
+            completion: { (result) in
+                switch result {
+                case .success:
+                    exp.fulfill()
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                }
+                
+            })
+        
+        
         self.wait(for: [exp], timeout: 20)
     }
 }

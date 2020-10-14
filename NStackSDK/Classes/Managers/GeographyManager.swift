@@ -103,7 +103,7 @@ public class GeographyManager {
     /// Updates the list of timezones stored by NStack.
     ///
     /// - Parameter completion: Optional completion block when the API call has finished.
-    public func timezones(completion: ((_ countries: [Timezone], _ error: Error?) -> Void)? = nil) {
+    public func timezones(completion: ((_ countries: [NStackTimezone], _ error: Error?) -> Void)? = nil) {
         repository.fetchTimeZones { (result) in
             switch result {
             case .success(let data):
@@ -120,7 +120,7 @@ public class GeographyManager {
     ///     lat: A double representing the latitude
     ///     lgn: A double representing the longitude
     ///     completion: Completion block when the API call has finished.
-    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
+    public func timezone(lat: Double, lng: Double, completion: @escaping Completion<NStackTimezone>) {
         repository.fetchTimeZone(lat: lat, lng: lng, completion: completion)
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 class MultipartBuilder {
@@ -79,3 +80,4 @@ class MultipartBuilder {
         return data
     }
 }
+#endif

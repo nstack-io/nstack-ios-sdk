@@ -7,6 +7,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 // ======== Interactor ======== //
@@ -39,3 +40,4 @@ protocol ProposalPresenterOutput: class {
     func setupEmptyCaseLabel()
     func setTitle(_ titleString: String)
 }
+#endif

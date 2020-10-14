@@ -7,7 +7,7 @@
 //
 
 import Foundation
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
 #elseif os(watchOS)
 import WatchKit
@@ -91,7 +91,7 @@ class MockConnectionManager: Repository {
                     currency: "", currencyName: "", languages: "",
                     image: nil,
                     imagePath2: nil,
-                    capitalTimeZone: NStackSDK.Timezone(id: 1,
+                    capitalTimeZone: NStackTimezone(id: 1,
                                                         name: "",
                                                         abbreviation: "",
                                                         offsetSec: 12,
@@ -107,8 +107,8 @@ class MockConnectionManager: Repository {
         completion(result)
     }
 
-    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<Timezone>) {
-        let timezone = NStackSDK.Timezone(id: 1,
+    func fetchTimeZone(lat: Double, lng: Double, completion: @escaping Completion<NStackTimezone>) {
+        let timezone = NStackTimezone(id: 1,
                                           name: "TestTimeZone",
                                           abbreviation: "",
                                           offsetSec: 12,
@@ -117,7 +117,7 @@ class MockConnectionManager: Repository {
         completion(result)
     }
 
-    func fetchTimeZones(completion: @escaping Completion<[Timezone]>) {}
+    func fetchTimeZones(completion: @escaping Completion<[NStackTimezone]>) {}
 
     func fetchIPDetails(completion: @escaping Completion<IPAddress>) {
         let result: Result = .success(IPAddress(ipStart: "_ipStart",

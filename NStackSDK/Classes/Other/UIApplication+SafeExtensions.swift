@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import UIKit
 
-#if !os(watchOS)
+#if canImport(UIKit)
+import UIKit
 
 extension UIApplication {
     class func safeSharedApplication() -> UIApplication? {
