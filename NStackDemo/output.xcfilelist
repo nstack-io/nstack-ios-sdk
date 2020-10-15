@@ -1,0 +1,3 @@
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/NStackSDK.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/LocalizationManager.framework
+

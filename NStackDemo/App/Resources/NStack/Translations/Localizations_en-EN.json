@@ -1,0 +1,39 @@
+{
+  "data" : {
+    "default" : {
+      "back" : "Back",
+      "cancel" : "Cancel",
+      "edit" : "Edit",
+      "later" : "Later",
+      "next" : "Next",
+      "no" : "No",
+      "ok" : "Ok",
+      "previous" : "Previous",
+      "retry" : "Retry",
+      "save" : "Save",
+      "settings" : "Settings",
+      "skip" : "Skip",
+      "yes" : "Yes"
+    },
+    "error" : {
+      "authenticationError" : "Authentication error",
+      "connectionError" : "Connection error",
+      "errorTitle" : "Error",
+      "unknownError" : "Unknown error"
+    }
+  },
+  "meta" : {
+    "language" : {
+      "direction" : "LRM",
+      "id" : 56,
+      "is_best_fit" : false,
+      "is_default" : false,
+      "locale" : "en-EN",
+      "name" : "English"
+    },
+    "platform" : {
+      "id" : 535,
+      "slug" : "mobile"
+    }
+  }
+}

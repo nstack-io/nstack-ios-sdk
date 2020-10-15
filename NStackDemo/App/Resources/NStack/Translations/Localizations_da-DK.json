@@ -1,0 +1,39 @@
+{
+  "data" : {
+    "default" : {
+      "back" : "Tilbage",
+      "cancel" : "Annuller",
+      "edit" : "Rediger",
+      "later" : "Senere",
+      "next" : "Næste",
+      "no" : "Nej",
+      "ok" : "Ok",
+      "previous" : "Forrige",
+      "retry" : "Prøv igen",
+      "save" : "Gem",
+      "settings" : "Indstillinger",
+      "skip" : "Spring over",
+      "yes" : "Ja"
+    },
+    "error" : {
+      "authenticationError" : "Login er udløbet, login venligst ind igen.",
+      "connectionError" : "Ingen eller dårlig forbindelse, prøv igen.",
+      "errorTitle" : "Fejl",
+      "unknownError" : "Ukendt fejl, prøv igen."
+    }
+  },
+  "meta" : {
+    "language" : {
+      "direction" : "LRM",
+      "id" : 6,
+      "is_best_fit" : false,
+      "is_default" : true,
+      "locale" : "da-DK",
+      "name" : "Danish"
+    },
+    "platform" : {
+      "id" : 535,
+      "slug" : "mobile"
+    }
+  }
+}
