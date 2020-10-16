@@ -41,12 +41,12 @@ public var skl: SKLocalizations {
 public var skt: SKLocalizations { skl }
 
 public final class SKLocalizations: LocalizableModel {
-    public var defaultSection = DefaultSection()
     public var error = Error()
+    public var defaultSection = DefaultSection()
 
     enum CodingKeys: String, CodingKey {
-        case defaultSection = "default"
         case error
+        case defaultSection = "default"
     }
 
     public override init() { super.init() }
@@ -54,82 +54,46 @@ public final class SKLocalizations: LocalizableModel {
     public required init(from decoder: Decoder) throws {
         super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
+        defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
     }
 
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
-        case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
+        case CodingKeys.defaultSection.stringValue: return defaultSection
         default: return nil
         }
     }
 
-    public final class DefaultSection: LocalizableSection {
-        public var ok = ""
-        public var back = ""
-        public var settings = ""
-        public var cancel = ""
-        public var later = ""
-        public var no = ""
-        public var edit = ""
-        public var retry = ""
-        public var previous = ""
-        public var next = ""
-        public var yes = ""
-        public var save = ""
-        public var skip = ""
+    public final class Error: LocalizableSection {
+        public var connectionError = ""
+        public var authenticationError = ""
+        public var unknownError = ""
+        public var errorTitle = ""
 
         enum CodingKeys: String, CodingKey {
-            case ok
-            case back
-            case settings
-            case cancel
-            case later
-            case no
-            case edit
-            case retry
-            case previous
-            case next
-            case yes
-            case save
-            case skip
+            case connectionError
+            case authenticationError
+            case unknownError
+            case errorTitle
         }
 
         public override init() {
             super.init()
-            ok = "\(classNameLowerCased()).ok"
-            back = "\(classNameLowerCased()).back"
-            settings = "\(classNameLowerCased()).settings"
-            cancel = "\(classNameLowerCased()).cancel"
-            later = "\(classNameLowerCased()).later"
-            no = "\(classNameLowerCased()).no"
-            edit = "\(classNameLowerCased()).edit"
-            retry = "\(classNameLowerCased()).retry"
-            previous = "\(classNameLowerCased()).previous"
-            next = "\(classNameLowerCased()).next"
-            yes = "\(classNameLowerCased()).yes"
-            save = "\(classNameLowerCased()).save"
-            skip = "\(classNameLowerCased()).skip"
+            connectionError = "\(classNameLowerCased()).connectionError"
+            authenticationError = "\(classNameLowerCased()).authenticationError"
+            unknownError = "\(classNameLowerCased()).unknownError"
+            errorTitle = "\(classNameLowerCased()).errorTitle"
         }
 
         public required init(from decoder: Decoder) throws {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            ok = try container.decodeIfPresent(String.self, forKey: .ok) ?? "__ok"
-            back = try container.decodeIfPresent(String.self, forKey: .back) ?? "__back"
-            settings = try container.decodeIfPresent(String.self, forKey: .settings) ?? "__settings"
-            cancel = try container.decodeIfPresent(String.self, forKey: .cancel) ?? "__cancel"
-            later = try container.decodeIfPresent(String.self, forKey: .later) ?? "__later"
-            no = try container.decodeIfPresent(String.self, forKey: .no) ?? "__no"
-            edit = try container.decodeIfPresent(String.self, forKey: .edit) ?? "__edit"
-            retry = try container.decodeIfPresent(String.self, forKey: .retry) ?? "__retry"
-            previous = try container.decodeIfPresent(String.self, forKey: .previous) ?? "__previous"
-            next = try container.decodeIfPresent(String.self, forKey: .next) ?? "__next"
-            yes = try container.decodeIfPresent(String.self, forKey: .yes) ?? "__yes"
-            save = try container.decodeIfPresent(String.self, forKey: .save) ?? "__save"
-            skip = try container.decodeIfPresent(String.self, forKey: .skip) ?? "__skip"
+            connectionError = try container.decodeIfPresent(String.self, forKey: .connectionError) ?? "__connectionError"
+            authenticationError = try container.decodeIfPresent(String.self, forKey: .authenticationError) ?? "__authenticationError"
+            unknownError = try container.decodeIfPresent(String.self, forKey: .unknownError) ?? "__unknownError"
+            errorTitle = try container.decodeIfPresent(String.self, forKey: .errorTitle) ?? "__errorTitle"
         }
 
         public override subscript(key: String) -> String? {
@@ -137,34 +101,70 @@ public final class SKLocalizations: LocalizableModel {
         }
     }
 
-    public final class Error: LocalizableSection {
-        public var unknownError = ""
-        public var connectionError = ""
-        public var authenticationError = ""
-        public var errorTitle = ""
+    public final class DefaultSection: LocalizableSection {
+        public var cancel = ""
+        public var skip = ""
+        public var edit = ""
+        public var back = ""
+        public var ok = ""
+        public var settings = ""
+        public var previous = ""
+        public var retry = ""
+        public var save = ""
+        public var later = ""
+        public var yes = ""
+        public var no = ""
+        public var next = ""
 
         enum CodingKeys: String, CodingKey {
-            case unknownError
-            case connectionError
-            case authenticationError
-            case errorTitle
+            case cancel
+            case skip
+            case edit
+            case back
+            case ok
+            case settings
+            case previous
+            case retry
+            case save
+            case later
+            case yes
+            case no
+            case next
         }
 
         public override init() {
             super.init()
-            unknownError = "\(classNameLowerCased()).unknownError"
-            connectionError = "\(classNameLowerCased()).connectionError"
-            authenticationError = "\(classNameLowerCased()).authenticationError"
-            errorTitle = "\(classNameLowerCased()).errorTitle"
+            cancel = "\(classNameLowerCased()).cancel"
+            skip = "\(classNameLowerCased()).skip"
+            edit = "\(classNameLowerCased()).edit"
+            back = "\(classNameLowerCased()).back"
+            ok = "\(classNameLowerCased()).ok"
+            settings = "\(classNameLowerCased()).settings"
+            previous = "\(classNameLowerCased()).previous"
+            retry = "\(classNameLowerCased()).retry"
+            save = "\(classNameLowerCased()).save"
+            later = "\(classNameLowerCased()).later"
+            yes = "\(classNameLowerCased()).yes"
+            no = "\(classNameLowerCased()).no"
+            next = "\(classNameLowerCased()).next"
         }
 
         public required init(from decoder: Decoder) throws {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            unknownError = try container.decodeIfPresent(String.self, forKey: .unknownError) ?? "__unknownError"
-            connectionError = try container.decodeIfPresent(String.self, forKey: .connectionError) ?? "__connectionError"
-            authenticationError = try container.decodeIfPresent(String.self, forKey: .authenticationError) ?? "__authenticationError"
-            errorTitle = try container.decodeIfPresent(String.self, forKey: .errorTitle) ?? "__errorTitle"
+            cancel = try container.decodeIfPresent(String.self, forKey: .cancel) ?? "__cancel"
+            skip = try container.decodeIfPresent(String.self, forKey: .skip) ?? "__skip"
+            edit = try container.decodeIfPresent(String.self, forKey: .edit) ?? "__edit"
+            back = try container.decodeIfPresent(String.self, forKey: .back) ?? "__back"
+            ok = try container.decodeIfPresent(String.self, forKey: .ok) ?? "__ok"
+            settings = try container.decodeIfPresent(String.self, forKey: .settings) ?? "__settings"
+            previous = try container.decodeIfPresent(String.self, forKey: .previous) ?? "__previous"
+            retry = try container.decodeIfPresent(String.self, forKey: .retry) ?? "__retry"
+            save = try container.decodeIfPresent(String.self, forKey: .save) ?? "__save"
+            later = try container.decodeIfPresent(String.self, forKey: .later) ?? "__later"
+            yes = try container.decodeIfPresent(String.self, forKey: .yes) ?? "__yes"
+            no = try container.decodeIfPresent(String.self, forKey: .no) ?? "__no"
+            next = try container.decodeIfPresent(String.self, forKey: .next) ?? "__next"
         }
 
         public override subscript(key: String) -> String? {

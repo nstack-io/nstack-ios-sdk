@@ -3,7 +3,6 @@
 </p>
 
 [![bitrise](https://app.bitrise.io/app/07acd68091c14c12/status.svg?token=xfdewD-n8sL8VIVOOTX7JA&branch=master)](https://app.bitrise.io/app/07acd68091c14c12)
-[![Codecov](https://img.shields.io/codecov/c/github/nodes-ios/NStackSDK.svg)](https://codecov.io/github/nodes-ios/NStackSDK)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS%20|%20macOS%20|%20tvOS%20|%20watchOS-lightgrey.svg)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/NStackSDK/blob/master/LICENSE)
@@ -12,12 +11,15 @@ NStackSDK is the companion software development kit to the [NStack](https://nsta
 
 ## What is NStack?
 
-See the [NStack documentation](https://nstack-io.github.io/docs/docs/guides/iOS/ios.html) for more information about NStack
+See the [NStack documentation](https://nstack-io.github.io/docs/docs/guides/iOS/ios.html) for more information about NStack.
 
-## 📝 Requirements
+To use the whole power of the localizations feature of the NStack backend, you need
 
-* iOS 8.0+ / tvOS 9.0+ / macOS 10.10+ / watchOS 2.0+
-* Swift 3.0+
+* NStackSDK (the SDK in this repo)
+* [LocalizationManager](https://github.com/nodes-ios/TranslationManager) (sub-dependency of this SDK, no need to get it separately, comes with NStackSDK when installed via CocoaPods or Carthage)
+* [NStack Localizations Generator](https://github.com/nodes-ios/nstack-localizations-generator)
+
+For more details see [Installation](#-installation) and [Usage](#-usage) below.
 
 ## 📦 Installation
 
@@ -29,69 +31,54 @@ pod 'NStackSDK', '~> 5.1.3'
 ### Carthage
 ~~~
 # Swift 5
-github "nstack-io/nstack-ios-sdk" ~> 4.0
-
-# Swift 4.2-5 using Alamofire 5 - Pre-release
-github "nstack-io/nstack-ios-sdk" "feature/alamofire5"
-
-# Swift 3-4
-github "nstack-io/nstack-ios-sdk" ~> 2.0
-
-# Swift 2.3
-github "nstack-io/nstack-ios-sdk" == 0.3.12
-
-# Swift 2.2
-github "nstack-io/nstack-ios-sdk" == 0.3.10
-~~~
-### TranslationManager
-
-Note; to make use of the Localizable feature of Nstack you will also need the TranslationManager dependency added to your cartfile.
-~~~
-# Swift 5
-github "nodes-ios/TranslationManager"
+github "nstack-io/nstack-ios-sdk" ~> 5.0
 ~~~
 
-### Migration Swift 4.x -> Swift 5
+- run `carthage update --platform ios --cache-builds` to install the newly added sdk
+- this will build `NStackSDK` and `LocalizationManager`
+- add the 2 frameworks to your project (follow [the official carthage instructions](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) if unsure how)
+ 
+### Swift Package Manager
 
-1. Put this line in the cartfile
-~~~
-github "nodes-ios/NStackSDK" ~> 3.0
-~~~
-2. Remove all other references to Alamofire and Serpent from the Cartfile
-3. run ```carthage update NStackSDK``` for your platform
-
-### Migration to NStackSDK with Alamofire 5
-1. Put this line in the Cartfile
-~~~
-github "nodes-ios/NStackSDK" "feature/alamofire5"
-~~~
-2. Remove all other references to Alamofire and Serpent from the Cartfile
-3. Make sure you don't have other dependencies using Alamofire 4 or Serpent ~> 1.0. If you have, refer to the github repo for the dependency for migration pointers
-3. run ```carthage update NStackSDK``` for your platform
+Swift Package Manager support is in development, you can give it a try using the `feature/spm-support` branch
 
 ## 💻 Usage
 
-> **NOTE:** Don't forget to `import NStackSDK` in the top of the file.
-
 ### Getting Started
 
-#### Plist
+We assume that you have installed the NStackSDK via CocoaPods or Carthage already (see [Installation](#-installation)).
 
-In your AppDelegate's `didFinishLaunching:` function start NStack by running:
+- go to the [latest release of nstack-localizations-generator](https://github.com/nodes-ios/nstack-localizations-generator/releases) and download the latest nstack-`localizations-generator.bundle.zip`, unzip it and copy it to `${SRCROOT}/${TL_PROJ_ROOT_FOLDER}/Resources/NStack/`. This will be referenced from a build script, so the location has to match the one in the script. Don’t include it in your Xcode project.
+- add a new Run Script Phase to your project before the Compile Sources phase and copy
+[this script](https://github.com/nodes-ios/nstack-localizations-generator/blob/master/translations_script.sh) in it
+- create an `NStack.plist` file in your Xcode project. Make sure it matches the location specified in the script (if not manually changed, that's`${SRCROOT}/${TL_PROJ_ROOT_FOLDER}/Resources/NStack/NStack.plist`). Add `APPLICATION_ID` and `REST_API_KEY` with the values of your NStack app
 
-~~~swift
-let configuration = Configuration(plistName: "NStack", environment: .debug, translationsClass: Translations.self)
-NStack.start(configuration: configuration, launchOptions: launchOptions)
-~~~
+   ```xml
+   <key>APPLICATION_ID</key>
+	<string>...</string>
+	<key>REST_API_KEY</key>
+	<string>...</string>
+	```
+	
+- make sure your folder structure and the paths specified by the script match. Otherwise, the translations step will fail. Refer to the [demo project](https://github.com/nstack-io/nstack-ios-sdk/tree/master/NStackSDKDemo) for an example. Folders must be created before you run the script. 
+- make an uber-clean build (cmd+option+shift+k, then cmd+b) to fetch the language jsons and generate the localizations class; this will download a `Localizations_<locale>.json` file for each language in your app, and create or regenerate the `Localizations.swift` and `SKLocalizations.swift` files
+- add the Translations folder (containing `Localizations.swift`, `SKLocalizations.swift` and the `Localizations_<locale>.json` files) to your project. Make sure they’re included in your app target.
+- setup NStackSDK in your app by adding this method in your `AppDelegate.swift`:
 
-The environment enum property passed should be that matching your projects environement. These enums are declared within the NStackSDK.
-You should have a file called NStack.plist in your application bundle. It needs to contain a key called **`REST_API_KEY`** and a key called **`APPLICATION_ID`**.
-The TranslationsClass passed should be the class generated by the NStack Translations Generator (see below).
+  ```swift
+  private func setupNStack(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) {
+        var nstackConfig = Configuration(plistName: "NStack",
+                                         environment: .production,     // You can switch here based on your app's current environment
+                                         localizationClass: Localizations.self)
+        nstackConfig.updateOptions = [.onDidBecomeActive]
+        NStack.start(configuration: nstackConfig, launchOptions: launchOptions)
+        NStack.sharedInstance.localizationManager?.updateLocalizations()
+    }
+    ```
+    
+    and call it from `application_:didFinishLaunchingWithOptions:` method
+- access your texts with `lo.<section>.<key>`; i.e. `lo.defaultSection.close`
 
-
-#### Manually
-
-> TODO: Docs
 
 ## Features
 
@@ -99,32 +86,33 @@ For an overview of what features are available and what they do check out the [f
 
 ### Localization
 
-To use nstack for translations, you need to install the [nstack translations generator](https://github.com/nodes-ios/nstack-translations-generator). After that, all translations will be available through the tr-variable. Example: `tr.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example:
+After completing the installation and basic usage steps above, all translations will be available through the `lo`-variable. Example: `lo.login.forgotPassword` where `login` is the section and `forgotPassword` is the key from nstack. For example:
 ~~~~swift
 @IBOutlet weak var forgotPasswordButton: UIButton! {
     didSet {
-        forgotPasswordButton.setTitle(tr.login.forgotPassword, for: .normal)
+        forgotPasswordButton.setTitle(lo.login.forgotPassword, for: .normal)
     }
 }
 ~~~~
 
-With the latest 4.0 release, comes other ways of assigning translations within your project...
+From NStack 4.0 release, there are other ways of assigning translations within your project.
+
 ~~~~swift
-label1.text = tr.defaultSection.successKey
+label1.text = lo.defaultSection.successKey
 ----
 label2.localize(for: "default.successKey")
 ----
-label3.localize(for: skt.defaultSection.successKey)
+label3.localize(for: skl.defaultSection.successKey)
 ----
 label4 <=> "default.successKey"
 ----
-label5 <=> skt.defaultSection.successKey
+label5 <=> skl.defaultSection.successKey
 ~~~~
 And with Swift 5.1 and up, you can also use the `NSLocalizable` property wrapper.
 ~~~~swift
 @IBOutlet @NSLocalizable("default.successKey") var label6: UILabel!
 ----
-@IBOutlet @NSLocalizable(skt.defaultSection.successKey) var label7: UILabel!
+@IBOutlet @NSLocalizable(skl.defaultSection.successKey) var label7: UILabel!
 ~~~~
 
 

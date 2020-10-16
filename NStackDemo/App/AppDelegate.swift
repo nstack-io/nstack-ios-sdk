@@ -17,11 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setupNStack(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) {
-        var nStackConfig = Configuration(plistName: "NStack",
+        var nstackConfig = Configuration(plistName: "NStack",
                                          environment: .production,     // You can switch here based on your app's current environment
                                          localizationClass: Localizations.self)
-        nStackConfig.updateOptions = [.onDidBecomeActive]
-        NStack.start(configuration: nStackConfig, launchOptions: launchOptions)
+        nstackConfig.updateOptions = [.onDidBecomeActive]
+        NStack.start(configuration: nstackConfig, launchOptions: launchOptions)
         NStack.sharedInstance.localizationManager?.updateLocalizations()
     }
 }
