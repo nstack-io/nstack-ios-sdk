@@ -20,6 +20,7 @@ To use the whole power of the localizations feature of the NStack backend, you n
 * [NStack Localizations Generator](https://github.com/nodes-ios/nstack-localizations-generator)
 
 For more details see [Installation](#-installation) and [Usage](#-usage) below.
+If you're updating to NStack 5, check [the migration guide](https://github.com/nstack-io/nstack-ios-sdk/tree/feature/demo-project/Documentation).
 
 ## 📦 Installation
 
