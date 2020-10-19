@@ -18,9 +18,8 @@ Uses the updated [LocalizationManager](https://github.com/nodes-ios/TranslationM
    
     ```swift
     private func setupNStack(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) {
-        let appConfig = AppConfiguration()
-        var nStackConfig = Configuration(plistName: appConfig.nstackPlist,
-                                         environment: appConfig.nstackEnv,
+        var nStackConfig = Configuration(plistName: nstackPlistName,
+                                         environment: nstackEnvironment,
                                          translationsClass: Translations.self)
         nStackConfig.updateOptions = [.onDidBecomeActive]
         NStack.start(configuration: nStackConfig, launchOptions: launchOptions)
@@ -32,9 +31,8 @@ Uses the updated [LocalizationManager](https://github.com/nodes-ios/TranslationM
 
    ```swift
      private func setupNStack(with launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) {
-         let appConfig = AppConfiguration()
-         var nStackConfig = Configuration(plistName: appConfig.nstackPlist,
-                                         environment: appConfig.nstackEnv,
+         var nStackConfig = Configuration(plistName: nstackPlistName,
+                                         environment: nstackEnvironment,
                                          localizationClass: Localizations.self)
          nStackConfig.updateOptions = [.onDidBecomeActive]
          NStack.start(configuration: nStackConfig, launchOptions: launchOptions)
