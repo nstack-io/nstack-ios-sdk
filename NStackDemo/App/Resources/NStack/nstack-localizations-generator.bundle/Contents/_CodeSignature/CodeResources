@@ -10,10 +10,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			8pQPNbKJB5T9E0BndL4Bud9quFQ=
+			BjW/HXVfwKK49Z7ma56bheyk4Ns=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"f2940f35b2890794fd13406774be01b9df6ab854"</string>
+			<string>cdhash H"0635bf1d755fc0a2b8f59ee66b9e9b85eca4e0db"</string>
 		</dict>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<dict>
@@ -86,6 +86,15 @@
 			</data>
 			<key>requirement</key>
 			<string>cdhash H"bd96f82f185bd671d189123976b51076190ccd28" or cdhash H"e1e1cca0d89b4c27a07621fbb416966985de12b5"</string>
+		</dict>
+		<key>Frameworks/libswiftXPC.dylib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			6MPIdTDBXAtAo9yqCoBoyxL+U8s=
+			</data>
+			<key>requirement</key>
+			<string>cdhash H"49fa9c8d039af4afe6f5c5e79d997dfff086bc44" or cdhash H"e8c3c87530c15c0b40a3dcaa0a8068cb12fe53cb"</string>
 		</dict>
 	</dict>
 	<key>rules</key>
