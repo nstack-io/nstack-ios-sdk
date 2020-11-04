@@ -46,10 +46,12 @@ public var tr: Localizations { lo }
 public final class Localizations: LocalizableModel {
     public var defaultSection = DefaultSection()
     public var error = Error()
+    public var languageSelection = LanguageSelection()
 
     enum CodingKeys: String, CodingKey {
         case defaultSection = "default"
         case error
+        case languageSelection
     }
 
     public override init() { super.init() }
@@ -59,12 +61,14 @@ public final class Localizations: LocalizableModel {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
+        languageSelection = try container.decodeIfPresent(LanguageSelection.self, forKey: .languageSelection) ?? languageSelection
     }
 
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
+        case CodingKeys.languageSelection.stringValue: return languageSelection
         default: return nil
         }
     }
@@ -170,6 +174,33 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.connectionError.stringValue: return connectionError
             case CodingKeys.errorTitle.stringValue: return errorTitle
             case CodingKeys.unknownError.stringValue: return unknownError
+            default: return nil
+            }
+        }
+    }
+
+    public final class LanguageSelection: LocalizableSection {
+        public var selectLanguage = ""
+        public var title = ""
+
+        enum CodingKeys: String, CodingKey {
+            case selectLanguage
+            case title
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            selectLanguage = try container.decodeIfPresent(String.self, forKey: .selectLanguage) ?? "__selectLanguage"
+            title = try container.decodeIfPresent(String.self, forKey: .title) ?? "__title"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.selectLanguage.stringValue: return selectLanguage
+            case CodingKeys.title.stringValue: return title
             default: return nil
             }
         }

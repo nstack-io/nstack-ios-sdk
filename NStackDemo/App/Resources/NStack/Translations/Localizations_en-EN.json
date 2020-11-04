@@ -20,6 +20,10 @@
       "connectionError" : "Connection error",
       "errorTitle" : "Error",
       "unknownError" : "Unknown error"
+    },
+    "languageSelection" : {
+      "selectLanguage" : "Select language",
+      "title" : "Test me by selecting language"
     }
   },
   "meta" : {

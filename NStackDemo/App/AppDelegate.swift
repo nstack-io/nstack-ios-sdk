@@ -11,8 +11,20 @@ import NStackSDK
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupNStack(with: launchOptions)
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "FeatureListViewController", bundle: nil)
+        let featureListViewController: FeatureListViewController = mainStoryboard.instantiateViewController(withIdentifier: "FeatureListViewController") as! FeatureListViewController
+        let navigationController = UINavigationController.init(rootViewController: featureListViewController)
+
+        self.window?.rootViewController = navigationController
+
+        self.window?.makeKeyAndVisible()
+
         return true
     }
 
