@@ -40,4 +40,15 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
         featureListViewCell?.textLabel?.text = features[indexPath.row]
         return featureListViewCell!
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let storyboard = UIStoryboard(name: "LanguageSelectionViewController", bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: "LanguageSelectionViewController") as? LanguageSelectionViewController
+            self.navigationController?.pushViewController(vc!, animated: true)
+        default:
+            break
+        }
+    }
 }
