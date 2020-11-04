@@ -20,6 +20,10 @@
       "connectionError" : "Ingen eller dårlig forbindelse, prøv igen.",
       "errorTitle" : "Fejl",
       "unknownError" : "Ukendt fejl, prøv igen."
+    },
+    "languageSelection" : {
+      "selectLanguage" : "Vælg sprog",
+      "title" : "Test mig ved at vælge sprog"
     }
   },
   "meta" : {

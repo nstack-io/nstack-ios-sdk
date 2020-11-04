@@ -38,6 +38,7 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let featureListViewCell = tableView.dequeueReusableCell(withIdentifier: "FeatureListViewCell");
         featureListViewCell?.textLabel?.text = features[indexPath.row]
+        featureListViewCell?.selectionStyle = .none
         return featureListViewCell!
     }
 
