@@ -21,6 +21,7 @@
 		29362F2025384E2200610F06 /* Localizations_en-EN.json in Resources */ = {isa = PBXBuildFile; fileRef = 29362F1C25384E2200610F06 /* Localizations_en-EN.json */; };
 		7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */; };
 		7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */; };
+		7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */; };
 		7594190F25518F7A00AEB338 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594190E25518F7A00AEB338 /* FeatureListViewController.swift */; };
 		7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191225518F9300AEB338 /* FeatureListViewController.storyboard */; };
 		7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */; };
@@ -44,6 +45,7 @@
 		29362F1C25384E2200610F06 /* Localizations_en-EN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Localizations_en-EN.json"; sourceTree = "<group>"; };
 		7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackViewController.storyboard; sourceTree = "<group>"; };
+		7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PickerHelper.swift"; sourceTree = "<group>"; };
 		7594190E25518F7A00AEB338 /* FeatureListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListViewController.swift; sourceTree = "<group>"; };
 		7594191225518F9300AEB338 /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
 		7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanguageSelectionViewController.storyboard; sourceTree = "<group>"; };
@@ -141,9 +143,18 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
+		7535FC262552FB2D004F3B21 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7585E0EA25518CC100903E08 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				7535FC262552FB2D004F3B21 /* Extensions */,
 				7585E0EC25518CF200903E08 /* Scenes */,
 			);
 			path = Source;
@@ -302,6 +313,7 @@
 				7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */,
 				29362F062538490400610F06 /* AppDelegate.swift in Sources */,
 				29362F1D25384E2200610F06 /* SKLocalizations.swift in Sources */,
+				7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */,
 				7594190F25518F7A00AEB338 /* FeatureListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
