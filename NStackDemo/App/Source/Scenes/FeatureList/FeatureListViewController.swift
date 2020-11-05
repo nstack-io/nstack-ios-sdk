@@ -16,7 +16,7 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = ["In-app Language picker", "Feedback"];
+    let features = ["In-app Language picker", "Feedback", "Alert Types"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +52,9 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
         case 1:
             storyboard = UIStoryboard(name: "FeedbackViewController", bundle: nil)
             vc = storyboard?.instantiateViewController(identifier: "FeedbackViewController") as! FeedbackViewController
+        case 2:
+            storyboard = UIStoryboard(name: "AlertViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "AlertViewController") as! AlertViewController
         default:
             break
         }

@@ -1,5 +1,18 @@
 {
   "data" : {
+    "alert" : {
+      "alertSubtitle" : "Alert subtitle",
+      "alertTitle" : "Alert title",
+      "alertTypesTitle" : "Alert Types",
+      "defaultAlert" : "Default Alert",
+      "hideAlert" : "Hide Alert",
+      "hideAlertSubtitle" : "Don't press cancel, Alert dialog will be hidden after 10 seconds",
+      "infoAlert" : "Info Alert",
+      "openUrl" : "Open URL",
+      "openUrlAlert" : "Open Url Alert",
+      "ratingPromptAlert" : "Rating prompt Alert",
+      "url" : "https:\/\/www.hackingwithswift.com\/"
+    },
     "default" : {
       "back" : "Back",
       "cancel" : "Cancel",

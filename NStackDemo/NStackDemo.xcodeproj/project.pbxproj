@@ -22,6 +22,8 @@
 		7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */; };
 		7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */; };
 		7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */; };
+		7535FC9E2554187F004F3B21 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC9D2554187F004F3B21 /* AlertViewController.swift */; };
+		7535FCA125541893004F3B21 /* AlertViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7535FCA025541893004F3B21 /* AlertViewController.storyboard */; };
 		7594190F25518F7A00AEB338 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594190E25518F7A00AEB338 /* FeatureListViewController.swift */; };
 		7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191225518F9300AEB338 /* FeatureListViewController.storyboard */; };
 		7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */; };
@@ -46,6 +48,8 @@
 		7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackViewController.storyboard; sourceTree = "<group>"; };
 		7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PickerHelper.swift"; sourceTree = "<group>"; };
+		7535FC9D2554187F004F3B21 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		7535FCA025541893004F3B21 /* AlertViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertViewController.storyboard; sourceTree = "<group>"; };
 		7594190E25518F7A00AEB338 /* FeatureListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListViewController.swift; sourceTree = "<group>"; };
 		7594191225518F9300AEB338 /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
 		7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanguageSelectionViewController.storyboard; sourceTree = "<group>"; };
@@ -151,6 +155,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7535FC9C2554185B004F3B21 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				7535FC9D2554187F004F3B21 /* AlertViewController.swift */,
+				7535FCA025541893004F3B21 /* AlertViewController.storyboard */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		7585E0EA25518CC100903E08 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +176,7 @@
 		7585E0EC25518CF200903E08 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7535FC9C2554185B004F3B21 /* Alert */,
 				7503FAC42552E5120079C4F8 /* Feedback */,
 				7594191C2551997200AEB338 /* LanguagePicker */,
 				7585E0ED25518D3200903E08 /* FeatureList */,
@@ -253,6 +267,7 @@
 				7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */,
 				29362F2025384E2200610F06 /* Localizations_en-EN.json in Resources */,
 				29362F1125384A5200610F06 /* Main.storyboard in Resources */,
+				7535FCA125541893004F3B21 /* AlertViewController.storyboard in Resources */,
 				29362F022538490400610F06 /* NStack.plist in Resources */,
 				29362F032538490400610F06 /* Assets.xcassets in Resources */,
 				7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */,
@@ -311,6 +326,7 @@
 				29362F002538490400610F06 /* ViewController.swift in Sources */,
 				75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */,
 				7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */,
+				7535FC9E2554187F004F3B21 /* AlertViewController.swift in Sources */,
 				29362F062538490400610F06 /* AppDelegate.swift in Sources */,
 				29362F1D25384E2200610F06 /* SKLocalizations.swift in Sources */,
 				7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */,
