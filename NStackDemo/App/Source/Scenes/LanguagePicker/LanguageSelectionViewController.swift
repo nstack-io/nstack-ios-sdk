@@ -41,6 +41,7 @@ class LanguageSelectionViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.title = tr.languageSelection.selectLanguageTitle
         label.text = tr.languageSelection.title
         pickerView.isHidden = true
         getLanguages()
@@ -48,36 +49,17 @@ class LanguageSelectionViewController: UIViewController {
 
     // MARK: - Callbacks -
     @IBAction func selectLanguageButtonTapped(_ sender: Any) {
-        showPickerView()
+        self.view.endEditing(true)
+        pickerView.showView(mainViewHeight: mainView.frame.size.height)
     }
 
     @IBAction func pickerCancelButtonTapped(_ sender: Any) {
-        hidePickerView()
+        pickerView.hideView(mainViewHeight: mainView.frame.size.height)
     }
 
     @IBAction func pickerDoneButtonTapped(_ sender: Any) {
         setDefaultLanguage(selectedLanguage: defaultLanguage)
-        hidePickerView()
-    }
-
-    // MARK: - Show/Hide UIPickerView Helper
-    func showPickerView() {
-        self.view.endEditing(true)
-        pickerView.isHidden = false
-
-        pickerView.frame = CGRect(x: pickerView.frame.origin.x, y: mainView.frame.size.height, width: self.pickerView.frame.width, height: pickerView.frame.size.height)
-
-        UIView.animate(withDuration: 0.3) {
-            self.pickerView.frame = CGRect(x: self.pickerView.frame.origin.x, y: self.mainView.frame.size.height - self.pickerView.frame.size.height, width: self.pickerView.frame.width, height: self.pickerView.frame.size.height)
-        }
-    }
-
-    func hidePickerView() {
-        UIView.animate(withDuration: 0.3) {
-            self.pickerView.frame = CGRect(x: self.pickerView.frame.origin.x, y: self.mainView.frame.size.height, width: self.pickerView.frame.width, height: self.pickerView.frame.size.height)
-        } completion: { (_) in
-            self.pickerView.isHidden = true
-        }
+        pickerView.hideView(mainViewHeight: mainView.frame.size.height)
     }
 
 }

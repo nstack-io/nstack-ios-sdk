@@ -13,6 +13,7 @@
       "save" : "Save",
       "settings" : "Settings",
       "skip" : "Skip",
+      "submit" : "Submit",
       "yes" : "Yes"
     },
     "error" : {
@@ -21,8 +22,15 @@
       "errorTitle" : "Error",
       "unknownError" : "Unknown error"
     },
+    "feedback" : {
+      "enterEmail" : "Enter email",
+      "enterName" : "Enter name",
+      "feedbackTitle" : "Feedback",
+      "selectImage" : "Select Image"
+    },
     "languageSelection" : {
       "selectLanguage" : "Select language",
+      "selectLanguageTitle" : "Select language",
       "title" : "Test me by selecting language"
     }
   },

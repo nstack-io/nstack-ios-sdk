@@ -16,7 +16,7 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = ["In-app Language picker"];
+    let features = ["In-app Language picker", "Feedback"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +43,21 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var storyboard: UIStoryboard?
+        var vc: UIViewController?
         switch indexPath.row {
         case 0:
-            let storyboard = UIStoryboard(name: "LanguageSelectionViewController", bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: "LanguageSelectionViewController") as? LanguageSelectionViewController
-            self.navigationController?.pushViewController(vc!, animated: true)
+            storyboard = UIStoryboard(name: "LanguageSelectionViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "LanguageSelectionViewController") as! LanguageSelectionViewController
+        case 1:
+            storyboard = UIStoryboard(name: "FeedbackViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "FeedbackViewController") as! FeedbackViewController
         default:
             break
         }
+        guard let viewController = vc else {
+            return
+        }
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

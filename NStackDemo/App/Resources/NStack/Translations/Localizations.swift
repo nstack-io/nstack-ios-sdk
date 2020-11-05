@@ -46,11 +46,13 @@ public var tr: Localizations { lo }
 public final class Localizations: LocalizableModel {
     public var defaultSection = DefaultSection()
     public var error = Error()
+    public var feedback = Feedback()
     public var languageSelection = LanguageSelection()
 
     enum CodingKeys: String, CodingKey {
         case defaultSection = "default"
         case error
+        case feedback
         case languageSelection
     }
 
@@ -61,6 +63,7 @@ public final class Localizations: LocalizableModel {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
+        feedback = try container.decodeIfPresent(Feedback.self, forKey: .feedback) ?? feedback
         languageSelection = try container.decodeIfPresent(LanguageSelection.self, forKey: .languageSelection) ?? languageSelection
     }
 
@@ -68,6 +71,7 @@ public final class Localizations: LocalizableModel {
         switch key {
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
+        case CodingKeys.feedback.stringValue: return feedback
         case CodingKeys.languageSelection.stringValue: return languageSelection
         default: return nil
         }
@@ -86,6 +90,7 @@ public final class Localizations: LocalizableModel {
         public var save = ""
         public var settings = ""
         public var skip = ""
+        public var submit = ""
         public var yes = ""
 
         enum CodingKeys: String, CodingKey {
@@ -101,6 +106,7 @@ public final class Localizations: LocalizableModel {
             case save
             case settings
             case skip
+            case submit
             case yes
         }
 
@@ -121,6 +127,7 @@ public final class Localizations: LocalizableModel {
             save = try container.decodeIfPresent(String.self, forKey: .save) ?? "__save"
             settings = try container.decodeIfPresent(String.self, forKey: .settings) ?? "__settings"
             skip = try container.decodeIfPresent(String.self, forKey: .skip) ?? "__skip"
+            submit = try container.decodeIfPresent(String.self, forKey: .submit) ?? "__submit"
             yes = try container.decodeIfPresent(String.self, forKey: .yes) ?? "__yes"
         }
 
@@ -138,6 +145,7 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.save.stringValue: return save
             case CodingKeys.settings.stringValue: return settings
             case CodingKeys.skip.stringValue: return skip
+            case CodingKeys.submit.stringValue: return submit
             case CodingKeys.yes.stringValue: return yes
             default: return nil
             }
@@ -179,12 +187,49 @@ public final class Localizations: LocalizableModel {
         }
     }
 
+    public final class Feedback: LocalizableSection {
+        public var enterEmail = ""
+        public var enterName = ""
+        public var feedbackTitle = ""
+        public var selectImage = ""
+
+        enum CodingKeys: String, CodingKey {
+            case enterEmail
+            case enterName
+            case feedbackTitle
+            case selectImage
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            enterEmail = try container.decodeIfPresent(String.self, forKey: .enterEmail) ?? "__enterEmail"
+            enterName = try container.decodeIfPresent(String.self, forKey: .enterName) ?? "__enterName"
+            feedbackTitle = try container.decodeIfPresent(String.self, forKey: .feedbackTitle) ?? "__feedbackTitle"
+            selectImage = try container.decodeIfPresent(String.self, forKey: .selectImage) ?? "__selectImage"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.enterEmail.stringValue: return enterEmail
+            case CodingKeys.enterName.stringValue: return enterName
+            case CodingKeys.feedbackTitle.stringValue: return feedbackTitle
+            case CodingKeys.selectImage.stringValue: return selectImage
+            default: return nil
+            }
+        }
+    }
+
     public final class LanguageSelection: LocalizableSection {
         public var selectLanguage = ""
+        public var selectLanguageTitle = ""
         public var title = ""
 
         enum CodingKeys: String, CodingKey {
             case selectLanguage
+            case selectLanguageTitle
             case title
         }
 
@@ -194,12 +239,14 @@ public final class Localizations: LocalizableModel {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
             selectLanguage = try container.decodeIfPresent(String.self, forKey: .selectLanguage) ?? "__selectLanguage"
+            selectLanguageTitle = try container.decodeIfPresent(String.self, forKey: .selectLanguageTitle) ?? "__selectLanguageTitle"
             title = try container.decodeIfPresent(String.self, forKey: .title) ?? "__title"
         }
 
         public override subscript(key: String) -> String? {
             switch key {
             case CodingKeys.selectLanguage.stringValue: return selectLanguage
+            case CodingKeys.selectLanguageTitle.stringValue: return selectLanguageTitle
             case CodingKeys.title.stringValue: return title
             default: return nil
             }
