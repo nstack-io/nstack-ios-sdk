@@ -41,6 +41,7 @@ class LanguageSelectionViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.title = tr.languageSelection.selectLanguageTitle
         label.text = tr.languageSelection.title
         pickerView.isHidden = true
         getLanguages()

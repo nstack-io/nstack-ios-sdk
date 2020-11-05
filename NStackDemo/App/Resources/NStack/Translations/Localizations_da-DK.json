@@ -13,6 +13,7 @@
       "save" : "Gem",
       "settings" : "Indstillinger",
       "skip" : "Spring over",
+      "submit" : "Indsend",
       "yes" : "Ja"
     },
     "error" : {
@@ -21,8 +22,15 @@
       "errorTitle" : "Fejl",
       "unknownError" : "Ukendt fejl, prøv igen."
     },
+    "feedback" : {
+      "enterEmail" : "Indtast e-mail",
+      "enterName" : "Indtast navn",
+      "feedbackTitle" : "Vælg billede",
+      "selectImage" : "Vælg billede"
+    },
     "languageSelection" : {
       "selectLanguage" : "Vælg sprog",
+      "selectLanguageTitle" : "Vælg sprog",
       "title" : "Test mig ved at vælge sprog"
     }
   },
