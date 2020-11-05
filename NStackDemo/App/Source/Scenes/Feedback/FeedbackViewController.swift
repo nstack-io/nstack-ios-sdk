@@ -79,7 +79,7 @@ class FeedbackViewController: UIViewController {
 
     // MARK: - Properties
     private var feedbackTypes: [FeedbackType] = [.bug, .feedback]
-    private var selectedFeedbackTypeIndex: Int?
+    private var selectedFeedbackTypeIndex: Int!
     private var imagePickerController = UIImagePickerController()
 
     override func viewDidLoad() {
@@ -124,7 +124,7 @@ class FeedbackViewController: UIViewController {
 
     @IBAction func submitButtonTapped(_ sender: Any) {
         self.view.endEditing(true)
-        //TODO - API call
+        sendFeedback()
     }
     
 }
@@ -156,5 +156,19 @@ extension FeedbackViewController: UIImagePickerControllerDelegate, UINavigationC
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         imagePickerController.dismiss(animated: true)
+    }
+}
+
+// MARK: - API call
+extension FeedbackViewController {
+    func sendFeedback() {
+        guard let version =  Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            return
+        }
+        NStack.sharedInstance.feedbackManager?.provideFeedback(type: feedbackTypes[selectedFeedbackTypeIndex], appVersion: version, message: messageTextView.text, image: imageView.image, name: nameTextField.text, email: emailTextField.text, completion: { (isCompleted) in
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
     }
 }
