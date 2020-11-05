@@ -11,6 +11,7 @@ import LocalizationManager
 
 class AlertViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var defaultAlertButton: UIButton! {
         didSet {
             defaultAlertButton.setTitle(tr.alert.defaultAlert, for: .normal)
@@ -41,6 +42,7 @@ class AlertViewController: UIViewController {
         }
     }
 
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,6 +50,7 @@ class AlertViewController: UIViewController {
         self.navigationItem.title = tr.alert.alertTypesTitle
     }
 
+    // MARK: - Callbacks -
     @IBAction func defaultAlertButtonTapped(_ sender: Any) {
         NStack.sharedInstance.alertManager.showAlertBlock(.updateAlert(title: tr.alert.alertTitle, text: tr.alert.alertSubtitle, dismissButtonText: tr.defaultSection.cancel, appStoreButtonText: tr.defaultSection.ok, completion: { (isOkPressed) in
             print("isOkPressed : \(isOkPressed)")

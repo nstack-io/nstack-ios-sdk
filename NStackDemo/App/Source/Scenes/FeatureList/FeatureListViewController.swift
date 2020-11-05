@@ -8,7 +8,8 @@
 import UIKit
 
 class FeatureListViewController: UIViewController {
-    
+
+    // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet{
             tableView.dataSource = self
@@ -16,16 +17,17 @@ class FeatureListViewController: UIViewController {
         }
     }
 
+    // MARK: - Properties
     let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.alertTypes];
-    
+
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
-
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tr.featureList.title;

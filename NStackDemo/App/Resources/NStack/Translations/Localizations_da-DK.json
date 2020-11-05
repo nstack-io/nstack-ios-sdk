@@ -36,10 +36,10 @@
       "unknownError" : "Ukendt fejl, prøv igen."
     },
     "featureList" : {
-      "alertTypes" : "__alertTypes",
-      "feedback" : "__feedback",
-      "languagePicker" : "__languagePicker",
-      "title" : "__title"
+      "alertTypes" : "Alert Types",
+      "feedback" : "Feedback",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
     },
     "feedback" : {
       "enterEmail" : "Indtast e-mail",

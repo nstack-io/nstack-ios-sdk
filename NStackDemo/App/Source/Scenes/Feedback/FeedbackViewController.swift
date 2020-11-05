@@ -82,6 +82,7 @@ class FeedbackViewController: UIViewController {
     private var selectedFeedbackTypeIndex: Int!
     private var imagePickerController = UIImagePickerController()
 
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
