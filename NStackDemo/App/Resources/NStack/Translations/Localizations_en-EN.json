@@ -35,6 +35,12 @@
       "errorTitle" : "Error",
       "unknownError" : "Unknown error"
     },
+    "featureList" : {
+      "alertTypes" : "Alert Types",
+      "feedback" : "Feedback",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
+    },
     "feedback" : {
       "enterEmail" : "Enter email",
       "enterName" : "Enter name",

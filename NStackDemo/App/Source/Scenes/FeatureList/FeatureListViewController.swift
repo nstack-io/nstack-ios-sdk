@@ -16,7 +16,7 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = ["In-app Language picker", "Feedback", "Alert Types"];
+    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.alertTypes];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class FeatureListViewController: UIViewController {
 
 extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "NStack Features";
+        return tr.featureList.title;
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -47,6 +47,7 @@ public final class Localizations: LocalizableModel {
     public var alert = Alert()
     public var defaultSection = DefaultSection()
     public var error = Error()
+    public var featureList = FeatureList()
     public var feedback = Feedback()
     public var languageSelection = LanguageSelection()
 
@@ -54,6 +55,7 @@ public final class Localizations: LocalizableModel {
         case alert
         case defaultSection = "default"
         case error
+        case featureList
         case feedback
         case languageSelection
     }
@@ -66,6 +68,7 @@ public final class Localizations: LocalizableModel {
         alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? alert
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
+        featureList = try container.decodeIfPresent(FeatureList.self, forKey: .featureList) ?? featureList
         feedback = try container.decodeIfPresent(Feedback.self, forKey: .feedback) ?? feedback
         languageSelection = try container.decodeIfPresent(LanguageSelection.self, forKey: .languageSelection) ?? languageSelection
     }
@@ -75,6 +78,7 @@ public final class Localizations: LocalizableModel {
         case CodingKeys.alert.stringValue: return alert
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
+        case CodingKeys.featureList.stringValue: return featureList
         case CodingKeys.feedback.stringValue: return feedback
         case CodingKeys.languageSelection.stringValue: return languageSelection
         default: return nil
@@ -249,6 +253,41 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.connectionError.stringValue: return connectionError
             case CodingKeys.errorTitle.stringValue: return errorTitle
             case CodingKeys.unknownError.stringValue: return unknownError
+            default: return nil
+            }
+        }
+    }
+
+    public final class FeatureList: LocalizableSection {
+        public var alertTypes = ""
+        public var feedback = ""
+        public var languagePicker = ""
+        public var title = ""
+
+        enum CodingKeys: String, CodingKey {
+            case alertTypes
+            case feedback
+            case languagePicker
+            case title
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            alertTypes = try container.decodeIfPresent(String.self, forKey: .alertTypes) ?? "__alertTypes"
+            feedback = try container.decodeIfPresent(String.self, forKey: .feedback) ?? "__feedback"
+            languagePicker = try container.decodeIfPresent(String.self, forKey: .languagePicker) ?? "__languagePicker"
+            title = try container.decodeIfPresent(String.self, forKey: .title) ?? "__title"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.alertTypes.stringValue: return alertTypes
+            case CodingKeys.feedback.stringValue: return feedback
+            case CodingKeys.languagePicker.stringValue: return languagePicker
+            case CodingKeys.title.stringValue: return title
             default: return nil
             }
         }
