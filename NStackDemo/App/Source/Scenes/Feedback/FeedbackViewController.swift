@@ -26,13 +26,13 @@ class FeedbackViewController: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField! {
         didSet {
-            nameTextField.placeholder = "_Enter name"
+            nameTextField.placeholder = tr.feedback.enterName
         }
     }
 
     @IBOutlet weak var emailTextField: UITextField! {
         didSet {
-            emailTextField.placeholder = "_Enter email"
+            emailTextField.placeholder = tr.feedback.enterEmail
         }
     }
 
@@ -53,7 +53,7 @@ class FeedbackViewController: UIViewController {
 
     @IBOutlet weak var selectImageButton: UIButton! {
         didSet {
-            selectImageButton.setTitle("_select Image", for: .normal)
+            selectImageButton.setTitle(tr.feedback.selectImage, for: .normal)
         }
     }
 
@@ -61,7 +61,7 @@ class FeedbackViewController: UIViewController {
 
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
-            submitButton.setTitle("_Submit", for: .normal)
+            submitButton.setTitle(tr.defaultSection.submit, for: .normal)
             submitButton.backgroundColor = UIColor.systemBlue
             submitButton.setTitleColor(.white, for: .normal)
             submitButton.layer.cornerRadius = 8.0
@@ -86,7 +86,7 @@ class FeedbackViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.title = "_Feedback"
+        self.navigationItem.title = tr.feedback.feedbackTitle
         pickerView.isHidden = true
 
         //Set initial value selected in UIPicker
