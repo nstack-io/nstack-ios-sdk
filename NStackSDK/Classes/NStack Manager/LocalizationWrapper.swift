@@ -108,11 +108,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         guard let manager = localizationManager else {
             fatalError("no localization manager initialized")
         }
-        do {
-            return try manager.localization()
-        } catch {
-            fatalError("no localization found")
-        }
+        return try manager.localization()
     }
 
     public func handleLocalizationModels(configs: [LocalizationConfig], acceptHeaderUsed: String?, completion: ((Error?) -> Void)? = nil) {
