@@ -1,5 +1,18 @@
 {
   "data" : {
+    "alert" : {
+      "alertSubtitle" : "Alert undertekster",
+      "alertTitle" : "Alert titel",
+      "alertTypesTitle" : "Alert typer",
+      "defaultAlert" : "Standard Alert",
+      "hideAlert" : "Skjul Alert",
+      "hideAlertSubtitle" : "Tryk ikke på Annuller, alarmdialogen skjules efter 10 sekunder",
+      "infoAlert" : "Info Alert",
+      "openUrl" : "Åbn URL",
+      "openUrlAlert" : "Åbn Url Alert",
+      "ratingPromptAlert" : "Bedømmelse prompt Alert",
+      "url" : "https:\/\/www.hackingwithswift.com\/"
+    },
     "default" : {
       "back" : "Tilbage",
       "cancel" : "Annuller",
@@ -21,6 +34,12 @@
       "connectionError" : "Ingen eller dårlig forbindelse, prøv igen.",
       "errorTitle" : "Fejl",
       "unknownError" : "Ukendt fejl, prøv igen."
+    },
+    "featureList" : {
+      "alertTypes" : "Alert Types",
+      "feedback" : "Feedback",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
     },
     "feedback" : {
       "enterEmail" : "Indtast e-mail",

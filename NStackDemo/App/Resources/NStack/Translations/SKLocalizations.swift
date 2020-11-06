@@ -41,14 +41,18 @@ public var skl: SKLocalizations {
 public var skt: SKLocalizations { skl }
 
 public final class SKLocalizations: LocalizableModel {
+    public var alert = Alert()
     public var defaultSection = DefaultSection()
     public var error = Error()
+    public var featureList = FeatureList()
     public var feedback = Feedback()
     public var languageSelection = LanguageSelection()
 
     enum CodingKeys: String, CodingKey {
+        case alert
         case defaultSection = "default"
         case error
+        case featureList
         case feedback
         case languageSelection
     }
@@ -58,19 +62,86 @@ public final class SKLocalizations: LocalizableModel {
     public required init(from decoder: Decoder) throws {
         super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? alert
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
+        featureList = try container.decodeIfPresent(FeatureList.self, forKey: .featureList) ?? featureList
         feedback = try container.decodeIfPresent(Feedback.self, forKey: .feedback) ?? feedback
         languageSelection = try container.decodeIfPresent(LanguageSelection.self, forKey: .languageSelection) ?? languageSelection
     }
 
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
+        case CodingKeys.alert.stringValue: return alert
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
+        case CodingKeys.featureList.stringValue: return featureList
         case CodingKeys.feedback.stringValue: return feedback
         case CodingKeys.languageSelection.stringValue: return languageSelection
         default: return nil
+        }
+    }
+
+    public final class Alert: LocalizableSection {
+        public var alertSubtitle = ""
+        public var alertTitle = ""
+        public var alertTypesTitle = ""
+        public var defaultAlert = ""
+        public var hideAlert = ""
+        public var hideAlertSubtitle = ""
+        public var infoAlert = ""
+        public var openUrl = ""
+        public var openUrlAlert = ""
+        public var ratingPromptAlert = ""
+        public var url = ""
+
+        enum CodingKeys: String, CodingKey {
+            case alertSubtitle
+            case alertTitle
+            case alertTypesTitle
+            case defaultAlert
+            case hideAlert
+            case hideAlertSubtitle
+            case infoAlert
+            case openUrl
+            case openUrlAlert
+            case ratingPromptAlert
+            case url
+        }
+
+        public override init() {
+            super.init()
+            alertSubtitle = "\(classNameLowerCased()).alertSubtitle"
+            alertTitle = "\(classNameLowerCased()).alertTitle"
+            alertTypesTitle = "\(classNameLowerCased()).alertTypesTitle"
+            defaultAlert = "\(classNameLowerCased()).defaultAlert"
+            hideAlert = "\(classNameLowerCased()).hideAlert"
+            hideAlertSubtitle = "\(classNameLowerCased()).hideAlertSubtitle"
+            infoAlert = "\(classNameLowerCased()).infoAlert"
+            openUrl = "\(classNameLowerCased()).openUrl"
+            openUrlAlert = "\(classNameLowerCased()).openUrlAlert"
+            ratingPromptAlert = "\(classNameLowerCased()).ratingPromptAlert"
+            url = "\(classNameLowerCased()).url"
+        }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            alertSubtitle = try container.decodeIfPresent(String.self, forKey: .alertSubtitle) ?? "__alertSubtitle"
+            alertTitle = try container.decodeIfPresent(String.self, forKey: .alertTitle) ?? "__alertTitle"
+            alertTypesTitle = try container.decodeIfPresent(String.self, forKey: .alertTypesTitle) ?? "__alertTypesTitle"
+            defaultAlert = try container.decodeIfPresent(String.self, forKey: .defaultAlert) ?? "__defaultAlert"
+            hideAlert = try container.decodeIfPresent(String.self, forKey: .hideAlert) ?? "__hideAlert"
+            hideAlertSubtitle = try container.decodeIfPresent(String.self, forKey: .hideAlertSubtitle) ?? "__hideAlertSubtitle"
+            infoAlert = try container.decodeIfPresent(String.self, forKey: .infoAlert) ?? "__infoAlert"
+            openUrl = try container.decodeIfPresent(String.self, forKey: .openUrl) ?? "__openUrl"
+            openUrlAlert = try container.decodeIfPresent(String.self, forKey: .openUrlAlert) ?? "__openUrlAlert"
+            ratingPromptAlert = try container.decodeIfPresent(String.self, forKey: .ratingPromptAlert) ?? "__ratingPromptAlert"
+            url = try container.decodeIfPresent(String.self, forKey: .url) ?? "__url"
+        }
+
+        public override subscript(key: String) -> String? {
+            return ""
         }
     }
 
@@ -177,6 +248,41 @@ public final class SKLocalizations: LocalizableModel {
             connectionError = try container.decodeIfPresent(String.self, forKey: .connectionError) ?? "__connectionError"
             errorTitle = try container.decodeIfPresent(String.self, forKey: .errorTitle) ?? "__errorTitle"
             unknownError = try container.decodeIfPresent(String.self, forKey: .unknownError) ?? "__unknownError"
+        }
+
+        public override subscript(key: String) -> String? {
+            return ""
+        }
+    }
+
+    public final class FeatureList: LocalizableSection {
+        public var alertTypes = ""
+        public var feedback = ""
+        public var languagePicker = ""
+        public var title = ""
+
+        enum CodingKeys: String, CodingKey {
+            case alertTypes
+            case feedback
+            case languagePicker
+            case title
+        }
+
+        public override init() {
+            super.init()
+            alertTypes = "\(classNameLowerCased()).alertTypes"
+            feedback = "\(classNameLowerCased()).feedback"
+            languagePicker = "\(classNameLowerCased()).languagePicker"
+            title = "\(classNameLowerCased()).title"
+        }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            alertTypes = try container.decodeIfPresent(String.self, forKey: .alertTypes) ?? "__alertTypes"
+            feedback = try container.decodeIfPresent(String.self, forKey: .feedback) ?? "__feedback"
+            languagePicker = try container.decodeIfPresent(String.self, forKey: .languagePicker) ?? "__languagePicker"
+            title = try container.decodeIfPresent(String.self, forKey: .title) ?? "__title"
         }
 
         public override subscript(key: String) -> String? {

@@ -22,6 +22,8 @@
 		7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */; };
 		7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */; };
 		7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */; };
+		7535FCB325553B97004F3B21 /* GeographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FCB225553B97004F3B21 /* GeographyViewController.swift */; };
+		7535FCB725553BA2004F3B21 /* GeographyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */; };
 		7594190F25518F7A00AEB338 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594190E25518F7A00AEB338 /* FeatureListViewController.swift */; };
 		7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191225518F9300AEB338 /* FeatureListViewController.storyboard */; };
 		7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */; };
@@ -46,6 +48,8 @@
 		7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackViewController.storyboard; sourceTree = "<group>"; };
 		7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PickerHelper.swift"; sourceTree = "<group>"; };
+		7535FCB225553B97004F3B21 /* GeographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeographyViewController.swift; sourceTree = "<group>"; };
+		7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeographyViewController.storyboard; sourceTree = "<group>"; };
 		7594190E25518F7A00AEB338 /* FeatureListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListViewController.swift; sourceTree = "<group>"; };
 		7594191225518F9300AEB338 /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
 		7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanguageSelectionViewController.storyboard; sourceTree = "<group>"; };
@@ -151,6 +155,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7535FCB125553B73004F3B21 /* Geography */ = {
+			isa = PBXGroup;
+			children = (
+				7535FCB225553B97004F3B21 /* GeographyViewController.swift */,
+				7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */,
+			);
+			path = Geography;
+			sourceTree = "<group>";
+		};
 		7585E0EA25518CC100903E08 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +176,7 @@
 		7585E0EC25518CF200903E08 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7535FCB125553B73004F3B21 /* Geography */,
 				7503FAC42552E5120079C4F8 /* Feedback */,
 				7594191C2551997200AEB338 /* LanguagePicker */,
 				7585E0ED25518D3200903E08 /* FeatureList */,
@@ -249,6 +263,7 @@
 			files = (
 				29362F1F25384E2200610F06 /* Localizations_da-DK.json in Resources */,
 				29362F0F25384A4F00610F06 /* LaunchScreen.storyboard in Resources */,
+				7535FCB725553BA2004F3B21 /* GeographyViewController.storyboard in Resources */,
 				7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */,
 				7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */,
 				29362F2025384E2200610F06 /* Localizations_en-EN.json in Resources */,
@@ -310,6 +325,7 @@
 				29362F1E25384E2200610F06 /* Localizations.swift in Sources */,
 				29362F002538490400610F06 /* ViewController.swift in Sources */,
 				75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */,
+				7535FCB325553B97004F3B21 /* GeographyViewController.swift in Sources */,
 				7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */,
 				29362F062538490400610F06 /* AppDelegate.swift in Sources */,
 				29362F1D25384E2200610F06 /* SKLocalizations.swift in Sources */,
