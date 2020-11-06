@@ -74,6 +74,12 @@ class GeographyViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var countryPickerTitleLabel: UILabel! {
+        didSet {
+            countryPickerTitleLabel.text = "_Select country"
+        }
+    }
+
     @IBOutlet weak var timezonePickerMainView: UIView!
 
     @IBOutlet weak var timezonePickerView: UIPickerView! {
@@ -81,6 +87,12 @@ class GeographyViewController: UIViewController {
             timezonePickerView.tag = 200
             timezonePickerView.dataSource = self
             timezonePickerView.delegate = self
+        }
+    }
+
+    @IBOutlet weak var timezonePickerTitleLabel: UILabel! {
+        didSet {
+            timezonePickerTitleLabel.text = "_Select Timezone"
         }
     }
 

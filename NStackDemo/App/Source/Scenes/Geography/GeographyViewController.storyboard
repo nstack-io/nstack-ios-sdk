@@ -163,6 +163,28 @@
                                                             <action selector="countryPickerCancelButtonTapped:" destination="PF6-be-oOl" id="2f1-Po-c7N"/>
                                                         </connections>
                                                     </barButtonItem>
+                                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xWa-BZ-rJV"/>
+                                                    <barButtonItem style="plain" id="dvz-63-Hc2">
+                                                        <view key="customView" contentMode="scaleToFill" id="WKr-UN-Net">
+                                                            <rect key="frame" x="116.5" y="5.5" width="181" height="33"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lB-pc-cVW">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="33"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="4lB-pc-cVW" firstAttribute="top" secondItem="WKr-UN-Net" secondAttribute="top" id="H3d-sg-9j4"/>
+                                                                <constraint firstAttribute="bottom" secondItem="4lB-pc-cVW" secondAttribute="bottom" id="Yro-Sj-9Pi"/>
+                                                                <constraint firstItem="4lB-pc-cVW" firstAttribute="leading" secondItem="WKr-UN-Net" secondAttribute="leading" id="oPN-gm-DLB"/>
+                                                                <constraint firstAttribute="trailing" secondItem="4lB-pc-cVW" secondAttribute="trailing" id="sNj-xB-ZnH"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </barButtonItem>
                                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="SVx-zy-VFe"/>
                                                     <barButtonItem title="Done" id="Lno-XV-zcg">
                                                         <connections>
@@ -196,6 +218,28 @@
                                                         <connections>
                                                             <action selector="timezonePickerCancelButtonTapped:" destination="PF6-be-oOl" id="EQ8-vx-1QN"/>
                                                         </connections>
+                                                    </barButtonItem>
+                                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iNC-6X-FEb"/>
+                                                    <barButtonItem style="plain" id="Y5e-Ip-mXj">
+                                                        <view key="customView" contentMode="scaleToFill" id="NWb-dP-FDp">
+                                                            <rect key="frame" x="116.5" y="5.5" width="181" height="33"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQy-O2-8Ja">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="33"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="NQy-O2-8Ja" secondAttribute="bottom" id="JTq-oY-7OT"/>
+                                                                <constraint firstItem="NQy-O2-8Ja" firstAttribute="leading" secondItem="NWb-dP-FDp" secondAttribute="leading" id="eOi-Ha-Ii9"/>
+                                                                <constraint firstAttribute="trailing" secondItem="NQy-O2-8Ja" secondAttribute="trailing" id="fuL-SN-L6V"/>
+                                                                <constraint firstItem="NQy-O2-8Ja" firstAttribute="top" secondItem="NWb-dP-FDp" secondAttribute="top" id="xFQ-v3-Als"/>
+                                                            </constraints>
+                                                        </view>
                                                     </barButtonItem>
                                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="AMb-X4-Ef6"/>
                                                     <barButtonItem title="Done" id="7k3-VL-1eA">
@@ -253,6 +297,7 @@
                     <connections>
                         <outlet property="countryMainView" destination="H6t-TT-fva" id="TNE-Hs-LxA"/>
                         <outlet property="countryPickerMainView" destination="3VW-8I-auA" id="h4q-bd-dow"/>
+                        <outlet property="countryPickerTitleLabel" destination="4lB-pc-cVW" id="gml-sG-WIb"/>
                         <outlet property="countryPickerView" destination="ycP-Ih-Hyo" id="jBt-u4-p2R"/>
                         <outlet property="getTimezoneButton" destination="Be8-rh-a17" id="o2B-Dc-BYR"/>
                         <outlet property="latTextField" destination="kiP-8W-HN9" id="8XQ-bZ-QAA"/>
@@ -262,6 +307,7 @@
                         <outlet property="selectTimezoneLabel" destination="Vo8-PL-ZHl" id="wuK-oz-lLJ"/>
                         <outlet property="timezoneMainView" destination="p8O-HU-hF1" id="YDQ-m1-O9g"/>
                         <outlet property="timezonePickerMainView" destination="PTk-HK-eTz" id="44H-hp-H08"/>
+                        <outlet property="timezonePickerTitleLabel" destination="NQy-O2-8Ja" id="1jF-Xs-zfb"/>
                         <outlet property="timezonePickerView" destination="RTH-TX-259" id="R9T-BM-asY"/>
                         <outlet property="timezoneTitleLabel" destination="Iz0-4k-KKg" id="WFp-tp-vgB"/>
                         <outlet property="timezoneValueLabel" destination="4Kd-or-mRk" id="Cep-IT-whL"/>
