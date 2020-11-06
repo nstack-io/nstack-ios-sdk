@@ -38,6 +38,7 @@
     "featureList" : {
       "alertTypes" : "Alert Types",
       "feedback" : "Feedback",
+      "geography" : "Geography",
       "languagePicker" : "In-app Language picker",
       "title" : "NStack Features"
     },
@@ -46,6 +47,15 @@
       "enterName" : "Indtast navn",
       "feedbackTitle" : "Vælg billede",
       "selectImage" : "Vælg billede"
+    },
+    "geography" : {
+      "enterLatitude" : "Indtast lat",
+      "enterLatLng" : "Indtast lat lng for at få tidszone",
+      "enterLongitude" : "Indtast lng",
+      "geographyTitle" : "Geografi",
+      "getTimezone" : "Få tidszone",
+      "selectCountry" : "Vælg land",
+      "selectTimezone" : "Vælg Tidszone"
     },
     "languageSelection" : {
       "selectLanguage" : "Vælg sprog",

@@ -16,7 +16,7 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = ["In-app Language picker", "Feedback", "Geography"];
+    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography];
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -38,6 +38,7 @@
     "featureList" : {
       "alertTypes" : "Alert Types",
       "feedback" : "Feedback",
+      "geography" : "Geography",
       "languagePicker" : "In-app Language picker",
       "title" : "NStack Features"
     },
@@ -46,6 +47,15 @@
       "enterName" : "Enter name",
       "feedbackTitle" : "Feedback",
       "selectImage" : "Select Image"
+    },
+    "geography" : {
+      "enterLatitude" : "Enter lat",
+      "enterLatLng" : "Enter lat lng to get timezone",
+      "enterLongitude" : "Enter lng",
+      "geographyTitle" : "Geography",
+      "getTimezone" : "Get Timezone",
+      "selectCountry" : "Select country",
+      "selectTimezone" : "Select Timezone"
     },
     "languageSelection" : {
       "selectLanguage" : "Select language",

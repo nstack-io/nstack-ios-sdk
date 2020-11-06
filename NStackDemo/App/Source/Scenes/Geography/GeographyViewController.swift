@@ -36,25 +36,25 @@ class GeographyViewController: UIViewController {
 
     @IBOutlet weak var timezoneTitleLabel: UILabel! {
         didSet {
-            timezoneTitleLabel.text = "_Enter lat lng to get timezone"
+            timezoneTitleLabel.text = tr.geography.enterLatLng
         }
     }
 
     @IBOutlet weak var latTextField: UITextField! {
         didSet {
-            latTextField.placeholder = "_Enter lat"
+            latTextField.placeholder = tr.geography.enterLatitude
         }
     }
 
     @IBOutlet weak var lngTextField: UITextField! {
         didSet {
-            lngTextField.placeholder = "_Enter lng"
+            lngTextField.placeholder = tr.geography.enterLongitude
         }
     }
 
     @IBOutlet weak var getTimezoneButton: UIButton! {
         didSet {
-            getTimezoneButton.setTitle("_Get Timezone", for: .normal)
+            getTimezoneButton.setTitle(tr.geography.getTimezone, for: .normal)
         }
     }
 
@@ -76,7 +76,7 @@ class GeographyViewController: UIViewController {
 
     @IBOutlet weak var countryPickerTitleLabel: UILabel! {
         didSet {
-            countryPickerTitleLabel.text = "_Select country"
+            countryPickerTitleLabel.text = tr.geography.selectCountry
         }
     }
 
@@ -92,7 +92,7 @@ class GeographyViewController: UIViewController {
 
     @IBOutlet weak var timezonePickerTitleLabel: UILabel! {
         didSet {
-            timezonePickerTitleLabel.text = "_Select Timezone"
+            timezonePickerTitleLabel.text = tr.geography.selectTimezone
         }
     }
 
@@ -109,7 +109,7 @@ class GeographyViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.title = "_Geography"
+        self.navigationItem.title = tr.geography.geographyTitle
         countryPickerMainView.isHidden = true
         timezonePickerMainView.isHidden = true
 
