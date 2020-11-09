@@ -1,5 +1,18 @@
 {
   "data" : {
+    "alert" : {
+      "alertSubtitle" : "Alert undertekster",
+      "alertTitle" : "Alert titel",
+      "alertTypesTitle" : "Alert typer",
+      "defaultAlert" : "Standard Alert",
+      "hideAlert" : "Skjul Alert",
+      "hideAlertSubtitle" : "Tryk ikke på Annuller, alarmdialogen skjules efter 10 sekunder",
+      "infoAlert" : "Info Alert",
+      "openUrl" : "Åbn URL",
+      "openUrlAlert" : "Åbn Url Alert",
+      "ratingPromptAlert" : "Bedømmelse prompt Alert",
+      "url" : "https:\/\/www.hackingwithswift.com\/"
+    },
     "default" : {
       "back" : "Tilbage",
       "cancel" : "Annuller",
@@ -22,11 +35,27 @@
       "errorTitle" : "Fejl",
       "unknownError" : "Ukendt fejl, prøv igen."
     },
+    "featureList" : {
+      "alertTypes" : "Alert Types",
+      "feedback" : "Feedback",
+      "geography" : "Geography",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
+    },
     "feedback" : {
       "enterEmail" : "Indtast e-mail",
       "enterName" : "Indtast navn",
       "feedbackTitle" : "Vælg billede",
       "selectImage" : "Vælg billede"
+    },
+    "geography" : {
+      "enterLatitude" : "Indtast lat",
+      "enterLatLng" : "Indtast lat lng for at få tidszone",
+      "enterLongitude" : "Indtast lng",
+      "geographyTitle" : "Geografi",
+      "getTimezone" : "Få tidszone",
+      "selectCountry" : "Vælg land",
+      "selectTimezone" : "Vælg Tidszone"
     },
     "languageSelection" : {
       "selectLanguage" : "Vælg sprog",
