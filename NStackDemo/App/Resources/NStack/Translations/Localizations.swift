@@ -157,9 +157,13 @@ public final class Localizations: LocalizableModel {
     }
 
     public final class Content: LocalizableSection {
+        public var availableProducts = ""
+        public var collectionResponseButtonTitle = ""
         public var contentResponseButtonTitle = ""
 
         enum CodingKeys: String, CodingKey {
+            case availableProducts
+            case collectionResponseButtonTitle
             case contentResponseButtonTitle
         }
 
@@ -168,11 +172,15 @@ public final class Localizations: LocalizableModel {
         public required init(from decoder: Decoder) throws {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            availableProducts = try container.decodeIfPresent(String.self, forKey: .availableProducts) ?? "__availableProducts"
+            collectionResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .collectionResponseButtonTitle) ?? "__collectionResponseButtonTitle"
             contentResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .contentResponseButtonTitle) ?? "__contentResponseButtonTitle"
         }
 
         public override subscript(key: String) -> String? {
             switch key {
+            case CodingKeys.availableProducts.stringValue: return availableProducts
+            case CodingKeys.collectionResponseButtonTitle.stringValue: return collectionResponseButtonTitle
             case CodingKeys.contentResponseButtonTitle.stringValue: return contentResponseButtonTitle
             default: return nil
             }

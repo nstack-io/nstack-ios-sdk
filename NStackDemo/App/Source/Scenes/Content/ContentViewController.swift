@@ -15,6 +15,12 @@ struct ContentResponse: Codable {
     let emailAddress: String
 }
 
+struct CollectionResponse: Codable {
+    let title: String
+    let description: String
+    let price: Float
+}
+
 class ContentViewController: UIViewController {
 
     // MARK: - Outlets
@@ -31,6 +37,23 @@ class ContentViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var fetchCollectionResponseButton: UIButton! {
+        didSet {
+            fetchCollectionResponseButton.setTitle(tr.content.collectionResponseButtonTitle, for: .normal)
+        }
+    }
+
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+    }
+    
+
+    // MARK: - Properties
+    private var availableProducts: [CollectionResponse] = []
+
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +64,39 @@ class ContentViewController: UIViewController {
     // MARK: - Callbacks -
     @IBAction func getContentResponseButtonTapped(_ sender: Any) {
         getContentResponse()
+    }
+
+    @IBAction func fetchCollectionResponseButtonTapped(_ sender: Any) {
+        fetchCollectionResponse()
+    }
+
+}
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension ContentViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tr.content.availableProducts
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return availableProducts.count;
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let availableProductCell = tableView.dequeueReusableCell(withIdentifier: "AvailableProductCell");
+        availableProductCell?.textLabel?.numberOfLines = 0
+        availableProductCell?.textLabel?.text =
+            """
+            Title - \(availableProducts[indexPath.row].title)
+            Description - \(availableProducts[indexPath.row].description)
+            Price - \(availableProducts[indexPath.row].price)
+            """
+        availableProductCell?.selectionStyle = .none
+        return availableProductCell!
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return availableProducts.count > 0 ? 44.0 : 0
     }
 }
 
@@ -59,6 +115,19 @@ extension ContentViewController {
                 }
             })
 
+        })
+    }
+
+    func fetchCollectionResponse() {
+        NStack.sharedInstance.contentManager?.fetchCollectionResponse(for: 67, completion: { (result: Result<[CollectionResponse]>) in
+
+            _ = result.map({ (response) -> Void in
+                self.availableProducts.removeAll()
+                self.availableProducts.append(contentsOf: response)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
         })
     }
 }

@@ -154,20 +154,28 @@ public final class SKLocalizations: LocalizableModel {
     }
 
     public final class Content: LocalizableSection {
+        public var availableProducts = ""
+        public var collectionResponseButtonTitle = ""
         public var contentResponseButtonTitle = ""
 
         enum CodingKeys: String, CodingKey {
+            case availableProducts
+            case collectionResponseButtonTitle
             case contentResponseButtonTitle
         }
 
         public override init() {
             super.init()
+            availableProducts = "\(classNameLowerCased()).availableProducts"
+            collectionResponseButtonTitle = "\(classNameLowerCased()).collectionResponseButtonTitle"
             contentResponseButtonTitle = "\(classNameLowerCased()).contentResponseButtonTitle"
         }
 
         public required init(from decoder: Decoder) throws {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            availableProducts = try container.decodeIfPresent(String.self, forKey: .availableProducts) ?? "__availableProducts"
+            collectionResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .collectionResponseButtonTitle) ?? "__collectionResponseButtonTitle"
             contentResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .contentResponseButtonTitle) ?? "__contentResponseButtonTitle"
         }
 
