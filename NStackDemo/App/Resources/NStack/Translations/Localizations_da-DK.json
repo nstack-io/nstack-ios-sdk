@@ -13,6 +13,9 @@
       "ratingPromptAlert" : "Bedømmelse prompt Alert",
       "url" : "https:\/\/www.hackingwithswift.com\/"
     },
+    "content" : {
+      "contentResponseButtonTitle" : "Click To Get Content Response"
+    },
     "default" : {
       "back" : "Tilbage",
       "cancel" : "Annuller",
@@ -37,6 +40,7 @@
     },
     "featureList" : {
       "alertTypes" : "Alert Types",
+      "content" : "Content",
       "feedback" : "Feedback",
       "geography" : "Geography",
       "languagePicker" : "In-app Language picker",

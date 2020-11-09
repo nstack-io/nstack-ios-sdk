@@ -28,6 +28,8 @@
 		7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191225518F9300AEB338 /* FeatureListViewController.storyboard */; };
 		7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */; };
 		75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */; };
+		75D00AD3255949AE0045C1A4 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D00AD2255949AE0045C1A4 /* ContentViewController.swift */; };
+		75D00AD7255949B90045C1A4 /* ContentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		7594191225518F9300AEB338 /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
 		7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanguageSelectionViewController.storyboard; sourceTree = "<group>"; };
 		75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectionViewController.swift; sourceTree = "<group>"; };
+		75D00AD2255949AE0045C1A4 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContentViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,7 @@
 		7585E0EC25518CF200903E08 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				75D00AD1255949910045C1A4 /* Content */,
 				7535FCB125553B73004F3B21 /* Geography */,
 				7503FAC42552E5120079C4F8 /* Feedback */,
 				7594191C2551997200AEB338 /* LanguagePicker */,
@@ -200,6 +205,15 @@
 				75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */,
 			);
 			path = LanguagePicker;
+			sourceTree = "<group>";
+		};
+		75D00AD1255949910045C1A4 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				75D00AD2255949AE0045C1A4 /* ContentViewController.swift */,
+				75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D00AD7255949B90045C1A4 /* ContentViewController.storyboard in Resources */,
 				29362F1F25384E2200610F06 /* Localizations_da-DK.json in Resources */,
 				29362F0F25384A4F00610F06 /* LaunchScreen.storyboard in Resources */,
 				7535FCB725553BA2004F3B21 /* GeographyViewController.storyboard in Resources */,
@@ -322,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D00AD3255949AE0045C1A4 /* ContentViewController.swift in Sources */,
 				29362F1E25384E2200610F06 /* Localizations.swift in Sources */,
 				29362F002538490400610F06 /* ViewController.swift in Sources */,
 				75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */,

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Content View Controller-->
+        <scene sceneID="ZsC-rh-yWJ">
+            <objects>
+                <viewController storyboardIdentifier="ContentViewController" id="bCi-HC-Syo" customClass="ContentViewController" customModule="NStackDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C0v-Xr-fsi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFC-dR-xUF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ena-8U-v7C">
+                                        <rect key="frame" x="16" y="24" width="382" height="58.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDB-ZR-RqR">
+                                                <rect key="frame" x="168" y="0.0" width="46" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="getContentResponseButtonTapped:" destination="bCi-HC-Syo" eventType="touchUpInside" id="WN7-OG-HKP"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhL-6Z-4ES">
+                                                <rect key="frame" x="170.5" y="38" width="41.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Ena-8U-v7C" firstAttribute="leading" secondItem="XFC-dR-xUF" secondAttribute="leading" constant="16" id="kbt-zW-TQg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ena-8U-v7C" secondAttribute="trailing" constant="16" id="nAH-RF-huh"/>
+                                    <constraint firstItem="Ena-8U-v7C" firstAttribute="top" secondItem="XFC-dR-xUF" secondAttribute="top" constant="24" id="zYc-v7-g6f"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xxl-cu-Wmy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XFC-dR-xUF" firstAttribute="top" secondItem="xxl-cu-Wmy" secondAttribute="top" id="2qn-ce-ld4"/>
+                            <constraint firstItem="xxl-cu-Wmy" firstAttribute="bottom" secondItem="XFC-dR-xUF" secondAttribute="bottom" id="YGU-HT-fVf"/>
+                            <constraint firstItem="xxl-cu-Wmy" firstAttribute="trailing" secondItem="XFC-dR-xUF" secondAttribute="trailing" id="dfc-ES-3Oa"/>
+                            <constraint firstItem="XFC-dR-xUF" firstAttribute="leading" secondItem="xxl-cu-Wmy" secondAttribute="leading" id="yof-kN-IkI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="getContentResponseButton" destination="kDB-ZR-RqR" id="TdS-8A-7n7"/>
+                        <outlet property="showContentResponseLabel" destination="hhL-6Z-4ES" id="PLN-PG-mQY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hk-LL-K5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12" y="64"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
