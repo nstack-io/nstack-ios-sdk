@@ -42,6 +42,7 @@ public var skt: SKLocalizations { skl }
 
 public final class SKLocalizations: LocalizableModel {
     public var alert = Alert()
+    public var content = Content()
     public var defaultSection = DefaultSection()
     public var error = Error()
     public var featureList = FeatureList()
@@ -51,6 +52,7 @@ public final class SKLocalizations: LocalizableModel {
 
     enum CodingKeys: String, CodingKey {
         case alert
+        case content
         case defaultSection = "default"
         case error
         case featureList
@@ -65,6 +67,7 @@ public final class SKLocalizations: LocalizableModel {
         super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? alert
+        content = try container.decodeIfPresent(Content.self, forKey: .content) ?? content
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
         featureList = try container.decodeIfPresent(FeatureList.self, forKey: .featureList) ?? featureList
@@ -76,6 +79,7 @@ public final class SKLocalizations: LocalizableModel {
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
         case CodingKeys.alert.stringValue: return alert
+        case CodingKeys.content.stringValue: return content
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
         case CodingKeys.featureList.stringValue: return featureList
@@ -142,6 +146,37 @@ public final class SKLocalizations: LocalizableModel {
             openUrlAlert = try container.decodeIfPresent(String.self, forKey: .openUrlAlert) ?? "__openUrlAlert"
             ratingPromptAlert = try container.decodeIfPresent(String.self, forKey: .ratingPromptAlert) ?? "__ratingPromptAlert"
             url = try container.decodeIfPresent(String.self, forKey: .url) ?? "__url"
+        }
+
+        public override subscript(key: String) -> String? {
+            return ""
+        }
+    }
+
+    public final class Content: LocalizableSection {
+        public var availableProducts = ""
+        public var collectionResponseButtonTitle = ""
+        public var contentResponseButtonTitle = ""
+
+        enum CodingKeys: String, CodingKey {
+            case availableProducts
+            case collectionResponseButtonTitle
+            case contentResponseButtonTitle
+        }
+
+        public override init() {
+            super.init()
+            availableProducts = "\(classNameLowerCased()).availableProducts"
+            collectionResponseButtonTitle = "\(classNameLowerCased()).collectionResponseButtonTitle"
+            contentResponseButtonTitle = "\(classNameLowerCased()).contentResponseButtonTitle"
+        }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            availableProducts = try container.decodeIfPresent(String.self, forKey: .availableProducts) ?? "__availableProducts"
+            collectionResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .collectionResponseButtonTitle) ?? "__collectionResponseButtonTitle"
+            contentResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .contentResponseButtonTitle) ?? "__contentResponseButtonTitle"
         }
 
         public override subscript(key: String) -> String? {
@@ -261,6 +296,7 @@ public final class SKLocalizations: LocalizableModel {
 
     public final class FeatureList: LocalizableSection {
         public var alertTypes = ""
+        public var content = ""
         public var feedback = ""
         public var geography = ""
         public var languagePicker = ""
@@ -268,6 +304,7 @@ public final class SKLocalizations: LocalizableModel {
 
         enum CodingKeys: String, CodingKey {
             case alertTypes
+            case content
             case feedback
             case geography
             case languagePicker
@@ -277,6 +314,7 @@ public final class SKLocalizations: LocalizableModel {
         public override init() {
             super.init()
             alertTypes = "\(classNameLowerCased()).alertTypes"
+            content = "\(classNameLowerCased()).content"
             feedback = "\(classNameLowerCased()).feedback"
             geography = "\(classNameLowerCased()).geography"
             languagePicker = "\(classNameLowerCased()).languagePicker"
@@ -287,6 +325,7 @@ public final class SKLocalizations: LocalizableModel {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
             alertTypes = try container.decodeIfPresent(String.self, forKey: .alertTypes) ?? "__alertTypes"
+            content = try container.decodeIfPresent(String.self, forKey: .content) ?? "__content"
             feedback = try container.decodeIfPresent(String.self, forKey: .feedback) ?? "__feedback"
             geography = try container.decodeIfPresent(String.self, forKey: .geography) ?? "__geography"
             languagePicker = try container.decodeIfPresent(String.self, forKey: .languagePicker) ?? "__languagePicker"

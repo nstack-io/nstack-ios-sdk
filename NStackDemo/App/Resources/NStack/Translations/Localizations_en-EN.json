@@ -13,6 +13,11 @@
       "ratingPromptAlert" : "Rating prompt Alert",
       "url" : "https:\/\/www.hackingwithswift.com\/"
     },
+    "content" : {
+      "availableProducts" : "Available Products",
+      "collectionResponseButtonTitle" : "Click To Fetch Collection Response",
+      "contentResponseButtonTitle" : "Click To Get Content Response"
+    },
     "default" : {
       "back" : "Back",
       "cancel" : "Cancel",
@@ -37,6 +42,7 @@
     },
     "featureList" : {
       "alertTypes" : "Alert Types",
+      "content" : "Content - Responses and Collections",
       "feedback" : "Feedback",
       "geography" : "Geography",
       "languagePicker" : "In-app Language picker",
