@@ -16,7 +16,7 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography];
+    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography, tr.featureList.content];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +55,9 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
         case 2:
             storyboard = UIStoryboard(name: "GeographyViewController", bundle: nil)
             vc = storyboard?.instantiateViewController(identifier: "GeographyViewController") as! GeographyViewController
+        case 3:
+            storyboard = UIStoryboard(name: "ContentViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "ContentViewController") as! ContentViewController
         default:
             break
         }

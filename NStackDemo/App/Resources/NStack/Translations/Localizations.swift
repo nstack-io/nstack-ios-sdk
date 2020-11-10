@@ -45,6 +45,7 @@ public var tr: Localizations { lo }
 
 public final class Localizations: LocalizableModel {
     public var alert = Alert()
+    public var content = Content()
     public var defaultSection = DefaultSection()
     public var error = Error()
     public var featureList = FeatureList()
@@ -54,6 +55,7 @@ public final class Localizations: LocalizableModel {
 
     enum CodingKeys: String, CodingKey {
         case alert
+        case content
         case defaultSection = "default"
         case error
         case featureList
@@ -68,6 +70,7 @@ public final class Localizations: LocalizableModel {
         super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? alert
+        content = try container.decodeIfPresent(Content.self, forKey: .content) ?? content
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
         featureList = try container.decodeIfPresent(FeatureList.self, forKey: .featureList) ?? featureList
@@ -79,6 +82,7 @@ public final class Localizations: LocalizableModel {
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
         case CodingKeys.alert.stringValue: return alert
+        case CodingKeys.content.stringValue: return content
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
         case CodingKeys.featureList.stringValue: return featureList
@@ -147,6 +151,37 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.openUrlAlert.stringValue: return openUrlAlert
             case CodingKeys.ratingPromptAlert.stringValue: return ratingPromptAlert
             case CodingKeys.url.stringValue: return url
+            default: return nil
+            }
+        }
+    }
+
+    public final class Content: LocalizableSection {
+        public var availableProducts = ""
+        public var collectionResponseButtonTitle = ""
+        public var contentResponseButtonTitle = ""
+
+        enum CodingKeys: String, CodingKey {
+            case availableProducts
+            case collectionResponseButtonTitle
+            case contentResponseButtonTitle
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            availableProducts = try container.decodeIfPresent(String.self, forKey: .availableProducts) ?? "__availableProducts"
+            collectionResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .collectionResponseButtonTitle) ?? "__collectionResponseButtonTitle"
+            contentResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .contentResponseButtonTitle) ?? "__contentResponseButtonTitle"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.availableProducts.stringValue: return availableProducts
+            case CodingKeys.collectionResponseButtonTitle.stringValue: return collectionResponseButtonTitle
+            case CodingKeys.contentResponseButtonTitle.stringValue: return contentResponseButtonTitle
             default: return nil
             }
         }
@@ -264,6 +299,7 @@ public final class Localizations: LocalizableModel {
 
     public final class FeatureList: LocalizableSection {
         public var alertTypes = ""
+        public var content = ""
         public var feedback = ""
         public var geography = ""
         public var languagePicker = ""
@@ -271,6 +307,7 @@ public final class Localizations: LocalizableModel {
 
         enum CodingKeys: String, CodingKey {
             case alertTypes
+            case content
             case feedback
             case geography
             case languagePicker
@@ -283,6 +320,7 @@ public final class Localizations: LocalizableModel {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
             alertTypes = try container.decodeIfPresent(String.self, forKey: .alertTypes) ?? "__alertTypes"
+            content = try container.decodeIfPresent(String.self, forKey: .content) ?? "__content"
             feedback = try container.decodeIfPresent(String.self, forKey: .feedback) ?? "__feedback"
             geography = try container.decodeIfPresent(String.self, forKey: .geography) ?? "__geography"
             languagePicker = try container.decodeIfPresent(String.self, forKey: .languagePicker) ?? "__languagePicker"
@@ -292,6 +330,7 @@ public final class Localizations: LocalizableModel {
         public override subscript(key: String) -> String? {
             switch key {
             case CodingKeys.alertTypes.stringValue: return alertTypes
+            case CodingKeys.content.stringValue: return content
             case CodingKeys.feedback.stringValue: return feedback
             case CodingKeys.geography.stringValue: return geography
             case CodingKeys.languagePicker.stringValue: return languagePicker
