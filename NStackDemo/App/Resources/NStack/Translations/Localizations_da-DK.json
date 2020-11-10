@@ -13,6 +13,11 @@
       "ratingPromptAlert" : "Bedømmelse prompt Alert",
       "url" : "https:\/\/www.hackingwithswift.com\/"
     },
+    "content" : {
+      "availableProducts" : "Available Products",
+      "collectionResponseButtonTitle" : "Click To Fetch Collection Response",
+      "contentResponseButtonTitle" : "Click To Get Content Response"
+    },
     "default" : {
       "back" : "Tilbage",
       "cancel" : "Annuller",
@@ -37,7 +42,9 @@
     },
     "featureList" : {
       "alertTypes" : "Alert Types",
+      "content" : "Content - Responses and Collections",
       "feedback" : "Feedback",
+      "geography" : "Geography",
       "languagePicker" : "In-app Language picker",
       "title" : "NStack Features"
     },
@@ -46,6 +53,15 @@
       "enterName" : "Indtast navn",
       "feedbackTitle" : "Vælg billede",
       "selectImage" : "Vælg billede"
+    },
+    "geography" : {
+      "enterLatitude" : "Indtast lat",
+      "enterLatLng" : "Indtast lat lng for at få tidszone",
+      "enterLongitude" : "Indtast lng",
+      "geographyTitle" : "Geografi",
+      "getTimezone" : "Få tidszone",
+      "selectCountry" : "Vælg land",
+      "selectTimezone" : "Vælg Tidszone"
     },
     "languageSelection" : {
       "selectLanguage" : "Vælg sprog",

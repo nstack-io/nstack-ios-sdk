@@ -22,12 +22,16 @@
 		7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */; };
 		7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */; };
 		7535FC282552FBBD004F3B21 /* UIView+PickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */; };
+		7535FCB325553B97004F3B21 /* GeographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FCB225553B97004F3B21 /* GeographyViewController.swift */; };
+		7535FCB725553BA2004F3B21 /* GeographyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */; };
 		7535FC9E2554187F004F3B21 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535FC9D2554187F004F3B21 /* AlertViewController.swift */; };
 		7535FCA125541893004F3B21 /* AlertViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7535FCA025541893004F3B21 /* AlertViewController.storyboard */; };
 		7594190F25518F7A00AEB338 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7594190E25518F7A00AEB338 /* FeatureListViewController.swift */; };
 		7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191225518F9300AEB338 /* FeatureListViewController.storyboard */; };
 		7594191E2551999F00AEB338 /* LanguageSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */; };
 		75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */; };
+		75D00AD3255949AE0045C1A4 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D00AD2255949AE0045C1A4 /* ContentViewController.swift */; };
+		75D00AD7255949B90045C1A4 /* ContentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,12 +52,16 @@
 		7503FAC92552E5470079C4F8 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		7503FACC2552E5540079C4F8 /* FeedbackViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedbackViewController.storyboard; sourceTree = "<group>"; };
 		7535FC272552FBBD004F3B21 /* UIView+PickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PickerHelper.swift"; sourceTree = "<group>"; };
+		7535FCB225553B97004F3B21 /* GeographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeographyViewController.swift; sourceTree = "<group>"; };
+		7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeographyViewController.storyboard; sourceTree = "<group>"; };
 		7535FC9D2554187F004F3B21 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		7535FCA025541893004F3B21 /* AlertViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertViewController.storyboard; sourceTree = "<group>"; };
 		7594190E25518F7A00AEB338 /* FeatureListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListViewController.swift; sourceTree = "<group>"; };
 		7594191225518F9300AEB338 /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
 		7594191D2551999F00AEB338 /* LanguageSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanguageSelectionViewController.storyboard; sourceTree = "<group>"; };
 		75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectionViewController.swift; sourceTree = "<group>"; };
+		75D00AD2255949AE0045C1A4 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContentViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +163,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7535FCB125553B73004F3B21 /* Geography */ = {
+			isa = PBXGroup;
+			children = (
+				7535FCB225553B97004F3B21 /* GeographyViewController.swift */,
+				7535FCB625553BA2004F3B21 /* GeographyViewController.storyboard */,
+			);
+			path = Geography;
+			sourceTree = "<group>";
+		};
 		7535FC9C2554185B004F3B21 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +193,8 @@
 		7585E0EC25518CF200903E08 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				75D00AD1255949910045C1A4 /* Content */,
+				7535FCB125553B73004F3B21 /* Geography */,
 				7535FC9C2554185B004F3B21 /* Alert */,
 				7503FAC42552E5120079C4F8 /* Feedback */,
 				7594191C2551997200AEB338 /* LanguagePicker */,
@@ -200,6 +219,15 @@
 				75941920255199BB00AEB338 /* LanguageSelectionViewController.swift */,
 			);
 			path = LanguagePicker;
+			sourceTree = "<group>";
+		};
+		75D00AD1255949910045C1A4 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				75D00AD2255949AE0045C1A4 /* ContentViewController.swift */,
+				75D00AD6255949B90045C1A4 /* ContentViewController.storyboard */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +289,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D00AD7255949B90045C1A4 /* ContentViewController.storyboard in Resources */,
 				29362F1F25384E2200610F06 /* Localizations_da-DK.json in Resources */,
 				29362F0F25384A4F00610F06 /* LaunchScreen.storyboard in Resources */,
+				7535FCB725553BA2004F3B21 /* GeographyViewController.storyboard in Resources */,
 				7594191325518F9300AEB338 /* FeatureListViewController.storyboard in Resources */,
 				7503FACD2552E5540079C4F8 /* FeedbackViewController.storyboard in Resources */,
 				29362F2025384E2200610F06 /* Localizations_en-EN.json in Resources */,
@@ -322,9 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D00AD3255949AE0045C1A4 /* ContentViewController.swift in Sources */,
 				29362F1E25384E2200610F06 /* Localizations.swift in Sources */,
 				29362F002538490400610F06 /* ViewController.swift in Sources */,
 				75941921255199BB00AEB338 /* LanguageSelectionViewController.swift in Sources */,
+				7535FCB325553B97004F3B21 /* GeographyViewController.swift in Sources */,
 				7503FACA2552E5480079C4F8 /* FeedbackViewController.swift in Sources */,
 				7535FC9E2554187F004F3B21 /* AlertViewController.swift in Sources */,
 				29362F062538490400610F06 /* AppDelegate.swift in Sources */,

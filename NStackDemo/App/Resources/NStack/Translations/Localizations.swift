@@ -45,18 +45,22 @@ public var tr: Localizations { lo }
 
 public final class Localizations: LocalizableModel {
     public var alert = Alert()
+    public var content = Content()
     public var defaultSection = DefaultSection()
     public var error = Error()
     public var featureList = FeatureList()
     public var feedback = Feedback()
+    public var geography = Geography()
     public var languageSelection = LanguageSelection()
 
     enum CodingKeys: String, CodingKey {
         case alert
+        case content
         case defaultSection = "default"
         case error
         case featureList
         case feedback
+        case geography
         case languageSelection
     }
 
@@ -66,20 +70,24 @@ public final class Localizations: LocalizableModel {
         super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         alert = try container.decodeIfPresent(Alert.self, forKey: .alert) ?? alert
+        content = try container.decodeIfPresent(Content.self, forKey: .content) ?? content
         defaultSection = try container.decodeIfPresent(DefaultSection.self, forKey: .defaultSection) ?? defaultSection
         error = try container.decodeIfPresent(Error.self, forKey: .error) ?? error
         featureList = try container.decodeIfPresent(FeatureList.self, forKey: .featureList) ?? featureList
         feedback = try container.decodeIfPresent(Feedback.self, forKey: .feedback) ?? feedback
+        geography = try container.decodeIfPresent(Geography.self, forKey: .geography) ?? geography
         languageSelection = try container.decodeIfPresent(LanguageSelection.self, forKey: .languageSelection) ?? languageSelection
     }
 
     public override subscript(key: String) -> LocalizableSection? {
         switch key {
         case CodingKeys.alert.stringValue: return alert
+        case CodingKeys.content.stringValue: return content
         case CodingKeys.defaultSection.stringValue: return defaultSection
         case CodingKeys.error.stringValue: return error
         case CodingKeys.featureList.stringValue: return featureList
         case CodingKeys.feedback.stringValue: return feedback
+        case CodingKeys.geography.stringValue: return geography
         case CodingKeys.languageSelection.stringValue: return languageSelection
         default: return nil
         }
@@ -143,6 +151,37 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.openUrlAlert.stringValue: return openUrlAlert
             case CodingKeys.ratingPromptAlert.stringValue: return ratingPromptAlert
             case CodingKeys.url.stringValue: return url
+            default: return nil
+            }
+        }
+    }
+
+    public final class Content: LocalizableSection {
+        public var availableProducts = ""
+        public var collectionResponseButtonTitle = ""
+        public var contentResponseButtonTitle = ""
+
+        enum CodingKeys: String, CodingKey {
+            case availableProducts
+            case collectionResponseButtonTitle
+            case contentResponseButtonTitle
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            availableProducts = try container.decodeIfPresent(String.self, forKey: .availableProducts) ?? "__availableProducts"
+            collectionResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .collectionResponseButtonTitle) ?? "__collectionResponseButtonTitle"
+            contentResponseButtonTitle = try container.decodeIfPresent(String.self, forKey: .contentResponseButtonTitle) ?? "__contentResponseButtonTitle"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.availableProducts.stringValue: return availableProducts
+            case CodingKeys.collectionResponseButtonTitle.stringValue: return collectionResponseButtonTitle
+            case CodingKeys.contentResponseButtonTitle.stringValue: return contentResponseButtonTitle
             default: return nil
             }
         }
@@ -260,13 +299,17 @@ public final class Localizations: LocalizableModel {
 
     public final class FeatureList: LocalizableSection {
         public var alertTypes = ""
+        public var content = ""
         public var feedback = ""
+        public var geography = ""
         public var languagePicker = ""
         public var title = ""
 
         enum CodingKeys: String, CodingKey {
             case alertTypes
+            case content
             case feedback
+            case geography
             case languagePicker
             case title
         }
@@ -277,7 +320,9 @@ public final class Localizations: LocalizableModel {
             super.init()
             let container = try decoder.container(keyedBy: CodingKeys.self)
             alertTypes = try container.decodeIfPresent(String.self, forKey: .alertTypes) ?? "__alertTypes"
+            content = try container.decodeIfPresent(String.self, forKey: .content) ?? "__content"
             feedback = try container.decodeIfPresent(String.self, forKey: .feedback) ?? "__feedback"
+            geography = try container.decodeIfPresent(String.self, forKey: .geography) ?? "__geography"
             languagePicker = try container.decodeIfPresent(String.self, forKey: .languagePicker) ?? "__languagePicker"
             title = try container.decodeIfPresent(String.self, forKey: .title) ?? "__title"
         }
@@ -285,7 +330,9 @@ public final class Localizations: LocalizableModel {
         public override subscript(key: String) -> String? {
             switch key {
             case CodingKeys.alertTypes.stringValue: return alertTypes
+            case CodingKeys.content.stringValue: return content
             case CodingKeys.feedback.stringValue: return feedback
+            case CodingKeys.geography.stringValue: return geography
             case CodingKeys.languagePicker.stringValue: return languagePicker
             case CodingKeys.title.stringValue: return title
             default: return nil
@@ -323,6 +370,53 @@ public final class Localizations: LocalizableModel {
             case CodingKeys.enterName.stringValue: return enterName
             case CodingKeys.feedbackTitle.stringValue: return feedbackTitle
             case CodingKeys.selectImage.stringValue: return selectImage
+            default: return nil
+            }
+        }
+    }
+
+    public final class Geography: LocalizableSection {
+        public var enterLatLng = ""
+        public var enterLatitude = ""
+        public var enterLongitude = ""
+        public var geographyTitle = ""
+        public var getTimezone = ""
+        public var selectCountry = ""
+        public var selectTimezone = ""
+
+        enum CodingKeys: String, CodingKey {
+            case enterLatLng
+            case enterLatitude
+            case enterLongitude
+            case geographyTitle
+            case getTimezone
+            case selectCountry
+            case selectTimezone
+        }
+
+        public override init() { super.init() }
+
+        public required init(from decoder: Decoder) throws {
+            super.init()
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            enterLatLng = try container.decodeIfPresent(String.self, forKey: .enterLatLng) ?? "__enterLatLng"
+            enterLatitude = try container.decodeIfPresent(String.self, forKey: .enterLatitude) ?? "__enterLatitude"
+            enterLongitude = try container.decodeIfPresent(String.self, forKey: .enterLongitude) ?? "__enterLongitude"
+            geographyTitle = try container.decodeIfPresent(String.self, forKey: .geographyTitle) ?? "__geographyTitle"
+            getTimezone = try container.decodeIfPresent(String.self, forKey: .getTimezone) ?? "__getTimezone"
+            selectCountry = try container.decodeIfPresent(String.self, forKey: .selectCountry) ?? "__selectCountry"
+            selectTimezone = try container.decodeIfPresent(String.self, forKey: .selectTimezone) ?? "__selectTimezone"
+        }
+
+        public override subscript(key: String) -> String? {
+            switch key {
+            case CodingKeys.enterLatLng.stringValue: return enterLatLng
+            case CodingKeys.enterLatitude.stringValue: return enterLatitude
+            case CodingKeys.enterLongitude.stringValue: return enterLongitude
+            case CodingKeys.geographyTitle.stringValue: return geographyTitle
+            case CodingKeys.getTimezone.stringValue: return getTimezone
+            case CodingKeys.selectCountry.stringValue: return selectCountry
+            case CodingKeys.selectTimezone.stringValue: return selectTimezone
             default: return nil
             }
         }

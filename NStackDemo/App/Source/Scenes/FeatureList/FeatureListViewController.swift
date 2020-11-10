@@ -17,10 +17,8 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    // MARK: - Properties
-    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.alertTypes];
-
-    // MARK: - View Controller Life Cycle
+    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography, tr.featureList.content, tr.featureList.alertTypes];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -55,6 +53,12 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
             storyboard = UIStoryboard(name: "FeedbackViewController", bundle: nil)
             vc = storyboard?.instantiateViewController(identifier: "FeedbackViewController") as! FeedbackViewController
         case 2:
+            storyboard = UIStoryboard(name: "GeographyViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "GeographyViewController") as! GeographyViewController
+        case 3:
+            storyboard = UIStoryboard(name: "ContentViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "ContentViewController") as! ContentViewController
+        case 4:
             storyboard = UIStoryboard(name: "AlertViewController", bundle: nil)
             vc = storyboard?.instantiateViewController(identifier: "AlertViewController") as! AlertViewController
         default:
