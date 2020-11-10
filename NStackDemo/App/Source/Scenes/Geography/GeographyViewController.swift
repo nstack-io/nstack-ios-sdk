@@ -34,6 +34,16 @@ class GeographyViewController: UIViewController {
 
     @IBOutlet weak var selectTimezoneLabel: UILabel!
 
+    @IBOutlet weak var languageMainView: UIView! {
+        didSet {
+            languageMainView.layer.borderWidth = 0.25
+            languageMainView.layer.borderColor = UIColor.lightGray.cgColor
+            languageMainView.layer.cornerRadius = 8.0
+        }
+    }
+
+    @IBOutlet weak var selectLanguageLabel: UILabel!
+
     @IBOutlet weak var timezoneTitleLabel: UILabel! {
         didSet {
             timezoneTitleLabel.text = tr.geography.enterLatLng
@@ -96,13 +106,31 @@ class GeographyViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var languagePickerMainView: UIView!
+
+    @IBOutlet weak var languagePickerView: UIPickerView! {
+        didSet {
+            languagePickerView.tag = 300
+            languagePickerView.dataSource = self
+            languagePickerView.delegate = self
+        }
+    }
+
+    @IBOutlet weak var languagePickerTitleLabel: UILabel! {
+        didSet {
+            languagePickerTitleLabel.text = "_Select Language"
+        }
+    }
+
 
     // MARK: - Properties
     private var selectedCountryIndex: Int!
     private var selectedTimezoneIndex: Int!
+    private var selectedLanguageIndex: Int!
 
     private var allCountries: [Country] = []
     private var allTimezones: [Timezone] = []
+    private var allLanguages: [DefaultLanguage] = []
 
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -112,9 +140,11 @@ class GeographyViewController: UIViewController {
         self.navigationItem.title = tr.geography.geographyTitle
         countryPickerMainView.isHidden = true
         timezonePickerMainView.isHidden = true
+        languagePickerMainView.isHidden = true
 
         getCountries()
         getTimezones()
+        getLanguages()
     }
 
     // MARK: - Callbacks -
@@ -130,6 +160,7 @@ class GeographyViewController: UIViewController {
         self.view.endEditing(true)
         countryPickerMainView.showView(mainViewHeight: mainView.frame.size.height)
         timezonePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+        languagePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
     }
 
 
@@ -137,7 +168,16 @@ class GeographyViewController: UIViewController {
         self.view.endEditing(true)
         timezonePickerMainView.showView(mainViewHeight: mainView.frame.size.height)
         countryPickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+        languagePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
     }
+
+    @IBAction func selectLanguageButtonTapped(_ sender: Any) {
+        self.view.endEditing(true)
+        languagePickerMainView.showView(mainViewHeight: mainView.frame.size.height)
+        countryPickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+        timezonePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+    }
+
 
     @IBAction func countryPickerCancelButtonTapped(_ sender: Any) {
         countryPickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
@@ -157,6 +197,15 @@ class GeographyViewController: UIViewController {
         self.selectTimezoneLabel.text = self.allTimezones[self.selectedTimezoneIndex].name + " " + self.allTimezones[self.selectedTimezoneIndex].label
         timezonePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
     }
+
+    @IBAction func languagePickerCancelButtonTapped(_ sender: Any) {
+        languagePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+    }
+
+    @IBAction func languagePickerDoneButtonTapped(_ sender: Any) {
+        self.selectLanguageLabel.text = self.allLanguages[self.selectedLanguageIndex].name
+        languagePickerMainView.hideView(mainViewHeight: mainView.frame.size.height)
+    }
     
 }
 
@@ -171,6 +220,8 @@ extension GeographyViewController: UIPickerViewDataSource, UIPickerViewDelegate 
             return allCountries.count
         } else if pickerView.tag == 200 {
             return allTimezones.count
+        } else if pickerView.tag == 300 {
+            return allLanguages.count
         }
         return 0
 
@@ -181,6 +232,8 @@ extension GeographyViewController: UIPickerViewDataSource, UIPickerViewDelegate 
             return allCountries[row].name
         } else if pickerView.tag == 200 {
             return allTimezones[row].name + " " + allTimezones[row].label
+        } else if pickerView.tag == 300 {
+            return allLanguages[row].name
         }
         return ""
 
@@ -191,6 +244,8 @@ extension GeographyViewController: UIPickerViewDataSource, UIPickerViewDelegate 
             selectedCountryIndex = row
         } else if pickerView.tag == 200 {
             selectedTimezoneIndex = row
+        }  else if pickerView.tag == 300 {
+            selectedCountryIndex = row
         }
     }
 }
@@ -233,6 +288,22 @@ extension GeographyViewController {
             _ = timezone.map { timezone -> Void in
                 DispatchQueue.main.async {
                     self.timezoneValueLabel.text = timezone.name + " " + timezone.label
+                }
+            }
+        })
+    }
+
+    private func getLanguages() {
+        NStack.sharedInstance.geographyManager?.languages(completion: { languages in
+            //TODO - NStack fails to return languages, Remove print and test once nstack starts returning languages
+            print("languages - \(languages)")
+            _ = languages.map { (language) -> Void in
+                self.allLanguages.append(contentsOf: language)
+                DispatchQueue.main.async {
+                    self.selectedLanguageIndex = 0
+                    self.languagePickerView.selectRow(self.selectedLanguageIndex, inComponent: 0, animated: true)
+                    self.selectLanguageLabel.text = self.allLanguages[self.selectedLanguageIndex].name
+                    self.languagePickerView.reloadAllComponents()
                 }
             }
         })
