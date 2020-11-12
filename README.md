@@ -23,7 +23,7 @@ See the [NStack documentation](https://nstack-io.github.io/docs/docs/guides/iOS/
 
 ### CocoaPods
 ~~~
-pod 'NStackSDK', '~> 5.1.3'
+pod 'NStackSDK', '~> 5.1.4'
 ~~~
 
 ### Carthage
