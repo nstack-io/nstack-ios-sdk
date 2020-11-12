@@ -93,13 +93,21 @@ extension LocalizationWrapper: LocalizationWrappable {
     }
 
     public func refreshLocalization() {
+        var localizations = [(LocalizationItemIdentifier, NStackLocalizable)]()
+
         for localization in originallyLocalizedComponents.keyEnumerator() {
             if let localizationItemIdentifier = localization as? LocalizationItemIdentifier {
                 if let localizableComponent = originallyLocalizedComponents.object(forKey: localizationItemIdentifier) {
-                    DispatchQueue.main.async {
-                        localizableComponent.localize(for: "\(localizationItemIdentifier.section).\(localizationItemIdentifier.key)")
-                    }
+                    localizations.append((localizationItemIdentifier, localizableComponent))
                 }
+            }
+        }
+
+        DispatchQueue.main.async {
+            localizations.forEach { localizationItemIdentifier, localizableComponent in
+                // .localize mutates the originallyLocalizedComponents
+                // triggering it here so we do not update originallyLocalizedComponents while enumarating it
+                localizableComponent.localize(for: "\(localizationItemIdentifier.section).\(localizationItemIdentifier.key)")
             }
         }
     }
