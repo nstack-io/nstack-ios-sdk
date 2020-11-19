@@ -29,7 +29,6 @@ Pod::Spec.new do |s|
   s.swift_version = '5.2'
 
   s.default_subspecs = "Core"
-  s.dependency 'NLocalizationManager'
 
   s.subspec 'Core' do |core|
       core.source_files = [ 'NStackSDK/**/*.swift']
