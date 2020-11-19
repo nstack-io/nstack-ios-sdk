@@ -99,7 +99,6 @@
 		29A72E002400166400CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E012400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E022400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
-		29A72E032400281A00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
 		29EEE3F22565315D00A786B5 /* ApplicationStateObserverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EEE3D22565315D00A786B5 /* ApplicationStateObserverType.swift */; };
 		29EEE3F32565315D00A786B5 /* ApplicationStateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EEE3D32565315D00A786B5 /* ApplicationStateObserver.swift */; };
 		29EEE3F42565315D00A786B5 /* ApplicationStateObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EEE3D42565315D00A786B5 /* ApplicationStateObserverDelegate.swift */; };
@@ -462,7 +461,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				304C42941BA083F800AE3D6F /* NStackSDK.framework in Frameworks */,
-				29A72E032400281A00CE8483 /* LocalizationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
