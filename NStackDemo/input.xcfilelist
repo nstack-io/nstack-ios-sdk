@@ -1,0 +1,2 @@
+$(SRCROOT)/Carthage/Build/iOS/NStackSDK.framework
+$(SRCROOT)/Carthage/Build/iOS/LocalizationManager.framework

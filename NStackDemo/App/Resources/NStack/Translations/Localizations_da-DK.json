@@ -1,0 +1,86 @@
+{
+  "data" : {
+    "alert" : {
+      "alertSubtitle" : "Alert undertekster",
+      "alertTitle" : "Alert titel",
+      "alertTypesTitle" : "Alert typer",
+      "defaultAlert" : "Standard Alert",
+      "hideAlert" : "Skjul Alert",
+      "hideAlertSubtitle" : "Tryk ikke på Annuller, alarmdialogen skjules efter 10 sekunder",
+      "infoAlert" : "Info Alert",
+      "openUrl" : "Åbn URL",
+      "openUrlAlert" : "Åbn Url Alert",
+      "ratingPromptAlert" : "Bedømmelse prompt Alert",
+      "url" : "https:\/\/www.hackingwithswift.com\/"
+    },
+    "content" : {
+      "availableProducts" : "Available Products",
+      "collectionResponseButtonTitle" : "Click To Fetch Collection Response",
+      "contentResponseButtonTitle" : "Click To Get Content Response"
+    },
+    "default" : {
+      "back" : "Tilbage",
+      "cancel" : "Annuller",
+      "edit" : "Rediger",
+      "later" : "Senere",
+      "next" : "Næste",
+      "no" : "Nej",
+      "ok" : "Ok",
+      "previous" : "Forrige",
+      "retry" : "Prøv igen",
+      "save" : "Gem",
+      "settings" : "Indstillinger",
+      "skip" : "Spring over",
+      "submit" : "Indsend",
+      "yes" : "Ja"
+    },
+    "error" : {
+      "authenticationError" : "Login er udløbet, login venligst ind igen.",
+      "connectionError" : "Ingen eller dårlig forbindelse, prøv igen.",
+      "errorTitle" : "Fejl",
+      "unknownError" : "Ukendt fejl, prøv igen."
+    },
+    "featureList" : {
+      "alertTypes" : "Alert Types",
+      "content" : "Content - Responses and Collections",
+      "feedback" : "Feedback",
+      "geography" : "Geography",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
+    },
+    "feedback" : {
+      "enterEmail" : "Indtast e-mail",
+      "enterName" : "Indtast navn",
+      "feedbackTitle" : "Vælg billede",
+      "selectImage" : "Vælg billede"
+    },
+    "geography" : {
+      "enterLatitude" : "Indtast lat",
+      "enterLatLng" : "Indtast lat lng for at få tidszone",
+      "enterLongitude" : "Indtast lng",
+      "geographyTitle" : "Geografi",
+      "getTimezone" : "Få tidszone",
+      "selectCountry" : "Vælg land",
+      "selectTimezone" : "Vælg Tidszone"
+    },
+    "languageSelection" : {
+      "selectLanguage" : "Vælg sprog",
+      "selectLanguageTitle" : "Vælg sprog",
+      "title" : "Test mig ved at vælge sprog"
+    }
+  },
+  "meta" : {
+    "language" : {
+      "direction" : "LRM",
+      "id" : 6,
+      "is_best_fit" : false,
+      "is_default" : true,
+      "locale" : "da-DK",
+      "name" : "Danish"
+    },
+    "platform" : {
+      "id" : 535,
+      "slug" : "mobile"
+    }
+  }
+}
