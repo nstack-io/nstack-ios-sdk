@@ -1,0 +1,86 @@
+{
+  "data" : {
+    "alert" : {
+      "alertSubtitle" : "Alert subtitle",
+      "alertTitle" : "Alert title",
+      "alertTypesTitle" : "Alert Types",
+      "defaultAlert" : "Default Alert",
+      "hideAlert" : "Hide Alert",
+      "hideAlertSubtitle" : "Don't press cancel, Alert dialog will be hidden after 10 seconds",
+      "infoAlert" : "Info Alert",
+      "openUrl" : "Open URL",
+      "openUrlAlert" : "Open Url Alert",
+      "ratingPromptAlert" : "Rating prompt Alert",
+      "url" : "https:\/\/www.hackingwithswift.com\/"
+    },
+    "content" : {
+      "availableProducts" : "Available Products",
+      "collectionResponseButtonTitle" : "Click To Fetch Collection Response",
+      "contentResponseButtonTitle" : "Click To Get Content Response"
+    },
+    "default" : {
+      "back" : "Back",
+      "cancel" : "Cancel",
+      "edit" : "Edit",
+      "later" : "Later",
+      "next" : "Next",
+      "no" : "No",
+      "ok" : "Ok",
+      "previous" : "Previous",
+      "retry" : "Retry",
+      "save" : "Save",
+      "settings" : "Settings",
+      "skip" : "Skip",
+      "submit" : "Submit",
+      "yes" : "Yes"
+    },
+    "error" : {
+      "authenticationError" : "Authentication error",
+      "connectionError" : "Connection error",
+      "errorTitle" : "Error",
+      "unknownError" : "Unknown error"
+    },
+    "featureList" : {
+      "alertTypes" : "Alert Types",
+      "content" : "Content - Responses and Collections",
+      "feedback" : "Feedback",
+      "geography" : "Geography",
+      "languagePicker" : "In-app Language picker",
+      "title" : "NStack Features"
+    },
+    "feedback" : {
+      "enterEmail" : "Enter email",
+      "enterName" : "Enter name",
+      "feedbackTitle" : "Feedback",
+      "selectImage" : "Select Image"
+    },
+    "geography" : {
+      "enterLatitude" : "Enter lat",
+      "enterLatLng" : "Enter lat lng to get timezone",
+      "enterLongitude" : "Enter lng",
+      "geographyTitle" : "Geography",
+      "getTimezone" : "Get Timezone",
+      "selectCountry" : "Select country",
+      "selectTimezone" : "Select Timezone"
+    },
+    "languageSelection" : {
+      "selectLanguage" : "Select language",
+      "selectLanguageTitle" : "Select language",
+      "title" : "Test me by selecting language"
+    }
+  },
+  "meta" : {
+    "language" : {
+      "direction" : "LRM",
+      "id" : 56,
+      "is_best_fit" : false,
+      "is_default" : false,
+      "locale" : "en-EN",
+      "name" : "English"
+    },
+    "platform" : {
+      "id" : 535,
+      "slug" : "mobile"
+    }
+  }
+}
