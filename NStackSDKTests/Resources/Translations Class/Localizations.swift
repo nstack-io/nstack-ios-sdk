@@ -24,7 +24,7 @@
 // ----------------------------------------------------------------------
 
 import Foundation
-import LocalizationManager
+@testable import NStackSDK
 
 public final class Translations: LocalizableModel {
     public var defaultSection = DefaultSection()
