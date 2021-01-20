@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author       = { "Nodes Agency - iOS" => "ios@nodes.dk" }
   s.source       = { :git => 'https://github.com/nstack-io/nstack-ios-sdk', :tag => s.version.to_s }
 
-  s.ios.deployment_target = "11"
+  s.ios.deployment_target = "9.0"
   s.swift_version = '5.2'
 
   s.default_subspecs = "Core"

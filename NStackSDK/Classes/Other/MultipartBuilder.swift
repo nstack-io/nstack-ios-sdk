@@ -6,7 +6,10 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
+import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 class MultipartBuilder {
     struct Part: Hashable {
@@ -23,6 +26,7 @@ class MultipartBuilder {
         self.boundary = boundary
     }
 
+    #if canImport(UIKit)
     /// Appends image field if value != nil. If there's already field with the same name,
     /// that field will be replaced.
     /// - Parameter name: field's name.
@@ -38,6 +42,8 @@ class MultipartBuilder {
 
         return self
     }
+    #endif
+    
 
     /// Appends field if value != nil. If there's already field with the same name,
     /// that field will be replaced.
