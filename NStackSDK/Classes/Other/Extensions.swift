@@ -25,7 +25,7 @@ extension String {
     }
 }
 
-@available(iOSApplicationExtension 10.0, *)
+@available(iOS 10.0, *)
 extension ISO8601DateFormatter {
     convenience init(_ formatOptions: Options, timeZone: TimeZone = TimeZone(secondsFromGMT: 0)!) {
         self.init()
@@ -36,7 +36,7 @@ extension ISO8601DateFormatter {
 
 extension Formatter {
     static let iso8601: Formatter = {
-        if #available(iOSApplicationExtension 10.0, *) {
+        if #available(iOS 10.0, *) {
             return ISO8601DateFormatter([.withInternetDateTime])
         } else {
             let formatter = DateFormatter()
