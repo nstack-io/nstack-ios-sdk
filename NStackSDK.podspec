@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NStackSDK'
-  s.version          = '5.1.4'
+  s.version          = '5.1.5'
   s.summary          = 'NStackSDK is the companion software development kit to the NStack backend.'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.2'
 
   s.default_subspecs = "Core"
-  s.dependency 'NLocalizationManager', '~> 3.1.3'
+  s.dependency 'NLocalizationManager', '~> 3.0'
 
   s.subspec 'Core' do |core|
       core.source_files = [ 'NStackSDK/**/*.swift']
