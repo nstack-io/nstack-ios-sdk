@@ -104,7 +104,7 @@ public class AlertManager {
     }
 
     public var requestReview: () -> Void = {
-        if #available(iOSApplicationExtension 10.3, *) {
+        if #available(iOS 10.3, *) {
             #if os(iOS)
             SKStoreReviewController.requestReview()
             #endif

@@ -6,7 +6,10 @@
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
 
+import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 public enum FeedbackType: String {
     case feedback, bug
@@ -23,6 +26,8 @@ struct Feedback {
     var name: String?
     var email: String?
     var message: String?
+    #if canImport(UIKit)
     var image: UIImage?
+    #endif
     var breadcrumbs: Breadcrumbs?
 }
