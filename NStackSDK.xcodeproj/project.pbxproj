@@ -168,6 +168,10 @@
 		A550D75A236B4FAA002A01B3 /* bug_screenshot.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A56CF5C1236B4DBC00238A1F /* bug_screenshot.jpeg */; };
 		A550D75B236B4FAB002A01B3 /* bug_screenshot.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A56CF5C1236B4DBC00238A1F /* bug_screenshot.jpeg */; };
 		A556C24A236C382600AE78DD /* MultipartBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556C249236C382600AE78DD /* MultipartBuilder.swift */; };
+		A56BE98625C17A0D000763A5 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56BE98525C17A0D000763A5 /* DateFormatterTests.swift */; };
+		A56BE98725C17A0D000763A5 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56BE98525C17A0D000763A5 /* DateFormatterTests.swift */; };
+		A56BE98825C17A0D000763A5 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56BE98525C17A0D000763A5 /* DateFormatterTests.swift */; };
+		A56BE9F925C181DA000763A5 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
 		A56CF5C0236B429800238A1F /* UIDevice+ModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56CF5BF236B429800238A1F /* UIDevice+ModelType.swift */; };
 		A56E592725B852AD00904824 /* NStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2E8301B9DD6A10064DB21 /* NStack.swift */; };
 		A56E592F25B852C200904824 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53B7D28236B244A00673DB6 /* Feedback.swift */; };
@@ -365,6 +369,7 @@
 		A53B7D28236B244A00673DB6 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A53B7D2A236B352300673DB6 /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		A556C249236C382600AE78DD /* MultipartBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartBuilder.swift; sourceTree = "<group>"; };
+		A56BE98525C17A0D000763A5 /* DateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTests.swift; sourceTree = "<group>"; };
 		A56CF5BF236B429800238A1F /* UIDevice+ModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+ModelType.swift"; sourceTree = "<group>"; };
 		A56CF5C1236B4DBC00238A1F /* bug_screenshot.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bug_screenshot.jpeg; sourceTree = "<group>"; };
 		A829DC3D22F962210005580E /* ProposalProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalProtocols.swift; sourceTree = "<group>"; };
@@ -678,6 +683,7 @@
 			children = (
 				30A3D8561B9DB94100C2D15C /* NStackTests.swift */,
 				0184A2C61D61C66300E63E01 /* VersionUtilitiesTests.swift */,
+				A56BE98525C17A0D000763A5 /* DateFormatterTests.swift */,
 				017E871E1DF61A1C009E9792 /* Translations */,
 				01DA43121C7904E200D0FC04 /* Resources */,
 			);
@@ -1287,6 +1293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56BE98625C17A0D000763A5 /* DateFormatterTests.swift in Sources */,
 				30A3D8571B9DB94100C2D15C /* NStackTests.swift in Sources */,
 				33E223041FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
 				33E2230C1FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -1356,6 +1363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56BE98725C17A0D000763A5 /* DateFormatterTests.swift in Sources */,
 				01F4C6B61DFF726F0050D0F1 /* BundleMock.swift in Sources */,
 				33E223061FA9F4EA0013CCC3 /* IPAddress.swift in Sources */,
 				33E2230E1FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -1423,6 +1431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56BE98825C17A0D000763A5 /* DateFormatterTests.swift in Sources */,
 				E3DC939B1E014B5F00FC9693 /* NStackTests.swift in Sources */,
 				E3DC93A31E014BB200FC9693 /* Localizations.swift in Sources */,
 				E3DC939C1E014B5F00FC9693 /* VersionUtilitiesTests.swift in Sources */,
@@ -1932,13 +1941,13 @@
 					"@loader_path/Frameworks",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = 6;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
@@ -1969,14 +1978,14 @@
 					"@loader_path/Frameworks",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nodes.NStackSDK-macOS";
 				PRODUCT_NAME = NStackSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = 6;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;

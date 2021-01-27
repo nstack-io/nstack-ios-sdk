@@ -144,6 +144,7 @@ class NStackTests: XCTestCase {
         waitForExpectations(timeout: 5.0)
     }
 
+    #if canImport(UIKit)
     func testFeedbackImageUpload() {
         let exp = expectation(description: "Image upload")
 
@@ -168,4 +169,5 @@ class NStackTests: XCTestCase {
 
         self.wait(for: [exp], timeout: 20)
     }
+    #endif
 }
