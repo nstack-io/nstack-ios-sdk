@@ -37,6 +37,7 @@ class LanguageSelectionViewController: UIViewController {
 
     private var defaultLanguage: DefaultLanguage = (NStack.sharedInstance.localizationManager?.bestFitLanguage)!
 
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 

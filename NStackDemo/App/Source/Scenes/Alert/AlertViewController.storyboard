@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Alert View Controller-->
+        <scene sceneID="TjD-Zf-V2X">
+            <objects>
+                <viewController storyboardIdentifier="AlertViewController" id="2ck-qs-hgK" customClass="AlertViewController" customModule="NStackDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PgF-sy-9pn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="muK-UM-a7L">
+                                <rect key="frame" x="24" y="325" width="366" height="246"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fW4-DX-ioh">
+                                        <rect key="frame" x="160" y="0.0" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="defaultAlertButtonTapped:" destination="2ck-qs-hgK" eventType="touchUpInside" id="Tzu-Z3-tW2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sBC-qR-WRC">
+                                        <rect key="frame" x="160" y="54" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="infoAlertButtonTapped:" destination="2ck-qs-hgK" eventType="touchUpInside" id="Fjm-zq-OEw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jb-KH-pS3">
+                                        <rect key="frame" x="160" y="108" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="openUrlAlertButtonTapped:" destination="2ck-qs-hgK" eventType="touchUpInside" id="1gA-MO-2LG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bod-LP-V0l">
+                                        <rect key="frame" x="160" y="162" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="ratingPromptAlertButtonTapped:" destination="2ck-qs-hgK" eventType="touchUpInside" id="lH7-eK-TfH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asq-qG-Ddc">
+                                        <rect key="frame" x="160" y="216" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="hideAlertButttonTapped:" destination="2ck-qs-hgK" eventType="touchUpInside" id="ce6-St-nFk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="246" id="tHR-tF-S9o"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iax-Iz-Nfc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="muK-UM-a7L" firstAttribute="leading" secondItem="iax-Iz-Nfc" secondAttribute="leading" constant="24" id="BOb-S1-VMj"/>
+                            <constraint firstItem="muK-UM-a7L" firstAttribute="centerY" secondItem="PgF-sy-9pn" secondAttribute="centerY" id="uAo-Q7-EZ2"/>
+                            <constraint firstItem="iax-Iz-Nfc" firstAttribute="trailing" secondItem="muK-UM-a7L" secondAttribute="trailing" constant="24" id="vJB-wX-ZTF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="defaultAlertButton" destination="fW4-DX-ioh" id="HiM-uR-yzG"/>
+                        <outlet property="hideAlertButtton" destination="Asq-qG-Ddc" id="bl7-4L-JMX"/>
+                        <outlet property="infoAlertButton" destination="sBC-qR-WRC" id="1QB-vm-Jyb"/>
+                        <outlet property="openUrlAlertButton" destination="4jb-KH-pS3" id="wBc-df-wTx"/>
+                        <outlet property="ratingPromptAlertButton" destination="bod-LP-V0l" id="xja-Hu-ATm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h02-ou-DMN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-350" y="89"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

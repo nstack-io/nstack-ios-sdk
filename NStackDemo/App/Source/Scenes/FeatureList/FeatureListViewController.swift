@@ -8,7 +8,8 @@
 import UIKit
 
 class FeatureListViewController: UIViewController {
-    
+
+    // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet{
             tableView.dataSource = self
@@ -16,19 +17,18 @@ class FeatureListViewController: UIViewController {
         }
     }
 
-    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography, tr.featureList.content];
+    let features = [tr.featureList.languagePicker, tr.featureList.feedback, tr.featureList.geography, tr.featureList.content, tr.featureList.alertTypes];
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
-
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "NStack Features";
+        return tr.featureList.title;
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +58,9 @@ extension FeatureListViewController: UITableViewDataSource, UITableViewDelegate 
         case 3:
             storyboard = UIStoryboard(name: "ContentViewController", bundle: nil)
             vc = storyboard?.instantiateViewController(identifier: "ContentViewController") as! ContentViewController
+        case 4:
+            storyboard = UIStoryboard(name: "AlertViewController", bundle: nil)
+            vc = storyboard?.instantiateViewController(identifier: "AlertViewController") as! AlertViewController
         default:
             break
         }
