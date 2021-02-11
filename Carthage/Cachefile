@@ -1,4 +1,0 @@
---Swift version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
-Target: x86_64-apple-darwin19.3.0 --Swift version 
- --Cartfile.resolved: github "nodes-ios/TranslationManager" "3.0-beta"
- --Cartfile.resolved
