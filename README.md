@@ -83,7 +83,7 @@ We assume that you have installed the NStackSDK via CocoaPods or Carthage alread
 
 ## Features
 
-For an overview of what features are available and what they do check out the [feature overview](https://nstack-io.github.io/documentation/features.html) in the documentation.
+For an overview of what features are available and what they do check out the [feature overview](https://nstack.io/features) in the documentation.
 
 ### Localization
 
@@ -133,7 +133,7 @@ NStack.sharedInstance.getContentResponse(id) { (data, error) in
 
 ### Collections
 Collections is a more structured version of Responses and can be used as an alternative to an simple read API.
-See the [feature overview](https://nstack-io.github.io/documentation/features.html) for a more detailed explaination.
+See the [feature overview](https://nstack.io/features) for a more detailed explaination.
 
 ~~~~swift
 let completion: (NStack.Result<Product>) -> Void = { result in
@@ -175,7 +175,7 @@ if let url = URL(string: url) {
 Version control informs the user when a new version is available and what new changes are available.
 You don't have to do anything to use the version control feature, just include the NStack sdk in your project.
 To enable it create a new version on the NStack web console.
-Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup version control.
+Checkout the [feature overview](https://nstack.io/features) on how to setup version control.
 
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
@@ -185,7 +185,7 @@ Checkout the [feature overview](https://nstack-io.github.io/documentation/featur
 Messages shows the user a custom message when the app is launched, for example warning them about a server outage.
 You don't have to do anything to use the messages feature, just include the NStack sdk in your project.
 To show the users a message create one on the NStack web console.
-Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup messages.
+Checkout the [feature overview](https://nstack.io/features) on how to setup messages.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
@@ -194,7 +194,7 @@ Checkout the [feature overview](https://nstack-io.github.io/documentation/featur
 Rate reminder shows the user Apple's build in rate reminder after the user has launched the app a certain amount of times.
 You don't have to do anything to use the rate reminder feature, just include the NStack sdk in your project.
 To enable the rate reminder configure it on the NStack web console.
-Checkout the [feature overview](https://nstack-io.github.io/documentation/features.html) on how to setup rate reminders.
+Checkout the [feature overview](https://nstack.io/features) on how to setup rate reminders.
 
 > **NOTE:** This feature is not yet supported on macOS and watchOS.
 
