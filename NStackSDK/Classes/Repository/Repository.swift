@@ -112,7 +112,6 @@ public protocol FeedbackRepository {
 // MARK: - Rate Reminder -
 
 public protocol RateReminderRepository {
-    func getRateReminderActions(completion: @escaping Completion<[String]>)
     func logRateReminderEvent(_ action: String)
 }
 
