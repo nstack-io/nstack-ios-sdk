@@ -36,7 +36,8 @@ typealias Repository =
     LocalizationRepository &
     LocalizationContextRepository &
     ProposalsRepository &
-    FeedbackRepository
+    FeedbackRepository &
+    RateReminderRepository
 
 // MARK: - App Open -
 
@@ -106,6 +107,13 @@ protocol ProposalsRepository {
 
 public protocol FeedbackRepository {
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
+}
+
+// MARK: - Rate Reminder -
+
+public protocol RateReminderRepository {
+    func getRateReminderActions(completion: @escaping Completion<[String]>)
+    func logRateReminderEvent(_ action: String)
 }
 
 

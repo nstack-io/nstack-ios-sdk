@@ -377,4 +377,27 @@ extension ConnectionManager {
     #endif
 }
 
+// MARK: - FeedbackRepository
+extension ConnectionManager {
+    
+    func getRateReminderActions(completion: @escaping Completion<[String]>) {
+        let url = baseURLv2 + "notify/rate_reminder_v2/actions"
+        let request = session.request(url, headers: defaultHeaders)
+        session.startDataTask(with: request,
+                              wrapperType: DataModel<[String]>.self,
+                              completionHandler: completion)
+    }
+    
+    func logRateReminderEvent(_ action: String) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid,
+            "action": action
+        ]
+
+        let url = baseURLv1 + "notify/rate_reminder_v2/events"
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.dataTask(with: request).resume()
+    }
+
+}
 
