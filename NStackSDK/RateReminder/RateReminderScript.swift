@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-@available(iOSApplicationExtension 13.0, *)
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 @main
 enum MyScript {
     fileprivate static let plistAppIDKey  = "APPLICATION_ID"
