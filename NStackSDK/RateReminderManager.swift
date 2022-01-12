@@ -44,7 +44,7 @@ public class RateReminderManager {
                              atomically: true,
                              encoding: String.Encoding.utf8)
         
-        print("WRITTEN")
+        print("RATE REMINDER ACTIONS WRITTEN TO FILE")
         
     }
     
