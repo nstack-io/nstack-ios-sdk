@@ -45,8 +45,8 @@ public class RateReminderManager {
                     self?.logRateReminderResponse(reminderId: alertModel.id,
                                                   response: response)
                 }
-            case .failure(_):
-                //if the API returns an error, we do not show
+            case .failure(let error):
+                print(error.localizedDescription)
                 return
             }
         }
