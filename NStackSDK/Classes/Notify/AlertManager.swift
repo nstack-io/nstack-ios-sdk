@@ -119,8 +119,10 @@ public class AlertManager {
             alert.addAction(action)
         }
 
-        NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
-        NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
+            NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
 
     public var requestAppStoreReview: () -> Void = {
