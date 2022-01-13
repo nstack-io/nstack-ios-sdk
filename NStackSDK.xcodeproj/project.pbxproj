@@ -328,7 +328,6 @@
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		2346FD6D233B65400025B68D /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
 		238758F0278EF4A700675356 /* RateReminderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateReminderManager.swift; sourceTree = "<group>"; };
-		238758F7278EF56F00675356 /* RateReminderScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateReminderScript.swift; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
 		29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/Mac/LocalizationManager.framework; sourceTree = "<group>"; };
 		29A72DF223FFECD700CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/iOS/LocalizationManager.framework; sourceTree = "<group>"; };
@@ -576,14 +575,6 @@
 			path = Fallback;
 			sourceTree = "<group>";
 		};
-		238758F6278EF54B00675356 /* RateReminder */ = {
-			isa = PBXGroup;
-			children = (
-				238758F7278EF56F00675356 /* RateReminderScript.swift */,
-			);
-			path = RateReminder;
-			sourceTree = "<group>";
-		};
 		29A72DD023FAC8A000CE8483 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,7 +657,6 @@
 		30A3D8491B9DB94100C2D15C /* NStackSDK */ = {
 			isa = PBXGroup;
 			children = (
-				238758F6278EF54B00675356 /* RateReminder */,
 				2346FD6C233B650B0025B68D /* Fallback */,
 				A8ECFA2D22F44DFF009D2175 /* Views */,
 				8C9BA2DB22EEFFD80057BAEF /* Operators */,
@@ -865,7 +855,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 30A3D85B1B9DB94100C2D15C /* Build configuration list for PBXNativeTarget "NStackSDK" */;
 			buildPhases = (
-				238758FC278EF63700675356 /* Generate Rate Reminder Tool */,
 				238D644D22C619C6002406FA /* Swiftlint */,
 				01F4C6601DFF07060050D0F1 /* Check for FIXME | TODO */,
 				30A3D8421B9DB94100C2D15C /* Sources */,
@@ -1151,25 +1140,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\nTAGS=\"FIXME|TODO\"\nfind \"${SRCROOT}/NStackSDK\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\nfi";
-		};
-		238758FC278EF63700675356 /* Generate Rate Reminder Tool */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/NStackSDK/RateReminder/RateReminderScript.swift",
-			);
-			name = "Generate Rate Reminder Tool";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "xcrun --sdk macosx swiftc -parse-as-library NStackSDK/RateReminder/RateReminderScript.swift \\\n  -o CompiledRateReminderScript\n";
 		};
 		238D644D22C619C6002406FA /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;

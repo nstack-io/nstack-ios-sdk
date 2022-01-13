@@ -6,6 +6,11 @@
 //  Copyright © 2022 Nodes ApS. All rights reserved.
 //
 
+//typesafe protocol used for RateReminderAction
+public protocol RateReminderActionProtocol {
+    var actionString: String { get }
+}
+
 #if canImport(UIKit)
 
 import UIKit
