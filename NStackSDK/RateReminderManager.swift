@@ -11,28 +11,63 @@ public protocol RateReminderActionProtocol {
     var actionString: String { get }
 }
 
-#if canImport(UIKit)
-
-import UIKit
+public enum RateReminderResponse: String {
+    case positive
+    case negative
+    case skip
+}
 
 public class RateReminderManager {
     // MARK: - Properties
     internal var repository: RateReminderRepository
+    private var alertManager: AlertManager
 
     // MARK: - Init
-    public init(repository: RateReminderRepository) {
+    public init(repository: RateReminderRepository,
+                alertManager: AlertManager) {
         self.repository = repository
+        self.alertManager = alertManager
+    }
+    
+    /// Logs a rate reminder event, it will then check if we should prompt for a review if so, we do that via the Alert Manager
+    public func logRateReminderAction(action: RateReminderActionProtocol) {
+        repository.logRateReminderEvent(action) { [weak self] result in
+            self?.promptRateReviewIfRequired()
+        }
+    }
+    
+    /// Logs a rate reminder event, it will then check if we should prompt for a review if so, we do that via the Alert Manager
+    public func promptRateReviewIfRequired() {
+        repository.checkToShowReviewPrompt { [weak self] result in
+            switch result {
+            case .success(let alertModel):
+                self?.alertManager.showRateReminderCheck(alertModel) { response in
+                    self?.logRateReminderResponse(reminderId: alertModel.id,
+                                                  response: response)
+                }
+            case .failure(_):
+                //if the API returns an error, we do not show
+                return
+            }
+        }
+    }
+    
+    /// Logs a response to a rate reminder prompt
+    private func logRateReminderResponse(reminderId: Int,
+                                         response: RateReminderResponse) {
+        switch response {
+        case .positive:
+            alertManager.requestAppStoreReview()
+        case .negative:
+            //TODO
+            //show feedback alert and post it to NStack API
+            break
+        case .skip:
+            break
+        }
+        repository.logReviewPromptResponse(reminderId: "\(reminderId)", response: response) { _ in 
+            //do nothhing with this afaik?
+        }
     }
 }
 
-#else
-public class RateReminderManager {
-    // MARK: - Properties
-    internal var repository: RateReminderRepository
-
-    // MARK: - Init
-    public init(repository: RateReminderRepository) {
-        self.repository = repository
-    }
-}
-#endif

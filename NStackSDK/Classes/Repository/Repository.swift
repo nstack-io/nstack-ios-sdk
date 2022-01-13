@@ -91,7 +91,7 @@ protocol VersionsRepository {
     func markMessageAsRead(_ id: Int)
 
     #if os(iOS) || os(tvOS)
-    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)
+    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult_v1)
     #endif
 }
 
@@ -112,7 +112,11 @@ public protocol FeedbackRepository {
 // MARK: - Rate Reminder -
 
 public protocol RateReminderRepository {
-    func logRateReminderEvent(_ action: String)
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<Void>)
+    func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>)
+    func logReviewPromptResponse(reminderId: String,
+                                 response: RateReminderResponse,
+                                 completion: @escaping Completion<Void>)
 }
 
 

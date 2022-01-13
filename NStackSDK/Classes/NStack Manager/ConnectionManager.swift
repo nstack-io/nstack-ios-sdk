@@ -216,7 +216,7 @@ extension ConnectionManager {
     }
 
     #if os(iOS) || os(tvOS)
-    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
+    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult_v1) {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
@@ -380,16 +380,40 @@ extension ConnectionManager {
 // MARK: - FeedbackRepository
 extension ConnectionManager {
     
-    func logRateReminderEvent(_ action: String) {
+
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<Void>) {
         let params: [String: Any] = [
             "guid": Configuration.guid,
-            "action": action
+            "action": action.actionString
         ]
 
         let url = baseURLv1 + "notify/rate_reminder_v2/events"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
-        session.dataTask(with: request).resume()
+        session.startDataTask(with: request, completionHandler: completion)
     }
+    
+    func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid
+        ]
+        let url = baseURLv1 + "notify/rate_reminder_v2"
+        let request = session.request(url, method: .get, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, completionHandler: completion)
+    }
+    
+    func logReviewPromptResponse(reminderId: String,
+                                 response: RateReminderResponse,
+                                 completion: @escaping Completion<Void>) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid,
+            "answer": response.rawValue
+        ]
+
+        let url = baseURLv1 + "notify/rate_reminder_v2/\(reminderId)/answers"
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, completionHandler: completion)
+    }
+    
 
 }
 

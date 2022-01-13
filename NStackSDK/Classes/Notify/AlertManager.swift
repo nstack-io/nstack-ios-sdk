@@ -14,7 +14,7 @@ import StoreKit
 
 public class AlertManager {
 
-    public enum RateReminderResult: String {
+    public enum RateReminderResult_v1: String {
         case rate = "yes"
         case later = "later"
         case never = "no"
@@ -28,6 +28,11 @@ public class AlertManager {
                         completion:(_ didPressAppStore: Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion: () -> Void)
         case message(text: String, url: URL?, dismissButtonText: String, openButtonText: String, completion: () -> Void)
+        case rateReminder(title: String, body: String,
+                          positiveButtonText: String,
+                          negativeButtonText: String,
+                          skipButtonText: String,
+                          completion: (RateReminderResponse) -> Void)
     }
 
 #if os(tvOS) || os(iOS)
@@ -92,6 +97,21 @@ public class AlertManager {
 
                 completion()
             }))
+        case .rateReminder(let title, let body, let positiveButtonText, let negativeButtonText, let skipButtonText, let completion):
+            header = title
+            message = body
+            actions.append(UIAlertAction(title: positiveButtonText, style: .default, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.positive)
+            }))
+            actions.append(UIAlertAction(title: negativeButtonText, style: .default, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.negative)
+            }))
+            actions.append(UIAlertAction(title: skipButtonText, style: .cancel, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.skip)
+            }))
         }
 
         let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
@@ -103,7 +123,7 @@ public class AlertManager {
         NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
-    public var requestReview: () -> Void = {
+    public var requestAppStoreReview: () -> Void = {
         if #available(iOSApplicationExtension 10.3, *) {
             #if os(iOS)
             SKStoreReviewController.requestReview()
@@ -177,12 +197,24 @@ public class AlertManager {
 
         showAlertBlock(alertType)
     }
-
-    internal func showRateReminder(_ rateReminder: RateReminder) {
-        self.requestReview()
-        if let result = AlertManager.RateReminderResult(rawValue: "yes") {
+    
+    internal func showRateReminderV1(_ rateReminder: RateReminder) {
+        self.requestAppStoreReview()
+        if let result = AlertManager.RateReminderResult_v1(rawValue: "yes") {
             self.repository.markRateReminderAsSeen(result)
         }
+    }
+        
+    internal func showRateReminderCheck(_ model: RateReminderAlertModel,
+                                        completion: @escaping ((RateReminderResponse) -> Void)) {
+        let localizations = model.localization
+        let alertType = AlertType.rateReminder(title: localizations.title,
+                                               body: localizations.body,
+                                               positiveButtonText: localizations.yesBtn,
+                                               negativeButtonText: localizations.noBtn,
+                                               skipButtonText: localizations.laterBtn,
+                                               completion: completion)
+        showAlertBlock(alertType)
     }
 #endif
 }
