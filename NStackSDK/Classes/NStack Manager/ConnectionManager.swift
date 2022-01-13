@@ -387,7 +387,7 @@ extension ConnectionManager {
             "action": action.actionString
         ]
 
-        let url = baseURLv1 + "notify/rate_reminder_v2/events"
+        let url = baseURLv2 + "notify/rate_reminder_v2/events"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
         session.startDataTask(with: request, completionHandler: completion)
     }
@@ -396,7 +396,7 @@ extension ConnectionManager {
         let params: [String: Any] = [
             "guid": Configuration.guid
         ]
-        let url = baseURLv1 + "notify/rate_reminder_v2"
+        let url = baseURLv2 + "notify/rate_reminder_v2"
         let request = session.request(url, method: .get, parameters: params, headers: defaultHeaders)
         session.startDataTask(with: request, completionHandler: completion)
     }
@@ -409,7 +409,7 @@ extension ConnectionManager {
             "answer": response.rawValue
         ]
 
-        let url = baseURLv1 + "notify/rate_reminder_v2/\(reminderId)/answers"
+        let url = baseURLv2 + "notify/rate_reminder_v2/\(reminderId)/answers"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
         session.startDataTask(with: request, completionHandler: completion)
     }
