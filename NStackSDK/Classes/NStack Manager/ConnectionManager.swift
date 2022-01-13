@@ -381,7 +381,7 @@ extension ConnectionManager {
 extension ConnectionManager {
     
 
-    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<Void>) {
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>) {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "action": action.actionString
@@ -389,7 +389,7 @@ extension ConnectionManager {
 
         let url = baseURLv2 + "notify/rate_reminder_v2/events"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
-        session.dataTask(with: request, completionHandler: completion).resume()
+        session.startDataTask(with: request, completionHandler: completion)
     }
     
     func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {
@@ -402,8 +402,7 @@ extension ConnectionManager {
     }
     
     func logReviewPromptResponse(reminderId: String,
-                                 response: RateReminderResponse,
-                                 completion: @escaping Completion<Void>) {
+                                 response: RateReminderResponse) {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "answer": response.rawValue
@@ -411,7 +410,7 @@ extension ConnectionManager {
 
         let url = baseURLv2 + "notify/rate_reminder_v2/\(reminderId)/answers"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
-        session.dataTask(with: request, completionHandler: completion).resume()
+        session.dataTask(with: request).resume()
     }
 
 }

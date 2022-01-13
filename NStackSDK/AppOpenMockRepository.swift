@@ -181,11 +181,11 @@ class MockConnectionManager: Repository {
     
     func logRateReminderEvent(_ action: String) {}
     
-    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<Void>) {}
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>) {}
     
     func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {}
     
-    func logReviewPromptResponse(reminderId: String, response: RateReminderResponse, completion: @escaping Completion<Void>) {}
+    func logReviewPromptResponse(reminderId: String, response: RateReminderResponse) {}
 }
 
 extension MockConnectionManager {

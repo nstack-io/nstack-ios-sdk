@@ -65,9 +65,7 @@ public class RateReminderManager {
         case .skip:
             break
         }
-        repository.logReviewPromptResponse(reminderId: "\(reminderId)", response: response) { _ in 
-            //do nothhing with this afaik?
-        }
+        repository.logReviewPromptResponse(reminderId: "\(reminderId)", response: response)
     }
 }
 
