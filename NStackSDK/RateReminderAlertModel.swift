@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct RateReminderAlertModel {
+public struct RateReminderAlertModel: Codable {
     public var id: Int
     public var localization: RateReminderAlertModelLocalization
 }
 
-public struct RateReminderAlertModelLocalization {
+public struct RateReminderAlertModelLocalization: Codable {
     public var title: String
     public var body: String
     public var yesBtn: String

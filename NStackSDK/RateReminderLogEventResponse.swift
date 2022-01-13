@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct RateReminderLogEventResponse {
+public struct RateReminderLogEventResponse: Codable {
     public var guid: String
     public var points: Int
 }
