@@ -389,7 +389,7 @@ extension ConnectionManager {
 
         let url = baseURLv2 + "notify/rate_reminder_v2/events"
         let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, completionHandler: completion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
     }
     
     func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {
@@ -398,7 +398,7 @@ extension ConnectionManager {
         ]
         let url = baseURLv2 + "notify/rate_reminder_v2"
         let request = session.request(url, method: .get, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, completionHandler: completion)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
     }
     
     func logReviewPromptResponse(reminderId: String,
