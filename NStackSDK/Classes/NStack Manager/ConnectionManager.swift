@@ -398,7 +398,7 @@ extension ConnectionManager {
         ]
         let url = baseURLv2 + "notify/rate_reminder_v2"
         let request = session.request(url, method: .get, parameters: params, headers: defaultHeaders)
-        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
     }
     
     func logReviewPromptResponse(reminderId: String,
