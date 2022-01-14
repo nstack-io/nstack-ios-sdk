@@ -29,49 +29,20 @@ public class RateReminderManager {
         self.alertManager = alertManager
     }
     
-    /// For use only when you want to use NStacks Native UI
-    /// Logs a rate reminder event, it will then check if we should prompt for a review if so, we present that via the NStack Alert Manager,
-    /// then logs the response to NStack and returns a completion block with the users response
+    /// Logs a rate reminder event
     ///
     /// - Parameter action: The Rate Reminder Action that haas been triggered
-    /// - Parameter completion: Optional completion block returns users response, allowing you to act on it, for example, request feedback when it is negative
+    /// - Parameter completion: Optional ompletion block returns when the action has been logged
     public func logRateReminderAction(action: RateReminderActionProtocol,
-                                      completion: Completion<RateReminderResponse>? = nil) {
-        repository.logRateReminderEvent(action) { [weak self] result in
-            self?.ratePromptShouldShow(completion: { result in
-                switch result {
-                case .success(let alertModel):
-                    self?.alertManager.showRateReminderCheck(alertModel) { response in
-                        completion?(.success(response))
-                        self?.logRateReminderResponse(reminderId: alertModel.id,
-                                                      response: response)
-                    }
-                case .failure(let error):
-                    //no alert model returned, we should not show
-                    completion?(.failure(error))
-                    break
-                }
-            })
-        }
+                                      completion: Completion<RateReminderLogEventResponse>?) {
+        repository.logRateReminderEvent(action, completion: completion ?? { _ in })
     }
     
-    /// For use when you want to use our own custom UI
-    /// Logs a rate reminder event, it will then check if we should prompt for a review if so,we will return an alert model for you to display any way you want
-    /// Once the user responds, you should then calll logRateReminderResponse( ) with the reminder Id returned in the Alert Model
-    ///
-    /// - Parameter action: The Rate Reminder Action that haas been triggered
-    /// - Parameter completion: Completion block returns alert model. This model contains a reminder Id required to send the feedback via  logRateReminderResponse( ) and localization strings to show in an alert if you wish
-    public func logRateReminderAction(action: RateReminderActionProtocol,
-                                      completion: @escaping Completion<RateReminderAlertModel>) {
-        repository.logRateReminderEvent(action) { [weak self] result in
-            self?.ratePromptShouldShow(completion: completion)
-        }
-    }
     
-    /// Check if we should prompt for a review
+    /// Check if we should prompt for a review, returns an AlertModel in completion if so
     ///
-    /// - Parameter completion: Completion block returns alert model. This model contains a reminder Id required to send the feedback via  logRateReminderResponse( ) and localization strings to show in an alert if you wish
-    private func ratePromptShouldShow(completion: @escaping Completion<RateReminderAlertModel>) {
+    /// - Parameter completion: Completion block success returns alert model. This model contains a reminder Id required to send the feedback via  logRateReminderResponse( ) and localization strings to show in an alert if you wish
+    public func ratePromptShouldShow(completion: @escaping Completion<RateReminderAlertModel>) {
         repository.checkToShowReviewPrompt { result in
             switch result {
             case .success(let alertModel):
@@ -80,6 +51,11 @@ public class RateReminderManager {
                 completion(.failure(error))
             }
         }
+    }
+    
+    public func showNativeRateReminerAlert(alertModel: RateReminderAlertModel,
+                                            completion: @escaping ((RateReminderResponse) -> Void)) {
+        alertManager.showRateReminderCheck(alertModel, completion: completion)
     }
     
     /// Logs a response to a rate reminder prompt
