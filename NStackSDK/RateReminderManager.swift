@@ -30,10 +30,11 @@ public class RateReminderManager {
     }
     
     /// For use only when you want to use NStacks Native UI
-    /// Logs a rate reminder event, it will then check if we should prompt for a review if so, we do that via the NStack Alert Manager, then returns in a completion block the users response to the rate alert prompt
+    /// Logs a rate reminder event, it will then check if we should prompt for a review if so, we present that via the NStack Alert Manager,
+    /// then logs the response to NStack and returns a completion block with the users response
     ///
     /// - Parameter action: The Rate Reminder Action that haas been triggered
-    /// - Parameter completion: Optional completion block returns users response, allwoing you to act on it, for example, request feedback when it is negative
+    /// - Parameter completion: Optional completion block returns users response, allowing you to act on it, for example, request feedback when it is negative
     public func logRateReminderAction(action: RateReminderActionProtocol,
                                       completion: Completion<RateReminderResponse>? = nil) {
         repository.logRateReminderEvent(action) { [weak self] result in
