@@ -54,8 +54,8 @@ public class RateReminderManager {
     }
     
     public func showNativeRateReminerAlert(alertModel: RateReminderAlertModel,
-                                            completion: @escaping ((RateReminderResponse) -> Void)) {
-        alertManager.showRateReminderCheck(alertModel, completion: completion)
+                                           responseCompletion: @escaping ((RateReminderResponse) -> Void)) {
+        alertManager.showRateReminderCheck(alertModel, completion: responseCompletion)
     }
     
     /// Logs a response to a rate reminder prompt
