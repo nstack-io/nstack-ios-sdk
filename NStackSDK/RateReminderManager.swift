@@ -35,7 +35,7 @@ public class RateReminderManager {
     /// - Parameter action: The Rate Reminder Action that haas been triggered
     /// - Parameter completion: Optional completion block returns users response, allwoing you to act on it, for example, request feedback when it is negative
     public func logRateReminderAction(action: RateReminderActionProtocol,
-                                      completion: Completion<RateReminderResponse>?) {
+                                      completion: Completion<RateReminderResponse>? = nil) {
         repository.logRateReminderEvent(action) { [weak self] result in
             self?.ratePromptShouldShow(completion: { result in
                 switch result {
