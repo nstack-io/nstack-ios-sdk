@@ -100,6 +100,7 @@
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		2346FDA2233B6BC40025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		2346FDA3233B6C680025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
+		2909463824211DEF00BA254F /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
 		238758F1278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
 		238758F2278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
 		238758F3278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
@@ -439,6 +440,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4369B1D242A1A8800156B68 /* LocalizationManager.framework in Frameworks */,
 				E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */,
 				E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */,
 			);
@@ -449,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */,
+				B4369B1E242A1A8800156B68 /* LocalizationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +629,7 @@
 				29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */,
 				29A72DF223FFECD700CE8483 /* LocalizationManager.framework */,
 				29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */,
+				B4369B1C242A1A8800156B68 /* LocalizationManager.framework */,
 				83100E952333B13C00F84217 /* watchOS */,
 				83100E942333B13600F84217 /* macOS */,
 				83100E932333B13100F84217 /* tvOS */,
