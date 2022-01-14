@@ -179,8 +179,6 @@ class MockConnectionManager: Repository {
 
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {}
     
-    func logRateReminderEvent(_ action: String) {}
-    
     func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>) {}
     
     func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {}
