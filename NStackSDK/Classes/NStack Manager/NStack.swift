@@ -152,10 +152,13 @@ public class NStack {
 
     func setupLocalizations() {
         // Setup localizations
-        let manager = LocalizationManager<DefaultLanguage, LocalizationConfig>(repository: repository,
-                                                                  contextRepository: repository,
-                                                                  localizableModel: configuration.localizationClass,
-                                                                  updateMode: .manual)
+        let manager = LocalizationManager<DefaultLanguage, LocalizationConfig>(
+            repository: repository,
+            contextRepository: repository,
+            localizableModel: configuration.localizationClass,
+            updateMode: .manual,
+            lookupPersistedLocalizations: !configuration.updateOptions.contains(.never)
+        )
 
         // Delete translations if new version
         if VersionUtilities.isVersion(VersionUtilities.currentAppVersion,

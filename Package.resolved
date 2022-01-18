@@ -5,9 +5,9 @@
         "package": "LocalizationManager",
         "repositoryURL": "https://github.com/nodes-ios/TranslationManager",
         "state": {
-          "branch": null,
-          "revision": "1529ef047c285fb14c29f9cd12785f8152c935c6",
-          "version": "3.1.2"
+          "branch": "bugfix/do-not-use-persisted-when-update-never",
+          "revision": "d5788312678437ee87e59f00cc46e3e7175c7aa1",
+          "version": null
         }
       }
     ]
