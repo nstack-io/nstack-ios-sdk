@@ -152,7 +152,7 @@ public class NStack {
 
     func setupLocalizations() {
         // Setup localizations
-        let updateMode: UpdateMode = configuration.updateOptions.contains(.never) ? .never : manual
+        let updateMode: UpdateMode = configuration.updateOptions.contains(.never) ? .never : .manual
 
         let manager = LocalizationManager<DefaultLanguage, LocalizationConfig>(
             repository: repository,
