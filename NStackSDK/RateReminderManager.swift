@@ -53,7 +53,7 @@ public class RateReminderManager {
         }
     }
     
-    public func showNativeRateReminerAlert(alertModel: RateReminderAlertModel,
+    public func showNativeRateReminderAlert(alertModel: RateReminderAlertModel,
                                            responseCompletion: @escaping ((RateReminderResponse) -> Void)) {
         alertManager.showRateReminderCheck(alertModel, completion: responseCompletion)
     }
