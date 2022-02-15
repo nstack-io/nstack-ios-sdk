@@ -10,8 +10,10 @@ import XCTest
 @testable import NStackSDK
 
 let testConfiguration: () -> Configuration = {
-   
-    var conf =  Configuration(appId: "XRiVQholofzxvsqxSfWsS3u8769OYszgrNck", restAPIKey: "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90", localizationClass: Translations.self, environment: .debug)
+    var conf =  Configuration(appId: "5dSr0geJis6PSTpABBR6zfwGbGZDJ2rJZW90",
+                              restAPIKey: "XRiVQholofzxvsqxSfWsS3u8769OYszgrNck",
+                              localizationClass: Translations.self,
+                              environment: .debug)
     conf.verboseMode = true
     conf.updateOptions = [.onDidBecomeActive]
     conf.versionOverride = "2.0"
