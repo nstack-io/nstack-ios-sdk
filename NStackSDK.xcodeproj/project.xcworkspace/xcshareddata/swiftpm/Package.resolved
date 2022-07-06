@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "translationmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nodes-ios/TranslationManager.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "3cac667c95c7f6df72e5627b3325415709ee8d89"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -37,7 +37,7 @@ private func userAgentString(environment: String) -> String {
     appendString += "\(UIDevice.current.modelName)"
     #elseif os(watchOS)
     appendString += "\(WKInterfaceDevice.current().systemVersion);"
-    appendString += "\(WKInterfaceDevice.current().codable)"
+    appendString += "\(WKInterfaceDevice.current().model)"
     #elseif os(macOS)
 
     #endif

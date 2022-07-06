@@ -78,6 +78,11 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		0328C7592875B9670093EE9C /* LocalizationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 0328C7582875B9670093EE9C /* LocalizationManager */; };
+		0328C75B2875B9880093EE9C /* LocalizationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 0328C75A2875B9880093EE9C /* LocalizationManager */; };
+		0328C75D2875B98E0093EE9C /* LocalizationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 0328C75C2875B98E0093EE9C /* LocalizationManager */; };
+		0328C75E2875BAB70093EE9C /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53B7D28236B244A00673DB6 /* Feedback.swift */; };
+		0328C75F2875BAFF0093EE9C /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53B7D2A236B352300673DB6 /* FeedbackManager.swift */; };
 		23442E6222C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6322C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6422C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
@@ -92,10 +97,6 @@
 		23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E6122C6281000F196EE /* ValidationManager.swift */; };
 		2346FDA2233B6BC40025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		2346FDA3233B6C680025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
-		2909463824211DEF00BA254F /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
-		29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
-		29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
-		29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; };
 		29A72DFF24000DFD00CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E002400166400CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
 		29A72E012400166500CE8483 /* LocalizationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */; };
@@ -158,9 +159,7 @@
 		8CA9F228230BDB7100CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
 		8CA9F229230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
 		8CA9F22A230BDB7200CF8065 /* LocalizationItemIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A864BBEB22F31AD200CC2BFF /* LocalizationItemIdentifier.swift */; };
-		8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		8CA9F22C230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
-		8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */; };
 		8CA9F22E230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		8CA9F22F230BDB9600CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
 		8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83A140822F2CB5C002A7682 /* SectionKeyHelper.swift */; };
@@ -324,9 +323,7 @@
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		2346FD6D233B65400025B68D /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
-		29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/Mac/LocalizationManager.framework; sourceTree = "<group>"; };
 		29A72DF223FFECD700CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/iOS/LocalizationManager.framework; sourceTree = "<group>"; };
-		29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/watchOS/LocalizationManager.framework; sourceTree = "<group>"; };
 		29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationConfig.swift; sourceTree = "<group>"; };
 		29D7EB5223FAB71900C622EA /* TranslationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TranslationManager.framework; path = Carthage/Build/iOS/TranslationManager.framework; sourceTree = "<group>"; };
 		3027B2C01BBAE34D00C2F4FB /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = "../NStack Manager/ConnectionManager.swift"; sourceTree = "<group>"; };
@@ -398,7 +395,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */,
+				0328C75D2875B98E0093EE9C /* LocalizationManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,9 +403,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */,
 				01B5BA291D5E02DD006EA3D7 /* Foundation.framework in Frameworks */,
 				01B5BA271D5E02D7006EA3D7 /* UIKit.framework in Frameworks */,
+				0328C7592875B9670093EE9C /* LocalizationManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +422,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4369B1D242A1A8800156B68 /* LocalizationManager.framework in Frameworks */,
+				0328C75B2875B9880093EE9C /* LocalizationManager in Frameworks */,
 				E3689BF91D9EBA14004620D6 /* Foundation.framework in Frameworks */,
 				E3689BFA1D9EBA14004620D6 /* UIKit.framework in Frameworks */,
 			);
@@ -436,7 +433,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3689BEB1D9EB9EB004620D6 /* NStackSDK.framework in Frameworks */,
-				B4369B1E242A1A8800156B68 /* LocalizationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +440,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */,
 				E3B654BD1E00642100FC9380 /* Foundation.framework in Frameworks */,
 				E3B654BB1E00641800FC9380 /* AppKit.framework in Frameworks */,
 			);
@@ -608,10 +603,7 @@
 		304C42851BA074CB00AE3D6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */,
 				29A72DF223FFECD700CE8483 /* LocalizationManager.framework */,
-				29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */,
-				B4369B1C242A1A8800156B68 /* LocalizationManager.framework */,
 				83100E952333B13C00F84217 /* watchOS */,
 				83100E942333B13600F84217 /* macOS */,
 				83100E932333B13100F84217 /* tvOS */,
@@ -841,6 +833,9 @@
 			dependencies = (
 			);
 			name = "NStackSDK-watchOS";
+			packageProductDependencies = (
+				0328C75C2875B98E0093EE9C /* LocalizationManager */,
+			);
 			productName = "NStackSDK-watchOS";
 			productReference = 01A334741E4F1B2A003CE9BA /* NStackSDK.framework */;
 			productType = "com.apple.product-type.framework";
@@ -861,6 +856,9 @@
 			dependencies = (
 			);
 			name = NStackSDK;
+			packageProductDependencies = (
+				0328C7582875B9670093EE9C /* LocalizationManager */,
+			);
 			productName = NStack;
 			productReference = 30A3D8471B9DB94100C2D15C /* NStackSDK.framework */;
 			productType = "com.apple.product-type.framework";
@@ -898,6 +896,9 @@
 			dependencies = (
 			);
 			name = "NStackSDK-tvOS";
+			packageProductDependencies = (
+				0328C75A2875B9880093EE9C /* LocalizationManager */,
+			);
 			productName = "NStackSDK-tvOS";
 			productReference = E3689BE21D9EB9EA004620D6 /* NStackSDK.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1013,6 +1014,9 @@
 				Base,
 			);
 			mainGroup = 30A3D83D1B9DB94100C2D15C;
+			packageReferences = (
+				0328C7572875B9670093EE9C /* XCRemoteSwiftPackageReference "TranslationManager" */,
+			);
 			productRefGroup = 30A3D8481B9DB94100C2D15C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1186,6 +1190,7 @@
 				23442E6D22C6281000F196EE /* ValidationManager.swift in Sources */,
 				01A334841E4F1B43003CE9BA /* Timezone.swift in Sources */,
 				01A3347F1E4F1B43003CE9BA /* Message.swift in Sources */,
+				0328C75E2875BAB70093EE9C /* Feedback.swift in Sources */,
 				8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */,
 				01A334831E4F1B43003CE9BA /* Country.swift in Sources */,
 				01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */,
@@ -1196,10 +1201,10 @@
 				C0D852D1215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */,
 				01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */,
+				0328C75F2875BAFF0093EE9C /* FeedbackManager.swift in Sources */,
 				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
-				8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47522F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -1335,7 +1340,6 @@
 				01A3344E1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
-				8CA9F22B230BDB8B00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47322F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				C0D852E4215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E2230D1FA9F5010013CCC3 /* Continent.swift in Sources */,
@@ -2096,6 +2100,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0328C7572875B9670093EE9C /* XCRemoteSwiftPackageReference "TranslationManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nodes-ios/TranslationManager.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0328C7582875B9670093EE9C /* LocalizationManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0328C7572875B9670093EE9C /* XCRemoteSwiftPackageReference "TranslationManager" */;
+			productName = LocalizationManager;
+		};
+		0328C75A2875B9880093EE9C /* LocalizationManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0328C7572875B9670093EE9C /* XCRemoteSwiftPackageReference "TranslationManager" */;
+			productName = LocalizationManager;
+		};
+		0328C75C2875B98E0093EE9C /* LocalizationManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0328C7572875B9670093EE9C /* XCRemoteSwiftPackageReference "TranslationManager" */;
+			productName = LocalizationManager;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 30A3D83E1B9DB94100C2D15C /* Project object */;
 }

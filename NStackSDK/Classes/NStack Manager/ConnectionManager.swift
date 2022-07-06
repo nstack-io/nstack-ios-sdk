@@ -333,7 +333,8 @@ extension ConnectionManager {
 // MARK: - FeedbackRepository
 extension ConnectionManager {
     
-    #if canImport(UIKit)
+#if canImport(UIKit)
+#if os(iOS)
     private func getPlatform() -> String {
         switch UIDevice.current.systemName.lowercased() {
         case "ios": return "ios"
@@ -370,11 +371,13 @@ extension ConnectionManager {
         }).resume()
     }
     
-    #else
+#else
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {
         fatalError()
     }
-    #endif
+#endif
+#endif
+
 }
 
 
