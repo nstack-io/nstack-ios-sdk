@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "NStackSDK",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v11),
         .macOS(.v10_15),
         .tvOS(.v12),
         .watchOS(.v6),
