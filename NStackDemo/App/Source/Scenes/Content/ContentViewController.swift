@@ -96,7 +96,7 @@ extension ContentViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return availableProducts.count > 0 ? 44.0 : 0
+        return availableProducts.isEmpty ? 0 : 44
     }
 }
 
