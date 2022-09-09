@@ -165,7 +165,14 @@ extension FeedbackViewController {
         guard let version =  Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
             return
         }
-        NStack.sharedInstance.feedbackManager?.provideFeedback(type: feedbackTypes[selectedFeedbackTypeIndex], appVersion: version, message: messageTextView.text, image: imageView.image, name: nameTextField.text, email: emailTextField.text, completion: { (isCompleted) in
+        NStack.sharedInstance.feedbackManager?.provideFeedback(
+            type: feedbackTypes[selectedFeedbackTypeIndex],
+            appVersion: version,
+            message: messageTextView.text,
+            image: imageView.image,
+            name: nameTextField.text,
+            email: emailTextField.text,
+            completion: { (isCompleted) in
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
             }
