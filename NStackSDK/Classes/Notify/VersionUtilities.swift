@@ -8,6 +8,13 @@
 
 import Foundation
 
+#if canImport(LocalizationManager)
+import LocalizationManager
+#endif
+#if canImport(NLocalizationManager)
+import NLocalizationManager
+#endif
+
 enum VersionUtilities {
     internal static var versionOverride: String?
 
@@ -22,21 +29,38 @@ enum VersionUtilities {
 
     static var lastUpdatedIso8601DateString: String {
         get {
-            return UserDefaults.standard.string(forKey: Constants.CacheKeys.lastUpdatedDate) ?? ""
+            return lastUpdatedDate?.iso8601 ?? ""
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: Constants.CacheKeys.lastUpdatedDate)
+            if #available(iOS 10.0, OSX 10.12, *) {
+                if let date = DateFormatter.iso8601.date(from: newValue) {
+                    lastUpdatedDate = date
+                }
+            } else {
+                if let date = DateFormatter.iso8601Fallback.date(from: newValue) {
+                    lastUpdatedDate = date
+                }
+            }
         }
     }
 
     static var lastUpdatedDate: Date? {
         get {
-            return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
+            let timeInterval = UserDefaults.standard.double(forKey: NLocalizationManager.Constants.Keys.lastUpdatedDate)
+            if timeInterval == 0 {
+                return nil
+            }
+            return Date(timeIntervalSince1970: TimeInterval(timeInterval))
         }
         set {
-            if let date = newValue {
-                UserDefaults.standard.setCodable(date, forKey: Constants.CacheKeys.lastUpdatedDate)
+            guard let newValue = newValue else {
+                // Last accept header deleted
+                UserDefaults.standard.removeObject(forKey: NLocalizationManager.Constants.Keys.lastUpdatedDate)
+                return
             }
+            // Last accept header set to: \(newValue).
+            let timeInterval = newValue.timeIntervalSince1970
+            UserDefaults.standard.set(timeInterval, forKey: NLocalizationManager.Constants.Keys.lastUpdatedDate)
         }
     }
 
