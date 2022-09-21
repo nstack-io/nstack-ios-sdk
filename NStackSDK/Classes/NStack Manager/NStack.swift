@@ -29,7 +29,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting localizations.
-    public fileprivate(set) var localizationManager: LocalizationWrappable?
+    public var localizationManager: LocalizationWrappable?
 
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
@@ -149,7 +149,7 @@ public class NStack {
             update()
         }
     }
-    
+
     func setupLocalizations() {
         // Setup localizations
         let manager = LocalizationManager<DefaultLanguage, LocalizationConfig>(
