@@ -6,6 +6,7 @@
 //  Copyright © 2017 Nodes ApS. All rights reserved.
 //
 
+#if os(iOS)
 import Foundation
 import StoreKit
 
@@ -16,3 +17,4 @@ class StoreReviewManager {
         }
     }
 }
+#endif
