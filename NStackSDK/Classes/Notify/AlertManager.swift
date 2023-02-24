@@ -37,7 +37,7 @@ public class AlertManager {
     var alertController: UIAlertController?
     
     public var alreadyShowingAlert: Bool {
-         (UIApplication.shared.currentWindow?.rootViewController?.presentedViewController as? UIAlertController) != nil
+         (UIApplication.shared.currentWindow?.visibleViewController as? UIAlertController) != nil
     }
 
     // FIXME: Refactor
@@ -92,7 +92,7 @@ public class AlertManager {
             alert.addAction(action)
         }
 
-        UIApplication.shared.currentWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
 
     public var requestReview: () -> Void = {
