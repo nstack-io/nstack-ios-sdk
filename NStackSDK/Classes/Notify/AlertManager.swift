@@ -12,6 +12,7 @@ import UIKit
 import StoreKit
 #endif
 
+@available(iOSApplicationExtension, unavailable)
 public class AlertManager {
 
     public enum RateReminderResult: String {
@@ -99,8 +100,14 @@ public class AlertManager {
             alert.addAction(action)
         }
 
-        NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
-        NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        if #available(iOSApplicationExtension 15.0, *) {
+            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            window?.rootViewController?.present(alert, animated: true, completion: nil)
+            return
+        } else {
+            NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
+            NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
 
     public var requestReview: () -> Void = {
