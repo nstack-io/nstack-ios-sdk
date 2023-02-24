@@ -33,8 +33,6 @@ public class AlertManager {
 
 #if os(tvOS) || os(iOS)
     let repository: VersionsRepository
-
-    var alertController: UIAlertController?
     
     public var alreadyShowingAlert: Bool {
          (UIApplication.shared.currentWindow?.visibleViewController as? UIAlertController) != nil
