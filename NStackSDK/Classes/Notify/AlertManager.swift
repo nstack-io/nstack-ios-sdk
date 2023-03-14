@@ -32,10 +32,18 @@ public class AlertManager {
     }
 
 #if os(tvOS) || os(iOS)
+    
+    //used to determine nstack alerts from other views
+    static let nstackAlertTag: Int = 21149836
     let repository: VersionsRepository
     
     public var alreadyShowingAlert: Bool {
-         (UIApplication.shared.currentWindow?.visibleViewController as? UIAlertController) != nil
+        if let alertController =
+            UIApplication.shared.currentWindow?.visibleViewController as? UIAlertController {
+            return alertController.view.tag == AlertManager.nstackAlertTag
+        } else {
+            return false
+        }
     }
 
     // FIXME: Refactor
@@ -89,7 +97,7 @@ public class AlertManager {
         for action in actions {
             alert.addAction(action)
         }
-
+        alert.view.tag = AlertManager.nstackAlertTag
         UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
 
