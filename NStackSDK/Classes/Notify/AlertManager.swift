@@ -12,6 +12,7 @@ import UIKit
 import StoreKit
 #endif
 
+fileprivate class NStackAlertController: UIAlertController {}
 @available(iOSApplicationExtension, unavailable)
 public class AlertManager {
 
@@ -33,17 +34,10 @@ public class AlertManager {
 
 #if os(tvOS) || os(iOS)
     
-    //used to determine nstack alerts from other views
-    static let nstackAlertTag: Int = 21149836
     let repository: VersionsRepository
     
     public var alreadyShowingAlert: Bool {
-        if let alertController =
-            UIApplication.shared.currentWindow?.visibleViewController as? UIAlertController {
-            return alertController.view.tag == AlertManager.nstackAlertTag
-        } else {
-            return false
-        }
+        (UIApplication.shared.currentWindow?.visibleViewController as? NStackAlertController) != nil
     }
 
     // FIXME: Refactor
@@ -93,11 +87,10 @@ public class AlertManager {
             }))
         }
 
-        let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
+        let alert = NStackAlertController(title: header, message: message, preferredStyle: .alert)
         for action in actions {
             alert.addAction(action)
         }
-        alert.view.tag = AlertManager.nstackAlertTag
         UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
 
