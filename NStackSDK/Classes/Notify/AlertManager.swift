@@ -12,6 +12,8 @@ import UIKit
 import StoreKit
 #endif
 
+fileprivate class NStackAlertController: UIAlertController {}
+@available(iOSApplicationExtension, unavailable)
 public class AlertManager {
 
     public enum RateReminderResult: String {
@@ -31,12 +33,11 @@ public class AlertManager {
     }
 
 #if os(tvOS) || os(iOS)
+    
     let repository: VersionsRepository
-
-    var alertWindow = UIWindow(frame: UIScreen.main.bounds)
-
+    
     public var alreadyShowingAlert: Bool {
-        return !alertWindow.isHidden
+        (UIApplication.shared.currentWindow?.visibleViewController as? NStackAlertController) != nil
     }
 
     // FIXME: Refactor
@@ -55,13 +56,11 @@ public class AlertManager {
             message = String(NSString(format: text as NSString))
             if let dismissText = dismissText {
                 actions.append(UIAlertAction(title: dismissText, style: .default, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
                     completion(false)
                 }))
             }
 
             actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion(true)
             }))
 
@@ -69,7 +68,6 @@ public class AlertManager {
             header = title
             message = text
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion()
             }))
 
@@ -80,27 +78,20 @@ public class AlertManager {
             if let url = url, !openButtonText.isEmpty {
                 actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
                     UIApplication.safeSharedApplication()?.safeOpenURL(url)
-
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-
                     completion()
                 }))
             }
 
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
-
                 completion()
             }))
         }
 
-        let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
+        let alert = NStackAlertController(title: header, message: message, preferredStyle: .alert)
         for action in actions {
             alert.addAction(action)
         }
-
-        NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
-        NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
 
     public var requestReview: () -> Void = {
@@ -115,12 +106,6 @@ public class AlertManager {
 
     init(repository: VersionsRepository) {
         self.repository = repository
-        self.alertWindow.windowLevel = UIWindow.Level.alert + 1
-        self.alertWindow.rootViewController = UIViewController()
-    }
-
-    public func hideAlertWindow() {
-        alertWindow.isHidden = true
     }
 
     internal func showUpdateAlert(newVersion version: Update.Version) {
