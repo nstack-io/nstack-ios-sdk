@@ -117,5 +117,3 @@ public protocol RateReminderRepository {
     func logReviewPromptResponse(reminderId: String,
                                  response: RateReminderResponse)
 }
-
-

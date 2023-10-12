@@ -11,4 +11,9 @@ import Foundation
 public struct RateReminderLogEventResponse: Codable {
     public var guid: String
     public var points: Int
+    
+    public init(guid: String, points: Int) {
+        self.guid = guid
+        self.points = points
+    }
 }
