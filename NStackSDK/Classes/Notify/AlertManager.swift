@@ -12,6 +12,8 @@ import UIKit
 import StoreKit
 #endif
 
+fileprivate class NStackAlertController: UIAlertController {}
+@available(iOSApplicationExtension, unavailable)
 public class AlertManager {
     
     public enum RateReminderResult_v1: String {
@@ -41,88 +43,76 @@ public class AlertManager {
     var alertWindow = UIWindow(frame: UIScreen.main.bounds)
     
     public var alreadyShowingAlert: Bool {
-        return !alertWindow.isHidden
+        (UIApplication.shared.currentWindow?.visibleViewController as? NStackAlertController) != nil
     }
     
     // FIXME: Refactor
     public var showAlertBlock: (_ alertType: AlertType) -> Void = { alertType in
-        DispatchQueue.main.async {
-            guard !NStack.sharedInstance.alertManager.alreadyShowingAlert else {
-                return
-            }
-            
-            var header: String?
-            var message: String?
-            var actions = [UIAlertAction]()
-            
-            switch alertType {
-            case let .updateAlert(title, text, dismissText, appStoreText, completion):
-                header = title
-                message = String(NSString(format: text as NSString))
-                if let dismissText = dismissText {
-                    actions.append(UIAlertAction(title: dismissText, style: .default, handler: { _ in
-                        NStack.sharedInstance.alertManager.hideAlertWindow()
-                        completion(false)
-                    }))
-                }
-                
-                actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    completion(true)
-                }))
-                
-            case let .whatsNewAlert(title, text, dismissButtonText, completion):
-                header = title
-                message = text
-                actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    completion()
-                }))
-                
-            case let .message(text, url, dismissButtonText, openButtonText, completion):
-                message = text
-                
-                // Add Open URL button to alert if url's present
-                if let url = url, !openButtonText.isEmpty {
-                    actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
-                        UIApplication.safeSharedApplication()?.safeOpenURL(url)
-                        
-                        NStack.sharedInstance.alertManager.hideAlertWindow()
-                        
-                        completion()
-                    }))
-                }
-                
-                actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    
-                    completion()
-                }))
-            case .rateReminder(let title, let body, let positiveButtonText, let negativeButtonText, let skipButtonText, let completion):
-                header = title
-                message = body
-                actions.append(UIAlertAction(title: positiveButtonText, style: .default, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    completion(.positive)
-                }))
-                actions.append(UIAlertAction(title: negativeButtonText, style: .default, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    completion(.negative)
-                }))
-                actions.append(UIAlertAction(title: skipButtonText, style: .cancel, handler: { _ in
-                    NStack.sharedInstance.alertManager.hideAlertWindow()
-                    completion(.skip)
-                }))
-            }
-            
-            let alert = UIAlertController(title: header, message: message, preferredStyle: .alert)
-            for action in actions {
-                alert.addAction(action)
-            }
-            
-            NStack.sharedInstance.alertManager.alertWindow.makeKeyAndVisible()
-            NStack.sharedInstance.alertManager.alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+        guard !NStack.sharedInstance.alertManager.alreadyShowingAlert else {
+            return
         }
+
+        var header: String?
+        var message: String?
+        var actions = [UIAlertAction]()
+
+        switch alertType {
+        case let .updateAlert(title, text, dismissText, appStoreText, completion):
+            header = title
+            message = String(NSString(format: text as NSString))
+            if let dismissText = dismissText {
+                actions.append(UIAlertAction(title: dismissText, style: .default, handler: { _ in
+                    completion(false)
+                }))
+            }
+
+            actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
+                completion(true)
+            }))
+
+        case let .whatsNewAlert(title, text, dismissButtonText, completion):
+            header = title
+            message = text
+            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
+                completion()
+            }))
+
+        case let .message(text, url, dismissButtonText, openButtonText, completion):
+            message = text
+
+            // Add Open URL button to alert if url's present
+            if let url = url, !openButtonText.isEmpty {
+                actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
+                    UIApplication.safeSharedApplication()?.safeOpenURL(url)
+                    completion()
+                }))
+            }
+
+            actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
+                completion()
+            }))
+        case .rateReminder(let title, let body, let positiveButtonText, let negativeButtonText, let skipButtonText, let completion):
+            header = title
+            message = body
+            actions.append(UIAlertAction(title: positiveButtonText, style: .default, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.positive)
+            }))
+            actions.append(UIAlertAction(title: negativeButtonText, style: .default, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.negative)
+            }))
+            actions.append(UIAlertAction(title: skipButtonText, style: .cancel, handler: { _ in
+                NStack.sharedInstance.alertManager.hideAlertWindow()
+                completion(.skip)
+            }))
+        }
+
+        let alert = NStackAlertController(title: header, message: message, preferredStyle: .alert)
+        for action in actions {
+            alert.addAction(action)
+        }
+        UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
     
     public var requestAppStoreReview: () -> Void = {
