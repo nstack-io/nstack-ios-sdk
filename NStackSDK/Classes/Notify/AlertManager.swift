@@ -15,23 +15,28 @@ import StoreKit
 fileprivate class NStackAlertController: UIAlertController {}
 @available(iOSApplicationExtension, unavailable)
 public class AlertManager {
-
-    public enum RateReminderResult: String {
+    
+    public enum RateReminderResult_v1: String {
         case rate = "yes"
         case later = "later"
         case never = "no"
     }
-
+    
     public enum AlertType {
         case updateAlert(title: String,
-                        text: String,
-                        dismissButtonText: String?,
-                        appStoreButtonText: String,
-                        completion:(_ didPressAppStore: Bool) -> Void)
+                         text: String,
+                         dismissButtonText: String?,
+                         appStoreButtonText: String,
+                         completion:(_ didPressAppStore: Bool) -> Void)
         case whatsNewAlert(title: String, text: String, dismissButtonText: String, completion: () -> Void)
         case message(text: String, url: URL?, dismissButtonText: String, openButtonText: String, completion: () -> Void)
+        case rateReminder(title: String, body: String,
+                          positiveButtonText: String,
+                          negativeButtonText: String,
+                          skipButtonText: String,
+                          completion: (RateReminderResponse) -> Void)
     }
-
+    
 #if os(tvOS) || os(iOS)
     
     let repository: VersionsRepository
@@ -39,17 +44,17 @@ public class AlertManager {
     public var alreadyShowingAlert: Bool {
         (UIApplication.shared.currentWindow?.visibleViewController as? NStackAlertController) != nil
     }
-
+    
     // FIXME: Refactor
     public var showAlertBlock: (_ alertType: AlertType) -> Void = { alertType in
         guard !NStack.sharedInstance.alertManager.alreadyShowingAlert else {
             return
         }
-
+        
         var header: String?
         var message: String?
         var actions = [UIAlertAction]()
-
+        
         switch alertType {
         case let .updateAlert(title, text, dismissText, appStoreText, completion):
             header = title
@@ -59,21 +64,21 @@ public class AlertManager {
                     completion(false)
                 }))
             }
-
+            
             actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
                 completion(true)
             }))
-
+            
         case let .whatsNewAlert(title, text, dismissButtonText, completion):
             header = title
             message = text
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 completion()
             }))
-
+            
         case let .message(text, url, dismissButtonText, openButtonText, completion):
             message = text
-
+            
             // Add Open URL button to alert if url's present
             if let url = url, !openButtonText.isEmpty {
                 actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
@@ -81,35 +86,47 @@ public class AlertManager {
                     completion()
                 }))
             }
-
+            
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 completion()
             }))
+        case .rateReminder(let title, let body, let positiveButtonText, let negativeButtonText, let skipButtonText, let completion):
+            header = title
+            message = body
+            actions.append(UIAlertAction(title: positiveButtonText, style: .default, handler: { _ in
+                completion(.positive)
+            }))
+            actions.append(UIAlertAction(title: negativeButtonText, style: .default, handler: { _ in
+                completion(.negative)
+            }))
+            actions.append(UIAlertAction(title: skipButtonText, style: .cancel, handler: { _ in
+                completion(.skip)
+            }))
         }
-
+        
         let alert = NStackAlertController(title: header, message: message, preferredStyle: .alert)
         for action in actions {
             alert.addAction(action)
         }
         UIApplication.shared.currentWindow?.visibleViewController?.present(alert, animated: true, completion: nil)
     }
-
-    public var requestReview: () -> Void = {
+    
+    public var requestAppStoreReview: () -> Void = {
         if #available(iOSApplicationExtension 10.3, *) {
-            #if os(iOS)
+#if os(iOS)
             SKStoreReviewController.requestReview()
-            #endif
+#endif
         }
     }
-
+    
     // MARK: - Lifecyle -
-
+    
     init(repository: VersionsRepository) {
         self.repository = repository
     }
-
+    
     internal func showUpdateAlert(newVersion version: Update.Version) {
-
+        
         let appStoreCompletion = { (didPressAppStore: Bool) -> Void in
             if didPressAppStore {
                 if let link = version.link {
@@ -117,9 +134,9 @@ public class AlertManager {
                 }
             }
         }
-
+        
         let alertType: AlertType
-
+        
         switch version.state {
         case .force:
             alertType = AlertType.updateAlert(title: version.localizations.title,
@@ -136,10 +153,10 @@ public class AlertManager {
         case .disabled:
             return
         }
-
+        
         self.showAlertBlock(alertType)
     }
-
+    
     internal func showWhatsNewAlert(_ changeLog: Update.Changelog) {
         guard let localizations = changeLog.localizations else { return }
         let alertType = AlertType.whatsNewAlert(title: localizations.title,
@@ -147,10 +164,10 @@ public class AlertManager {
                                                 dismissButtonText: "Ok") {
             self.repository.markWhatsNewAsSeen(changeLog.lastId)
         }
-
+        
         showAlertBlock(alertType)
     }
-
+    
     internal func showMessage(_ message: Message) {
         let alertType = AlertType.message(
             text: message.message,
@@ -158,16 +175,28 @@ public class AlertManager {
             dismissButtonText: message.localization?["okBtn"] ?? "Ok",
             openButtonText: message.localization?["urlBtn"] ?? "Open URL") {
                 self.repository.markMessageAsRead(message.id)
-        }
-
+            }
+        
         showAlertBlock(alertType)
     }
-
-    internal func showRateReminder(_ rateReminder: RateReminder) {
-        self.requestReview()
-        if let result = AlertManager.RateReminderResult(rawValue: "yes") {
+    
+    internal func showRateReminderV1(_ rateReminder: RateReminder) {
+        self.requestAppStoreReview()
+        if let result = AlertManager.RateReminderResult_v1(rawValue: "yes") {
             self.repository.markRateReminderAsSeen(result)
         }
+    }
+    
+    internal func showRateReminderCheck(_ model: RateReminderAlertModel,
+                                        completion: @escaping ((RateReminderResponse) -> Void)) {
+        let localizations = model.localization
+        let alertType = AlertType.rateReminder(title: localizations.title,
+                                               body: localizations.body,
+                                               positiveButtonText: localizations.yesBtn,
+                                               negativeButtonText: localizations.noBtn,
+                                               skipButtonText: localizations.laterBtn,
+                                               completion: completion)
+        showAlertBlock(alertType)
     }
 #endif
 }

@@ -78,6 +78,14 @@
 		01FC66791DFAD905001682AA /* BundleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FC66781DFAD905001682AA /* BundleMock.swift */; };
 		01FC667B1DFADC35001682AA /* InvalidTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667A1DFADC35001682AA /* InvalidTranslations.json */; };
 		01FC667D1DFADEC5001682AA /* WrongTypeTranslations.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */; };
+		23321C1927907835008D811E /* RateReminderAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C1827907835008D811E /* RateReminderAlertModel.swift */; };
+		23321C1A27907835008D811E /* RateReminderAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C1827907835008D811E /* RateReminderAlertModel.swift */; };
+		23321C1B27907835008D811E /* RateReminderAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C1827907835008D811E /* RateReminderAlertModel.swift */; };
+		23321C1C27907835008D811E /* RateReminderAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C1827907835008D811E /* RateReminderAlertModel.swift */; };
+		23321C3D2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */; };
+		23321C3E2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */; };
+		23321C3F2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */; };
+		23321C402790930D008D811E /* RateReminderLogEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */; };
 		23442E6222C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6322C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
 		23442E6422C6281000F196EE /* GeographyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23442E5F22C6281000F196EE /* GeographyManager.swift */; };
@@ -93,6 +101,10 @@
 		2346FDA2233B6BC40025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		2346FDA3233B6C680025B68D /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 2346FD6D233B65400025B68D /* Countries.json */; };
 		2909463824211DEF00BA254F /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF623FFECE500CE8483 /* LocalizationManager.framework */; };
+		238758F1278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
+		238758F2278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
+		238758F3278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
+		238758F4278EF4A700675356 /* RateReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238758F0278EF4A700675356 /* RateReminderManager.swift */; };
 		29A72DF023FFEC9600CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */; };
 		29A72DF323FFECD700CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DF223FFECD700CE8483 /* LocalizationManager.framework */; };
 		29A72DFB23FFECED00CE8483 /* LocalizationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A72DFA23FFECED00CE8483 /* LocalizationManager.framework */; };
@@ -319,10 +331,13 @@
 		01FC66781DFAD905001682AA /* BundleMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMock.swift; sourceTree = "<group>"; };
 		01FC667A1DFADC35001682AA /* InvalidTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvalidTranslations.json; sourceTree = "<group>"; };
 		01FC667C1DFADEC5001682AA /* WrongTypeTranslations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WrongTypeTranslations.json; sourceTree = "<group>"; };
+		23321C1827907835008D811E /* RateReminderAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateReminderAlertModel.swift; sourceTree = "<group>"; };
+		23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateReminderLogEventResponse.swift; sourceTree = "<group>"; };
 		23442E5F22C6281000F196EE /* GeographyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeographyManager.swift; path = Classes/Managers/GeographyManager.swift; sourceTree = "<group>"; };
 		23442E6022C6281000F196EE /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = Classes/Managers/ContentManager.swift; sourceTree = "<group>"; };
 		23442E6122C6281000F196EE /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationManager.swift; path = Classes/Managers/ValidationManager.swift; sourceTree = "<group>"; };
 		2346FD6D233B65400025B68D /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
+		238758F0278EF4A700675356 /* RateReminderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateReminderManager.swift; sourceTree = "<group>"; };
 		23BD95C222CD00DB001759CE /* AppOpenMockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenMockRepository.swift; sourceTree = "<group>"; };
 		29A72DEF23FFEC9600CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/Mac/LocalizationManager.framework; sourceTree = "<group>"; };
 		29A72DF223FFECD700CE8483 /* LocalizationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalizationManager.framework; path = Carthage/Build/iOS/LocalizationManager.framework; sourceTree = "<group>"; };
@@ -557,6 +572,7 @@
 				23442E5F22C6281000F196EE /* GeographyManager.swift */,
 				23442E6122C6281000F196EE /* ValidationManager.swift */,
 				A53B7D2A236B352300673DB6 /* FeedbackManager.swift */,
+				238758F0278EF4A700675356 /* RateReminderManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -601,6 +617,8 @@
 				8C26C47122F4085D00170071 /* LocalizationItemProposal.swift */,
 				A53B7D28236B244A00673DB6 /* Feedback.swift */,
 				29A72DFE24000DFD00CE8483 /* LocalizationConfig.swift */,
+				23321C1827907835008D811E /* RateReminderAlertModel.swift */,
+				23321C3C2790930D008D811E /* RateReminderLogEventResponse.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -962,7 +980,7 @@
 		30A3D83E1B9DB94100C2D15C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Nodes ApS";
 				TargetAttributes = {
@@ -1189,6 +1207,7 @@
 				8CA9F230230BDB9700CF8065 /* SectionKeyHelper.swift in Sources */,
 				01A334831E4F1B43003CE9BA /* Country.swift in Sources */,
 				01A334871E4F1B47003CE9BA /* APIConfiguration.swift in Sources */,
+				23321C1C27907835008D811E /* RateReminderAlertModel.swift in Sources */,
 				01A334851E4F1B43003CE9BA /* Configuration.swift in Sources */,
 				8C9BA2E022EEFFF00057BAEF /* Operator.swift in Sources */,
 				01A334801E4F1B43003CE9BA /* Update.swift in Sources */,
@@ -1197,10 +1216,12 @@
 				01A334951E4F1B5E003CE9BA /* Extensions.swift in Sources */,
 				01A3347C1E4F1B43003CE9BA /* AppOpenResponse.swift in Sources */,
 				01A3347D1E4F1B43003CE9BA /* LanguageData.swift in Sources */,
+				23321C402790930D008D811E /* RateReminderLogEventResponse.swift in Sources */,
 				C0D852EB215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E722EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
 				8CA9F22D230BDB8C00CF8065 /* AppOpenMockRepository.swift in Sources */,
 				8C26C47522F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
+				238758F4278EF4A700675356 /* RateReminderManager.swift in Sources */,
 				C0D852E6215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				33E223111FA9F5010013CCC3 /* Continent.swift in Sources */,
 				8C80D0FA22F066AC00165F5D /* Proposal.swift in Sources */,
@@ -1235,6 +1256,7 @@
 				A83A13EA22F05A3A002A7682 /* UILabel+NstackLocalizable.swift in Sources */,
 				01F4C6681DFF14690050D0F1 /* Logger.swift in Sources */,
 				A83A13EC22F05A59002A7682 /* UIButton+NStackLocalizable.swift in Sources */,
+				23321C3D2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */,
 				29A72DFF24000DFD00CE8483 /* LocalizationConfig.swift in Sources */,
 				305112721BD676DF005578DE /* VersionUtilities.swift in Sources */,
 				A864BBEC22F31AD200CC2BFF /* LocalizationItemIdentifier.swift in Sources */,
@@ -1250,6 +1272,7 @@
 				A53B7D29236B244A00673DB6 /* Feedback.swift in Sources */,
 				A53B7D2B236B352300673DB6 /* FeedbackManager.swift in Sources */,
 				CEFB1F8B1F56BC6C0001D227 /* StoreReviewManager.swift in Sources */,
+				23321C1927907835008D811E /* RateReminderAlertModel.swift in Sources */,
 				01814A2C1D6209F40053E804 /* LocalizationsResponse.swift in Sources */,
 				01F4C6691DFF14690050D0F1 /* LogLevel.swift in Sources */,
 				304C42821BA0745500AE3D6F /* AppOpenData.swift in Sources */,
@@ -1261,6 +1284,7 @@
 				A829DC3E22F962210005580E /* ProposalProtocols.swift in Sources */,
 				01503A2C1DF1DD1500B521CF /* APIConfiguration.swift in Sources */,
 				8C80D0F722F066AC00165F5D /* Proposal.swift in Sources */,
+				238758F1278EF4A700675356 /* RateReminderManager.swift in Sources */,
 				3027B2C11BBAE34D00C2F4FB /* ConnectionManager.swift in Sources */,
 				82CB554C1C8DEAC200389D2B /* LanguageData.swift in Sources */,
 				A56CF5C0236B429800238A1F /* UIDevice+ModelType.swift in Sources */,
@@ -1293,6 +1317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3689BFF1D9EBA54004620D6 /* AppOpenResponse.swift in Sources */,
+				238758F2278EF4A700675356 /* RateReminderManager.swift in Sources */,
 				E3689C001D9EBA54004620D6 /* LanguageData.swift in Sources */,
 				C4A2EC3D2418FFEC00CD9724 /* Feedback.swift in Sources */,
 				8CA9F228230BDB7100CF8065 /* LocalizationItemIdentifier.swift in Sources */,
@@ -1316,6 +1341,7 @@
 				23442E6322C6281000F196EE /* GeographyManager.swift in Sources */,
 				01BBEFAE1DE0FC66003AC718 /* Country.swift in Sources */,
 				C4A2EC3F2418FFF800CD9724 /* MultipartBuilder.swift in Sources */,
+				23321C1A27907835008D811E /* RateReminderAlertModel.swift in Sources */,
 				E3689C061D9EBA54004620D6 /* Configuration.swift in Sources */,
 				83E20E4422D75B35006D5BEF /* N-Meta.swift in Sources */,
 				23442E6B22C6281000F196EE /* ValidationManager.swift in Sources */,
@@ -1332,6 +1358,7 @@
 				E3689C0D1D9EBA54004620D6 /* VersionUtilities.swift in Sources */,
 				C0D852CF215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
 				01A3344B1E4E825E003CE9BA /* Constants.swift in Sources */,
+				23321C3E2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */,
 				01A3344E1E4E825E003CE9BA /* Extensions.swift in Sources */,
 				C0D852E9215A596D0090B7C5 /* HTTPStatusCode.swift in Sources */,
 				8C9BA2E522EF27E70057BAEF /* LocalizationWrapper.swift in Sources */,
@@ -1386,10 +1413,12 @@
 				23442E6422C6281000F196EE /* GeographyManager.swift in Sources */,
 				E3B654AE1E0056F300FC9380 /* ConnectionManager.swift in Sources */,
 				C469F14F22FC3A65002F9FDF /* PropertyWrapper.swift in Sources */,
+				23321C1B27907835008D811E /* RateReminderAlertModel.swift in Sources */,
 				E3B654AF1E0056F300FC9380 /* NStack.swift in Sources */,
 				E3B654B01E0056F300FC9380 /* ApplicationObserver.swift in Sources */,
 				C0D852E5215A42EE0090B7C5 /* URLSession+Request.swift in Sources */,
 				C0D852F4215A77AA0090B7C5 /* UserDefaults+Codable.swift in Sources */,
+				23321C3F2790930D008D811E /* RateReminderLogEventResponse.swift in Sources */,
 				23442E6822C6281000F196EE /* ContentManager.swift in Sources */,
 				E3B654B11E0056F300FC9380 /* NStackError.swift in Sources */,
 				C0D852D0215A2C390090B7C5 /* Codable+Dictionary.swift in Sources */,
@@ -1398,6 +1427,7 @@
 				8C26C47422F4085D00170071 /* LocalizationItemProposal.swift in Sources */,
 				E3B654B21E0056F300FC9380 /* AlertManager.swift in Sources */,
 				E3B654B31E0056F300FC9380 /* VersionUtilities.swift in Sources */,
+				238758F3278EF4A700675356 /* RateReminderManager.swift in Sources */,
 				E3B654B71E0056F300FC9380 /* Logger.swift in Sources */,
 				E3B654B81E0056F300FC9380 /* LogLevel.swift in Sources */,
 				01A3344C1E4E825E003CE9BA /* Constants.swift in Sources */,

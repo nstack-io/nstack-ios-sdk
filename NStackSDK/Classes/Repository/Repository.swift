@@ -36,7 +36,8 @@ typealias Repository =
     LocalizationRepository &
     LocalizationContextRepository &
     ProposalsRepository &
-    FeedbackRepository
+    FeedbackRepository &
+    RateReminderRepository
 
 // MARK: - App Open -
 
@@ -90,7 +91,7 @@ protocol VersionsRepository {
     func markMessageAsRead(_ id: Int)
 
     #if os(iOS) || os(tvOS)
-    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult)
+    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult_v1)
     #endif
 }
 
@@ -108,4 +109,11 @@ public protocol FeedbackRepository {
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>)
 }
 
+// MARK: - Rate Reminder -
 
+public protocol RateReminderRepository {
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>)
+    func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>)
+    func logReviewPromptResponse(reminderId: String,
+                                 response: RateReminderResponse)
+}

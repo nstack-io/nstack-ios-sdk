@@ -216,7 +216,7 @@ extension ConnectionManager {
     }
 
     #if os(iOS) || os(tvOS)
-    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {
+    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult_v1) {
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
@@ -377,4 +377,41 @@ extension ConnectionManager {
     #endif
 }
 
+// MARK: - FeedbackRepository
+extension ConnectionManager {
+    
+
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid,
+            "action": action.actionString
+        ]
+
+        let url = baseURLv2 + "notify/rate_reminder_v2/events"
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, convertFromSnakeCase: false, completionHandler: completion)
+    }
+    
+    func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid
+        ]
+        let url = baseURLv2 + "notify/rate_reminder_v2"
+        let request = session.request(url, method: .get, parameters: params, headers: defaultHeaders)
+        session.startDataTask(with: request, wrapperType: DataModel.self, completionHandler: completion)
+    }
+    
+    func logReviewPromptResponse(reminderId: String,
+                                 response: RateReminderResponse) {
+        let params: [String: Any] = [
+            "guid": Configuration.guid,
+            "answer": response.rawValue
+        ]
+
+        let url = baseURLv2 + "notify/rate_reminder_v2/\(reminderId)/answers"
+        let request = session.request(url, method: .post, parameters: params, headers: defaultHeaders)
+        session.dataTask(with: request).resume()
+    }
+
+}
 
