@@ -8,7 +8,7 @@
 
 import Foundation
 
-#if canImport(UIKit)
+#if os(iOS)
 class ProposalInteractor {
     // MARK: - Properties
     weak var output: ProposalInteractorOutput?

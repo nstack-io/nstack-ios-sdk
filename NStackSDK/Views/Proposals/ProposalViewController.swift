@@ -5,7 +5,7 @@
 //  Created by Nicolai Harbo on 02/08/2019.
 //  Copyright © 2019 Nodes ApS. All rights reserved.
 //
-#if canImport(UIKit)
+#if os(iOS)
 import UIKit
 
 class ProposalViewController: UIViewController {
@@ -33,7 +33,7 @@ class ProposalViewController: UIViewController {
             tableView.backgroundColor = .white
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.separatorStyle = .none
+//            tableView.separatorStyle = .none
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "proposalCell")
             view.addSubview(tableView)
 
@@ -80,6 +80,7 @@ extension ProposalViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Swipe actions for +iOS 11
     @available(iOSApplicationExtension 11.0, *)
+    @available(iOS 11, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = setupAction(forRowAt: indexPath)
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])

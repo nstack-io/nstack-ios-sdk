@@ -10,6 +10,9 @@ import Foundation
 
 #if canImport(UIKit)
 import UIKit
+#endif
+
+#if os(iOS) || os(tvOS)
 
 extension UIApplication {
     class func safeSharedApplication() -> UIApplication? {

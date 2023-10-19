@@ -8,7 +8,7 @@
 
 import Foundation
 
-#if canImport(UIKit)
+#if os(iOS)
 class ProposalPresenter {
     // MARK: - Properties
     let interactor: ProposalInteractorInput

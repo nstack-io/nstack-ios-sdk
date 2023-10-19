@@ -27,7 +27,7 @@ let package = Package(
         .target(
             name: "NStackSDK",
             dependencies: [
-                .product(name: "LocalizationManager", package: "LocalizationManager", condition: .when(platforms: [.iOS])),
+                .product(name: "LocalizationManager", package: "LocalizationManager", condition: .when(platforms: [.iOS, .tvOS])),
             ],
             path: "NStackSDK",
             exclude: ["APIFeedbackManager.swift", "Info.plist"],
