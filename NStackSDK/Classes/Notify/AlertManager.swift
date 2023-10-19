@@ -38,9 +38,8 @@ public class AlertManager {
     }
     
 #if os(tvOS) || os(iOS)
-    let repository: VersionsRepository
     
-    var alertWindow = UIWindow(frame: UIScreen.main.bounds)
+    let repository: VersionsRepository
     
     public var alreadyShowingAlert: Bool {
         (UIApplication.shared.currentWindow?.visibleViewController as? NStackAlertController) != nil
@@ -51,11 +50,11 @@ public class AlertManager {
         guard !NStack.sharedInstance.alertManager.alreadyShowingAlert else {
             return
         }
-
+        
         var header: String?
         var message: String?
         var actions = [UIAlertAction]()
-
+        
         switch alertType {
         case let .updateAlert(title, text, dismissText, appStoreText, completion):
             header = title
@@ -65,21 +64,21 @@ public class AlertManager {
                     completion(false)
                 }))
             }
-
+            
             actions.append(UIAlertAction(title: appStoreText, style: .default, handler: { _ in
                 completion(true)
             }))
-
+            
         case let .whatsNewAlert(title, text, dismissButtonText, completion):
             header = title
             message = text
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 completion()
             }))
-
+            
         case let .message(text, url, dismissButtonText, openButtonText, completion):
             message = text
-
+            
             // Add Open URL button to alert if url's present
             if let url = url, !openButtonText.isEmpty {
                 actions.append(UIAlertAction(title: openButtonText, style: .default, handler: { _ in
@@ -87,7 +86,7 @@ public class AlertManager {
                     completion()
                 }))
             }
-
+            
             actions.append(UIAlertAction(title: dismissButtonText, style: .cancel, handler: { _ in
                 completion()
             }))
@@ -95,19 +94,16 @@ public class AlertManager {
             header = title
             message = body
             actions.append(UIAlertAction(title: positiveButtonText, style: .default, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion(.positive)
             }))
             actions.append(UIAlertAction(title: negativeButtonText, style: .default, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion(.negative)
             }))
             actions.append(UIAlertAction(title: skipButtonText, style: .cancel, handler: { _ in
-                NStack.sharedInstance.alertManager.hideAlertWindow()
                 completion(.skip)
             }))
         }
-
+        
         let alert = NStackAlertController(title: header, message: message, preferredStyle: .alert)
         for action in actions {
             alert.addAction(action)
@@ -127,14 +123,6 @@ public class AlertManager {
     
     init(repository: VersionsRepository) {
         self.repository = repository
-        self.alertWindow.windowLevel = UIWindow.Level.alert + 1
-        self.alertWindow.rootViewController = UIViewController()
-    }
-    
-    public func hideAlertWindow() {
-        DispatchQueue.main.async {
-            self.alertWindow.isHidden = true
-        }
     }
     
     internal func showUpdateAlert(newVersion version: Update.Version) {
