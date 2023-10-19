@@ -129,7 +129,7 @@ extension LocalizationWrapper: LocalizationWrappable {
         do {
             return try manager.localization()
         } catch {
-            fatalError("no localization found")
+            fatalError("No localizations found. Please check Localization JSON files are available in required targets.")
         }
     }
 
