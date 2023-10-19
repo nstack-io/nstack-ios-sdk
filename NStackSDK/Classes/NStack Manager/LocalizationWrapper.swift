@@ -49,6 +49,8 @@ public protocol LocalizationWrappable {
 
     var bestFitLanguage: DefaultLanguage? { get }
     var languageOverride: Locale? { get }
+    var lastUpdatedDate: Date? { get set }
+
 
     func localization<L: LocalizableModel>() throws -> L
     func fetchAvailableLanguages(completion: @escaping (([DefaultLanguage]) -> Void))
@@ -86,6 +88,15 @@ extension LocalizationWrapper: LocalizationWrappable {
 
     public var bestFitLanguage: DefaultLanguage? {
         return localizationManager?.bestFitLanguage
+    }
+    
+    public var lastUpdatedDate: Date? {
+        get {
+            return localizationManager?.lastUpdatedDate
+        }
+        set {
+            localizationManager?.lastUpdatedDate = newValue
+        }
     }
 
     public func fetchAvailableLanguages(completion: @escaping (([DefaultLanguage]) -> Void)) {

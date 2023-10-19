@@ -31,6 +31,20 @@ extension UIApplication {
             return
         }
     }
+    
+    public var currentWindow: UIWindow? {
+        if #available(iOS 13.0, *) {
+            let connectedScenes = UIApplication.shared.connectedScenes
+                .filter { $0.activationState == .foregroundActive }
+                .compactMap { $0 as? UIWindowScene }
+            let currentWindow = connectedScenes.first?
+                .windows
+                .first { $0.isKeyWindow }
+            return currentWindow
+        } else {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        }
+    }
 }
 
 #endif

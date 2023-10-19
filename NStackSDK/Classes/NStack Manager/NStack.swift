@@ -29,7 +29,7 @@ public class NStack {
     public fileprivate(set) var configuration: Configuration!
 
     /// The manager responsible for fetching, updating and persisting localizations.
-    public fileprivate(set) var localizationManager: LocalizationWrappable?
+    public var localizationManager: LocalizationWrappable?
 
     /// The manager responsible for fetching Country, Continent, Language & Timezone configurations
     public fileprivate(set) var geographyManager: GeographyManager?
@@ -46,6 +46,9 @@ public class NStack {
     #if os(iOS) || os(tvOS)
     /// The manager responsible for handling and showing version alerts and messages.
     public fileprivate(set) var alertManager: AlertManager!
+    
+    /// The manager responsible for logging rate reminder actions and checking if we should show rate prompts
+    public fileprivate(set) var rateReminderManager: RateReminderManager!
     #endif
 
     /// This gets called when the phone language has changed while app is running.
@@ -137,6 +140,8 @@ public class NStack {
         #if os(iOS) || os(tvOS)
         // Setup alert manager
         alertManager = AlertManager(repository: repository)
+        rateReminderManager = RateReminderManager(repository: repository,
+                                                  alertManager: alertManager)
         #endif
 
         //sets up localization manager
@@ -226,7 +231,7 @@ public class NStack {
                         } else if let message = appOpenResponseData.message {
                             self.alertManager.showMessage(message)
                         } else if let rateReminder = appOpenResponseData.rateReminder {
-                            self.alertManager.showRateReminder(rateReminder)
+                            self.alertManager.showRateReminderV1(rateReminder)
                         }
 
                         VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion

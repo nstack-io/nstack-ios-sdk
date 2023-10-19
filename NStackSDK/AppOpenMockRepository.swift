@@ -162,7 +162,7 @@ class MockConnectionManager: Repository {
 
     func markMessageAsRead(_ id: Int) {}
 
-    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult) {}
+    func markRateReminderAsSeen(_ answer: AlertManager.RateReminderResult_v1) {}
 
     func storeProposal(section: String, key: String, value: String, locale: String, completion: @escaping Completion<Proposal>) {
         let proposal = Proposal(id: 1, applicationId: 123, key: key, section: section, localeString: locale, value: value)
@@ -178,6 +178,12 @@ class MockConnectionManager: Repository {
     func deleteProposal(_ proposal: Proposal, completion: @escaping (Result<ProposalDeletion>) -> Void) {}
 
     func provideFeedback(_ feedback: Feedback, completion: @escaping Completion<Void>) {}
+    
+    func logRateReminderEvent(_ action: RateReminderActionProtocol, completion: @escaping Completion<RateReminderLogEventResponse>) {}
+    
+    func checkToShowReviewPrompt(completion: @escaping Completion<RateReminderAlertModel>) {}
+    
+    func logReviewPromptResponse(reminderId: String, response: RateReminderResponse) {}
 }
 
 extension MockConnectionManager {

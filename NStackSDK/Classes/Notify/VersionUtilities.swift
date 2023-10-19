@@ -22,21 +22,27 @@ enum VersionUtilities {
 
     static var lastUpdatedIso8601DateString: String {
         get {
-            return UserDefaults.standard.string(forKey: Constants.CacheKeys.lastUpdatedDate) ?? ""
+            return lastUpdatedDate?.iso8601 ?? ""
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: Constants.CacheKeys.lastUpdatedDate)
+            if #available(iOS 10.0, OSX 10.12, *) {
+                if let date = DateFormatter.iso8601.date(from: newValue) {
+                    lastUpdatedDate = date
+                }
+            } else {
+                if let date = DateFormatter.iso8601Fallback.date(from: newValue) {
+                    lastUpdatedDate = date
+                }
+            }
         }
     }
 
     static var lastUpdatedDate: Date? {
         get {
-            return UserDefaults.standard.object(forKey: Constants.CacheKeys.lastUpdatedDate) as? Date
+            return NStack.sharedInstance.localizationManager?.lastUpdatedDate
         }
         set {
-            if let date = newValue {
-                UserDefaults.standard.setCodable(date, forKey: Constants.CacheKeys.lastUpdatedDate)
-            }
+            NStack.sharedInstance.localizationManager?.lastUpdatedDate = newValue
         }
     }
 
