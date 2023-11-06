@@ -54,6 +54,10 @@ public class NStack {
     /// This gets called when the phone language has changed while app is running.
     /// At this point, localizations have been updated, if there was an internet connection.
     public var languageChangedHandler: ((Locale?) -> Void)?
+    
+    /// This is called whenever the app opens or becomes active. The default implementation is to display native alerts depending on the response.
+    /// If the requirement is to display custom dialogs, then this callback should be overridden.
+    public var appOpenedAlertHandler: (AppOpenData) -> Void = { _ in assertionFailure("appOpenedAlertHandler unimplemented!") }
 
     /// Description
     public var logLevel: LogLevel = .error {
@@ -79,7 +83,21 @@ public class NStack {
 
     // MARK: - Start NStack -
 
-    fileprivate init() {}
+    fileprivate init() {
+        appOpenedAlertHandler = { [weak self] data in
+            guard let self, !alertManager.alreadyShowingAlert else { return }
+            
+            if let newVersion = data.update?.newerVersion {
+                alertManager.showUpdateAlert(newVersion: newVersion)
+            } else if let changelog = data.update?.newInThisVersion {
+                alertManager.showWhatsNewAlert(changelog)
+            } else if let message = data.message {
+                alertManager.showMessage(message)
+            } else if let rateReminder = data.rateReminder {
+                alertManager.showRateReminderV1(rateReminder)
+            }
+        }
+    }
 
     /// Initializes NStack and, if `updateAutomaticallyOnStart` is set on the passed `Configuration`
     /// object, fetches all data (including localizations if enabled) from NStack API right away.
@@ -223,19 +241,8 @@ public class NStack {
 
                 #if os(iOS) || os(tvOS)
                 DispatchQueue.main.async {
-                    if !self.alertManager.alreadyShowingAlert {
-                        if let newVersion = appOpenResponseData.update?.newerVersion {
-                            self.alertManager.showUpdateAlert(newVersion: newVersion)
-                        } else if let changelog = appOpenResponseData.update?.newInThisVersion {
-                            self.alertManager.showWhatsNewAlert(changelog)
-                        } else if let message = appOpenResponseData.message {
-                            self.alertManager.showMessage(message)
-                        } else if let rateReminder = appOpenResponseData.rateReminder {
-                            self.alertManager.showRateReminderV1(rateReminder)
-                        }
-
-                        VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
-                    }
+                    self.appOpenedAlertHandler(appOpenResponseData)
+                    VersionUtilities.previousAppVersion = VersionUtilities.currentAppVersion
                 }
                 #endif
             case let .failure(error):
