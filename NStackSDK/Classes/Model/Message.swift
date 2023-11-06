@@ -8,17 +8,17 @@
 
 import Foundation
 
-internal struct Message: Codable {
-    let id: Int
-    let message: String
-    let showSetting: String
-    let url: URL?
+public struct Message: Codable {
+    public let id: Int
+    public let message: String
+    public let showSetting: String
+    public let url: URL?
 
     /// Temporary solution for localizing the message's buttons
     /// - Valid keys: `okBtn`, `urlBtn`
-    let localization: [String: String]?
+    public let localization: [String: String]?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case id, message
         case showSetting = "show_setting"
         case url
