@@ -20,20 +20,20 @@ import NLocalizationManager
 #endif
 
 
-struct AppOpenData: Codable {
-    let count: Int?
+public struct AppOpenData: Codable {
+    public let count: Int?
 
-    let message: Message?
-    let update: Update?
-    let rateReminder: RateReminder?
+    public let message: Message?
+    public let update: Update?
+    public let rateReminder: RateReminder?
 
-    let localize: [LocalizationConfig]?
-    let platform: String
+    public let localize: [LocalizationConfig]?
+    public let platform: String
 
-    let createdAt: String
-    let lastUpdated: String?
+    public let createdAt: String
+    public let lastUpdated: String?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case count, message, update, localize, platform
         case lastUpdated = "last_updated"
         case createdAt = "created_at"

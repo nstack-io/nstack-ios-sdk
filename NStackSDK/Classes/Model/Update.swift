@@ -8,48 +8,48 @@
 
 import Foundation
 
-enum UpdateState: String, Codable {
+public enum UpdateState: String, Codable {
     case disabled    = "no"
     case remind      = "yes"
     case force       = "force"
 }
 
-struct Update: Codable {
-    let newInThisVersion: Changelog?
-    let newerVersion: Version?
+public struct Update: Codable {
+    public let newInThisVersion: Changelog?
+    public let newerVersion: Version?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case newInThisVersion = "new_in_version"
         case newerVersion = "newer_version"
     }
 
-    struct UpdateLocalizations: Codable {
-        let title: String
-        let message: String
-        let positiveBtn: String?
-        let negativeBtn: String?
+    public struct UpdateLocalizations: Codable {
+        public let title: String
+        public let message: String
+        public let positiveBtn: String?
+        public let negativeBtn: String?
     }
 
-    struct Changelog: Codable {
-        let state: Bool
-        let lastId: Int
-        let version: String
-        let localizations: UpdateLocalizations?
+    public struct Changelog: Codable {
+        public let state: Bool
+        public let lastId: Int
+        public let version: String
+        public let localizations: UpdateLocalizations?
 
-        enum CodingKeys: String, CodingKey {
+        public enum CodingKeys: String, CodingKey {
             case state, version, localizations
             case lastId = "last_id"
         }
     }
 
-    struct Version: Codable {
-        let state: UpdateState
-        let lastId: Int
-        let version: String
-        let localizations: UpdateLocalizations
-        let link: URL?
+    public struct Version: Codable {
+        public let state: UpdateState
+        public let lastId: Int
+        public let version: String
+        public let localizations: UpdateLocalizations
+        public let link: URL?
 
-        enum CodingKeys: String, CodingKey {
+        public enum CodingKeys: String, CodingKey {
             case state, version, link
             case lastId = "last_id"
             case localizations = "translate"
