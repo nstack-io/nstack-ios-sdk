@@ -92,12 +92,22 @@ extension ConnectionManager {
 }
 // MARK: - LocalizationRepository
 extension ConnectionManager {
-    func getLocalizationDescriptors<D>(acceptLanguage: String, lastUpdated: Date?, completion: @escaping (NStackSDK.Result<[D]>) -> Void) where D: LocalizationDescriptor {
+
+    func getLocalizationDescriptors<D>(acceptLanguage: String,
+                                       lastUpdated: Date?,
+                                       completion: @escaping (NStackSDK.Result<[D]>) -> Void) where D: LocalizationDescriptor {
+        var devMode = false
+        #if DEBUG
+        devMode = true
+        #endif
+        
         let params: [String: Any] = [
             "guid": Configuration.guid,
             "platform": "ios",
             "last_updated": VersionUtilities.lastUpdatedIso8601DateString,
-            "dev": "true"
+            // NStack has a Publish feature for localizations - localization changes need to be published in order to be visible in production
+            // Setting the "dev" flag to "true" fetches the localizations changes even if they are not published
+            "dev": devMode ? "true" : "false"
         ]
 
         var headers = defaultHeaders
