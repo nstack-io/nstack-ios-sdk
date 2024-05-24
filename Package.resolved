@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "LocalizationManager",
-        "repositoryURL": "https://github.com/nodes-ios/TranslationManager",
+        "repositoryURL": "https://github.com/nstack-io/localization-manager.git",
         "state": {
           "branch": null,
           "revision": "917de7fbe7ebe58862add784a67916bc98a79356",

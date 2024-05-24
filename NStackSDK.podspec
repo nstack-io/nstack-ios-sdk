@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NStackSDK'
-  s.version          = '5.2.1'
+  s.version          = '5.2.2'
   s.summary          = 'NStackSDK is the companion software development kit to the NStack backend.'
 
 # This description is used to generate tags and improve search results.
