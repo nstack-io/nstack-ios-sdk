@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         
-        .package(name: "LocalizationManager", url: "https://github.com/nodes-ios/TranslationManager", from: "3.1.2"),
+        .package(name: "LocalizationManager", url: "https://github.com/nstack-io/localization-manager.git", from: "3.1.2"),
     ],
     
     targets: [
